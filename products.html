@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Fatahshaheen OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#118B50',
+                        sidebar: '#121212',
+                        border: '#E5E7EB',
+                        surface: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; }
+        .sidebar-link:hover { background-color: #1F1F1F; }
+        .sidebar-link.active { background-color: #1F1F1F; border-left: 4px solid #118B50; color: white; }
+        .product-table-row:hover { background-color: #FBFBFB; }
+        .tab-link { position: relative; }
+        .tab-link.active { color: #118B50; }
+        .tab-link.active::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -13px; 
+            left: 0; 
+            right: 0; 
+            height: 2px; 
+            background-color: #118B50; 
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar Navigation (Consistent) -->
+    <aside class="w-64 bg-sidebar text-gray-400 flex flex-col flex-shrink-0 z-50">
+        <div class="p-6 flex items-center gap-3">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">F</div>
+            <span class="text-white font-bold text-lg tracking-tight">Fatahshaheen</span>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-600 mb-2 px-2">Main Menu</p>
+            <a href="/dashboard" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            <a href="/orders" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                Orders
+            </a>
+            <a href="/products" class="sidebar-link active flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                Products
+            </a>
+
+            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-600 mt-6 mb-2 px-2">Customization</p>
+            <a href="/edit-store" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                Store View
+            </a>
+            <a href="/code-editor" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                Code Editor
+            </a>
+            <a href="/apps" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                App Store
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-border flex items-center justify-between px-8 flex-shrink-0">
+            <h2 class="text-lg font-semibold text-gray-800">Products</h2>
+            <div class="flex items-center gap-3">
+                <button class="px-4 py-2 border border-border rounded-lg text-sm font-medium hover:bg-gray-50 transition">Export</button>
+                <button class="px-4 py-2 border border-border rounded-lg text-sm font-medium hover:bg-gray-50 transition">Import</button>
+                <button class="px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:opacity-90 transition">Add Product</button>
+            </div>
+        </header>
+
+        <!-- Product List Content -->
+        <div class="flex-1 overflow-y-auto p-8">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- Table Card -->
+                <div class="bg-white border border-border rounded-xl shadow-sm overflow-hidden">
+                    
+                    <!-- Tabs & Search -->
+                    <div class="p-4 border-b border-border">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="flex items-center gap-6 text-sm font-medium text-gray-500">
+                                <a href="#" class="tab-link active">All</a>
+                                <a href="#" class="tab-link">Active</a>
+                                <a href="#" class="tab-link">Draft</a>
+                                <a href="#" class="tab-link">Archived</a>
+                            </div>
+                            <div class="relative w-full md:w-72">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                </span>
+                                <input type="text" class="block w-full pl-9 pr-3 py-1.5 border border-border rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Filter products">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-gray-50 text-gray-600 font-medium border-b border-border">
+                                <tr>
+                                    <th class="px-6 py-3 w-10">
+                                        <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary">
+                                    </th>
+                                    <th class="px-6 py-3">Product</th>
+                                    <th class="px-6 py-3">Status</th>
+                                    <th class="px-6 py-3">Inventory</th>
+                                    <th class="px-6 py-3">Category</th>
+                                    <th class="px-6 py-3">Vendor</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border">
+                                <!-- Product Row 1 -->
+                                <tr class="product-table-row cursor-pointer transition">
+                                    <td class="px-6 py-4">
+                                        <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary">
+                                    </td>
+                                    <td class="px-6 py-4 flex items-center gap-4">
+                                        <div class="w-12 h-12 bg-gray-100 rounded-lg border border-border flex-shrink-0 overflow-hidden">
+                                            <img src="https://via.placeholder.com/48" alt="Product" class="w-full h-full object-cover">
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-900">Premium Leather Boots</p>
+                                            <p class="text-xs text-gray-500">4 Variants</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-0.5 bg-green-100 text-green-700 rounded-full text-[11px] font-bold uppercase tracking-wider">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-600">
+                                        <span class="font-medium text-gray-900">42</span> in stock
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-600">Footwear</td>
+                                    <td class="px-6 py-4 text-gray-600">Shaheen Global</td>
+                                </tr>
+
+                                <!-- Product Row 2 -->
+                                <tr class="product-table-row cursor-pointer transition">
+                                    <td class="px-6 py-4">
+                                        <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary">
+                                    </td>
+                                    <td class="px-6 py-4 flex items-center gap-4">
+                                        <div class="w-12 h-12 bg-gray-100 rounded-lg border border-border flex-shrink-0 overflow-hidden">
+                                            <img src="https://via.placeholder.com/48" alt="Product" class="w-full h-full object-cover">
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-900">Minimalist Silk Scarf</p>
+                                            <p class="text-xs text-gray-500">1 Variant</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-0.5 bg-gray-100 text-gray-600 rounded-full text-[11px] font-bold uppercase tracking-wider">Draft</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-400 italic">
+                                        Inventory not tracked
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-600">Accessories</td>
+                                    <td class="px-6 py-4 text-gray-600">Fatahshaheen</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="p-4 border-t border-border bg-gray-50 flex items-center justify-between">
+                        <p class="text-xs text-gray-500">Showing 1 to 2 of 2 products</p>
+                        <div class="flex gap-2">
+                            <button class="p-1 border border-border rounded bg-white text-gray-400 cursor-not-allowed">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+                            <button class="p-1 border border-border rounded bg-white text-gray-600 hover:bg-gray-50">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
