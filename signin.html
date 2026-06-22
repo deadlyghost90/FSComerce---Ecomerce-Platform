@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" type="image/png" href="icon.png" />
+    <title>Sign In | FSCommerce</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#e3f6ea',
+                100: '#c9ebd5',
+                300: '#6bc27e',
+                500: '#118B50', // Pakistan Green Core
+                600: '#0d7040',
+                800: '#084729',
+                900: '#063922',
+                950: '#032013'
+              }
+            },
+            fontFamily: {
+              outfit: ['Outfit', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body
+    x-data="{ page: 'signin', 'loaded': true, 'darkMode': false }"
+    x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'dark bg-gray-900': darkMode === true}"
+    class="font-outfit antialiased text-gray-800"
+  >
+
+    <div class="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+      <div class="relative flex flex-col justify-center w-full h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
+        
+        <div class="flex flex-col flex-1 w-full lg:w-1/2 overflow-y-auto">
+          <div class="w-full max-w-md pt-10 mx-auto">
+            <a
+              href="index.html"
+              class="inline-flex items-center text-sm font-medium text-brand-600 transition-colors hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300"
+            >
+              <svg class="stroke-current mr-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M12.7083 5L7.5 10.2083L12.7083 15.4167" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Back to Home
+            </a>
+          </div>
+          
+          <div class="flex flex-col justify-center flex-1 w-full max-w-md mx-auto py-10">
+            <div class="mb-5 sm:mb-8">
+              <h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+                Welcome Back
+              </h1>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                Enter your email and password to access your FSCommerce dashboard.
+              </p>
+            </div>
+            
+            <div>
+              <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+                <button class="inline-flex items-center justify-center gap-3 py-3 text-sm font-medium text-gray-700 transition-colors bg-gray-50 border border-gray-200 rounded-lg px-7 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.7511 10.1944C18.7511 9.47495 18.6915 8.94995 18.5626 8.40552H10.1797V11.6527H15.1003C15.0011 12.4597 14.4654 13.675 13.2749 14.4916L13.2582 14.6003L15.9087 16.6126L16.0924 16.6305C17.7788 15.1041 18.7511 12.8583 18.7511 10.1944Z" fill="#4285F4" />
+                    <path d="M10.1788 18.75C12.5895 18.75 14.6133 17.9722 16.0915 16.6305L13.274 14.4916C12.5201 15.0068 11.5081 15.3666 10.1788 15.3666C7.81773 15.3666 5.81379 13.8402 5.09944 11.7305L4.99473 11.7392L2.23868 13.8295L2.20264 13.9277C3.67087 16.786 6.68674 18.75 10.1788 18.75Z" fill="#34A853" />
+                    <path d="M5.10014 11.7305C4.91165 11.186 4.80257 10.6027 4.80257 9.99992C4.80257 9.3971 4.91165 8.81379 5.09022 8.26935L5.08523 8.1534L2.29464 6.02954L2.20333 6.0721C1.5982 7.25823 1.25098 8.5902 1.25098 9.99992C1.25098 11.4096 1.5982 12.7415 2.20333 13.9277L5.10014 11.7305Z" fill="#FBBC05" />
+                    <path d="M10.1789 4.63331C11.8554 4.63331 12.9864 5.34303 13.6312 5.93612L16.1511 3.525C14.6035 2.11528 12.5895 1.25 10.1789 1.25C6.68676 1.25 3.67088 3.21387 2.20264 6.07218L5.08953 8.26943C5.81381 6.15972 7.81776 4.63331 10.1789 4.63331Z" fill="#EB4335" />
+                  </svg>
+                  Google
+                </button>
+                <button class="inline-flex items-center justify-center gap-3 py-3 text-sm font-medium text-gray-700 transition-colors bg-gray-50 border border-gray-200 rounded-lg px-7 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+                  <svg width="21" class="fill-current" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.6705 1.875H18.4272L12.4047 8.75833L19.4897 18.125H13.9422L9.59717 12.4442L4.62554 18.125H1.86721L8.30887 10.7625L1.51221 1.875H7.20054L11.128 7.0675L15.6705 1.875ZM14.703 16.475H16.2305L6.37054 3.43833H4.73137L14.703 16.475Z" />
+                  </svg>
+                  Twitter / X
+                </button>
+              </div>
+
+              <div class="relative py-6">
+                <div class="absolute inset-0 flex items-center">
+                  <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                  <span class="px-4 text-gray-400 bg-white dark:bg-gray-900">Or sign in with email</span>
+                </div>
+              </div>
+
+              <form id="loginForm">
+                <div class="space-y-5">
+                  <div>
+                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Email<span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="loginEmail"
+                      required
+                      placeholder="admin@store.com"
+                      class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all dark:border-gray-700 dark:text-white dark:focus:border-brand-500"
+                    />
+                  </div>
+                  <div>
+                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Password<span class="text-red-500">*</span>
+                    </label>
+                    <div x-data="{ showPassword: false }" class="relative">
+                      <input
+                        :type="showPassword ? 'text' : 'password'"
+                        id="loginPassword"
+                        required
+                        placeholder="••••••••"
+                        class="h-11 w-full rounded-lg border border-gray-300 bg-transparent py-2.5 pl-4 pr-11 text-sm text-gray-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all dark:border-gray-700 dark:text-white dark:focus:border-brand-500"
+                      />
+                      <span @click="showPassword = !showPassword" class="absolute z-30 text-gray-500 -translate-y-1/2 cursor-pointer right-4 top-1/2 hover:text-brand-500 transition-colors">
+                        <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                        <svg x-show="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between mt-2">
+                    <div x-data="{ checkboxToggle: false }">
+                      <label class="flex items-center text-sm font-medium text-gray-700 cursor-pointer dark:text-gray-300">
+                        <input type="checkbox" class="sr-only" @change="checkboxToggle = !checkboxToggle" />
+                        <div :class="checkboxToggle ? 'bg-brand-500 border-brand-500' : 'bg-transparent border-gray-300 dark:border-gray-600'" class="mr-2 flex h-4 w-4 items-center justify-center rounded border transition-colors">
+                          <span :class="checkboxToggle ? 'opacity-100' : 'opacity-0'" class="transition-opacity">
+                            <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M11.6666 3.5L5.24992 9.91667L2.33325 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                          </span>
+                        </div>
+                        Keep me logged in
+                      </label>
+                    </div>
+                    <a href="reset-password.html" class="text-sm font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">Forgot password?</a>
+                  </div>
+
+                  <p id="loginErrorMsg" class="text-red-500 text-sm hidden"></p>
+
+                  <div class="pt-2">
+                    <button id="signInBtn" type="submit" class="flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white transition-all rounded-lg bg-brand-500 shadow-lg shadow-brand-500/30 hover:bg-brand-600 hover:shadow-brand-500/40 active:scale-95">
+                      Sign In to Dashboard
+                    </button>
+                  </div>
+                </div>
+              </form>
+              
+              <div class="mt-8">
+                <p class="text-sm font-medium text-center text-gray-600 dark:text-gray-400">
+                  Don't have an account?
+                  <a href="signup.html" class="text-brand-600 hover:text-brand-700 font-bold dark:text-brand-400">Create a Store</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative items-center hidden w-full h-full bg-gray-900 overflow-hidden lg:flex lg:w-1/2">
+          <div class="absolute inset-0 bg-brand-500/10 backdrop-blur-2xl"></div>
+          
+          <div class="flex flex-col items-center justify-center z-10 w-full px-12 text-center">
+            <div class="w-24 h-24 bg-brand-500 rounded-2xl flex items-center justify-center mb-8 shadow-2xl shadow-brand-500/40">
+              <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+            </div>
+            <h2 class="text-4xl font-extrabold text-white mb-4 tracking-tight">FSCommerce Admin</h2>
+            <p class="text-lg text-gray-400 max-w-md">
+              Secure access to your enterprise dashboard. Engineered and maintained by <span class="text-brand-400 font-bold">Fatahshaheen OS</span>.
+            </p>
+            
+            <div class="mt-12 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gray-800 border border-gray-700">
+              <span class="flex w-3 h-3 rounded-full bg-brand-500 animate-pulse"></span>
+              <span class="text-sm font-medium text-gray-300">System Online & Secure</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="fixed z-50 hidden bottom-6 right-6 sm:block">
+          <button
+            class="inline-flex items-center justify-center text-white transition-all rounded-full size-12 bg-gray-800 border border-gray-700 hover:bg-gray-700 shadow-xl"
+            @click.prevent="darkMode = !darkMode"
+          >
+            <svg class="hidden w-5 h-5 fill-current dark:block text-brand-400" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+            <svg class="block w-5 h-5 fill-current dark:hidden" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+          </button>
+        </div>
+        
+      </div>
+    </div>
+    <script type="module" src="js/index.js"></script>
+  </body>
+</html>
