@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Fatahshaheen OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#118B50',
+                        sidebar: '#121212',
+                        border: '#E5E7EB',
+                        surface: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; }
+        .sidebar-link:hover { background-color: #1F1F1F; }
+        .sidebar-link.active { background-color: #1F1F1F; border-left: 4px solid #118B50; color: white; }
+        .settings-nav-link { transition: all 0.2s; }
+        .settings-nav-link.active { background-color: white; color: #118B50; box-shadow: 0 1px 3px rgba(0,0,0,0.1); font-weight: 600; }
+        input:focus, select:focus, textarea:focus {
+            border-color: #118B50 !important;
+            outline: none;
+            ring: 2px;
+            ring-color: #118B50;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar Navigation (Consistent) -->
+    <aside class="w-64 bg-sidebar text-gray-400 flex flex-col flex-shrink-0 z-50">
+        <div class="p-6 flex items-center gap-3">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">F</div>
+            <span class="text-white font-bold text-lg tracking-tight">Fatahshaheen</span>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-600 mb-2 px-2">Main Menu</p>
+            <a href="/dashboard" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            <a href="/orders" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                Orders
+            </a>
+            <a href="/products" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                Products
+            </a>
+
+            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-600 mt-6 mb-2 px-2">Customization</p>
+            <a href="/edit-store" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                Store View
+            </a>
+            <a href="/code-editor" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                Code Editor
+            </a>
+            <a href="/apps" class="sidebar-link flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                App Store
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-gray-800">
+            <a href="/settings" class="sidebar-link active flex items-center gap-3 p-2.5 rounded-lg text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Settings
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-border flex items-center justify-between px-8 flex-shrink-0">
+            <h2 class="text-lg font-semibold text-gray-800">Settings</h2>
+            <div class="flex items-center gap-3">
+                <button class="px-6 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:opacity-90 transition shadow-sm">Save Changes</button>
+            </div>
+        </header>
+
+        <!-- Settings Content Area -->
+        <div class="flex-1 overflow-y-auto p-8">
+            <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
+                
+                <!-- Settings Navigation -->
+                <aside class="w-full lg:w-64 flex-shrink-0">
+                    <nav class="space-y-1">
+                        <a href="#" class="settings-nav-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm">
+                            General
+                        </a>
+                        <a href="#" class="settings-nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                            Payments
+                        </a>
+                        <a href="#" class="settings-nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                            Checkout
+                        </a>
+                        <a href="#" class="settings-nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                            Shipping & Delivery
+                        </a>
+                        <a href="#" class="settings-nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                            Taxes & Duties
+                        </a>
+                        <a href="#" class="settings-nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                            Notifications
+                        </a>
+                        <a href="#" class="settings-nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                            Domains
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Settings Form Area -->
+                <div class="flex-1 space-y-6">
+                    
+                    <!-- Section: Store Details -->
+                    <div class="bg-white border border-border rounded-xl shadow-sm p-6">
+                        <h3 class="text-base font-bold text-gray-900 mb-4">Store Details</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="col-span-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Store Name</label>
+                                <input type="text" class="w-full mt-1 p-2.5 border border-border rounded-lg text-sm" value="Shaheen Fashion Global">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase">Store Contact Email</label>
+                                <input type="email" class="w-full mt-1 p-2.5 border border-border rounded-lg text-sm" value="support@shaheen.com">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase">Sender Email</label>
+                                <input type="email" class="w-full mt-1 p-2.5 border border-border rounded-lg text-sm" value="no-reply@shaheen.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Store Currency -->
+                    <div class="bg-white border border-border rounded-xl shadow-sm p-6">
+                        <h3 class="text-base font-bold text-gray-900 mb-4">Store Currency</h3>
+                        <p class="text-sm text-gray-500 mb-4">This is the currency your products are sold in.</p>
+                        <div class="max-w-xs">
+                            <select class="w-full p-2.5 border border-border rounded-lg text-sm">
+                                <option value="USD">US Dollar (USD)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                                <option value="GBP">British Pound (GBP)</option>
+                                <option value="PKR">Pakistani Rupee (PKR)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section: Standards & Formats -->
+                    <div class="bg-white border border-border rounded-xl shadow-sm p-6">
+                        <h3 class="text-base font-bold text-gray-900 mb-4">Standards & Formats</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase">Timezone</label>
+                                <select class="w-full mt-1 p-2.5 border border-border rounded-lg text-sm">
+                                    <option>(GMT+05:00) Karachi</option>
+                                    <option>(GMT-05:00) Eastern Time</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase">Unit System</label>
+                                <select class="w-full mt-1 p-2.5 border border-border rounded-lg text-sm">
+                                    <option>Metric System (kg, cm)</option>
+                                    <option>Imperial System (lb, in)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="bg-red-50 border border-red-100 rounded-xl p-6">
+                        <h3 class="text-base font-bold text-red-800 mb-2">Danger Zone</h3>
+                        <p class="text-sm text-red-600 mb-4">Deleting your store is permanent and cannot be undone.</p>
+                        <button class="px-4 py-2 bg-red-600 text-white text-sm font-bold rounded-lg hover:bg-red-700 transition">Deactivate Store</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
