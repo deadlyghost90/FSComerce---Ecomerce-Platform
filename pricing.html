@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSCommerce Plans - Fatah Shaheen OS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;--bg2:#181818;--bg3:#232323;--bg4:#2a2a2a;
+  --text:#fff;--text2:#b3b3b3;--text3:#737373;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --green:#1db954;--green-dim:#158a3e;--green-bg:rgba(29,185,84,0.13);--green-tx:#1db954;
+  --purple:#7f77dd;--purple-tx:#afa9ec;
+  --blue:#378add;--blue-tx:#85b7eb;
+  --r:8px;--rl:16px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;align-items:center;min-height:100vh;overflow-x:hidden;padding:40px 20px;}
+
+/* Header Section */
+.header-section {text-align:center;max-width:600px;margin-bottom:50px;}
+.header-section h1 {font-size:36px;font-weight:700;margin-bottom:12px;letter-spacing:-1px;}
+.header-section p {font-size:16px;color:var(--text2);line-height:1.5;}
+
+/* Plans Grid */
+.plans-wrapper {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;width:100%;max-width:1050px;}
+
+/* Plan Card */
+.plan-card {background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:30px;display:flex;flex-direction:column;transition:transform 0.2s,border-color 0.2s;position:relative;}
+.plan-card:hover {border-color:var(--border2);transform:translateY(-5px);}
+
+/* Highlighted Card (Standard) */
+.plan-card.popular {border-color:var(--green);box-shadow:0 8px 30px rgba(29,185,84,0.1);}
+.popular-badge {position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;text-transform:uppercase;letter-spacing:1px;}
+
+/* Card Elements */
+.plan-title {font-size:20px;font-weight:600;margin-bottom:8px;}
+.plan-desc {font-size:13px;color:var(--text3);margin-bottom:20px;min-height:38px;}
+
+.price-wrap {display:flex;align-items:flex-end;gap:6px;margin-bottom:24px;}
+.price-strike {font-size:16px;color:var(--text3);text-decoration:line-through;margin-bottom:4px;}
+.price-val {font-size:42px;font-weight:700;line-height:1;}
+.price-period {font-size:14px;color:var(--text3);margin-bottom:6px;}
+
+/* Buttons */
+.btn {display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:24px;font-size:14px;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--text);font-weight:600;transition:background 0.2s,transform 0.1s;width:100%;margin-bottom:30px;}
+.btn:active {transform:scale(0.98);}
+.btn-ghost {border-color:var(--border2);background:var(--bg3);}
+.btn-ghost:hover {background:var(--bg4);}
+.btn-green {background:var(--green);color:#000;border-color:var(--green);}
+.btn-green:hover {background:#1ed760;border-color:#1ed760;}
+
+/* Features List */
+.feat-title {font-size:12px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;}
+.features {list-style:none;}
+.features li {display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text2);margin-bottom:14px;}
+.features li i {color:var(--green);font-size:18px;flex-shrink:0;}
+.features li.disabled {color:var(--text3);}
+.features li.disabled i {color:var(--text3);}
+
+@media(max-width:768px){
+  .header-section h1 {font-size:28px;}
+  .plans-wrapper {grid-template-columns:1fr;max-width:400px;}
+}
+</style>
+</head>
+<body>
+
+  <div class="header-section">
+    <h1>Launch your store with FSCommerce</h1>
+    <p>Everything you need to sell online, beautifully integrated. Start for free, upgrade when you scale.</p>
+  </div>
+
+  <div class="plans-wrapper">
+
+    <!-- STARTUP PLAN -->
+    <div class="plan-card">
+      <div class="plan-title">Startup</div>
+      <div class="plan-desc">Perfect for testing the waters and setting up your first store.</div>
+      <div class="price-wrap">
+        <span class="price-strike">$1.00</span>
+        <span class="price-val">$0.00</span>
+        <span class="price-period">/mo</span>
+      </div>
+      <!-- Redirects to Dashboard -->
+      <button class="btn btn-ghost" onclick="window.location.href='dashboard.html'">Start for Free</button>
+      
+      <div class="feat-title">What's included</div>
+      <ul class="features">
+        <li><i class="ti ti-check"></i> 50 Products Listing</li>
+        <li><i class="ti ti-check"></i> Unlimited Orders</li>
+        <li><i class="ti ti-check"></i> Free Subdomain Support</li>
+        <li><i class="ti ti-check"></i> Add Existing Custom Domain</li>
+        <li><i class="ti ti-check"></i> Visual Theme Editing</li>
+        <li><i class="ti ti-check"></i> Full Code Editing Support</li>
+      </ul>
+    </div>
+
+    <!-- STANDARD PLAN -->
+    <div class="plan-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-title" style="color:var(--green)">Standard</div>
+      <div class="plan-desc">For growing businesses that need more inventory and features.</div>
+      <div class="price-wrap">
+        <span class="price-val">$4.00</span>
+        <span class="price-period">/mo</span>
+      </div>
+      <!-- Redirects to Payment Page -->
+      <button class="btn btn-green" onclick="window.location.href='payment.html'">Choose Standard</button>
+      
+      <div class="feat-title">Everything in Startup, plus</div>
+      <ul class="features">
+        <li><i class="ti ti-check"></i> 500 Products Listing</li>
+        <li><i class="ti ti-check"></i> Advanced Store Analytics</li>
+        <li><i class="ti ti-check"></i> Custom App Plugins</li>
+        <li><i class="ti ti-check"></i> 0% Transaction Fees</li>
+        <li><i class="ti ti-check"></i> Priority Email Support</li>
+      </ul>
+    </div>
+
+    <!-- PRO / SCALE PLAN -->
+    <div class="plan-card">
+      <div class="plan-title" style="color:var(--purple-tx)">Pro Scale</div>
+      <div class="plan-desc">Ultimate freedom for massive stores with unlimited potential.</div>
+      <div class="price-wrap">
+        <span class="price-val">$9.00</span>
+        <span class="price-period">/mo</span>
+      </div>
+      <!-- Redirects to Payment Page -->
+      <button class="btn btn-ghost" onclick="window.location.href='payment.html'">Choose Pro</button>
+      
+      <div class="feat-title">Everything in Standard, plus</div>
+      <ul class="features">
+        <li><i class="ti ti-check"></i> Unlimited Products</li>
+        <li><i class="ti ti-check"></i> Up to 1TB Hosting Storage</li>
+        <li><i class="ti ti-check"></i> Multi-store Management</li>
+        <li><i class="ti ti-check"></i> Dedicated Account Manager</li>
+        <li><i class="ti ti-check"></i> White-label OS Access</li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+</html>
