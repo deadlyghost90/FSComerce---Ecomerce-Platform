@@ -1,0 +1,7 @@
+docs/**/*.md
+dist/
+private/
+pnpm-lock.yaml
+packages/cli/src/template/**/*.*
+**/locale/**
+stats.json
