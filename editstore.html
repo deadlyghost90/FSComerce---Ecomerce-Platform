@@ -3,293 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FSCommerce Pro Editor</title>
+  <title>FSCommerce Core Editor</title>
   
-  <!-- GrapesJS Core & Official Webpage Preset Plugin -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.2/css/grapes.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.2/grapes.min.js"></script>
-  <script src="https://unpkg.com/grapesjs-preset-webpage@1.0.2/dist/grapesjs-preset-webpage.min.js"></script>
-  
-  <!-- Tabler Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css">
+  <!-- Latest Stable GrapesJS Links -->
+  <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
+  <script src="https://unpkg.com/grapesjs"></script>
+  <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
 
   <style>
-    :root {
-      --fs-green: #1db954;
-      --fs-green-hover: #158a3e;
-      --fs-bg: #f4f6f8;
-      --fs-surface: #ffffff;
-      --fs-border: #e1e3e5;
-      --fs-text-main: #202223;
-      --fs-text-muted: #6d7175;
-      --radius: 8px;
+    body, html { 
+      height: 100%; 
+      margin: 0; 
+      background-color: #0d0d0d; 
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--fs-bg);
-      color: var(--fs-text-main);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    /* TOPBAR */
-    .topbar {
-      height: 60px;
-      background-color: var(--fs-surface);
-      border-bottom: 1px solid var(--fs-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 10;
-    }
-    .topbar-left { display: flex; align-items: center; gap: 12px; }
-    .exit-btn { color: var(--fs-text-muted); cursor: pointer; text-decoration: none; font-size: 20px; transition: color 0.2s; }
-    .exit-btn:hover { color: var(--fs-text-main); }
-    .brand-title { font-size: 16px; font-weight: 600; }
-    .brand-title span { color: var(--fs-green); }
-
-    .topbar-center { display: flex; gap: 10px; background: var(--fs-bg); padding: 4px; border-radius: var(--radius); border: 1px solid var(--fs-border); }
-    .device-btn { background: transparent; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; color: var(--fs-text-muted); transition: all 0.2s; font-size: 18px; }
-    .device-btn.active, .device-btn:hover { background: var(--fs-surface); color: var(--fs-green); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-
-    .topbar-right { display: flex; gap: 10px; }
-    .btn { padding: 8px 16px; border-radius: var(--radius); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
-    .btn-outline { background: var(--fs-surface); border-color: var(--fs-border); color: var(--fs-text-main); }
-    .btn-outline:hover { background: var(--fs-bg); }
-    .btn-primary { background: var(--fs-green); color: white; }
-    .btn-primary:hover { background: var(--fs-green-hover); }
-
-    /* LAYOUT */
-    .editor-wrapper { display: flex; flex: 1; height: calc(100vh - 60px); }
-
-    /* LEFT SIDEBAR (Blocks) */
-    .sidebar-left {
-      width: 280px;
-      background: var(--fs-surface);
-      border-right: 1px solid var(--fs-border);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .panel-header {
-      padding: 16px; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--fs-border); text-transform: uppercase; letter-spacing: 0.5px; color: var(--fs-text-main); background: var(--fs-bg);
-    }
-    #blocks-panel { flex: 1; overflow-y: auto; padding: 10px; }
-
-    /* CANVAS */
-    .main-canvas {
-      flex: 1; padding: 20px; background: var(--fs-bg); overflow: hidden; display: flex; justify-content: center; position: relative;
-    }
-    .canvas-container {
-      width: 100%; height: 100%; background: white; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid var(--fs-border); transition: width 0.3s ease;
-    }
-
-    /* RIGHT SIDEBAR (Tabs: Styles, Traits, Layers) */
-    .sidebar-right {
-      width: 300px;
-      background: var(--fs-surface);
-      border-left: 1px solid var(--fs-border);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
+    /* FSCommerce OS Branding Overrides */
+    .gjs-one-bg { background-color: #181818 !important; } /* Dark Sidebar Background */
+    .gjs-two-color { color: #b3b3b3 !important; } /* Secondary Text */
+    .gjs-three-bg { background-color: #1db954 !important; color: #000 !important; } /* Primary Green Accents */
+    .gjs-four-color, .gjs-four-color-h:hover { color: #1db954 !important; } /* Hover Colors */
     
-    .right-tabs {
-      display: flex; border-bottom: 1px solid var(--fs-border); background: var(--fs-bg);
-    }
-    .tab-btn {
-      flex: 1; padding: 12px 0; border: none; background: transparent; font-size: 13px; font-weight: 600; color: var(--fs-text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s;
-    }
-    .tab-btn.active { color: var(--fs-green); border-bottom-color: var(--fs-green); background: var(--fs-surface); }
-    
-    .tab-content { flex: 1; overflow-y: auto; display: none; }
-    .tab-content.active { display: block; }
-
-    /* OVERRIDE GRAPESJS DEFAULT STYLES FOR SOFT UI */
-    .gjs-block {
-      width: 100%; min-height: auto; padding: 12px; margin-bottom: 8px; background: var(--fs-surface); border: 1px solid var(--fs-border); border-radius: var(--radius); color: var(--fs-text-main); display: flex; align-items: center; justify-content: flex-start; gap: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-    .gjs-block:hover { border-color: var(--fs-green); color: var(--fs-green); box-shadow: 0 2px 8px rgba(29, 185, 84, 0.1); transform: translateY(-1px); }
-    .gjs-block-svg { width: 24px; height: 24px; }
-    .gjs-block-label { font-size: 13px; font-weight: 500; }
-    .gjs-blocks-c { justify-content: flex-start; }
-    .gjs-category-title { background: transparent; border-bottom: 1px solid var(--fs-border); color: var(--fs-text-main); font-weight: 600; padding: 12px 5px; font-size: 12px; text-transform: uppercase; }
-    .gjs-category-open .gjs-category-title { border-bottom: none; }
-    
-    /* Internal Styles */
-    .gjs-sm-sector .gjs-sm-title { background-color: var(--fs-surface); color: var(--fs-text-main); border-bottom: 1px solid var(--fs-border); font-weight: 600; padding: 12px; }
-    .gjs-sm-sector .gjs-sm-properties { background-color: var(--fs-surface); padding: 10px; }
-    .gjs-sm-property { margin-bottom: 10px; }
-    .gjs-radio-item input:checked+.gjs-radio-item-label { background-color: var(--fs-green); color: white; }
-    .gjs-layer-title { color: var(--fs-text-main); }
-    .gjs-trt-trait { background: var(--fs-surface); border-bottom: 1px solid var(--fs-border); padding: 10px; }
-    .gjs-trt-label { color: var(--fs-text-main); font-weight: 500; }
-    .gjs-field { background: var(--fs-bg); border: 1px solid var(--fs-border); border-radius: 4px; color: var(--fs-text-main); }
-    
-    /* Frame overlay colors */
-    .gjs-hovered { outline: 2px solid var(--fs-green) !important; outline-offset: -2px; }
-    .gjs-selected { outline: 3px solid var(--fs-green) !important; outline-offset: -3px; }
+    /* Clean up the borders */
+    .gjs-pn-panel { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .gjs-cv-canvas { background-color: #f4f6f8; }
   </style>
 </head>
 <body>
-
-  <!-- Top Navigation -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <a href="#" class="exit-btn"><i class="ti ti-arrow-left"></i></a>
-      <div class="brand-title">FSCommerce <span>Store Editor</span></div>
+  
+  <!-- Editor Container -->
+  <div id="gjs">
+    <div style="padding: 100px 20px; text-align: center; font-family: sans-serif; background: #fff; height: 100vh;">
+      <h1 style="font-size: 40px; color: #111;">FSCommerce Visual Builder</h1>
+      <p style="font-size: 18px; color: #666; max-width: 600px; margin: 10px auto;">
+        Click the <strong>Square Icon</strong> on the top right to open the Blocks Menu.
+      </p>
     </div>
-
-    <!-- Device Switcher -->
-    <div class="topbar-center">
-      <button class="device-btn active" onclick="setDevice('desktop')" id="btn-desktop"><i class="ti ti-device-desktop"></i></button>
-      <button class="device-btn" onclick="setDevice('tablet')" id="btn-tablet"><i class="ti ti-device-tablet"></i></button>
-      <button class="device-btn" onclick="setDevice('mobile')" id="btn-mobile"><i class="ti ti-device-mobile"></i></button>
-    </div>
-
-    <div class="topbar-right">
-      <button class="btn btn-outline" onclick="togglePreview()"><i class="ti ti-eye"></i> View</button>
-      <button class="btn btn-outline" onclick="editor.runCommand('core:canvas-clear')"><i class="ti ti-trash"></i> Clear</button>
-      <button class="btn btn-primary" onclick="saveDesign()"><i class="ti ti-device-floppy"></i> Save Store</button>
-    </div>
-  </header>
-
-  <!-- Main Editor -->
-  <div class="editor-wrapper">
-    
-    <!-- LEFT: Blocks -->
-    <aside class="sidebar-left">
-      <div class="panel-header">Elements Library</div>
-      <div id="blocks-panel"></div>
-    </aside>
-
-    <!-- CENTER: Canvas -->
-    <main class="main-canvas">
-      <div class="canvas-container" id="canvas-wrap">
-        <div id="gjs">
-          <!-- Default Starter Content -->
-          <div style="padding: 100px 20px; text-align: center; font-family: sans-serif;">
-            <h1 style="font-size: 48px; color: #111;">Build Your Empire</h1>
-            <p style="font-size: 18px; color: #666; max-width: 600px; margin: 20px auto;">Drag and drop fully functional forms, navbars, maps, and advanced UI blocks from the left panel.</p>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- RIGHT: Inspector -->
-    <aside class="sidebar-right">
-      <div class="right-tabs">
-        <button class="tab-btn active" onclick="switchTab('styles')"><i class="ti ti-palette"></i> Design</button>
-        <button class="tab-btn" onclick="switchTab('traits')"><i class="ti ti-settings"></i> Settings</button>
-        <button class="tab-btn" onclick="switchTab('layers')"><i class="ti ti-layers"></i> Layers</button>
-      </div>
-      
-      <div id="styles-panel" class="tab-content active"></div>
-      <div id="traits-panel" class="tab-content"></div>
-      <div id="layers-panel" class="tab-content"></div>
-    </aside>
-
   </div>
 
   <script>
-    // Initialize GrapesJS with the Webpage Preset Plugin
+    // Initialize Core Editor
     const editor = grapesjs.init({
       container: '#gjs',
-      height: '100%',
+      height: '100vh',
       width: '100%',
-      storageManager: false, 
-      
-      // Load the powerhouse plugin
+      storageManager: false, // Turn off local storage for testing
       plugins: ['gjs-preset-webpage'],
       pluginsOpts: {
         'gjs-preset-webpage': {
-          blocks: ['link-block', 'quote', 'text-basic', 'image', 'video', 'map', 'form', 'input', 'textarea', 'select', 'button', 'checkbox', 'radio', 'navbar', 'countdown', 'tabs', 'custom-code']
+          // You can customize the preset here later
         }
-      },
-
-      // Hide default GrapesJS layout panels completely
-      panels: { defaults: [] },
-
-      // Map managers to our custom Shopify-style divs
-      blockManager: { appendTo: '#blocks-panel' },
-      styleManager: { appendTo: '#styles-panel' },
-      traitManager: { appendTo: '#traits-panel' },
-      layerManager: { appendTo: '#layers-panel' },
-      selectorManager: { appendTo: '#styles-panel' }, // Attach CSS classes to styles panel
-
-      deviceManager: {
-        devices: [
-          { name: 'Desktop', width: '' },
-          { name: 'Tablet', width: '768px', widthMedia: '992px' },
-          { name: 'Mobile', width: '375px', widthMedia: '480px' }
-        ]
       }
-    });
-
-    // Right Sidebar Tabs Logic
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      
-      event.currentTarget.classList.add('active');
-      document.getElementById(tabName + '-panel').classList.add('active');
-    }
-
-    // Device Switching
-    function setDevice(device) {
-      document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('btn-' + device).classList.add('active');
-
-      const canvasWrap = document.getElementById('canvas-wrap');
-      if (device === 'mobile') {
-        editor.setDevice('Mobile');
-        canvasWrap.style.width = '375px';
-      } else if (device === 'tablet') {
-        editor.setDevice('Tablet');
-        canvasWrap.style.width = '768px';
-      } else {
-        editor.setDevice('Desktop');
-        canvasWrap.style.width = '100%';
-      }
-    }
-
-    // Preview Toggle
-    let isPreview = false;
-    function togglePreview() {
-      isPreview = !isPreview;
-      if (isPreview) {
-        editor.runCommand('core:preview');
-        document.querySelector('.sidebar-left').style.display = 'none';
-        document.querySelector('.sidebar-right').style.display = 'none';
-      } else {
-        editor.stopCommand('core:preview');
-        document.querySelector('.sidebar-left').style.display = 'flex';
-        document.querySelector('.sidebar-right').style.display = 'flex';
-      }
-    }
-
-    // Save Output
-    function saveDesign() {
-      const htmlCode = editor.getHtml();
-      const cssCode = editor.getCss();
-      console.log("=== EXPORTED HTML ===");
-      console.log(htmlCode);
-      console.log("=== EXPORTED CSS ===");
-      console.log(cssCode);
-      alert("Store saved successfully! Code logged to console.");
-    }
-
-    // Auto-switch to settings tab when an element is selected
-    editor.on('component:selected', () => {
-      switchTab('styles');
-      document.querySelector('.tab-btn').classList.add('active'); // highlight design tab
     });
   </script>
+
 </body>
 </html>
