@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FSCommerce Store Editor</title>
+  
+  <!-- GrapesJS Core CSS & JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.2/css/grapes.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.2/grapes.min.js"></script>
+  
+  <!-- Tabler Icons for a modern look -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css">
+
+  <style>
+    :root {
+      /* FSCommerce Brand Colors */
+      --fs-green: #1db954;
+      --fs-green-hover: #158a3e;
+      --fs-bg: #f4f6f8;
+      --fs-surface: #ffffff;
+      --fs-border: #e1e3e5;
+      --fs-text-main: #202223;
+      --fs-text-muted: #6d7175;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--fs-bg);
+      color: var(--fs-text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Topbar Styling (Shopify Style) */
+    .topbar {
+      height: 60px;
+      background-color: var(--fs-surface);
+      border-bottom: 1px solid var(--fs-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .exit-btn { color: var(--fs-text-muted); cursor: pointer; text-decoration: none; font-size: 20px; transition: color 0.2s; }
+    .exit-btn:hover { color: var(--fs-text-main); }
+    .brand-title { font-size: 16px; font-weight: 600; }
+    .brand-title span { color: var(--fs-green); }
+
+    .topbar-center { display: flex; gap: 10px; background: var(--fs-bg); padding: 4px; border-radius: var(--radius); border: 1px solid var(--fs-border); }
+    .device-btn { background: transparent; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; color: var(--fs-text-muted); transition: all 0.2s; font-size: 18px; }
+    .device-btn.active, .device-btn:hover { background: var(--fs-surface); color: var(--fs-green); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+
+    .topbar-right { display: flex; gap: 10px; }
+    .btn { padding: 8px 16px; border-radius: var(--radius); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; }
+    .btn-outline { background: var(--fs-surface); border-color: var(--fs-border); color: var(--fs-text-main); }
+    .btn-outline:hover { background: var(--fs-bg); }
+    .btn-primary { background: var(--fs-green); color: white; }
+    .btn-primary:hover { background: var(--fs-green-hover); transform: translateY(-1px); box-shadow: 0 4px 6px rgba(29, 185, 84, 0.2); }
+
+    /* Editor Layout */
+    .editor-wrapper {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 60px);
+    }
+
+    /* Left Sidebar (Blocks) */
+    .sidebar-left {
+      width: 280px;
+      background: var(--fs-surface);
+      border-right: 1px solid var(--fs-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    
+    .panel-header {
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--fs-border);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--fs-text-muted);
+    }
+
+    /* Center Canvas */
+    .main-canvas {
+      flex: 1;
+      padding: 20px;
+      background: var(--fs-bg);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .canvas-container {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      border: 1px solid var(--fs-border);
+      transition: width 0.3s ease; /* Soft animation for device toggle */
+    }
+
+    /* Right Sidebar (Styles) */
+    .sidebar-right {
+      width: 300px;
+      background: var(--fs-surface);
+      border-left: 1px solid var(--fs-border);
+      overflow-y: auto;
+    }
+
+    /* Customizing GrapesJS Default Classes to match Green/White Theme */
+    .gjs-block {
+      padding: 15px;
+      margin: 10px;
+      background: var(--fs-bg);
+      border: 1px solid var(--fs-border);
+      border-radius: var(--radius);
+      color: var(--fs-text-main);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .gjs-block:hover {
+      border-color: var(--fs-green);
+      color: var(--fs-green);
+      box-shadow: 0 4px 6px rgba(29, 185, 84, 0.05);
+      transform: translateY(-2px);
+    }
+    .gjs-block-label { font-size: 12px; font-weight: 500; }
+    
+    /* GrapesJS internal overrides */
+    .gjs-cv-canvas { background: transparent; }
+    .gjs-sm-sector .gjs-sm-title { background-color: var(--fs-surface); color: var(--fs-text-main); border-bottom: 1px solid var(--fs-border); }
+    .gjs-sm-sector .gjs-sm-properties { background-color: var(--fs-surface); }
+    .gjs-sm-property { color: var(--fs-text-muted); }
+    .gjs-radio-item input:checked+.gjs-radio-item-label { background-color: var(--fs-green); }
+    .gjs-clm-tags .gjs-sm-title, .gjs-sm-sector .gjs-sm-title { font-weight: 600; }
+    
+    /* Frame overlay colors */
+    .gjs-hovered { outline: 2px solid var(--fs-green) !important; outline-offset: -2px; }
+    .gjs-selected { outline: 3px solid var(--fs-green) !important; outline-offset: -3px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="dashboard.html" class="exit-btn" title="Exit Editor"><i class="ti ti-arrow-left"></i></a>
+      <div class="brand-title">FSCommerce <span>Store Editor</span></div>
+    </div>
+
+    <!-- Device Switcher -->
+    <div class="topbar-center">
+      <button class="device-btn active" onclick="setDevice('desktop')" id="btn-desktop"><i class="ti ti-device-desktop"></i></button>
+      <button class="device-btn" onclick="setDevice('tablet')" id="btn-tablet"><i class="ti ti-device-tablet"></i></button>
+      <button class="device-btn" onclick="setDevice('mobile')" id="btn-mobile"><i class="ti ti-device-mobile"></i></button>
+    </div>
+
+    <div class="topbar-right">
+      <button class="btn btn-outline" onclick="previewStore()"><i class="ti ti-eye"></i> Preview</button>
+      <button class="btn btn-primary" onclick="saveDesign()"><i class="ti ti-device-floppy"></i> Save Theme</button>
+    </div>
+  </header>
+
+  <!-- Main Editor Area -->
+  <div class="editor-wrapper">
+    
+    <!-- Blocks Panel (Left) -->
+    <aside class="sidebar-left">
+      <div class="panel-header">Add Elements</div>
+      <div id="blocks-panel"></div>
+    </aside>
+
+    <!-- The Canvas (Center) -->
+    <main class="main-canvas">
+      <div class="canvas-container" id="canvas-wrap">
+        <div id="gjs"></div>
+      </div>
+    </main>
+
+    <!-- Styles/Settings Panel (Right) -->
+    <aside class="sidebar-right">
+      <div class="panel-header">Design Settings</div>
+      <div id="styles-panel"></div>
+    </aside>
+
+  </div>
+
+  <script>
+    // Initialize GrapesJS
+    const editor = grapesjs.init({
+      container: '#gjs',
+      height: '100%',
+      width: '100%',
+      // Disable default local storage for now (will connect to Firebase later)
+      storageManager: false, 
+      
+      // Hide default top panel to use our custom Shopify-like topbar
+      panels: { defaults: [] },
+
+      // Map Blocks to the Left Sidebar
+      blockManager: {
+        appendTo: '#blocks-panel',
+        blocks: [
+          {
+            id: 'section',
+            label: '<i class="ti ti-layout-bottombar" style="font-size:24px"></i><div class="gjs-block-label">Section</div>',
+            content: `<section style="padding: 50px 20px; text-align: center; background-color: #f4f6f8; margin-bottom: 10px;">
+                        <h2 style="font-family: sans-serif; color: #202223;">New Store Section</h2>
+                      </section>`,
+          },
+          {
+            id: 'text',
+            label: '<i class="ti ti-typography" style="font-size:24px"></i><div class="gjs-block-label">Text Box</div>',
+            content: '<p style="font-family: sans-serif; color: #6d7175; font-size: 16px; line-height: 1.5;">Insert your awesome store description here.</p>',
+          },
+          {
+            id: 'image',
+            label: '<i class="ti ti-photo" style="font-size:24px"></i><div class="gjs-block-label">Image</div>',
+            content: { type: 'image' },
+          },
+          {
+            id: 'button',
+            label: '<i class="ti ti-hand-click" style="font-size:24px"></i><div class="gjs-block-label">Button</div>',
+            content: '<a href="#" style="display: inline-block; padding: 12px 24px; background-color: #1db954; color: white; text-decoration: none; border-radius: 8px; font-family: sans-serif; font-weight: 600;">Shop Now</a>',
+          },
+          {
+            id: 'grid-2',
+            label: '<i class="ti ti-layout-columns" style="font-size:24px"></i><div class="gjs-block-label">2 Columns</div>',
+            content: `<div style="display: flex; gap: 20px; padding: 20px;">
+                        <div style="flex: 1; padding: 20px; border: 1px dashed #ccc;">Column 1</div>
+                        <div style="flex: 1; padding: 20px; border: 1px dashed #ccc;">Column 2</div>
+                      </div>`,
+          }
+        ]
+      },
+
+      // Map Style Manager to the Right Sidebar
+      styleManager: {
+        appendTo: '#styles-panel',
+        sectors: [{
+            name: 'Layout & Spacing',
+            open: true,
+            buildProps: ['display', 'width', 'height', 'padding', 'margin'],
+          },{
+            name: 'Typography',
+            open: false,
+            buildProps: ['font-family', 'font-size', 'font-weight', 'color', 'text-align'],
+          },{
+            name: 'Decorations',
+            open: false,
+            buildProps: ['background-color', 'border-radius', 'border', 'box-shadow'],
+          }
+        ]
+      },
+
+      // Device configurations
+      deviceManager: {
+        devices: [
+          { name: 'Desktop', width: '' },
+          { name: 'Tablet', width: '768px', widthMedia: '992px' },
+          { name: 'Mobile', width: '375px', widthMedia: '480px' }
+        ]
+      }
+    });
+
+    // Device Switching Logic
+    function setDevice(device) {
+      // Update active button state
+      document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + device).classList.add('active');
+
+      // Animate Canvas Width
+      const canvasWrap = document.getElementById('canvas-wrap');
+      if (device === 'mobile') {
+        editor.setDevice('Mobile');
+        canvasWrap.style.width = '375px';
+      } else if (device === 'tablet') {
+        editor.setDevice('Tablet');
+        canvasWrap.style.width = '768px';
+      } else {
+        editor.setDevice('Desktop');
+        canvasWrap.style.width = '100%';
+      }
+    }
+
+    // Dummy Save Function (Will connect to backend)
+    function saveDesign() {
+      const htmlCode = editor.getHtml();
+      const cssCode = editor.getCss();
+      console.log("HTML:", htmlCode);
+      console.log("CSS:", cssCode);
+      alert("Theme saved successfully! (Check console for raw HTML/CSS output)");
+    }
+
+    function previewStore() {
+      alert("Live preview mode toggled (Integration pending)");
+    }
+
+    // Add some initial placeholder content to the canvas
+    editor.setComponents(`
+      <div style="text-align: center; padding: 60px 20px; font-family: sans-serif;">
+        <h1 style="font-size: 36px; color: #202223; margin-bottom: 10px;">Welcome to your new store</h1>
+        <p style="color: #6d7175; font-size: 18px; margin-bottom: 30px;">Drag and drop elements from the left panel to start building.</p>
+        <a href="#" style="padding: 12px 24px; background-color: #1db954; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">Start Designing</a>
+      </div>
+    `);
+  </script>
+</body>
+</html>
