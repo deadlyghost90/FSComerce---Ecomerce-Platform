@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSComerce | Enterprise Admin Dashboard</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Phosphor Icons for premium SaaS look) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1', // Indigo
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        
+        /* Hide submenus by default */
+        .submenu { display: none; }
+        .submenu.open { display: block; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-[#0b1120] text-slate-900 dark:text-slate-200 antialiased overflow-hidden flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 h-full glass border-r border-slate-200 dark:border-slate-800 flex flex-col transition-all duration-300 z-20 shrink-0">
+        <!-- Logo -->
+        <div class="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="ph-bold ph-shopping-bag text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent tracking-tight">FSComerce</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1 custom-scrollbar">
+            <p class="px-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 mt-4">Main Menu</p>
+            
+            <a href="#" onclick="switchView('dashboard')" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 font-medium">
+                <i class="ph ph-squares-four text-xl"></i>
+                Dashboard
+            </a>
+
+            <!-- Stores (Expandable) -->
+            <div>
+                <button onclick="toggleMenu('menu-stores')" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                    <div class="flex items-center gap-3"><i class="ph ph-storefront text-xl"></i> Stores</div>
+                    <i class="ph ph-caret-down text-sm"></i>
+                </button>
+                <div id="menu-stores" class="submenu pl-10 pr-3 py-1 space-y-1">
+                    <a href="#" class="block py-1.5 text-sm text-slate-500 hover:text-brand-600 dark:hover:text-brand-400">All Stores</a>
+                    <a href="#" class="block py-1.5 text-sm text-slate-500 hover:text-brand-600 dark:hover:text-brand-400">Store Settings</a>
+                    <a href="#" class="block py-1.5 text-sm text-slate-500 hover:text-brand-600 dark:hover:text-brand-400">Store Analytics</a>
+                </div>
+            </div>
+
+            <!-- Products (Expandable) -->
+            <div>
+                <button onclick="toggleMenu('menu-products')" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                    <div class="flex items-center gap-3"><i class="ph ph-tag text-xl"></i> Products</div>
+                    <i class="ph ph-caret-down text-sm"></i>
+                </button>
+                <div id="menu-products" class="submenu pl-10 pr-3 py-1 space-y-1">
+                    <a href="#" onclick="switchView('products')" class="block py-1.5 text-sm text-slate-500 hover:text-brand-600 dark:hover:text-brand-400">All Products</a>
+                    <a href="#" class="block py-1.5 text-sm text-slate-500 hover:text-brand-600 dark:hover:text-brand-400">Categories</a>
+                    <a href="#" class="block py-1.5 text-sm text-slate-500 hover:text-brand-600 dark:hover:text-brand-400">Inventory</a>
+                </div>
+            </div>
+
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                <i class="ph ph-receipt text-xl"></i> Orders
+                <span class="ml-auto bg-brand-100 text-brand-600 dark:bg-brand-500/20 dark:text-brand-400 py-0.5 px-2 rounded-full text-xs font-medium">12</span>
+            </a>
+            
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                <i class="ph ph-users text-xl"></i> Customers
+            </a>
+
+            <p class="px-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 mt-6">Growth & Analytics</p>
+
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                <i class="ph ph-megaphone text-xl"></i> Marketing
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                <i class="ph ph-chart-line-up text-xl"></i> Analytics
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                <i class="ph ph-sparkle text-xl text-purple-500"></i> AI Tools
+            </a>
+
+            <p class="px-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 mt-6">System</p>
+
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+                <i class="ph ph-gear text-xl"></i> Settings
+            </a>
+        </div>
+        
+        <!-- User/Workspace Profile -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+            <button class="flex items-center gap-3 w-full hover:bg-slate-100 dark:hover:bg-slate-800/50 p-2 rounded-lg transition-colors">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="User" class="w-9 h-9 rounded-full ring-2 ring-white dark:ring-slate-800">
+                <div class="text-left flex-1">
+                    <p class="text-sm font-medium text-slate-900 dark:text-white">Admin User</p>
+                    <p class="text-xs text-slate-500">SaaS Owner</p>
+                </div>
+                <i class="ph ph-caret-up text-slate-400"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        
+        <!-- Top Navbar -->
+        <header class="h-16 glass z-10 px-6 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
+            <!-- Search -->
+            <div class="flex items-center flex-1">
+                <div class="relative w-full max-w-md">
+                    <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                    <input type="text" placeholder="Search stores, orders, or customers (Cmd+K)" 
+                        class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-900/50 border-none rounded-lg text-sm focus:ring-2 focus:ring-brand-500 dark:text-white placeholder-slate-400 transition-all outline-none">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Store Switcher -->
+                <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                    <div class="w-5 h-5 rounded bg-gradient-to-tr from-emerald-400 to-cyan-400 flex items-center justify-center">
+                        <i class="ph-bold ph-sneaker text-white text-xs"></i>
+                    </div>
+                    <span class="text-sm font-medium">Urban Kicks</span>
+                    <i class="ph ph-caret-down text-slate-400 text-xs ml-1"></i>
+                </div>
+
+                <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
+
+                <button onclick="toggleDarkMode()" class="text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                    <i id="theme-icon" class="ph ph-moon text-2xl"></i>
+                </button>
+                <button class="text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative">
+                    <i class="ph ph-bell text-2xl"></i>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-[#0b1120]"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Main Content -->
+        <main class="flex-1 overflow-y-auto p-6 md:p-8">
+            
+            <!-- VIEW: DASHBOARD (Active by default) -->
+            <div id="view-dashboard" class="max-w-7xl mx-auto space-y-6 animate-fade-in">
+                <!-- Page Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Overview</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Here's what's happening with your platform today.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <select class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-brand-500">
+                            <option>Last 30 Days</option>
+                            <option>This Month</option>
+                            <option>Last Year</option>
+                        </select>
+                        <button class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-lg shadow-brand-500/30 flex items-center gap-2">
+                            <i class="ph ph-download-simple"></i> Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Card 1 -->
+                    <div class="glass-card rounded-xl p-5 flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Revenue</p>
+                                <h3 class="text-2xl font-bold mt-1 text-slate-900 dark:text-white">$124,563.00</h3>
+                            </div>
+                            <div class="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                                <i class="ph ph-trend-up text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-emerald-500 font-medium">+12.5%</span>
+                            <span class="text-slate-400 ml-2">vs last month</span>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="glass-card rounded-xl p-5 flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Active Orders</p>
+                                <h3 class="text-2xl font-bold mt-1 text-slate-900 dark:text-white">1,429</h3>
+                            </div>
+                            <div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                                <i class="ph ph-package text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-emerald-500 font-medium">+8.2%</span>
+                            <span class="text-slate-400 ml-2">vs last month</span>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="glass-card rounded-xl p-5 flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Conversion Rate</p>
+                                <h3 class="text-2xl font-bold mt-1 text-slate-900 dark:text-white">3.24%</h3>
+                            </div>
+                            <div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400">
+                                <i class="ph ph-target text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-red-500 font-medium">-1.1%</span>
+                            <span class="text-slate-400 ml-2">vs last month</span>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="glass-card rounded-xl p-5 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl"></div>
+                        <div class="flex justify-between items-start relative z-10">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Active Stores (SaaS)</p>
+                                <h3 class="text-2xl font-bold mt-1 text-slate-900 dark:text-white">342</h3>
+                            </div>
+                            <div class="p-2 rounded-lg bg-brand-100 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400">
+                                <i class="ph ph-storefront text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm relative z-10">
+                            <span class="text-emerald-500 font-medium">+24</span>
+                            <span class="text-slate-400 ml-2">new this week</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Main Chart -->
+                    <div class="lg:col-span-2 glass-card rounded-xl p-5">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Revenue Growth</h3>
+                            <button class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"><i class="ph ph-dots-three text-xl"></i></button>
+                        </div>
+                        <div id="chart-revenue" class="w-full h-72"></div>
+                    </div>
+                    
+                    <!-- Side Chart -->
+                    <div class="glass-card rounded-xl p-5 flex flex-col">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Traffic Sources</h3>
+                        <div id="chart-traffic" class="flex-1 w-full h-full min-h-[250px]"></div>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid: Tables/Widgets -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Latest Orders -->
+                    <div class="glass-card rounded-xl p-5">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Latest Orders</h3>
+                            <a href="#" class="text-sm text-brand-600 dark:text-brand-400 font-medium hover:underline">View All</a>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead>
+                                    <tr class="text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                        <th class="pb-3 font-medium">Order</th>
+                                        <th class="pb-3 font-medium">Customer</th>
+                                        <th class="pb-3 font-medium">Status</th>
+                                        <th class="pb-3 font-medium text-right">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50">
+                                    <tr>
+                                        <td class="py-3 text-slate-900 dark:text-white font-medium">#ORD-7352</td>
+                                        <td class="py-3 text-slate-500">Sarah Jenkins</td>
+                                        <td class="py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-md text-xs font-medium">Fulfilled</span></td>
+                                        <td class="py-3 text-right font-medium text-slate-900 dark:text-white">$124.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 text-slate-900 dark:text-white font-medium">#ORD-7351</td>
+                                        <td class="py-3 text-slate-500">Michael Chen</td>
+                                        <td class="py-3"><span class="px-2 py-1 bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 rounded-md text-xs font-medium">Pending</span></td>
+                                        <td class="py-3 text-right font-medium text-slate-900 dark:text-white">$45.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 text-slate-900 dark:text-white font-medium">#ORD-7350</td>
+                                        <td class="py-3 text-slate-500">Emma Watson</td>
+                                        <td class="py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-md text-xs font-medium">Fulfilled</span></td>
+                                        <td class="py-3 text-right font-medium text-slate-900 dark:text-white">$299.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 text-slate-900 dark:text-white font-medium">#ORD-7349</td>
+                                        <td class="py-3 text-slate-500">James Smith</td>
+                                        <td class="py-3"><span class="px-2 py-1 bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300 rounded-md text-xs font-medium">Refunded</span></td>
+                                        <td class="py-3 text-right font-medium text-slate-900 dark:text-white">$89.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Top Products -->
+                    <div class="glass-card rounded-xl p-5">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Top Performing Products</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <!-- Product 1 -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                        <i class="ph ph-sneaker text-xl text-slate-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900 dark:text-white">Nike Air Max Pro</p>
+                                        <p class="text-xs text-slate-500">Footwear</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">$4,520</p>
+                                    <p class="text-xs text-emerald-500">324 Sales</p>
+                                </div>
+                            </div>
+                            <!-- Product 2 -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                        <i class="ph ph-t-shirt text-xl text-slate-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900 dark:text-white">Essential Minimal Tee</p>
+                                        <p class="text-xs text-slate-500">Apparel</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">$3,100</p>
+                                    <p class="text-xs text-emerald-500">412 Sales</p>
+                                </div>
+                            </div>
+                            <!-- Product 3 -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                        <i class="ph ph-watch text-xl text-slate-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900 dark:text-white">Classic Leather Watch</p>
+                                        <p class="text-xs text-slate-500">Accessories</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">$2,890</p>
+                                    <p class="text-xs text-emerald-500">95 Sales</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: PRODUCTS (Hidden by default, shown via JS to demonstrate structure) -->
+            <div id="view-products" class="hidden max-w-7xl mx-auto space-y-6 animate-fade-in">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Products</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage your catalog, inventory, and pricing.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Import
+                        </button>
+                        <button class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-lg shadow-brand-500/30 flex items-center gap-2">
+                            <i class="ph ph-plus"></i> Add Product
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Table Container -->
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <!-- Filters -->
+                    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-wrap gap-3 items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="relative">
+                                <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="text" placeholder="Search products..." class="pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none w-64">
+                            </div>
+                            <button class="px-3 py-2 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg text-sm flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                <i class="ph ph-funnel"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400">
+                                <tr>
+                                    <th class="px-4 py-3 w-10"><input type="checkbox" class="rounded border-slate-300 dark:border-slate-600 text-brand-600 focus:ring-brand-500 bg-transparent"></th>
+                                    <th class="px-4 py-3 font-medium">Product</th>
+                                    <th class="px-4 py-3 font-medium">Status</th>
+                                    <th class="px-4 py-3 font-medium">Inventory</th>
+                                    <th class="px-4 py-3 font-medium">Category</th>
+                                    <th class="px-4 py-3 font-medium text-right">Price</th>
+                                    <th class="px-4 py-3 w-10"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+                                    <td class="px-4 py-3"><input type="checkbox" class="rounded border-slate-300 dark:border-slate-600 text-brand-600 focus:ring-brand-500 bg-transparent"></td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                                <i class="ph ph-image text-slate-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-slate-900 dark:text-white">Premium Wireless Headphones</p>
+                                                <p class="text-xs text-slate-500">SKU: WH-1002</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-md text-xs font-medium border border-emerald-200 dark:border-emerald-500/20">Active</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-slate-600 dark:text-slate-300">142 in stock</td>
+                                    <td class="px-4 py-3 text-slate-600 dark:text-slate-300">Electronics</td>
+                                    <td class="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">$249.99</td>
+                                    <td class="px-4 py-3 text-right">
+                                        <button class="text-slate-400 hover:text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity"><i class="ph ph-dots-three-outline-vertical text-lg"></i></button>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+                                    <td class="px-4 py-3"><input type="checkbox" class="rounded border-slate-300 dark:border-slate-600 text-brand-600 focus:ring-brand-500 bg-transparent"></td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                                <i class="ph ph-image text-slate-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-slate-900 dark:text-white">Ergonomic Office Chair</p>
+                                                <p class="text-xs text-slate-500">SKU: FUR-883</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 rounded-md text-xs font-medium border border-amber-200 dark:border-amber-500/20">Draft</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-slate-600 dark:text-slate-300">0 in stock</td>
+                                    <td class="px-4 py-3 text-slate-600 dark:text-slate-300">Furniture</td>
+                                    <td class="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">$199.00</td>
+                                    <td class="px-4 py-3 text-right">
+                                        <button class="text-slate-400 hover:text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity"><i class="ph ph-dots-three-outline-vertical text-lg"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-sm">
+                        <span class="text-slate-500">Showing 1 to 10 of 42 entries</span>
+                        <div class="flex gap-1">
+                            <button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500">Prev</button>
+                            <button class="px-3 py-1 rounded bg-brand-600 text-white">1</button>
+                            <button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500">2</button>
+                            <button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-500">© 2026 FSComerce Inc. All rights reserved.</p>
+                <div class="flex gap-4 text-sm text-slate-500">
+                    <a href="#" class="hover:text-brand-500 transition-colors">Help Center</a>
+                    <a href="#" class="hover:text-brand-500 transition-colors">API Docs</a>
+                    <a href="#" class="hover:text-brand-500 transition-colors">Status: <span class="text-emerald-500 font-medium">All systems operational</span></a>
+                </div>
+            </footer>
+            
+        </main>
+    </div>
+
+    <!-- JavaScript for Interactions and Charts -->
+    <script>
+        // --- Dark Mode Logic ---
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                icon.classList.remove('ph-moon');
+                icon.classList.add('ph-sun');
+            } else {
+                icon.classList.remove('ph-sun');
+                icon.classList.add('ph-moon');
+            }
+            // Re-render charts to update colors
+            initCharts(); 
+        }
+
+        // --- Sidebar Accordion Logic ---
+        function toggleMenu(menuId) {
+            const el = document.getElementById(menuId);
+            el.classList.toggle('open');
+        }
+
+        // --- SPA View Switcher ---
+        function switchView(viewId) {
+            // Hide all views
+            document.getElementById('view-dashboard').classList.add('hidden');
+            document.getElementById('view-products').classList.add('hidden');
+            
+            // Show target view
+            document.getElementById('view-' + viewId).classList.remove('hidden');
+            
+            // Re-trigger charts if switching back to dashboard to fix width rendering issues
+            if(viewId === 'dashboard') {
+                setTimeout(initCharts, 100);
+            }
+        }
+
+        // --- ApexCharts Initialization ---
+        let revenueChart, trafficChart;
+
+        function initCharts() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+            const gridColor = isDark ? '#1e293b' : '#f1f5f9';
+
+            // 1. Revenue Area Chart
+            const revenueOptions = {
+                series: [{
+                    name: 'Revenue',
+                    data: [31000, 40000, 28000, 51000, 42000, 109000, 124563]
+                }],
+                chart: {
+                    type: 'area',
+                    height: 280,
+                    fontFamily: 'Inter, sans-serif',
+                    toolbar: { show: false },
+                    background: 'transparent'
+                },
+                colors: ['#6366f1'],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.4,
+                        opacityTo: 0.05,
+                        stops: [0, 90, 100]
+                    }
+                },
+                dataLabels: { enabled: false },
+                stroke: { curve: 'smooth', width: 2 },
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    axisBorder: { show: false },
+                    axisTicks: { show: false },
+                    labels: { style: { colors: textColor } }
+                },
+                yaxis: {
+                    labels: {
+                        style: { colors: textColor },
+                        formatter: (value) => { return "$" + (value / 1000) + "k" }
+                    }
+                },
+                grid: {
+                    borderColor: gridColor,
+                    strokeDashArray: 4,
+                    yaxis: { lines: { show: true } }
+                },
+                theme: { mode: isDark ? 'dark' : 'light' }
+            };
+
+            if(revenueChart) { revenueChart.destroy(); }
+            revenueChart = new ApexCharts(document.querySelector("#chart-revenue"), revenueOptions);
+            revenueChart.render();
+
+            // 2. Traffic Sources Donut Chart
+            const trafficOptions = {
+                series: [44, 55, 13, 33],
+                chart: {
+                    type: 'donut',
+                    height: 280,
+                    fontFamily: 'Inter, sans-serif',
+                    background: 'transparent'
+                },
+                labels: ['Organic', 'Direct', 'Social', 'Referral'],
+                colors: ['#6366f1', '#a855f7', '#ec4899', '#3b82f6'],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '75%',
+                            labels: {
+                                show: true,
+                                name: { color: textColor },
+                                value: { color: isDark ? '#fff' : '#0f172a', fontSize: '24px', fontWeight: 600 }
+                            }
+                        }
+                    }
+                },
+                dataLabels: { enabled: false },
+                stroke: { show: false },
+                legend: {
+                    position: 'bottom',
+                    labels: { colors: textColor }
+                },
+                theme: { mode: isDark ? 'dark' : 'light' }
+            };
+
+            if(trafficChart) { trafficChart.destroy(); }
+            trafficChart = new ApexCharts(document.querySelector("#chart-traffic"), trafficOptions);
+            trafficChart.render();
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+        });
+    </script>
+</body>
+</html>
