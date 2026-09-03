@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { productVariantEditUrl } from "@dashboard/products/urls";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -102,7 +102,7 @@ const VariantItemContent = ({
         </Box>
         {isPending && (
           <Box flexShrink="0" display="flex" alignItems="center">
-            <SaleorThrobber size={16} />
+            <FSCommerceThrobber size={16} />
           </Box>
         )}
       </Box>

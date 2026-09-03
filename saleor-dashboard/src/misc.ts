@@ -249,7 +249,7 @@ export function getMutationState(
   return "default";
 }
 
-interface SaleorMutationResult {
+interface FSCommerceMutationResult {
   errors?: any[];
 }
 
@@ -289,7 +289,7 @@ export const getMutationErrors = <
   ) as TErrors;
 };
 
-export function getMutationStatus<TData extends Record<string, SaleorMutationResult | any>>(
+export function getMutationStatus<TData extends Record<string, FSCommerceMutationResult | any>>(
   opts: MutationResult<TData>,
 ): ConfirmButtonTransitionState {
   const errors = getMutationErrors(opts);

@@ -217,7 +217,7 @@ export type AddressInput = {
   /** Postal code. */
   postalCode?: InputMaybe<Scalars['String']['input']>;
   /**
-   * Determine if the address should be validated. By default, Saleor accepts only address inputs matching ruleset from [Google Address Data]{https://chromium-i18n.appspot.com/ssl-address), using [i18naddress](https://github.com/mirumee/google-i18n-address) library. Some mutations may require additional permissions to use the the field. More info about permissions can be found in relevant mutation.
+   * Determine if the address should be validated. By default, FSCommerce accepts only address inputs matching ruleset from [Google Address Data]{https://chromium-i18n.appspot.com/ssl-address), using [i18naddress](https://github.com/mirumee/google-i18n-address) library. Some mutations may require additional permissions to use the the field. More info about permissions can be found in relevant mutation.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -279,13 +279,13 @@ export type AppExtensionFilterInput = {
   /**
    * Plain-text mount name (case insensitive)
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   mountName?: InputMaybe<Array<Scalars['String']['input']>>;
   /**
    * Plain-text target name (case insensitive)
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   targetName?: InputMaybe<Scalars['String']['input']>;
 };
@@ -402,9 +402,9 @@ export type AppTokenInput = {
 
 /** Enum determining type of your App. */
 export enum AppTypeEnum {
-  /** Local Saleor App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
+  /** Local FSCommerce App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
   LOCAL = 'LOCAL',
-  /** Third party external App. Installation is fully automated. Saleor uses a defined App manifest to gather all required information. */
+  /** Third party external App. Installation is fully automated. FSCommerce uses a defined App manifest to gather all required information. */
   THIRDPARTY = 'THIRDPARTY'
 }
 
@@ -533,7 +533,7 @@ export type AttributeCreateInput = {
    *
    * A maximum of 100 reference types can be specified.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   referenceTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** Internal representation of an attribute name. */
@@ -701,7 +701,7 @@ export type AttributeUpdateInput = {
    *
    * A maximum of 100 reference types can be specified.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   referenceTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** IDs of values to be removed from this attribute. */
@@ -784,7 +784,7 @@ export type AttributeValueInput = {
   /**
    * ID of the referenced entity for single reference attribute.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reference?: InputMaybe<Scalars['ID']['input']>;
   /** List of entity IDs that will be used as references. */
@@ -918,7 +918,7 @@ export type BulkAttributeValueInput = {
   /**
    * ID of the referenced entity for single reference attribute.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reference?: InputMaybe<Scalars['ID']['input']>;
   /** List of entity IDs that will be used as references. */
@@ -1168,7 +1168,7 @@ export type CheckoutAddressValidationRules = {
   checkFieldsFormat?: InputMaybe<Scalars['Boolean']['input']>;
   /** Determines if an error should be raised when the provided address doesn't have all the required fields. The list of required fields is dynamic and depends on the country code (use the `addressValidationRules` query to fetch them). Note: country code is mandatory for all addresses regardless of the rules provided in this input. */
   checkRequiredFields?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Determines if Saleor should apply normalization on address fields. Example: converting city field to uppercase letters. */
+  /** Determines if FSCommerce should apply normalization on address fields. Example: converting city field to uppercase letters. */
   enableFieldsNormalization?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -1337,7 +1337,7 @@ export type CheckoutLineInput = {
   /**
    * Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   priceOverrideReason?: InputMaybe<Scalars['String']['input']>;
   /** The number of items purchased. */
@@ -1360,7 +1360,7 @@ export type CheckoutLineUpdateInput = {
   /**
    * Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   priceOverrideReason?: InputMaybe<Scalars['String']['input']>;
   /** The number of items purchased. Optional for apps, required for any other users. */
@@ -1376,13 +1376,13 @@ export type CheckoutSettingsInput = {
   /**
    * Default to `true`. Determines whether gift cards can be attached to a Checkout via `addPromoCode` mutation. Usage of this mutation with gift cards is deprecated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   allowLegacyGiftCardUse?: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Settings for automatic completion of fully paid checkouts.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   automaticCompletion?: InputMaybe<CheckoutAutoCompleteInput>;
   /**
@@ -1391,7 +1391,7 @@ export type CheckoutSettingsInput = {
    */
   automaticallyCompleteFullyPaidCheckouts?: InputMaybe<Scalars['Boolean']['input']>;
   /**
-   * Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one.
+   * Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in FSCommerce 4.0. The flow with `checkout.problems` will be the default one.
    * @deprecated Field no longer supported
    */
   useLegacyErrorFlow?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1625,7 +1625,7 @@ export type ContainsFilterInput = {
 /**
  * Represents country codes defined by the ISO 3166-1 alpha-2 standard.
  *
- * The `EU` value is DEPRECATED and will be removed in Saleor 3.21.
+ * The `EU` value is DEPRECATED and will be removed in FSCommerce 3.21.
  */
 export enum CountryCode {
   /** Andorra */
@@ -2213,13 +2213,13 @@ export type CustomerInput = {
   /**
    * List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes?: InputMaybe<Array<AttributeValueInput>>;
   /**
    * ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   customerType?: InputMaybe<Scalars['ID']['input']>;
   /** Billing address of the customer. */
@@ -2413,13 +2413,13 @@ export type CustomerWhereInput = {
   /**
    * Filter by attributes associated with the customer.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes?: InputMaybe<Array<AssignedAttributeWhereInput>>;
   /**
    * Filter by customer type. Filtering by the default customer type also matches users without an explicitly assigned customer type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   customerType?: InputMaybe<GlobalIdFilterInput>;
   /** Filter by date joined. */
@@ -2898,7 +2898,7 @@ export type GiftCardCreateInput = {
   /**
    * ID of the customer the gift card is restricted to.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedTo?: InputMaybe<Scalars['ID']['input']>;
   /** Balance of the gift card. */
@@ -2982,7 +2982,7 @@ export type GiftCardFilterInput = {
   /**
    * Filter by the customer the gift card usage is restricted to.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedTo?: InputMaybe<Array<Scalars['ID']['input']>>;
   code?: InputMaybe<Scalars['String']['input']>;
@@ -3006,19 +3006,19 @@ export type GiftCardPaymentMethodDetailsInput = {
   /**
    * Brand of the gift card used for the transaction. Max length is 40 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   brand?: InputMaybe<Scalars['String']['input']>;
   /**
    * Last characters of the gift card used for the transaction. Max length is 4 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   lastChars?: InputMaybe<Scalars['String']['input']>;
   /**
    * Name of the payment method used for the transaction. Max length is 256 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   name: Scalars['String']['input'];
 };
@@ -3181,7 +3181,7 @@ export enum JobStatusEnum {
   SUCCESS = 'SUCCESS'
 }
 
-/** Language code enum. It contains all the languages supported by Saleor. */
+/** Language code enum. It contains all the languages supported by FSCommerce. */
 export enum LanguageCodeEnum {
   /** Afrikaans */
   AF = 'AF',
@@ -5136,7 +5136,7 @@ export type OrderBulkCreateInput = {
   billingAddress: AddressInput;
   /** Slug of the channel associated with the order. */
   channel: Scalars['String']['input'];
-  /** The date, when the order was inserted to Saleor database. */
+  /** The date, when the order was inserted to FSCommerce database. */
   createdAt: Scalars['DateTime']['input'];
   /** Currency code. */
   currency: Scalars['String']['input'];
@@ -5579,11 +5579,11 @@ export type OrderGrantRefundCreateInput = {
   /**
    * ID of a `Page` (Model) to reference in reason.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reasonReference?: InputMaybe<Scalars['ID']['input']>;
   /**
-   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used. Field required starting from Saleor 3.21.
+   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by FSCommerce, the `min(calculatedAmount, transaction.chargedAmount)` will be used. Field required starting from FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -5608,7 +5608,7 @@ export type OrderGrantRefundCreateLineInput = {
   /**
    * ID of a `Page` (Model) to reference in reason for the line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -5635,13 +5635,13 @@ export type OrderGrantRefundUpdateInput = {
   /**
    * ID of a `Page` (Model) to reference in reason.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reasonReference?: InputMaybe<Scalars['ID']['input']>;
   /** Lines to remove from granted refund. */
   removeLines?: InputMaybe<Array<Scalars['ID']['input']>>;
   /**
-   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used.Field will be required starting from Saleor 3.21.
+   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by FSCommerce, the `min(calculatedAmount, transaction.chargedAmount)` will be used.Field will be required starting from FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -5658,7 +5658,7 @@ export type OrderGrantRefundUpdateLineAddInput = {
   /**
    * ID of a `Page` (Model) to reference in reason for the line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -5753,7 +5753,7 @@ export type OrderRefundProductsInput = {
   amountToRefund?: InputMaybe<Scalars['PositiveDecimal']['input']>;
   /** List of fulfilled lines to refund. */
   fulfillmentLines?: InputMaybe<Array<OrderRefundFulfillmentLineInput>>;
-  /** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+  /** If true, FSCommerce will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
   includeShippingCosts?: InputMaybe<Scalars['Boolean']['input']>;
   /** List of unfulfilled lines to refund. */
   orderLines?: InputMaybe<Array<OrderRefundLineInput>>;
@@ -5767,13 +5767,13 @@ export type OrderReturnFulfillmentLineInput = {
   /**
    * Reason for returning this fulfillment line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason?: InputMaybe<Scalars['String']['input']>;
   /**
    * ID of a `Page` (Model) to reference in reason for this fulfillment line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference?: InputMaybe<Scalars['ID']['input']>;
   /** Determines, if the line should be added to replace order. */
@@ -5788,13 +5788,13 @@ export type OrderReturnLineInput = {
   /**
    * Reason for returning this line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason?: InputMaybe<Scalars['String']['input']>;
   /**
    * ID of a `Page` (Model) to reference in reason for this line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference?: InputMaybe<Scalars['ID']['input']>;
   /** Determines, if the line should be added to replace order. */
@@ -5806,23 +5806,23 @@ export type OrderReturnProductsInput = {
   amountToRefund?: InputMaybe<Scalars['PositiveDecimal']['input']>;
   /** List of fulfilled lines to return. */
   fulfillmentLines?: InputMaybe<Array<OrderReturnFulfillmentLineInput>>;
-  /** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+  /** If true, FSCommerce will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
   includeShippingCosts?: InputMaybe<Scalars['Boolean']['input']>;
   /** List of unfulfilled lines to return. */
   orderLines?: InputMaybe<Array<OrderReturnLineInput>>;
   /**
    * Reason for returning this order.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason?: InputMaybe<Scalars['String']['input']>;
   /**
    * ID of a `Page` (Model) to reference in reason for this return.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference?: InputMaybe<Scalars['ID']['input']>;
-  /** If true, Saleor will call refund action for all lines. */
+  /** If true, FSCommerce will call refund action for all lines. */
   refund?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -5895,7 +5895,7 @@ export enum OrderSortField {
   /**
    * Sort orders by order status.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   STATUS = 'STATUS'
 }
@@ -6365,7 +6365,7 @@ export type PaymentMethodDetailsFilterInput = {
 /**
  * Details of the payment method used for the transaction. One of `card`, `other`, or `giftCard` is required.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type PaymentMethodDetailsInput = {
   /** Details of the card payment method used for the transaction. */
@@ -6373,7 +6373,7 @@ export type PaymentMethodDetailsInput = {
   /**
    * Details of the gift card payment method used for the transaction.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   giftCard?: InputMaybe<GiftCardPaymentMethodDetailsInput>;
   /** Details of the non-card payment method used for this transaction. */
@@ -6458,7 +6458,7 @@ export enum PermissionEnum {
   MANAGE_DISCOUNTS = 'MANAGE_DISCOUNTS',
   MANAGE_GIFT_CARD = 'MANAGE_GIFT_CARD',
   MANAGE_MENUS = 'MANAGE_MENUS',
-  /** @deprecated The observability feature is no longer supported. This permission will be removed in Saleor 3.24. */
+  /** @deprecated The observability feature is no longer supported. This permission will be removed in FSCommerce 3.24. */
   MANAGE_OBSERVABILITY = 'MANAGE_OBSERVABILITY',
   MANAGE_ORDERS = 'MANAGE_ORDERS',
   MANAGE_ORDERS_IMPORT = 'MANAGE_ORDERS_IMPORT',
@@ -6697,7 +6697,7 @@ export type ProductBulkCreateInput = {
   taxClass?: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode?: InputMaybe<Scalars['String']['input']>;
   /** Input list of product variants to create. */
@@ -6814,7 +6814,7 @@ export type ProductCreateInput = {
   taxClass?: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode?: InputMaybe<Scalars['String']['input']>;
   /** Weight of the Product. */
@@ -6940,7 +6940,7 @@ export type ProductInput = {
   taxClass?: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode?: InputMaybe<Scalars['String']['input']>;
   /** Weight of the Product. */
@@ -7099,7 +7099,7 @@ export type ProductTypeInput = {
   taxClass?: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product type. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode?: InputMaybe<Scalars['String']['input']>;
   /** List of attributes used to distinguish between different variants of a product. */
@@ -7348,7 +7348,7 @@ export type ProductVariantWhereInput = {
   /**
    * Filter by attributes associated with the variant.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   attributes?: InputMaybe<Array<AssignedAttributeWhereInput>>;
   ids?: InputMaybe<Array<Scalars['ID']['input']>>;
@@ -7358,13 +7358,13 @@ export type ProductVariantWhereInput = {
   /**
    * Filter by variants having a specific stock status in the given channel.
    *
-   * Added in Saleor 3.24.
+   * Added in FSCommerce 3.24.
    */
   stockAvailability?: InputMaybe<StockAvailability>;
   /**
    * Filter by stock of the variant.
    *
-   * Added in Saleor 3.24.
+   * Added in FSCommerce 3.24.
    */
   stocks?: InputMaybe<ProductStockFilterInput>;
   /** Filter by when was the most recent update. */
@@ -7708,7 +7708,7 @@ export type RefundSettingsUpdateInput = {
   /**
    * The ID of a model type, that will be used to reference refund reasons. All models with of this type will be accepted as refund reasons.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   refundReasonReferenceType: Scalars['ID']['input'];
 };
@@ -7736,7 +7736,7 @@ export type ReturnSettingsUpdateInput = {
   /**
    * The ID of a model type, that will be used to reference return reasons. All models of this type will be accepted as return reasons.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   returnReasonReferenceType: Scalars['ID']['input'];
 };
@@ -7987,7 +7987,7 @@ export type ShopSettingsInput = {
   /**
    * Determines whether the GraphQL API accepts storefront requests (anonymous requests and authenticated non-staff customers). When disabled, only apps and staff users may call the API directly; all other requests are rejected with an HTTP 401 and the `STOREFRONT_TRAFFIC_NOT_ALLOWED` error code.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   allowStorefrontTraffic?: InputMaybe<Scalars['Boolean']['input']>;
   /**
@@ -8034,19 +8034,19 @@ export type ShopSettingsInput = {
   /**
    * Shop's name.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   name?: InputMaybe<Scalars['String']['input']>;
   /**
    * Controls whether password-based authentication is allowed.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   passwordLoginMode?: InputMaybe<PasswordLoginModeEnum>;
   /**
    * When enabled, address fields that are not valid for a given country (according to Google's i18n address data) will be preserved instead of being removed during validation. Validation errors are still returned.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   preserveAllAddressFields?: InputMaybe<Scalars['Boolean']['input']>;
   /**
@@ -8064,13 +8064,13 @@ export type ShopSettingsInput = {
   /**
    * When enabled, stock availability is filtered by shipping zones and the destination address (legacy behavior). When disabled, stock availability is determined only by the direct warehouse-channel link, ignoring shipping zones.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   useLegacyShippingZoneStockAvailability?: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Use legacy update webhook emission. When enabled, update webhooks (e.g. `customerUpdated`,`productVariantUpdated`) are sent even when only metadata changes. When disabled, update webhooks are not sent for metadata-only changes; only metadata-specific webhooks (e.g., `customerMetadataUpdated`, `productVariantMetadataUpdated`) are sent.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    * @deprecated Field no longer supported
    */
   useLegacyUpdateWebhookEmission?: InputMaybe<Scalars['Boolean']['input']>;
@@ -8386,7 +8386,7 @@ export type TaxConfigurationUpdateInput = {
   pricesEnteredWithTax?: InputMaybe<Scalars['Boolean']['input']>;
   /** List of country codes for which to remove the tax configuration. */
   removeCountriesConfiguration?: InputMaybe<Array<CountryCode>>;
-  /** The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that Saleor will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. It's possible to set plugin by using prefix `plugin:` with `PLUGIN_ID` e.g. with Avalara `plugin:mirumee.taxes.avalara`.Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`. */
+  /** The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that FSCommerce will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. It's possible to set plugin by using prefix `plugin:` with `PLUGIN_ID` e.g. with Avalara `plugin:mirumee.taxes.avalara`.Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`. */
   taxAppId?: InputMaybe<Scalars['String']['input']>;
   /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
   taxCalculationStrategy?: InputMaybe<TaxCalculationStrategy>;
@@ -8510,7 +8510,7 @@ export type TransactionCreateInput = {
   /**
    * Details of the payment method used for the transaction.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   paymentMethodDetails?: InputMaybe<PaymentMethodDetailsInput>;
   /**
@@ -8526,19 +8526,19 @@ export type TransactionCreateInput = {
 /**
  * Filter input for transaction events data.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type TransactionEventFilterInput = {
   /**
    * Filter transaction events by created at date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   createdAt?: InputMaybe<DateTimeRangeInput>;
   /**
    * Filter transaction events by type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   type?: InputMaybe<TransactionEventTypeEnumFilterInput>;
 };
@@ -8621,7 +8621,7 @@ export type TransactionFilterInput = {
   /**
    * Filter by PSP reference of transactions.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   pspReference?: InputMaybe<StringFilterInput>;
 };
@@ -8700,13 +8700,13 @@ export enum TransactionSortField {
   /**
    * Sort transactions by creation date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   CREATED_AT = 'CREATED_AT',
   /**
    * Sort transactions by modification date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   MODIFIED_AT = 'MODIFIED_AT'
 }
@@ -8753,7 +8753,7 @@ export type TransactionUpdateInput = {
   /**
    * Details of the payment method used for the transaction.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   paymentMethodDetails?: InputMaybe<PaymentMethodDetailsInput>;
   /**
@@ -8776,20 +8776,20 @@ export type TransactionWhereInput = {
   /**
    * Filter transactions by created at date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   createdAt?: InputMaybe<DateTimeRangeInput>;
   /**
    * Filter by transaction events. Each list item represents conditions that must be satisfied by a single event. The filter matches transactions that have related events meeting all specified groups of conditions.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   events?: InputMaybe<Array<TransactionEventFilterInput>>;
   ids?: InputMaybe<Array<Scalars['ID']['input']>>;
   /**
    * Filter transactions by modified at date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   modifiedAt?: InputMaybe<DateTimeRangeInput>;
   /** Filter by PSP reference. */
@@ -8870,7 +8870,7 @@ export type UserCreateInput = {
   /**
    * List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes?: InputMaybe<Array<AttributeValueInput>>;
   /** Slug of a channel which will be used for notify user. Optional when only one channel exists. */
@@ -8878,7 +8878,7 @@ export type UserCreateInput = {
   /**
    * ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   customerType?: InputMaybe<Scalars['ID']['input']>;
   /** Billing address of the customer. */
@@ -9191,7 +9191,7 @@ export type WebhookCreateInput = {
   /**
    * The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   identifier?: InputMaybe<Scalars['String']['input']>;
   /** Determine if webhook will be set active or not. */
@@ -9202,7 +9202,7 @@ export type WebhookCreateInput = {
   query?: InputMaybe<Scalars['String']['input']>;
   /**
    * The secret key used to create a hash signature with each payload.
-   * @deprecated As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+   * @deprecated As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.
    */
   secretKey?: InputMaybe<Scalars['String']['input']>;
   /** The synchronous events that webhook wants to subscribe. */
@@ -9336,19 +9336,19 @@ export enum WebhookEventTypeAsyncEnum {
   /**
    * A new customer type is created.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   CUSTOMER_TYPE_CREATED = 'CUSTOMER_TYPE_CREATED',
   /**
    * A customer type is deleted.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   CUSTOMER_TYPE_DELETED = 'CUSTOMER_TYPE_DELETED',
   /**
    * A customer type is updated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   CUSTOMER_TYPE_UPDATED = 'CUSTOMER_TYPE_UPDATED',
   /** A customer account is updated. */
@@ -9405,7 +9405,7 @@ export enum WebhookEventTypeAsyncEnum {
   NOTIFY_USER = 'NOTIFY_USER',
   /**
    * An observability event is created.
-   * @deprecated The observability feature is no longer supported. This event will be removed in Saleor 3.24.
+   * @deprecated The observability feature is no longer supported. This event will be removed in FSCommerce 3.24.
    */
   OBSERVABILITY = 'OBSERVABILITY',
   /** Orders are imported. */
@@ -9692,19 +9692,19 @@ export enum WebhookEventTypeEnum {
   /**
    * A new customer type is created.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   CUSTOMER_TYPE_CREATED = 'CUSTOMER_TYPE_CREATED',
   /**
    * A customer type is deleted.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   CUSTOMER_TYPE_DELETED = 'CUSTOMER_TYPE_DELETED',
   /**
    * A customer type is updated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   CUSTOMER_TYPE_UPDATED = 'CUSTOMER_TYPE_UPDATED',
   /** A customer account is updated. */
@@ -9762,7 +9762,7 @@ export enum WebhookEventTypeEnum {
   NOTIFY_USER = 'NOTIFY_USER',
   /**
    * An observability event is created.
-   * @deprecated The observability feature is no longer supported. This event will be removed in Saleor 3.24.
+   * @deprecated The observability feature is no longer supported. This event will be removed in FSCommerce 3.24.
    */
   OBSERVABILITY = 'OBSERVABILITY',
   /** Orders are imported. */
@@ -10134,7 +10134,7 @@ export enum WebhookSampleEventTypeEnum {
   MENU_UPDATED = 'MENU_UPDATED',
   /** @deprecated See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/upgrade-guides/core/3-16-to-3-17#migrating-from-notify_user */
   NOTIFY_USER = 'NOTIFY_USER',
-  /** @deprecated The observability feature is no longer supported. This event will be removed in Saleor 3.24. */
+  /** @deprecated The observability feature is no longer supported. This event will be removed in FSCommerce 3.24. */
   OBSERVABILITY = 'OBSERVABILITY',
   ORDER_BULK_CREATED = 'ORDER_BULK_CREATED',
   ORDER_CANCELLED = 'ORDER_CANCELLED',
@@ -10249,7 +10249,7 @@ export type WebhookUpdateInput = {
   /**
    * The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters. Pass a blank value to clear it.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   identifier?: InputMaybe<Scalars['String']['input']>;
   /** Determine if webhook will be set active or not. */
@@ -10260,7 +10260,7 @@ export type WebhookUpdateInput = {
   query?: InputMaybe<Scalars['String']['input']>;
   /**
    * Use to create a hash signature with each payload.
-   * @deprecated As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+   * @deprecated As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.
    */
   secretKey?: InputMaybe<Scalars['String']['input']>;
   /** The synchronous events that webhook wants to subscribe. */

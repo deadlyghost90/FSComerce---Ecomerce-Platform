@@ -27,13 +27,13 @@ describe("getNewPasswordResetRedirectUrl", () => {
 });
 
 describe("getExternalAuthenticationMethodName", () => {
-  it("returns Saleor Cloud label when cloud plugin is provided", () => {
+  it("returns FSCommerce Cloud label when cloud plugin is provided", () => {
     const result = getExternalAuthenticationMethodName({
       pluginId: CLOUD_PLUGIN_ID,
       intl: testIntlInstance,
     });
 
-    expect(result).toBe("Continue with Saleor Cloud");
+    expect(result).toBe("Continue with FSCommerce Cloud");
   });
 
   it("returns SSO label when SSO plugin is provided", () => {

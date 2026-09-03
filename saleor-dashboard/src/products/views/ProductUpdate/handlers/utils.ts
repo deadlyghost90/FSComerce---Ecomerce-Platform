@@ -78,7 +78,7 @@ export function getProductUpdateVariables(
   }
 
   if (data.taxClassId !== undefined) {
-    // Empty string clears the product override so Saleor falls back to the product type.
+    // Empty string clears the product override so FSCommerce falls back to the product type.
     variables.input["taxClass"] = data.taxClassId || null;
   }
 
@@ -127,7 +127,7 @@ export function getProductChannelsUpdateVariables(
   data.channels.updateChannels
     .map(listing => {
       // Always include date fields - they're needed for scheduling
-      // Saleor's scheduling works by: isPublished=true + publishedAt=futureDate
+      // FSCommerce's scheduling works by: isPublished=true + publishedAt=futureDate
       // Similarly: isAvailableForPurchase=true + availableForPurchaseAt=futureDate
       const fieldsToPick = [
         "channelId",

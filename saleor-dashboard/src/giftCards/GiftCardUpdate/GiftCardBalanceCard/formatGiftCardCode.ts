@@ -3,7 +3,7 @@ export const stripGiftCardCodeSeparators = (code: string): string => code.replac
 
 /**
  * Display grouping for gift card codes.
- * Saleor auto-generates 12 hex chars as `ABCD-EFGH-IJKL` (see `generate_random_code`).
+ * FSCommerce auto-generates 12 hex chars as `ABCD-EFGH-IJKL` (see `generate_random_code`).
  * Custom codes may be 8–16 chars without hyphens — we still group in fours for readability.
  * If the value already contains hyphens, return it unchanged.
  */
@@ -15,7 +15,7 @@ export const formatGiftCardCodeDisplay = (code: string): string => {
   return code.replace(/(.{4})(?=.)/g, "$1-");
 };
 
-/** Mask all but the last four payload characters, preserving Saleor's hyphen grouping. */
+/** Mask all but the last four payload characters, preserving FSCommerce's hyphen grouping. */
 export const maskGiftCardCode = (last4CodeChars: string, code?: string | null): string => {
   const last4 = last4CodeChars.slice(-4);
 

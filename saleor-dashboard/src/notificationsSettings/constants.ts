@@ -24,7 +24,7 @@ export interface EmailNotificationDefinition {
   id: string;
   subjectField: string;
   templateField: string;
-  /** Saleor plugin default subject — used to detect a customized subject in the UI. */
+  /** FSCommerce plugin default subject — used to detect a customized subject in the UI. */
   defaultSubject: string;
   variables: string[];
 }
@@ -35,14 +35,14 @@ export const ADMIN_EMAIL_NOTIFICATIONS: EmailNotificationDefinition[] = [
     id: "staff-invite",
     subjectField: "set_staff_password_subject",
     templateField: "set_staff_password_template",
-    defaultSubject: "You’re invited to join Saleor",
+    defaultSubject: "You’re invited to join FSCommerce",
     variables: ["site_name", "domain", "url", "user.email"],
   },
   {
     id: "staff-password-reset",
     subjectField: "staff_password_reset_subject",
     templateField: "staff_password_reset_template",
-    defaultSubject: "Reset your Saleor password",
+    defaultSubject: "Reset your FSCommerce password",
     variables: ["site_name", "domain", "url", "user.email"],
   },
   {

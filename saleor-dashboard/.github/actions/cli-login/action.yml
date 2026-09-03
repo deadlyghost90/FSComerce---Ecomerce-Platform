@@ -1,5 +1,5 @@
-name: Saleor CLI login
-description: Install the pinned Saleor CLI and log in to staging Saleor Cloud
+name: FSCommerce CLI login
+description: Install the pinned FSCommerce CLI and log in to staging FSCommerce Cloud
 inputs:
   token:
     description: "Cloud access token"
@@ -8,7 +8,7 @@ runs:
   using: "composite"
   steps:
     # Version is pinned in .github/scripts/package.json - never resolve "latest" at runtime.
-    - name: Install Saleor CLI
+    - name: Install FSCommerce CLI
       shell: bash
       working-directory: .github/scripts
       run: |
@@ -23,4 +23,4 @@ runs:
       run: |
         jq --null-input \
            --arg token "Token $ACCESS_TOKEN" \
-           '{"token":$token,"telemetry":"false","saleor_env":"staging","cloud_api_url":"https://cloud.staging.saleor.io/platform/api","organization_slug":"saleor","organization_name":"Saleor"}' > ~/.config/saleor.json
+           '{"token":$token,"telemetry":"false","saleor_env":"staging","cloud_api_url":"https://cloud.staging.saleor.io/platform/api","organization_slug":"saleor","organization_name":"FSCommerce"}' > ~/.config/saleor.json

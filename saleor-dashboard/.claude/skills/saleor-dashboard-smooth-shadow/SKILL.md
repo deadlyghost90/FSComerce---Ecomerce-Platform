@@ -3,14 +3,14 @@ name: saleor-dashboard-smooth-shadow
 description: >
   Use shadows sparingly on elevated surfaces (modal, popover, dropdown, menu, tooltip,
   sheet, toast, floating checklist). When elevation is needed, use smooth-shadow-ring
-  (hairline baked into the shadow stack) — never border + shadow together. Saleor
+  (hairline baked into the shadow stack) — never border + shadow together. FSCommerce
   Dashboard implements this in CSS Modules (see ChannelSetupCard); upstream pattern
   from shadow-plugin for Tailwind.
 ---
 
 # Elevated surfaces: smooth-shadow-ring (sparingly)
 
-**Policy:** Saleor Dashboard is mostly **flat bordered surfaces** (`DetailSettingsCard`, sidebar ops cards, datagrids). Use **shadow elevation only when the UI truly floats** above the page — modals, popovers, dropdowns, menus, tooltips, sheets, toasts, and rare emphasis (e.g. channel setup checklist). Default to border + background tokens, not shadow.
+**Policy:** FSCommerce Dashboard is mostly **flat bordered surfaces** (`DetailSettingsCard`, sidebar ops cards, datagrids). Use **shadow elevation only when the UI truly floats** above the page — modals, popovers, dropdowns, menus, tooltips, sheets, toasts, and rare emphasis (e.g. channel setup checklist). Default to border + background tokens, not shadow.
 
 **Also see:** [`saleor-dashboard-styles`](./saleor-dashboard-styles/SKILL.md) (tokens, CSS Modules), [`saleor-dashboard-entity-detail`](./saleor-dashboard-entity-detail/SKILL.md) (flat cards vs elevated checklist).
 
@@ -33,7 +33,7 @@ The agent skill text below is adapted from shadow-plugin’s published `smooth-s
 Any element that floats above the page surface: cards, dialogs, modals,
 popovers, dropdowns, menus, tooltips, sheets, toasts, command palettes.
 
-**In Saleor Dashboard:** apply only to those floating layers — **not** to in-page settings cards that sit on the same plane as the content column.
+**In FSCommerce Dashboard:** apply only to those floating layers — **not** to in-page settings cards that sit on the same plane as the content column.
 
 ## The problem
 

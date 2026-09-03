@@ -8,8 +8,8 @@ export const messages = defineMessages({
   },
   intro: {
     id: "T0lfLH",
-    defaultMessage: "Define where this attribute should be used in Saleor system",
-    description: "Define where this attribute should be used in Saleor system",
+    defaultMessage: "Define where this attribute should be used in FSCommerce system",
+    description: "Define where this attribute should be used in FSCommerce system",
   },
   productDescription: {
     id: "43LfOB",

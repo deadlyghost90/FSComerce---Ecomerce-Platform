@@ -56,7 +56,7 @@
 
 - [#6879](https://github.com/saleor/saleor-dashboard/pull/6879) [`255a40f`](https://github.com/saleor/saleor-dashboard/commit/255a40f202cb828beaba2573be0ca3ea0042e686) Thanks [@mirekm](https://github.com/mirekm)! - General update of the main lists filtering component.
 
-  Filters on product, customer, and other lists now open as a foldable panel. Search uses the same bordered field, with syntax hints where Saleor supports them.
+  Filters on product, customer, and other lists now open as a foldable panel. Search uses the same bordered field, with syntax hints where FSCommerce supports them.
 
   Product and variant reference filters show chips with thumbnails; variant choices are grouped under their product. Color (swatch) attributes use a color preview instead of a plain list.
 
@@ -78,7 +78,7 @@
   and paste a link to an externally hosted image, or paste the link straight into
   the editor.
 
-  Uploading files to Saleor media storage is not supported yet, so dragging,
+  Uploading files to FSCommerce media storage is not supported yet, so dragging,
   dropping or pasting an image file does nothing.
 
   Note: storefronts and other API clients that render rich text content need to
@@ -135,7 +135,7 @@
 
   The customer detail page has been reorganized around this: the header carries status, type, and member-since; the main column shows channel-scoped order KPIs, recent orders, and attributes; contact details, addresses, external reference, and gift cards sit in the sidebar. Recent orders rows are clickable across the full row.
 
-- [#6843](https://github.com/saleor/saleor-dashboard/pull/6843) [`21f82cd`](https://github.com/saleor/saleor-dashboard/commit/21f82cd3f98ba03f6a404ec10cadf1c16e7db8da) Thanks [@lkostrowski](https://github.com/lkostrowski)! - The "Filterable in storefront" attribute setting is now marked as deprecated. A `DEPRECATED` badge next to the setting explains, on hover, that the field will be removed in Saleor 3.24 and that attribute metadata should be used instead.
+- [#6843](https://github.com/saleor/saleor-dashboard/pull/6843) [`21f82cd`](https://github.com/saleor/saleor-dashboard/commit/21f82cd3f98ba03f6a404ec10cadf1c16e7db8da) Thanks [@lkostrowski](https://github.com/lkostrowski)! - The "Filterable in storefront" attribute setting is now marked as deprecated. A `DEPRECATED` badge next to the setting explains, on hover, that the field will be removed in FSCommerce 3.24 and that attribute metadata should be used instead.
 
   Dashboard builds running against the staging schema (`FF_USE_STAGING_SCHEMA=true`) already drop the setting entirely: the toggle and its "Position in faceted navigation" field, the "Use in faceted search" column in the attribute list, and the "Filterable in Storefront" filter are hidden, and neither `filterableInStorefront` nor `storefrontSearchPosition` is sent when creating or updating an attribute.
 
@@ -191,7 +191,7 @@
 
   Your own pins are listed under Navigation pins on your account page, where you can remove them at any time.
 
-- [#6837](https://github.com/saleor/saleor-dashboard/pull/6837) [`1bff02e`](https://github.com/saleor/saleor-dashboard/commit/1bff02ee2f76b58270697a62e919540d14416e84) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Preorder is no longer part of the Dashboard UI. The preorder API is deprecated in Saleor Core and will be removed, so the Dashboard no longer reads or writes any preorder field: variant forms no longer send preorder settings or per-channel preorder thresholds, the "End preorder" dialog is gone, and order fulfillment and return screens no longer show the "still in preorder" warning. Preorder variants created through the API keep working — Core still blocks fulfilling them, and the Dashboard now surfaces that as an error message. To model pre-sales, create the planned quantity in a warehouse or turn off `trackInventory` to sell without a stock limit.
+- [#6837](https://github.com/saleor/saleor-dashboard/pull/6837) [`1bff02e`](https://github.com/saleor/saleor-dashboard/commit/1bff02ee2f76b58270697a62e919540d14416e84) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Preorder is no longer part of the Dashboard UI. The preorder API is deprecated in FSCommerce Core and will be removed, so the Dashboard no longer reads or writes any preorder field: variant forms no longer send preorder settings or per-channel preorder thresholds, the "End preorder" dialog is gone, and order fulfillment and return screens no longer show the "still in preorder" warning. Preorder variants created through the API keep working — Core still blocks fulfilling them, and the Dashboard now surfaces that as an error message. To model pre-sales, create the planned quantity in a warehouse or turn off `trackInventory` to sell without a stock limit.
 
 ## 3.23.26
 
@@ -269,7 +269,7 @@
 
   Pickers now keep loading until they have rows to show. This covers collection products, voucher products/categories/collections, reference attribute values, product stock warehouses, and adding products to an order. Product pickers also gained **Select all visible products**.
 
-- [#6792](https://github.com/saleor/saleor-dashboard/pull/6792) [`c94a753`](https://github.com/saleor/saleor-dashboard/commit/c94a753f4e92186c6fd2e7e175ddc1e3fc568db5) Thanks [@mirekm](https://github.com/mirekm)! - Homepage empty state softly promotes Saleor Pulse with a product preview video and install CTA. A dismissible bottom-left video announcement (ripple-backed) also introduces Pulse across the Dashboard.
+- [#6792](https://github.com/saleor/saleor-dashboard/pull/6792) [`c94a753`](https://github.com/saleor/saleor-dashboard/commit/c94a753f4e92186c6fd2e7e175ddc1e3fc568db5) Thanks [@mirekm](https://github.com/mirekm)! - Homepage empty state softly promotes FSCommerce Pulse with a product preview video and install CTA. A dismissible bottom-left video announcement (ripple-backed) also introduces Pulse across the Dashboard.
 
 - [#6801](https://github.com/saleor/saleor-dashboard/pull/6801) [`02abf9d`](https://github.com/saleor/saleor-dashboard/commit/02abf9dd7f7b28477ba4b8f764c31f94be4e8238) Thanks [@mirekm](https://github.com/mirekm)! - Fixed a 1px gap where the save bar border did not line up with detail page sidebars (for example on channel settings).
 
@@ -297,7 +297,7 @@
 
 - [#6786](https://github.com/saleor/saleor-dashboard/pull/6786) [`dd8da38`](https://github.com/saleor/saleor-dashboard/commit/dd8da3897e7dd619a67c46f94f4f3c5e888d034f) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Configuration → Store settings now has an **API access** section with an **Allow storefront traffic** toggle, sitting between Customer accounts and Advanced.
 
-  When the toggle is on (the default), anonymous clients and signed-in customers can call the GraphQL API directly. Turning it off restricts the API to apps and staff users — every other request is rejected with HTTP 401. Turning it off also shows what stops working: customer login and password reset, anonymous browsing and guest checkout, and schema introspection without app or staff credentials. Requires Saleor 3.23.
+  When the toggle is on (the default), anonymous clients and signed-in customers can call the GraphQL API directly. Turning it off restricts the API to apps and staff users — every other request is rejected with HTTP 401. Turning it off also shows what stops working: customer login and password reset, anonymous browsing and guest checkout, and schema introspection without app or staff credentials. Requires FSCommerce 3.23.
 
 ## 3.23.20
 
@@ -307,7 +307,7 @@
 
 - [#6782](https://github.com/saleor/saleor-dashboard/pull/6782) [`f31967a`](https://github.com/saleor/saleor-dashboard/commit/f31967ae39bd015056aec72a519d41334eced5f3) Thanks [@mirekm](https://github.com/mirekm)! - Fixed a stray "0" showing under Order value when a gift card was attached to the order but no balance was used.
 
-- [#6778](https://github.com/saleor/saleor-dashboard/pull/6778) [`afd4c35`](https://github.com/saleor/saleor-dashboard/commit/afd4c3564116db9ca19020425f1cbaa0c3549e61) Thanks [@wcislo-saleor](https://github.com/wcislo-saleor)! - Product media images no longer require a page refresh when the thumbnail is still being generated. Previously, when Saleor was not yet ready to serve an image, the dashboard showed a permanent "Image could not be loaded" fallback until the page was refreshed manually. Now the image is retried automatically with exponential backoff and appears as soon as it becomes available.
+- [#6778](https://github.com/saleor/saleor-dashboard/pull/6778) [`afd4c35`](https://github.com/saleor/saleor-dashboard/commit/afd4c3564116db9ca19020425f1cbaa0c3549e61) Thanks [@wcislo-saleor](https://github.com/wcislo-saleor)! - Product media images no longer require a page refresh when the thumbnail is still being generated. Previously, when FSCommerce was not yet ready to serve an image, the dashboard showed a permanent "Image could not be loaded" fallback until the page was refreshed manually. Now the image is retried automatically with exponential backoff and appears as soon as it becomes available.
 
 - [#6780](https://github.com/saleor/saleor-dashboard/pull/6780) [`2b8944d`](https://github.com/saleor/saleor-dashboard/commit/2b8944da43c5fd2864e92c7adecee0813c8dd944) Thanks [@mirekm](https://github.com/mirekm)! - Homepage fullscreen widgets (e.g. Pulse) now render edge-to-edge under the tabs, without the previous content inset.
 
@@ -332,7 +332,7 @@
 
 - [#6762](https://github.com/saleor/saleor-dashboard/pull/6762) [`e49c816`](https://github.com/saleor/saleor-dashboard/commit/e49c816869c2bf13f5faeef8753d8a1e43fea26c) Thanks [@mirekm](https://github.com/mirekm)! - Fixed product variant channel price being reset to 0 when availability was turned off and back on before saving. The original price is now kept when re-enabling availability in the same edit session.
 
-- [#6767](https://github.com/saleor/saleor-dashboard/pull/6767) [`0bf4beb`](https://github.com/saleor/saleor-dashboard/commit/0bf4beb95aed35ff62833054f4d6cd3efd25b215) Thanks [@mirekm](https://github.com/mirekm)! - Reverted the client-side product media file size pre-check introduced in the media management improvements. Oversized images are no longer blocked in the browser before upload; Saleor Core enforces the configured size limit.
+- [#6767](https://github.com/saleor/saleor-dashboard/pull/6767) [`0bf4beb`](https://github.com/saleor/saleor-dashboard/commit/0bf4beb95aed35ff62833054f4d6cd3efd25b215) Thanks [@mirekm](https://github.com/mirekm)! - Reverted the client-side product media file size pre-check introduced in the media management improvements. Oversized images are no longer blocked in the browser before upload; FSCommerce Core enforces the configured size limit.
 
 ## 3.23.18
 
@@ -413,7 +413,7 @@
 
 - [#6703](https://github.com/saleor/saleor-dashboard/pull/6703) [`f26158a`](https://github.com/saleor/saleor-dashboard/commit/f26158a7e1a404f3b21e447c192353a44fc456a3) Thanks [@mirekm](https://github.com/mirekm)! - Customer profiles now show channel-scoped order statistics: total orders, recent net sales, and average order value. Net sales use product revenue after discounts and exclude shipping and tax; hover the amount for shipping and refund details from the same orders. The recent orders table shows net and gross amounts per order, with a hint explaining how net relates to the overview figures.
 
-- [#6716](https://github.com/saleor/saleor-dashboard/pull/6716) [`ce87ab7`](https://github.com/saleor/saleor-dashboard/commit/ce87ab711dfa71f5ab8cc7f1350cb856d8eecfc1) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Removed the "Used by" column from the gift cards list and the "Used by" field from the gift card details page. These relied on the `GiftCard.usedBy` / `usedByEmail` API fields, which have been deprecated and no longer behave as intended since Saleor 3.14 — `usedBy` became mutable and points to the last usage rather than a reliable single user, so the displayed value was misleading. Filtering gift cards by the customer who used them is unaffected.
+- [#6716](https://github.com/saleor/saleor-dashboard/pull/6716) [`ce87ab7`](https://github.com/saleor/saleor-dashboard/commit/ce87ab711dfa71f5ab8cc7f1350cb856d8eecfc1) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Removed the "Used by" column from the gift cards list and the "Used by" field from the gift card details page. These relied on the `GiftCard.usedBy` / `usedByEmail` API fields, which have been deprecated and no longer behave as intended since FSCommerce 3.14 — `usedBy` became mutable and points to the last usage rather than a reliable single user, so the displayed value was misleading. Filtering gift cards by the customer who used them is unaffected.
 
 - [#6700](https://github.com/saleor/saleor-dashboard/pull/6700) [`260b3ab`](https://github.com/saleor/saleor-dashboard/commit/260b3ab37891d59443717d3b2306b0e848e6d893) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Fixed a flash on the homepage where an empty "Welcome" screen briefly appeared before the app extension tabs and widgets loaded on every page refresh. The homepage now caches the last-known extensions locally and renders their tabs immediately on load while refreshing in the background. On the very first load (before anything is cached) the page stays blank until extensions resolve, instead of flashing the "Welcome" message.
 
@@ -427,7 +427,7 @@
 
 ### Patch Changes
 
-- [#6677](https://github.com/saleor/saleor-dashboard/pull/6677) [`5e69e80`](https://github.com/saleor/saleor-dashboard/commit/5e69e808916da6a9186d5579e522546937409fdb) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added shop announcements to the Dashboard. Announcements configured on your Saleor instance are now shown at the top of every page, grouped by severity (critical, warning and informational) with the most important ones first.
+- [#6677](https://github.com/saleor/saleor-dashboard/pull/6677) [`5e69e80`](https://github.com/saleor/saleor-dashboard/commit/5e69e808916da6a9186d5579e522546937409fdb) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added shop announcements to the Dashboard. Announcements configured on your FSCommerce instance are now shown at the top of every page, grouped by severity (critical, warning and informational) with the most important ones first.
 
 - [#6675](https://github.com/saleor/saleor-dashboard/pull/6675) [`7a5ed0b`](https://github.com/saleor/saleor-dashboard/commit/7a5ed0be45c71b2b72f6eea70f394a499c2ca8a2) Thanks [@lkostrowski](https://github.com/lkostrowski)! - On the order page, a transaction's Capture and Cancel actions are now disabled while a previous capture or cancel request for that transaction is still being processed by the payment app. The button shows a spinner and an "in progress" label, and becomes available again once the action succeeds or fails. Previously you could trigger the same action multiple times before the first one resolved.
 
@@ -539,13 +539,13 @@
 
 ### Patch Changes
 
-- [#6604](https://github.com/saleor/saleor-dashboard/pull/6604) [`3f7e21d`](https://github.com/saleor/saleor-dashboard/commit/3f7e21db9af16ec2e3acc2ca1d3510d9f3f128d1) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added a deprecation banner in the sidebar that warns when the connected Saleor instance runs a deprecated version. When the connected version is the same or older than the configured `DEPRECATED_SALEOR_VERSION` (compared on major and minor), a banner appears below the Saleor logo informing users that the instance will be automatically upgraded on the date set in `DEPRECATED_SALEOR_VERSION_TIMESTAMP`. The banner is shown only when both environment variables are set and valid.
+- [#6604](https://github.com/saleor/saleor-dashboard/pull/6604) [`3f7e21d`](https://github.com/saleor/saleor-dashboard/commit/3f7e21db9af16ec2e3acc2ca1d3510d9f3f128d1) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added a deprecation banner in the sidebar that warns when the connected FSCommerce instance runs a deprecated version. When the connected version is the same or older than the configured `DEPRECATED_SALEOR_VERSION` (compared on major and minor), a banner appears below the FSCommerce logo informing users that the instance will be automatically upgraded on the date set in `DEPRECATED_SALEOR_VERSION_TIMESTAMP`. The banner is shown only when both environment variables are set and valid.
 
 - [#6614](https://github.com/saleor/saleor-dashboard/pull/6614) [`6f3d073`](https://github.com/saleor/saleor-dashboard/commit/6f3d073320124b2f15e7bc7ee9b29964ca55d19c) Thanks [@mirekm](https://github.com/mirekm)! - Fixed the rich text editor (e.g. product description) duplicating its content on load and then becoming empty and non-editable. This happened in development due to the editor being initialized twice; it now mounts a single editor instance.
 
 - [#6568](https://github.com/saleor/saleor-dashboard/pull/6568) [`2ae78ff`](https://github.com/saleor/saleor-dashboard/commit/2ae78ff3b0e21bd3e67de9a2d96366c01a1fa23c) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Models list now organizes content by model type using horizontal tabs. The previous filter UI and filter presets on this page were removed — the active tab is the type filter. Each tab shows a count badge (e.g. "5" or "20+" when more than one page is available).
 
-- [#6608](https://github.com/saleor/saleor-dashboard/pull/6608) [`a927321`](https://github.com/saleor/saleor-dashboard/commit/a927321de8e4196ffd31886a7bd4990c374812f6) Thanks [@mirekm](https://github.com/mirekm)! - Product media edit page improvements: breadcrumb title with product name and media type, viewport-sized preview for images and embedded videos, and per-media metadata from a header button (same dialog pattern as product and variant). Metadata dialogs and other buttons using the shared save loader now show the Saleor throbber instead of a generic spinner.
+- [#6608](https://github.com/saleor/saleor-dashboard/pull/6608) [`a927321`](https://github.com/saleor/saleor-dashboard/commit/a927321de8e4196ffd31886a7bd4990c374812f6) Thanks [@mirekm](https://github.com/mirekm)! - Product media edit page improvements: breadcrumb title with product name and media type, viewport-sized preview for images and embedded videos, and per-media metadata from a header button (same dialog pattern as product and variant). Metadata dialogs and other buttons using the shared save loader now show the FSCommerce throbber instead of a generic spinner.
 
 - [#6608](https://github.com/saleor/saleor-dashboard/pull/6608) [`a927321`](https://github.com/saleor/saleor-dashboard/commit/a927321de8e4196ffd31886a7bd4990c374812f6) Thanks [@mirekm](https://github.com/mirekm)! - Improved product image gallery on the product details page:
   - Minimal drag-and-drop upload area when the gallery is empty, with a clear overlay when adding images to an existing gallery
@@ -595,7 +595,7 @@
   - `protobufjs` — Prototype injection in generated message ([GHSA-fx83-v9x8-x52w](https://github.com/advisories/GHSA-fx83-v9x8-x52w))
   - `@protobufjs/utf8` / `protobufjs` — Overlong UTF-8 decoding ([GHSA-q6x5-8v7m-xcrf](https://github.com/advisories/GHSA-q6x5-8v7m-xcrf))
 
-- [#6548](https://github.com/saleor/saleor-dashboard/pull/6548) [`94487d7`](https://github.com/saleor/saleor-dashboard/commit/94487d7b73e7e8e9323155603ce0b2017071919b) Thanks [@mirekm](https://github.com/mirekm)! - Variant page: align channel-availability and stock copy with the Saleor 3.23 stock-availability modes.
+- [#6548](https://github.com/saleor/saleor-dashboard/pull/6548) [`94487d7`](https://github.com/saleor/saleor-dashboard/commit/94487d7b73e7e8e9323155603ce0b2017071919b) Thanks [@mirekm](https://github.com/mirekm)! - Variant page: align channel-availability and stock copy with the FSCommerce 3.23 stock-availability modes.
   - The "Availability" card subtitle on the variant detail page now reads "Listed in N of M channels", so it isn't misread as a statement about whether customers can buy the variant. It counts channel listings, not stock availability.
   - The inventory section now shows a short footnote beneath the per-warehouse stock table explaining how the active stock-availability mode (legacy shipping-zone filtering vs. the new direct warehouse-channel link) determines whether a customer in a given channel actually sees this stock.
 
@@ -619,17 +619,17 @@
 
 ### Patch Changes
 
-- [#6549](https://github.com/saleor/saleor-dashboard/pull/6549) [`53474a0`](https://github.com/saleor/saleor-dashboard/commit/53474a00566363d6164023201a70fb32aa2f7b19) Thanks [@mirekm](https://github.com/mirekm)! - Webhook event picker: warn admins about Saleor 3.23 channel-scoped stock events.
+- [#6549](https://github.com/saleor/saleor-dashboard/pull/6549) [`53474a0`](https://github.com/saleor/saleor-dashboard/commit/53474a00566363d6164023201a70fb32aa2f7b19) Thanks [@mirekm](https://github.com/mirekm)! - Webhook event picker: warn admins about FSCommerce 3.23 channel-scoped stock events.
 
-  The four `PRODUCT_VARIANT_BACK_IN_STOCK_*` / `PRODUCT_VARIANT_OUT_OF_STOCK_*` events introduced in Saleor 3.23 fire only when the shop has the legacy shipping-zone stock-availability setting disabled. They were already exposed in the picker (auto-derived from the schema), but admins on shops still in legacy mode could subscribe with no visual cue and silently never receive deliveries. Each of those four events now shows an advisory "Direct stock mode only" badge with a tooltip linking to the site-settings page where the flag is configured. Adds a regression test pinning the four events to the `PRODUCT_VARIANT` group, and a comment in `ExcludedDocumentKeys` documenting that the dry-run feature already covers them transitively via prefix matching.
+  The four `PRODUCT_VARIANT_BACK_IN_STOCK_*` / `PRODUCT_VARIANT_OUT_OF_STOCK_*` events introduced in FSCommerce 3.23 fire only when the shop has the legacy shipping-zone stock-availability setting disabled. They were already exposed in the picker (auto-derived from the schema), but admins on shops still in legacy mode could subscribe with no visual cue and silently never receive deliveries. Each of those four events now shows an advisory "Direct stock mode only" badge with a tooltip linking to the site-settings page where the flag is configured. Adds a regression test pinning the four events to the `PRODUCT_VARIANT` group, and a comment in `ExcludedDocumentKeys` documenting that the dry-run feature already covers them transitively via prefix matching.
 
 - [#6546](https://github.com/saleor/saleor-dashboard/pull/6546) [`c305dd4`](https://github.com/saleor/saleor-dashboard/commit/c305dd4b93494312b2c60cfc26091ffda22a2153) Thanks [@mirekm](https://github.com/mirekm)! - ProductDoctor: Add mode-aware reassurance under public-API verification badge and tighten ambiguous diagnostic copy
 
 - [#6557](https://github.com/saleor/saleor-dashboard/pull/6557) [`6589b54`](https://github.com/saleor/saleor-dashboard/commit/6589b54bc9a746d083da3185c9abe51ce0254122) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Removed deprecated @reach/auto-id dependency and replaced it with built-in React useId hook. This is purely technical change.
 
-- [#6547](https://github.com/saleor/saleor-dashboard/pull/6547) [`764b4f9`](https://github.com/saleor/saleor-dashboard/commit/764b4f9f11ba2d87d82b6c35a97e9ebfc8bf68ce) Thanks [@mirekm](https://github.com/mirekm)! - ProductDoctor: Group channel issues by purchasability vs shipping to mirror Saleor 3.23 stock-availability semantics
+- [#6547](https://github.com/saleor/saleor-dashboard/pull/6547) [`764b4f9`](https://github.com/saleor/saleor-dashboard/commit/764b4f9f11ba2d87d82b6c35a97e9ebfc8bf68ce) Thanks [@mirekm](https://github.com/mirekm)! - ProductDoctor: Group channel issues by purchasability vs shipping to mirror FSCommerce 3.23 stock-availability semantics
 
-- [#6545](https://github.com/saleor/saleor-dashboard/pull/6545) [`029f589`](https://github.com/saleor/saleor-dashboard/commit/029f589c0d10e3afd5e4879b862019e2868e3bad) Thanks [@mirekm](https://github.com/mirekm)! - ProductDoctor: Add support for new availability mode introduced in Saleor 3.23
+- [#6545](https://github.com/saleor/saleor-dashboard/pull/6545) [`029f589`](https://github.com/saleor/saleor-dashboard/commit/029f589c0d10e3afd5e4879b862019e2868e3bad) Thanks [@mirekm](https://github.com/mirekm)! - ProductDoctor: Add support for new availability mode introduced in FSCommerce 3.23
 
 ## 3.23.3
 
@@ -683,7 +683,7 @@
 
 - [#6476](https://github.com/saleor/saleor-dashboard/pull/6476) [`465f952`](https://github.com/saleor/saleor-dashboard/commit/465f952416b1c331e76ade8484a9cc670a14acc1) Thanks [@wcislo-saleor](https://github.com/wcislo-saleor)! - Fix displaying gift card payment method details in order view.
 
-- [#6396](https://github.com/saleor/saleor-dashboard/pull/6396) [`6cbec4c`](https://github.com/saleor/saleor-dashboard/commit/6cbec4c91366804303808421a0d350159979116b) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added support for displaying transactions' payment method details - for gift cards. Now both Saleor built-in gift cards and apps that reported gift card payment will have dedicated display in order view
+- [#6396](https://github.com/saleor/saleor-dashboard/pull/6396) [`6cbec4c`](https://github.com/saleor/saleor-dashboard/commit/6cbec4c91366804303808421a0d350159979116b) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added support for displaying transactions' payment method details - for gift cards. Now both FSCommerce built-in gift cards and apps that reported gift card payment will have dedicated display in order view
 
 - [#6451](https://github.com/saleor/saleor-dashboard/pull/6451) [`6775911`](https://github.com/saleor/saleor-dashboard/commit/677591175850e34f81bd881ccf645e32c8ef3a2a) Thanks [@mirekm](https://github.com/mirekm)! - Fix discount content display in the order timeline
 
@@ -792,7 +792,7 @@ TODO
 
 - [#6355](https://github.com/saleor/saleor-dashboard/pull/6355) [`80b93f6`](https://github.com/saleor/saleor-dashboard/commit/80b93f6d79fd7f54d46b0609d6bd927ce4e4a20d) Thanks [@IKarbowiak](https://github.com/IKarbowiak)! - Added "Address Validation" setting to the site settings page, allowing admins to preserve address fields that fall outside a country's standard format instead of having them removed during validation.
 
-  Requires Saleor [3.22.38](https://github.com/saleor/saleor/releases/tag/3.22.38)
+  Requires FSCommerce [3.22.38](https://github.com/saleor/saleor/releases/tag/3.22.38)
 
 - [#6350](https://github.com/saleor/saleor-dashboard/pull/6350) [`51575d1`](https://github.com/saleor/saleor-dashboard/commit/51575d12910355e23c1982a7836bf15083d45a1a) Thanks [@IKarbowiak](https://github.com/IKarbowiak)! - Extend site settings with webhook emission section - allow changing `useLegacyUpdateWebhookEmission` flag
 
@@ -806,10 +806,10 @@ TODO
 
 - [#6363](https://github.com/saleor/saleor-dashboard/pull/6363) [`1d78e48`](https://github.com/saleor/saleor-dashboard/commit/1d78e48300a47e832b37ba8be8b780ca053f13a0) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added a hint (Ripple) on the installed extensions page to notify users about the new app problems feature, which shows issues with apps directly in the extensions list.
 
-- [#6283](https://github.com/saleor/saleor-dashboard/pull/6283) [`fca0cbf`](https://github.com/saleor/saleor-dashboard/commit/fca0cbf41abc46b5f05da3d607bbfecc6cd62b00) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added app problems display to the installed extensions list. Each app now shows reported problems with severity badges, timestamps, and dismissal support. The "Open the app" action link is only shown for third-party apps. Requires Saleor 3.22+.
+- [#6283](https://github.com/saleor/saleor-dashboard/pull/6283) [`fca0cbf`](https://github.com/saleor/saleor-dashboard/commit/fca0cbf41abc46b5f05da3d607bbfecc6cd62b00) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Added app problems display to the installed extensions list. Each app now shows reported problems with severity badges, timestamps, and dismissal support. The "Open the app" action link is only shown for third-party apps. Requires FSCommerce 3.22+.
 
   :::warning
-  This release _requires_ Saleor core [`3.22.36`](https://github.com/saleor/saleor/releases/tag/3.22.36). Used with older version, Extensions page will break
+  This release _requires_ FSCommerce core [`3.22.36`](https://github.com/saleor/saleor/releases/tag/3.22.36). Used with older version, Extensions page will break
   :::
 
 ## 3.22.32
@@ -818,7 +818,7 @@ TODO
 
 - [#6340](https://github.com/saleor/saleor-dashboard/pull/6340) [`ccc005a`](https://github.com/saleor/saleor-dashboard/commit/ccc005a715c5834291630ad19c3808f30fa6593a) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Fixed debugging messages (warnings in browser console) where Dashboard confused actions from 3rd party, like browser extensions signals with AppBridge actions. Now warnings should only occur, when proper frame is sent, but with invalid events inside
 
-- [#6323](https://github.com/saleor/saleor-dashboard/pull/6323) [`85e7f3f`](https://github.com/saleor/saleor-dashboard/commit/85e7f3f81e7f9c534ff7a8e9f87d9ed3a1d93cd4) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Added new e2e tests for Saleor apps deployed in staging environment (internal). They check if app loads correctly and displays its settings
+- [#6323](https://github.com/saleor/saleor-dashboard/pull/6323) [`85e7f3f`](https://github.com/saleor/saleor-dashboard/commit/85e7f3f81e7f9c534ff7a8e9f87d9ed3a1d93cd4) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Added new e2e tests for FSCommerce apps deployed in staging environment (internal). They check if app loads correctly and displays its settings
 
 - [#6254](https://github.com/saleor/saleor-dashboard/pull/6254) [`a0011cc`](https://github.com/saleor/saleor-dashboard/commit/a0011cc9bc7f23deca89df61eeaaffd358e495ab) Thanks [@iharshyadav](https://github.com/iharshyadav)! - Fix product export with "Current search" filter option. The export mutation now correctly includes filter parameters when exporting products with the "Current search" scope, allowing users to export only filtered products as intended.
 
@@ -968,7 +968,7 @@ TODO
 
 - [#6233](https://github.com/saleor/saleor-dashboard/pull/6233) [`e5b2c3c`](https://github.com/saleor/saleor-dashboard/commit/e5b2c3c634c2ea46a31b31d5291e03231e7ade1e) Thanks [@mirekm](https://github.com/mirekm)! - Fixed info icon sizing and alignment in Product details view attributes. Info icons are now consistently small (16px) and properly aligned with text labels.
 
-- [#6225](https://github.com/saleor/saleor-dashboard/pull/6225) [`f7ef997`](https://github.com/saleor/saleor-dashboard/commit/f7ef9972d9f9ca69681aee68a4967ec5450958b7) Thanks [@mirekm](https://github.com/mirekm)! - Move Cloud env link to the Saleor Dashboard top-left logo hover state
+- [#6225](https://github.com/saleor/saleor-dashboard/pull/6225) [`f7ef997`](https://github.com/saleor/saleor-dashboard/commit/f7ef9972d9f9ca69681aee68a4967ec5450958b7) Thanks [@mirekm](https://github.com/mirekm)! - Move Cloud env link to the FSCommerce Dashboard top-left logo hover state
 
 - [#6165](https://github.com/saleor/saleor-dashboard/pull/6165) [`f5d17f8`](https://github.com/saleor/saleor-dashboard/commit/f5d17f8dc869e4925bd804a7c2ab8fae2e95f96c) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Modals for assigning Products will now show Filter button.
   This means that list in the modal can now be filtered based on the same conditions available on the Product list page.
@@ -1038,7 +1038,7 @@ TODO
 - [#6177](https://github.com/saleor/saleor-dashboard/pull/6177) [`cdf694d`](https://github.com/saleor/saleor-dashboard/commit/cdf694dd083de4a12ebbe67b86ba56ed50f7d79a) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Changed Address component to use modern MacawUI text inputs
 
 - [#6174](https://github.com/saleor/saleor-dashboard/pull/6174) [`dbe7709`](https://github.com/saleor/saleor-dashboard/commit/dbe7709d27287a9280119073f1d4217c15a39210) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Updated `@saleor/app-sdk` to `1.5.0`.
-  `next` should no longer be automatically installed with Saleor Dashboard. Previously this package installed into `node_modules`, even though it wasn't used.
+  `next` should no longer be automatically installed with FSCommerce Dashboard. Previously this package installed into `node_modules`, even though it wasn't used.
 
 - [#6185](https://github.com/saleor/saleor-dashboard/pull/6185) [`995c330`](https://github.com/saleor/saleor-dashboard/commit/995c330af5564c110d6226239289ece3281a8b43) Thanks [@mirekm](https://github.com/mirekm)! - Improve replaced icons visual consistency
 
@@ -1233,7 +1233,7 @@ TODO
 
 - [#5987](https://github.com/saleor/saleor-dashboard/pull/5987) [`457fb84`](https://github.com/saleor/saleor-dashboard/commit/457fb8450daff51e23aff7cc5276f5565e93de18) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Fixed redirection from Apps Widgets (app name) to app page.
 
-- [#5999](https://github.com/saleor/saleor-dashboard/pull/5999) [`a1eec49`](https://github.com/saleor/saleor-dashboard/commit/a1eec4902e1e9849efa76b2a780126761c943e54) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Update Saleor logo on login page
+- [#5999](https://github.com/saleor/saleor-dashboard/pull/5999) [`a1eec49`](https://github.com/saleor/saleor-dashboard/commit/a1eec4902e1e9849efa76b2a780126761c943e54) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Update FSCommerce logo on login page
 
 - [#5901](https://github.com/saleor/saleor-dashboard/pull/5901) [`af290ca`](https://github.com/saleor/saleor-dashboard/commit/af290ca104bb65c90207d482e83c500aa72f7d8a) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Improved handling of long reference attribute lists in the Product Create, the Product Edit, and the Page Details views:
   - Reference attributes (such as product references or page references) with more than 5 items now display a "Show more" button when collapsed and a "Show less" button when expanded
@@ -1326,7 +1326,7 @@ TODO
 
 - [#5739](https://github.com/saleor/saleor-dashboard/pull/5739) [`6637b0b`](https://github.com/saleor/saleor-dashboard/commit/6637b0bc018488c9677ddfe7259ebb89962b437e) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Fixed a bug when user tried to use redirect from legacy routes (e.g. /pages -> /models) subpaths were not preserved. Now when user navigates to a deeply nested path, e.g. `/pages/<id>` they'll be redirected to `/models/<id>`.
 
-- [#5823](https://github.com/saleor/saleor-dashboard/pull/5823) [`c203014`](https://github.com/saleor/saleor-dashboard/commit/c203014da49aec0deb8bcfccf6eb0eb8701b3171) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Improve order refund UI for orders that uses Payments API. After this change `Automatic Refund` will be avaiable when `Refund products` option is selected. Miscellaneous refund will require providing `Manual Amount` as this is what Saleor API requires.
+- [#5823](https://github.com/saleor/saleor-dashboard/pull/5823) [`c203014`](https://github.com/saleor/saleor-dashboard/commit/c203014da49aec0deb8bcfccf6eb0eb8701b3171) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Improve order refund UI for orders that uses Payments API. After this change `Automatic Refund` will be avaiable when `Refund products` option is selected. Miscellaneous refund will require providing `Manual Amount` as this is what FSCommerce API requires.
 
 - [#5606](https://github.com/saleor/saleor-dashboard/pull/5606) [`f78e6d9`](https://github.com/saleor/saleor-dashboard/commit/f78e6d92fab5b175fa87546a234948c935be338a) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Updated custom app views to use refreshed look (new UI components)
 
@@ -1393,14 +1393,14 @@ TODO
 
 - [#5590](https://github.com/saleor/saleor-dashboard/pull/5590) [`a2e4a6b`](https://github.com/saleor/saleor-dashboard/commit/a2e4a6bebbea635fdc6a03d65eb78da740bee3e2) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - You can now see radio group with updated UI in channel allocation
 
-- [#5654](https://github.com/saleor/saleor-dashboard/pull/5654) [`56bb3c8`](https://github.com/saleor/saleor-dashboard/commit/56bb3c8b247bd7bf8b9fa01563ff5faf5667c58e) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Fixed navigation in Saleor Apps causing polluted browser's window history, now navigating to another page adds a single entry in history stack.
+- [#5654](https://github.com/saleor/saleor-dashboard/pull/5654) [`56bb3c8`](https://github.com/saleor/saleor-dashboard/commit/56bb3c8b247bd7bf8b9fa01563ff5faf5667c58e) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Fixed navigation in FSCommerce Apps causing polluted browser's window history, now navigating to another page adds a single entry in history stack.
 
-- [#5807](https://github.com/saleor/saleor-dashboard/pull/5807) [`b7e10f7`](https://github.com/saleor/saleor-dashboard/commit/b7e10f77e85fe941a8b59f17b5bb2e0aff079799) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Fix links to old Saleor docs
+- [#5807](https://github.com/saleor/saleor-dashboard/pull/5807) [`b7e10f7`](https://github.com/saleor/saleor-dashboard/commit/b7e10f77e85fe941a8b59f17b5bb2e0aff079799) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Fix links to old FSCommerce docs
 
 - [#5573](https://github.com/saleor/saleor-dashboard/pull/5573) [`92f8383`](https://github.com/saleor/saleor-dashboard/commit/92f83830f5de1dd610d6310bce77385fa9b289f6) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - You can now see updated radio buttons in warehouse edit view.
 
 - [#5600](https://github.com/saleor/saleor-dashboard/pull/5600) [`2d841f0`](https://github.com/saleor/saleor-dashboard/commit/2d841f04514ba8352742312861f7afcc802a3901) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Improved error messages when installing extension from URL.
-  Error messages will now point to Saleor Docs and display error code from GraphQL response
+  Error messages will now point to FSCommerce Docs and display error code from GraphQL response
 
 - [#5526](https://github.com/saleor/saleor-dashboard/pull/5526) [`b2acd12`](https://github.com/saleor/saleor-dashboard/commit/b2acd121325cd9c9a1c3d937260c3f64dc93de9a) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - Now you can see an updated label for gift card list in customer details - it now clearly states that the list shows gift cards that have been used by the customer, avoiding the confusion.
 
@@ -1434,9 +1434,9 @@ TODO
 
 - [#5561](https://github.com/saleor/saleor-dashboard/pull/5561) [`4f00787`](https://github.com/saleor/saleor-dashboard/commit/4f007878f248748b52b862e4feb1aea07e2e1155) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - You can now see the unified look and behavior of pagination action buttons across all list views, including products, customers, orders, and other sections.
 
-- [#5846](https://github.com/saleor/saleor-dashboard/pull/5846) [`3df3c9f`](https://github.com/saleor/saleor-dashboard/commit/3df3c9f5719a9f7ada12ea89c52c32800450beab) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Migrate Saleor docs links to one file
+- [#5846](https://github.com/saleor/saleor-dashboard/pull/5846) [`3df3c9f`](https://github.com/saleor/saleor-dashboard/commit/3df3c9f5719a9f7ada12ea89c52c32800450beab) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Migrate FSCommerce docs links to one file
 
-- [#5559](https://github.com/saleor/saleor-dashboard/pull/5559) [`97ae393`](https://github.com/saleor/saleor-dashboard/commit/97ae393f030131ca9d0a4efed7e40a815d714ccd) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - You can now successfully save transaction refunds as drafts when using the latest version of Saleor Core.
+- [#5559](https://github.com/saleor/saleor-dashboard/pull/5559) [`97ae393`](https://github.com/saleor/saleor-dashboard/commit/97ae393f030131ca9d0a4efed7e40a815d714ccd) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - You can now successfully save transaction refunds as drafts when using the latest version of FSCommerce Core.
 
 - [#5582](https://github.com/saleor/saleor-dashboard/pull/5582) [`f2a4105`](https://github.com/saleor/saleor-dashboard/commit/f2a410518d0e4301bb48e55f16ca5493751c5caf) Thanks [@andrzejewsky](https://github.com/andrzejewsky)! - Now create webhook button works properly, leading you to the form"
 
@@ -1444,7 +1444,7 @@ TODO
 
 - [#5543](https://github.com/saleor/saleor-dashboard/pull/5543) [`21fc883`](https://github.com/saleor/saleor-dashboard/commit/21fc8839f12a4f3934ffa735dac5bd027f53f983) Thanks [@andrzejewsky](https://github.com/andrzejewsky)! - Now navigating to the installed extension, shows the list instantly, this means list is being cached while fetching happens in the background.
 
-- [#5646](https://github.com/saleor/saleor-dashboard/pull/5646) [`cdc2bda`](https://github.com/saleor/saleor-dashboard/commit/cdc2bdad018fdd2fd90530d80b3c52a392c01a03) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Change how dashboard fetches GraphQL schema. After this change GraphQL schema is fetched from Saleor repository instead of Saleor API. If you wants the old behavior use `npm run fetch-local-schema`.
+- [#5646](https://github.com/saleor/saleor-dashboard/pull/5646) [`cdc2bda`](https://github.com/saleor/saleor-dashboard/commit/cdc2bdad018fdd2fd90530d80b3c52a392c01a03) Thanks [@krzysztofzuraw](https://github.com/krzysztofzuraw)! - Change how dashboard fetches GraphQL schema. After this change GraphQL schema is fetched from FSCommerce repository instead of FSCommerce API. If you wants the old behavior use `npm run fetch-local-schema`.
 
 - [#5689](https://github.com/saleor/saleor-dashboard/pull/5689) [`1c20dd8`](https://github.com/saleor/saleor-dashboard/commit/1c20dd8a1f95101bd5b59d4b563a74b700c49edf) Thanks [@NyanKiyoshi](https://github.com/NyanKiyoshi)! - fix: typo in image upload error message
 
@@ -1547,7 +1547,7 @@ TODO
   - **Plugins in "Explore Extensions"**: Legacy plugins are now discoverable in the "Explore Extensions" section.
   - **Redesigned "Add Custom App" Workflow**: Creating custom apps is now a multi-step process, starting with name and permissions, followed by webhook and token configuration.
   - **Streamlined "Install from Manifest"**: Providing a manifest URL and accepting app permissions are now combined into a single page.
-  - **Improved error handling**: Error messages now include direct links to Saleor Documentation for easier troubleshooting.
+  - **Improved error handling**: Error messages now include direct links to FSCommerce Documentation for easier troubleshooting.
   - **Removed old views**: Separate list views for plugins and custom apps have been removed.
 
 - [#5511](https://github.com/saleor/saleor-dashboard/pull/5511) [`3cd92e1`](https://github.com/saleor/saleor-dashboard/commit/3cd92e13050e320edcb65bbc9df94791e3f4320d) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - The library used in variant edit page to change variant order has been changed.
@@ -1571,7 +1571,7 @@ TODO
 
 - [#5910](https://github.com/saleor/saleor-dashboard/pull/5910) [`4d2ce49`](https://github.com/saleor/saleor-dashboard/commit/4d2ce494158a579f61c64468ae8975fa3a36fbc2) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Removed new_filters flag. The new filters behavior was enabled for a while, so this flag only prevents reverting to the legacy behavior
 
-- [#5739](https://github.com/saleor/saleor-dashboard/pull/5739) [`6637b0b`](https://github.com/saleor/saleor-dashboard/commit/6637b0bc018488c9677ddfe7259ebb89962b437e) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Maintanance: Saleor Dashboard now uses ESLint v9 with flatconfig.
+- [#5739](https://github.com/saleor/saleor-dashboard/pull/5739) [`6637b0b`](https://github.com/saleor/saleor-dashboard/commit/6637b0bc018488c9677ddfe7259ebb89962b437e) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Maintanance: FSCommerce Dashboard now uses ESLint v9 with flatconfig.
 
 - [#5560](https://github.com/saleor/saleor-dashboard/pull/5560) [`80ec78d`](https://github.com/saleor/saleor-dashboard/commit/80ec78d98aea3c5bf04db4c603c03c798afef414) Thanks [@karola312](https://github.com/karola312)! - Test reports are send on slack in message
 
@@ -1605,7 +1605,7 @@ TODO
 
 - [#5160](https://github.com/saleor/saleor-dashboard/pull/5160) [`fe252cb`](https://github.com/saleor/saleor-dashboard/commit/fe252cbe63cf482b6d127987476c3b89747a5b22) Thanks [@Cloud11PL](https://github.com/Cloud11PL)! - Fix dockerfile build error caused by deleted file and bash script
 
-- [#5940](https://github.com/saleor/saleor-dashboard/pull/5940) [`4915a19`](https://github.com/saleor/saleor-dashboard/commit/4915a194f9a5a7f79c67e589dd7f18b483b2a275) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Fixed resolving Saleor absolute API URL. It was broken for some setups when extensions received a partial (incomplete) URL.
+- [#5940](https://github.com/saleor/saleor-dashboard/pull/5940) [`4915a19`](https://github.com/saleor/saleor-dashboard/commit/4915a194f9a5a7f79c67e589dd7f18b483b2a275) Thanks [@lkostrowski](https://github.com/lkostrowski)! - Fixed resolving FSCommerce absolute API URL. It was broken for some setups when extensions received a partial (incomplete) URL.
 
 - [#5377](https://github.com/saleor/saleor-dashboard/pull/5377) [`b1af6f2`](https://github.com/saleor/saleor-dashboard/commit/b1af6f25deb975e72dcb3f05f0d5f9d44a5a4548) Thanks [@poulch](https://github.com/poulch)! - Activates list items on the welcome page no longer implies that they are clickable
 
@@ -1665,4 +1665,4 @@ TODO
 
 - [#5367](https://github.com/saleor/saleor-dashboard/pull/5367) [`70dbf11`](https://github.com/saleor/saleor-dashboard/commit/70dbf119cc84e377965aa3b01feb049505337a5c) Thanks [@poulch](https://github.com/poulch)! - You can now navigate back from collection details to collection list
 
-- [#5629](https://github.com/saleor/saleor-dashboard/pull/5629) [`8185085`](https://github.com/saleor/saleor-dashboard/commit/81850851e0ea313f76a2f98397b2062eb09aae88) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Extension details page now hides webhook deliveries that have no attempt (e.g. deleted after some time by Saleor) and if no delivery has an attempt is shows a message with explanation.
+- [#5629](https://github.com/saleor/saleor-dashboard/pull/5629) [`8185085`](https://github.com/saleor/saleor-dashboard/commit/81850851e0ea313f76a2f98397b2062eb09aae88) Thanks [@witoszekdev](https://github.com/witoszekdev)! - Extension details page now hides webhook deliveries that have no attempt (e.g. deleted after some time by FSCommerce) and if no delivery has an attempt is shows a message with explanation.

@@ -125,7 +125,7 @@ const getStepsData = ({
       }),
       description: intl.formatMessage({
         defaultMessage:
-          "Saleor includes a GraphQL Playground, an interactive GraphQL editor, allowing access to your Saleor instance's API through the web browser. The Playground lets you quickly familiarize yourself with the API, perform example operations, and send your first queries and mutations.",
+          "FSCommerce includes a GraphQL Playground, an interactive GraphQL editor, allowing access to your FSCommerce instance's API through the web browser. The Playground lets you quickly familiarize yourself with the API, perform example operations, and send your first queries and mutations.",
         id: "Nyxzpe",
         description: "onboarding step description",
       }),
@@ -156,7 +156,7 @@ const getStepsData = ({
       }),
       description: intl.formatMessage({
         defaultMessage:
-          "Review the central hub for managing all available extensions. Here, you can easily oversee your extensions and enhance Saleor with custom solutions using webhooks and APIs.",
+          "Review the central hub for managing all available extensions. Here, you can easily oversee your extensions and enhance FSCommerce with custom solutions using webhooks and APIs.",
         id: "zsz6LN",
         description: "onboarding step description",
       }),

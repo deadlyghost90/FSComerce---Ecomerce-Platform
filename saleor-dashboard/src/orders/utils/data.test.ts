@@ -2950,7 +2950,7 @@ describe("Merge repeated order lines of fulfillment lines", () => {
           ],
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
-            name: "Saleor Demo Product",
+            name: "FSCommerce Demo Product",
             quantityAvailable: 50,
             stocks: [
               {
@@ -3107,7 +3107,7 @@ describe("Merge repeated order lines of fulfillment lines", () => {
           ],
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
-            name: "Saleor Demo Product",
+            name: "FSCommerce Demo Product",
             quantityAvailable: 50,
             stocks: [
               {
@@ -3264,7 +3264,7 @@ describe("Merge repeated order lines of fulfillment lines", () => {
           ],
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6Mjg2",
-            name: "Saleor Demo Product",
+            name: "FSCommerce Demo Product",
             quantityAvailable: 50,
             stocks: [
               {
@@ -3695,7 +3695,7 @@ describe("getOrderFulfillStockFormsetLineId", () => {
 });
 
 describe("isOpaqueGlobalId", () => {
-  it("detects base64-encoded Saleor global IDs", () => {
+  it("detects base64-encoded FSCommerce global IDs", () => {
     // Arrange // Act // Assert
     expect(isOpaqueGlobalId("UHJvZHVjdFZHcmlhbnQ6Mzk5")).toBe(true);
     expect(isOpaqueGlobalId("White Parrot Cushion")).toBe(false);

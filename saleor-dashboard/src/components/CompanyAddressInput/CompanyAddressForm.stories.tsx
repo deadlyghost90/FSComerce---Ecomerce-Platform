@@ -16,7 +16,7 @@ const countries = [
 
 const baseData: AddressTypeInput = {
   city: "Wrocław",
-  companyName: "Saleor Commerce",
+  companyName: "FSCommerce Commerce",
   country: "PL",
   countryArea: "",
   firstName: "",

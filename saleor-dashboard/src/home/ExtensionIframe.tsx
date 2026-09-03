@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { APP_VERSION } from "@dashboard/config";
 import { IframePost } from "@dashboard/extensions/components/IframePost/IframePost";
 import { appExtensionManifestOptionsSchema } from "@dashboard/extensions/domain/app-extension-manifest-options";
@@ -30,7 +30,7 @@ export const ExtensionIframe = ({
         alignItems={loaderType === "throbber" ? "center" : undefined}
         justifyContent={loaderType === "throbber" ? "center" : undefined}
       >
-        {loaderType === "throbber" ? <SaleorThrobber /> : <Skeleton __height={height} />}
+        {loaderType === "throbber" ? <FSCommerceThrobber /> : <Skeleton __height={height} />}
       </Box>
     );
   }

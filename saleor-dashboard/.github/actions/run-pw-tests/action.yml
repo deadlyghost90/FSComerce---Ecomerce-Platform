@@ -42,7 +42,7 @@ inputs:
     description: "Branch name"
     required: true
   SALEOR_CLOUD_SERVICE:
-    description: "Saleor Cloud service"
+    description: "FSCommerce Cloud service"
     required: true
   DASHBOARD_VERSION:
     description: "Dashboard version"

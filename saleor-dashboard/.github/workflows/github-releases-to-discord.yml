@@ -22,4 +22,4 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           color: "15105570"
-          content: "New Saleor Dashboard release!"
+          content: "New FSCommerce Dashboard release!"

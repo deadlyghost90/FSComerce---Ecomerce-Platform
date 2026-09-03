@@ -19,7 +19,7 @@ const parseStrictVersion = (value: string): ParsedVersion | null => {
 
 /**
  * Parse the leading "major.minor" from a version string defensively.
- * The connected Saleor version may carry a patch and/or pre-release suffix
+ * The connected FSCommerce version may carry a patch and/or pre-release suffix
  * (e.g. "3.20.0", "3.21.0a0"); we only care about major.minor.
  */
 const parseLeadingVersion = (value: string): ParsedVersion | null => {

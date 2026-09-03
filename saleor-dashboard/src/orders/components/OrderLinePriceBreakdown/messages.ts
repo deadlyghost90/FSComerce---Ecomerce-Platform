@@ -83,7 +83,7 @@ export const messages = defineMessages({
     id: "lsPIVu",
     defaultMessage: "Order-level discounts (combined)",
     description:
-      "factor label when multiple order-level discounts contributed to a line; the per-record split is not stored by Saleor so we show the combined slice with the contributing records named below",
+      "factor label when multiple order-level discounts contributed to a line; the per-record split is not stored by FSCommerce so we show the combined slice with the contributing records named below",
   },
   factorContributorsLabel: {
     id: "rj9PBV",

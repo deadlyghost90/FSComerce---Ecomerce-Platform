@@ -27,7 +27,7 @@ export const getAppErrorMessageDescriptor = (code: AppErrorCode) => {
     case AppErrorCode.REQUIRED:
       return appManifestErrorMessages.required;
     case AppErrorCode.UNSUPPORTED_SALEOR_VERSION:
-      return appManifestErrorMessages.unsupportedSaleorVersion;
+      return appManifestErrorMessages.unsupportedFSCommerceVersion;
     case AppErrorCode.OUT_OF_SCOPE_PERMISSION:
       return appManifestErrorMessages.outOfScopePermission;
     case AppErrorCode.INVALID_STATUS:

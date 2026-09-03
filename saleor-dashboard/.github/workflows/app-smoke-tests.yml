@@ -6,7 +6,7 @@ on:
       VERSION:
         type: string
         required: true
-        description: "Saleor version (e.g., '3.20', '3.21', '3.22')"
+        description: "FSCommerce version (e.g., '3.20', '3.21', '3.22')"
       APP_IDENTIFIERS:
         type: string
         required: false
@@ -25,7 +25,7 @@ on:
       VERSION:
         type: choice
         required: true
-        description: "Saleor version to test"
+        description: "FSCommerce version to test"
         options:
           - "3.20"
           - "3.21"

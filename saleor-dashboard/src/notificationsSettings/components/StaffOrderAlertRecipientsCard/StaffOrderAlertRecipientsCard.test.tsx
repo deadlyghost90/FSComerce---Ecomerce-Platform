@@ -118,7 +118,7 @@ describe("StaffOrderAlertRecipientsCard", () => {
     expect(screen.getByText("ops@example.com")).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Not linked to an active staff member, so Saleor will not send new-order emails to this address.",
+        "Not linked to an active staff member, so FSCommerce will not send new-order emails to this address.",
       ),
     ).toBeInTheDocument();
   });

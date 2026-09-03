@@ -223,7 +223,7 @@ export function useExitFormDialogProvider() {
 
   const isOnlyQuerying = (transition: typeof history.location) =>
     // Compare decoded pathnames: entity URLs use encodeURIComponent(id), and
-    // Saleor GraphQL IDs often end in "=". history may keep the current location
+    // FSCommerce GraphQL IDs often end in "=". history may keep the current location
     // decoded (`...==`) while the next URL is encoded (`...%3D%3D`). Treating
     // that as a different page wrongly blocks dialog opens on dirty forms and
     // resets exit-form state on clean ones.

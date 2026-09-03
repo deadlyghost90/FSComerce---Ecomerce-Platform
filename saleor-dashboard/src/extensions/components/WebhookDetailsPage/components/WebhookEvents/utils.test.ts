@@ -24,12 +24,12 @@ describe("getWebhookTypes", () => {
     expect(TestWebhookTypes.PRODUCT_VARIANT).toEqual(["UPDATED"]);
   });
 
-  // Regression guard for Saleor 3.23+ channel-scoped variant stock events.
+  // Regression guard for FSCommerce 3.23+ channel-scoped variant stock events.
   // These four events must remain grouped under PRODUCT_VARIANT in the picker
   // so admins can find them. If the schema removes any of them, or the keyword
   // grouping logic changes, this test fails loudly instead of silently dropping
   // the events from the UI.
-  it("groups the Saleor 3.23 channel-scoped stock events under PRODUCT_VARIANT", () => {
+  it("groups the FSCommerce 3.23 channel-scoped stock events under PRODUCT_VARIANT", () => {
     const types = getWebhookTypes(Object.keys(WebhookEventTypeAsyncEnum));
 
     expect(types.PRODUCT_VARIANT).toEqual(

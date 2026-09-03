@@ -12,7 +12,7 @@ export function subtractMoney(init: IMoney, ...args: IMoney[]): IMoney {
 
 /**
  * Round a numerical amount to the given number of fraction digits. Prefer this
- * helper when the precision is available on the wire — Saleor returns
+ * helper when the precision is available on the wire — FSCommerce returns
  * `Money.fractionDigits` (spread `MoneyWithFractionDigits` in your query), and
  * the backend's value is the source of truth for the currency's minor-unit
  * precision.

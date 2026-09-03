@@ -14,11 +14,11 @@ export const contextualLinks = defineMessages({
     id: "BA4leV",
   },
   webhooks: {
-    defaultMessage: "Learn more about {extendingSaleor}",
+    defaultMessage: "Learn more about {extendingFSCommerce}",
     id: "zT1CvH",
   },
-  extendingSaleor: {
-    defaultMessage: "extending Saleor with Webhooks",
+  extendingFSCommerce: {
+    defaultMessage: "extending FSCommerce with Webhooks",
     id: "B8PvdI",
   },
   staffMembers: {

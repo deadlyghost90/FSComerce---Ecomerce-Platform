@@ -426,8 +426,8 @@ export type AppManifestExtensionFieldPolicy = {
 	targetName?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type AppManifestRequiredSaleorVersionKeySpecifier = ('constraint' | 'satisfied' | AppManifestRequiredSaleorVersionKeySpecifier)[];
-export type AppManifestRequiredSaleorVersionFieldPolicy = {
+export type AppManifestRequiredFSCommerceVersionKeySpecifier = ('constraint' | 'satisfied' | AppManifestRequiredFSCommerceVersionKeySpecifier)[];
+export type AppManifestRequiredFSCommerceVersionFieldPolicy = {
 	constraint?: FieldPolicy<any> | FieldReadFunction<any>,
 	satisfied?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -2502,10 +2502,10 @@ export type GiftCardMetadataUpdatedFieldPolicy = {
 	recipient?: FieldPolicy<any> | FieldReadFunction<any>,
 	version?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GiftCardPaymentMethodDetailsKeySpecifier = ('brand' | 'isSaleorGiftcard' | 'lastChars' | 'name' | GiftCardPaymentMethodDetailsKeySpecifier)[];
+export type GiftCardPaymentMethodDetailsKeySpecifier = ('brand' | 'isFSCommerceGiftcard' | 'lastChars' | 'name' | GiftCardPaymentMethodDetailsKeySpecifier)[];
 export type GiftCardPaymentMethodDetailsFieldPolicy = {
 	brand?: FieldPolicy<any> | FieldReadFunction<any>,
-	isSaleorGiftcard?: FieldPolicy<any> | FieldReadFunction<any>,
+	isFSCommerceGiftcard?: FieldPolicy<any> | FieldReadFunction<any>,
 	lastChars?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -2732,7 +2732,7 @@ export type ListStoredPaymentMethodsFieldPolicy = {
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	version?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ManifestKeySpecifier = ('about' | 'appUrl' | 'audience' | 'author' | 'brand' | 'configurationUrl' | 'dataPrivacy' | 'dataPrivacyUrl' | 'extensions' | 'homepageUrl' | 'identifier' | 'name' | 'permissions' | 'requiredSaleorVersion' | 'supportUrl' | 'tokenTargetUrl' | 'version' | 'webhooks' | ManifestKeySpecifier)[];
+export type ManifestKeySpecifier = ('about' | 'appUrl' | 'audience' | 'author' | 'brand' | 'configurationUrl' | 'dataPrivacy' | 'dataPrivacyUrl' | 'extensions' | 'homepageUrl' | 'identifier' | 'name' | 'permissions' | 'requiredFSCommerceVersion' | 'supportUrl' | 'tokenTargetUrl' | 'version' | 'webhooks' | ManifestKeySpecifier)[];
 export type ManifestFieldPolicy = {
 	about?: FieldPolicy<any> | FieldReadFunction<any>,
 	appUrl?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2747,7 +2747,7 @@ export type ManifestFieldPolicy = {
 	identifier?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissions?: FieldPolicy<any> | FieldReadFunction<any>,
-	requiredSaleorVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	requiredFSCommerceVersion?: FieldPolicy<any> | FieldReadFunction<any>,
 	supportUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	tokenTargetUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	version?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7614,9 +7614,9 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | AppManifestExtensionKeySpecifier | (() => undefined | AppManifestExtensionKeySpecifier),
 		fields?: AppManifestExtensionFieldPolicy,
 	},
-	AppManifestRequiredSaleorVersion?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | AppManifestRequiredSaleorVersionKeySpecifier | (() => undefined | AppManifestRequiredSaleorVersionKeySpecifier),
-		fields?: AppManifestRequiredSaleorVersionFieldPolicy,
+	AppManifestRequiredFSCommerceVersion?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AppManifestRequiredFSCommerceVersionKeySpecifier | (() => undefined | AppManifestRequiredFSCommerceVersionKeySpecifier),
+		fields?: AppManifestRequiredFSCommerceVersionFieldPolicy,
 	},
 	AppManifestWebhook?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | AppManifestWebhookKeySpecifier | (() => undefined | AppManifestWebhookKeySpecifier),

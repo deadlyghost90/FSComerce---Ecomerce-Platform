@@ -20,7 +20,7 @@ export type JWTToken = {
   is_staff: boolean;
 };
 
-/** Tokens minted by Saleor itself refresh differently to ones minted by an external auth plugin. */
+/** Tokens minted by FSCommerce itself refresh differently to ones minted by an external auth plugin. */
 export const isInternalToken = (owner: string): boolean => owner === "saleor";
 
 export let storage: {

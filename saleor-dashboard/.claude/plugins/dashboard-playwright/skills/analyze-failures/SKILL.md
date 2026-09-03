@@ -360,7 +360,7 @@ npx playwright show-trace [TRACE_PATH]
 2. Investigate WHY the API failed:
    - Data issue? → Ask user to check environment
    - Permission issue? → Check test user setup
-   - Backend bug? → Check Saleor repo
+   - Backend bug? → Check FSCommerce repo
    - Invalid test data? → Fix the test data, not assertions
 
 **To analyze trace snapshots:**
@@ -592,10 +592,10 @@ Questions:
 
 Test failures can be caused by:
 
-1. **Stale test data** - Fixtures not updated for new Saleor features
+1. **Stale test data** - Fixtures not updated for new FSCommerce features
 2. **Missing test data** - Previous test run deleted items that weren't restored
 3. **Environment not restored** - CI should restore env, but sometimes fails
-4. **Saleor backend changes** - API behavior changed, test expectations outdated - might be a bug in Saleor Dashboard as well
+4. **FSCommerce backend changes** - API behavior changed, test expectations outdated - might be a bug in FSCommerce Dashboard as well
 5. **Database state drift** - Test environment diverged from expected state
 
 #### Signs of Data/Environment Issues
@@ -634,29 +634,29 @@ This looks like a test data issue, not a test bug:
 Questions:
 1. Has the test environment been restored recently?
 2. Can you verify this data exists in the test DB?
-3. Should we check if Saleor backend behavior changed?
+3. Should we check if FSCommerce backend behavior changed?
 
-I can investigate Saleor backend code if needed (separate repo at ../saleor/).
+I can investigate FSCommerce backend code if needed (separate repo at ../saleor/).
 ```
 
-#### Investigating Saleor Backend
+#### Investigating FSCommerce Backend
 
-Sometimes the issue is in Saleor itself (not Dashboard). The backend repo is typically at `../saleor/` or can be specified by user.
+Sometimes the issue is in FSCommerce itself (not Dashboard). The backend repo is typically at `../saleor/` or can be specified by user.
 
-**Spawn an Explore agent to check Saleor:**
+**Spawn an Explore agent to check FSCommerce:**
 
 ```
 Task tool call:
   subagent_type: "Explore"
   model: "haiku"
-  description: "Check Saleor backend for [FEATURE]"
+  description: "Check FSCommerce backend for [FEATURE]"
   prompt: |
-    # Investigate Saleor Backend
+    # Investigate FSCommerce Backend
 
     The Dashboard test expects: [BEHAVIOR]
     But the API returns: [ACTUAL]
 
-    Check the Saleor backend code:
+    Check the FSCommerce backend code:
     1. Find the relevant GraphQL resolver/mutation
     2. Check for recent changes to this endpoint
     3. Verify expected behavior matches test expectations
@@ -679,7 +679,7 @@ CI should restore the test environment before each run, but if restoration faile
 The test expects data that may not exist. Before I investigate further:
 
 1. Can you restore the test environment?
-2. Once restored, I can query the Saleor API directly to verify the data exists.
+2. Once restored, I can query the FSCommerce API directly to verify the data exists.
 
 To enable API queries, please ensure:
 - Test environment is running and accessible
@@ -723,7 +723,7 @@ Ask user to check if there's a restore-only workflow, or create one based on:
 1. Check DURING the test run (after restore, before tests complete)
 2. Or trigger the workflow and cancel it after the `initialize-cloud` job completes
 
-**Step 2: Query Saleor API to verify data**
+**Step 2: Query FSCommerce API to verify data**
 
 Once user confirms environment is ready, use the GraphQL MCP or curl to verify data:
 

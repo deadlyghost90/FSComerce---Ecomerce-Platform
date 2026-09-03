@@ -256,7 +256,7 @@
   },
   "2rJcFa": {
     "context": "delete app",
-    "string": "Usunięcie tej aplikacji spowoduje usunięcie jej instalacji. Jeśli płacisz za subskrypcję aplikacji, pamiętaj, aby zrezygnować z subskrypcji tej aplikacji w Marketplace Saleor."
+    "string": "Usunięcie tej aplikacji spowoduje usunięcie jej instalacji. Jeśli płacisz za subskrypcję aplikacji, pamiętaj, aby zrezygnować z subskrypcji tej aplikacji w Marketplace FSCommerce."
   },
   "2x9ZgK": {
     "context": "card title",
@@ -300,7 +300,7 @@
   },
   "45aV8u": {
     "context": "gift card bulk create modal bottom explanation",
-    "string": "Po utworzeniu Saleor utworzy listę kodów kart podarunkowych, które będziesz mógł pobrać."
+    "string": "Po utworzeniu FSCommerce utworzy listę kodów kart podarunkowych, które będziesz mógł pobrać."
   },
   "47hJzu": {
     "string": "Zaktualizowano uprawnienia aplikacji"
@@ -621,7 +621,7 @@
   },
   "ARfw53": {
     "context": "description",
-    "string": "Zainstaluj aplikacje stworzone przez zespół Saleor lub zainstaluj zewnętrzne aplikacje."
+    "string": "Zainstaluj aplikacje stworzone przez zespół FSCommerce lub zainstaluj zewnętrzne aplikacje."
   },
   "AcMzwj": {
     "string": "Elementy menu"
@@ -965,10 +965,10 @@
   },
   "IEpmGQ": {
     "context": "description",
-    "string": "Użyj Saleor Cloud, aby uzyskać dostęp do aplikacji Saleor"
+    "string": "Użyj FSCommerce Cloud, aby uzyskać dostęp do aplikacji FSCommerce"
   },
   "IF2KbT": {
-    "string": "Saleor Cloud"
+    "string": "FSCommerce Cloud"
   },
   "IH47ID": {
     "string": "Użyj przycisku powyżej, aby dodać nowe warianty produktów"
@@ -1079,7 +1079,7 @@
     "string": "Nie znaleziono kodów kuponów"
   },
   "L/sNGY": {
-    "string": "Lokalne aplikacje to niestandardowe webhooki i pary tokenów, które można używać do łączenia aplikacji i uzyskiwania dostępu do API Saleor."
+    "string": "Lokalne aplikacje to niestandardowe webhooki i pary tokenów, które można używać do łączenia aplikacji i uzyskiwania dostępu do API FSCommerce."
   },
   "L2tvTm": {
     "context": "mark as paid strategy checkbox label",
@@ -2262,7 +2262,7 @@
   },
   "kYtxJ1": {
     "context": "delete app",
-    "string": "Usuwanie {name}, spowoduje usunięcie instalacji aplikacji. Jeśli płacisz za subskrypcję aplikacji, pamiętaj, aby zrezygnować z aplikacji w Saleor Marketplace."
+    "string": "Usuwanie {name}, spowoduje usunięcie instalacji aplikacji. Jeśli płacisz za subskrypcję aplikacji, pamiętaj, aby zrezygnować z aplikacji w FSCommerce Marketplace."
   },
   "kdRcqU": {
     "string": "Szukaj klientów..."
@@ -3389,7 +3389,7 @@
   },
   "4yRwN+": {
     "context": "content",
-    "string": "Saleor nie mógł pobrać kluczowych informacji dotyczących instalacji. Bez tych danych system nie może zainstalować aplikacji w Twoim Saleorze. Proszę użyć przycisku poniżej, aby wrócić do panelu sterowania systemu."
+    "string": "FSCommerce nie mógł pobrać kluczowych informacji dotyczących instalacji. Bez tych danych system nie może zainstalować aplikacji w Twoim FSCommerceze. Proszę użyć przycisku poniżej, aby wrócić do panelu sterowania systemu."
   },
   "54KYgS": {
     "context": "months after label",
@@ -3897,7 +3897,7 @@
   },
   "ChGI4V": {
     "context": "error message",
-    "string": "Saleor jest niedostępny, sprawdź połączenie sieciowe i spróbuj ponownie."
+    "string": "FSCommerce jest niedostępny, sprawdź połączenie sieciowe i spróbuj ponownie."
   },
   "Co2U4u": {
     "string": "Nie znaleziono wtyczek"
@@ -4046,7 +4046,7 @@
   },
   "EWD/wU": {
     "context": "delete app",
-    "string": "Usunięcie {name} spowoduje usunięcie instalacji aplikacji. Jeśli płacisz za subskrypcję aplikacji, pamiętaj o anulowaniu subskrypcji w Saleor Marketplace. Czy na pewno chcesz usunąć aplikację?"
+    "string": "Usunięcie {name} spowoduje usunięcie instalacji aplikacji. Jeśli płacisz za subskrypcję aplikacji, pamiętaj o anulowaniu subskrypcji w FSCommerce Marketplace. Czy na pewno chcesz usunąć aplikację?"
   },
   "Eau5AV": {
     "string": "Zarządzaj Dostępnością Produktów w Kanałach"
@@ -4068,7 +4068,7 @@
     "string": "Informacje o karcie"
   },
   "ErNH3D": {
-    "string": "Zdefiniuj, gdzie ten atrybut powinien być używany w systemie Saleor"
+    "string": "Zdefiniuj, gdzie ten atrybut powinien być używany w systemie FSCommerce"
   },
   "EtGDeK": {
     "context": "header",
@@ -4552,7 +4552,7 @@
     "string": "Odepnij kategorie od vouchera"
   },
   "LVa5ew": {
-    "string": "Saleor napotkał nieoczekiwany problem"
+    "string": "FSCommerce napotkał nieoczekiwany problem"
   },
   "LnRlch": {
     "context": "attribute's editor component entity",
@@ -4676,7 +4676,7 @@
   },
   "NhQboB": {
     "context": "dialog header",
-    "string": "Saleor nie mógł anulować zamówienia"
+    "string": "FSCommerce nie mógł anulować zamówienia"
   },
   "NlSJMM": {
     "context": "channels section name",
@@ -5840,7 +5840,7 @@
   },
   "flP8Hj": {
     "context": "card description",
-    "string": "Rozszerz lub ogranicz uprawnienia aplikacji, aby uzyskać dostęp do określonych części systemu Saleor."
+    "string": "Rozszerz lub ogranicz uprawnienia aplikacji, aby uzyskać dostęp do określonych części systemu FSCommerce."
   },
   "foB6wx": {
     "context": "weight based shipping methods, section header",
@@ -9210,7 +9210,7 @@
     "string": "Czy na pewno chcesz usunąć {name}?"
   },
   "kFYlu2": {
-    "string": "Saleor działa w trybie tylko do odczytu. Zmiany nie są zapisywane."
+    "string": "FSCommerce działa w trybie tylko do odczytu. Zmiany nie są zapisywane."
   },
   "XJSRDK": {
     "context": "payment status",

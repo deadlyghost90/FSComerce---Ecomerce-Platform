@@ -342,9 +342,9 @@ describe("isInternalToken", () => {
     expect(result).toBe(false);
   });
 
-  it("returns false for 'Saleor' (case-sensitive)", () => {
+  it("returns false for 'FSCommerce' (case-sensitive)", () => {
     // Arrange
-    const owner = "Saleor";
+    const owner = "FSCommerce";
 
     // Act
     const result = isInternalToken(owner);

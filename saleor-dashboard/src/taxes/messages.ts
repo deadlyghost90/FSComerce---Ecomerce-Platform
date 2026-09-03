@@ -232,7 +232,7 @@ export const taxesMessages = defineMessages({
     id: "xhruoo",
     defaultMessage: "Default",
     description:
-      "Empty option on shipping method tax class combobox — uses Saleor default tax class",
+      "Empty option on shipping method tax class combobox — uses FSCommerce default tax class",
   },
   taxSettingsLink: {
     id: "X4+lB+",

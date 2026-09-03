@@ -1,6 +1,6 @@
 // @ts-strict-ignore
 import { iconSize, iconStrokeWidthBySize } from "@dashboard/components/icons";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from "@material-ui/core";
 import { type IconButtonProps, makeStyles } from "@saleor/macaw-ui";
 import { Text } from "@saleor/macaw-ui-next";
@@ -211,7 +211,7 @@ const CardMenu = (props: CardMenuProps) => {
                             <Text fontSize={3}>
                               <FormattedMessage {...messages.cardMenuItemLoading} />
                             </Text>
-                            <SaleorThrobber size={24} />
+                            <FSCommerceThrobber size={24} />
                           </>
                         ) : (
                           <div className={classes.menuItemContent}>

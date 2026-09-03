@@ -110,7 +110,7 @@ export const messages = defineMessages({
   sectionAdvancedDescription: {
     id: "OP3Fgn",
     defaultMessage:
-      "Legacy API options that may change in future Saleor versions. Prefer defaults unless you know you need these.",
+      "Legacy API options that may change in future FSCommerce versions. Prefer defaults unless you know you need these.",
     description: "section description for advanced store settings",
   },
   sectionWebhookEmissionTitle: {

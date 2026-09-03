@@ -19,7 +19,7 @@ import difference from "lodash/difference";
 import { type DiscoutFormData } from "../../types";
 
 /**
- * Saleor promotionUpdate validates dates with
+ * FSCommerce promotionUpdate validates dates with
  * `cleaned_input.get("end_date") or instance.end_date`, so `endDate: null` is ignored
  * for validation. Clearing the end while moving start past the previous end fails.
  * Clear end date in a separate mutation first when that conflict would occur.

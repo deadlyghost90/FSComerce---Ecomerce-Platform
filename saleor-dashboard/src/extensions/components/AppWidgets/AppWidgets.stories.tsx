@@ -25,7 +25,7 @@ const buildExtension = (overrides: Partial<ExtensionWithParams> = {}): Extension
   open: fn(),
   targetName: "WIDGET",
   settings: {},
-  isSaleorOfficial: false,
+  isFSCommerceOfficial: false,
   fromCache: false,
   ...overrides,
 });

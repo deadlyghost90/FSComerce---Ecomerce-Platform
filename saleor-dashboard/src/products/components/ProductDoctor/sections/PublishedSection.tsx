@@ -24,14 +24,14 @@ interface PublishedSectionProps {
 /**
  * PublishedSection - Controls product visibility in storefront
  *
- * IMPORTANT: Saleor's publication logic (from saleor/product/managers.py):
+ * IMPORTANT: FSCommerce's publication logic (from saleor/product/managers.py):
  * - Product is VISIBLE when: isPublished=true AND (publishedAt <= now OR publishedAt IS NULL)
  * - Product is SCHEDULED when: isPublished=true AND publishedAt > now
  * - Product is HIDDEN when: isPublished=false (publishedAt is ignored!)
  *
  * So to schedule a product for future publication:
  * - Set isPublished=true + publishedAt=futureDate
- * - Saleor will hide it until the date, then show it automatically
+ * - FSCommerce will hide it until the date, then show it automatically
  *
  * UI Design:
  * - Toggle ON = "Visible or Scheduled" (isPublished=true)

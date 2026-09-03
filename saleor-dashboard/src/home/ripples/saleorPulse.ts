@@ -21,16 +21,16 @@ const pulsePrimaryAction =
         href: pulsePromotionLink.href,
       };
 
-export const rippleSaleorPulse: Ripple = {
+export const rippleFSCommercePulse: Ripple = {
   type: "newApp",
   ID: "saleor-pulse",
   TTL_seconds: 60 * 60 * 24 * 14, // 14 days
   dateAdded: new Date(2026, 6, 31), // Jul 31, 2026
   content: {
-    oneLiner: "Saleor Pulse",
+    oneLiner: "FSCommerce Pulse",
     contextual: "See real-time store analytics on your homepage — revenue, orders, and operations.",
     global:
-      "Saleor Pulse brings real-time analytics into the Dashboard homepage: commercial performance, operational health, and product-level context without a separate BI project.",
+      "FSCommerce Pulse brings real-time analytics into the Dashboard homepage: commercial performance, operational health, and product-level context without a separate BI project.",
   },
   media: {
     kind: "video",

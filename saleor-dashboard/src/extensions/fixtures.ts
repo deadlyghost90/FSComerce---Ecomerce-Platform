@@ -20,7 +20,7 @@ export const appDetails: NonNullable<AppQuery["app"]> = {
   isActive: true,
   metadata: [],
   name: "app1",
-  author: "Saleor Commerce",
+  author: "FSCommerce Commerce",
   permissions: [
     {
       __typename: "Permission",

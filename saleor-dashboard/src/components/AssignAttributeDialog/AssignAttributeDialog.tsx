@@ -10,7 +10,7 @@ import { DashboardModal } from "@dashboard/components/Modal";
 import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/ResponsiveTable";
 import { TableBody, TableCell } from "@dashboard/components/Table/Table";
 import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { type AvailableAttributeFragment } from "@dashboard/graphql";
 import { useAssignPickerListDisplayState } from "@dashboard/hooks/useAssignPickerListDisplayState";
 import useModalDialogErrors from "@dashboard/hooks/useModalDialogErrors/useModalDialogErrors";
@@ -108,7 +108,7 @@ const AssignAttributeDialog = ({
               label={intl.formatMessage(messages.searchInputLabel)}
               placeholder={intl.formatMessage(messages.searchInputPlaceholder)}
               autoComplete="off"
-              endAdornment={loading && <SaleorThrobber size={16} />}
+              endAdornment={loading && <FSCommerceThrobber size={16} />}
             />
           }
         >

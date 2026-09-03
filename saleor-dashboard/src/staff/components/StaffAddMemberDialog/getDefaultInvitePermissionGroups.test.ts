@@ -30,7 +30,7 @@ describe("getDefaultInvitePermissionGroups", () => {
     const groups = [
       group({ id: "g-support", name: "Customer Support" }),
       group({ id: "g-full", name: DEFAULT_INVITE_PERMISSION_GROUP_NAME }),
-      group({ id: "g-cloud", name: "Full Access (Saleor Cloud users)" }),
+      group({ id: "g-cloud", name: "Full Access (FSCommerce Cloud users)" }),
     ];
 
     // Act
@@ -48,16 +48,16 @@ describe("getDefaultInvitePermissionGroups", () => {
         name: DEFAULT_INVITE_PERMISSION_GROUP_NAME,
         userCanManage: false,
       }),
-      group({ id: "g-cloud", name: "Full Access (Saleor Cloud users)" }),
+      group({ id: "g-cloud", name: "Full Access (FSCommerce Cloud users)" }),
     ];
 
     // Act / Assert
     expect(getDefaultInvitePermissionGroups(groups)).toEqual([]);
   });
 
-  it("does not treat Full Access (Saleor Cloud users) as the default", () => {
+  it("does not treat Full Access (FSCommerce Cloud users) as the default", () => {
     // Arrange
-    const groups = [group({ id: "g-cloud", name: "Full Access (Saleor Cloud users)" })];
+    const groups = [group({ id: "g-cloud", name: "Full Access (FSCommerce Cloud users)" })];
 
     // Act / Assert
     expect(getDefaultInvitePermissionGroups(groups)).toEqual([]);

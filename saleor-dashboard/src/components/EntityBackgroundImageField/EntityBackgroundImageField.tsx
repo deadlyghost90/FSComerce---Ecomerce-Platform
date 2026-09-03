@@ -1,7 +1,7 @@
 import { iconSize, iconStrokeWidthBySize } from "@dashboard/components/icons";
 import { MediaWithFallback } from "@dashboard/components/MediaWithFallback/MediaWithFallback";
 import { Skeleton } from "@dashboard/components/Skeleton/Skeleton";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { buttonMessages } from "@dashboard/intl";
 import { messages as productMediaMessages } from "@dashboard/products/components/ProductMedia/messages";
 import { ProductMediaGalleryDropzone } from "@dashboard/products/components/ProductMedia/ProductMediaGalleryDropzone";
@@ -99,7 +99,7 @@ const BackgroundImagePreview = ({
           className={styles.previewUploadingOverlay}
           data-test-id="entity-background-image-uploading"
         >
-          <SaleorThrobber size={32} />
+          <FSCommerceThrobber size={32} />
         </div>
       ) : null}
       {showDelete ? (

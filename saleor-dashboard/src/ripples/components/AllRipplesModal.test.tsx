@@ -45,7 +45,7 @@ jest.mock("@dashboard/ripples/allRipples", () => ({
       ID: "saleor-pulse",
       dateAdded: new Date(2026, 6, 31),
       content: {
-        oneLiner: "Saleor Pulse",
+        oneLiner: "FSCommerce Pulse",
         global: "Analytics on your homepage.",
         contextual: "See real-time store analytics.",
       },

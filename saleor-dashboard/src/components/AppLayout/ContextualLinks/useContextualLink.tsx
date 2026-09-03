@@ -44,12 +44,12 @@ export const useContextualLink = (type: SubtitleType) => {
       });
     case "extending_saleor":
       return intl.formatMessage(contextualLinks.webhooks, {
-        extendingSaleor: (
+        extendingFSCommerce: (
           <ContextualLine.Link
             href={EXTENDING_WITH_WEBHOOKS_DOCS_URL}
             onClick={() => trackEvent("extending_saleor_docs")}
           >
-            {intl.formatMessage(contextualLinks.extendingSaleor)}
+            {intl.formatMessage(contextualLinks.extendingFSCommerce)}
           </ContextualLine.Link>
         ),
       });

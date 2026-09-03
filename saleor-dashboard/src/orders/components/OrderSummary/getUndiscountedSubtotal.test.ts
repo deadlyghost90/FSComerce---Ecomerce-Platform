@@ -101,7 +101,7 @@ describe("getUndiscountedSubtotal", () => {
   });
 
   it("handles three fractional digits (ISO 4217 currencies such as KWD)", () => {
-    // Arrange — Saleor exposes fractionDigits per currency; see e.g. OrderCaptureDialog
+    // Arrange — FSCommerce exposes fractionDigits per currency; see e.g. OrderCaptureDialog
     const lines = [
       makeLine({
         currency: "KWD",

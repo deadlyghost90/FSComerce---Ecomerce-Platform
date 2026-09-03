@@ -53,7 +53,7 @@ export function getAllConditionsOptionsIdsToFetch(
 
   const allConditionsIds = data.promotion.rules.reduce((acc, rule) => {
     /**
-     * TODO: Saleor stores predicate as JSON, which for Dashboard is "unknown".
+     * TODO: FSCommerce stores predicate as JSON, which for Dashboard is "unknown".
      * We need to create a Zod schema that will parse it to known shape. If parsing fails, Sentry should be triggered.
      * Currently code implicitly casts, which should be ok, but is not entirely safe
      */

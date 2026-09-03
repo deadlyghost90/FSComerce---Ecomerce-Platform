@@ -14,7 +14,7 @@ import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/Responsiv
 import { TableBody, TableCell } from "@dashboard/components/Table/Table";
 import TableCellAvatar from "@dashboard/components/TableCellAvatar/TableCellAvatar";
 import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { type AddressInput, type OrderErrorFragment } from "@dashboard/graphql";
 import { useAssignPickerListDisplayState } from "@dashboard/hooks/useAssignPickerListDisplayState";
 import useModalDialogErrors from "@dashboard/hooks/useModalDialogErrors/useModalDialogErrors";
@@ -173,7 +173,7 @@ export const OrderProductAddDialog = ({
                 label={intl.formatMessage(messages.search)}
                 placeholder={intl.formatMessage(messages.searchPlaceholder)}
                 autoComplete="off"
-                endAdornment={loading && <SaleorThrobber size={16} />}
+                endAdornment={loading && <FSCommerceThrobber size={16} />}
               />
             </Box>
           }
@@ -304,7 +304,7 @@ export const OrderProductAddDialog = ({
                                 >
                                   {loadingProductIds.has(product.id) ? (
                                     <Box display="flex" alignItems="center" gap={2}>
-                                      <SaleorThrobber size={16} />
+                                      <FSCommerceThrobber size={16} />
                                       {intl.formatMessage(messages.loadingMoreVariants)}
                                     </Box>
                                   ) : (

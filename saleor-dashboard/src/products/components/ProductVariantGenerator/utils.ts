@@ -170,7 +170,7 @@ export function extractExistingCombinations(
 }
 
 /**
- * Keeps only selection attributes — they alone determine variant uniqueness in Saleor.
+ * Keeps only selection attributes — they alone determine variant uniqueness in FSCommerce.
  */
 export function toExistingVariantData(
   variants: ExistingVariantData,

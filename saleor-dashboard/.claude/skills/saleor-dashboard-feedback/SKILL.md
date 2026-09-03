@@ -1,14 +1,14 @@
 ---
 name: saleor-dashboard-feedback
 description: >
-  Rules for surfacing errors, warnings, and success feedback in Saleor Dashboard
+  Rules for surfacing errors, warnings, and success feedback in FSCommerce Dashboard
   (Geist/Vercel-aligned). Use when adding useNotifier/toasts, save/mutation error
   handling, form validation, banners, setup blockers, or dogfooding feedback quality
   on entity views (vouchers first). Covers when to toast vs inline vs persistent UI,
   toast copy quality, stickiness, and anti-patterns.
 ---
 
-# Saleor Dashboard Feedback
+# FSCommerce Dashboard Feedback
 
 How merchants learn that something worked, failed, or needs attention — **without
 offloading triage into toasts**.

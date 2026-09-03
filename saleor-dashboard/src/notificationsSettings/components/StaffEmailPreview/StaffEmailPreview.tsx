@@ -38,9 +38,9 @@ const getDefaultPreviewContent = (notificationId: string): DefaultPreviewContent
   switch (notificationId) {
     case "staff-invite":
       return {
-        heading: "You’re in—welcome to Saleor Commerce!",
+        heading: "You’re in—welcome to FSCommerce Commerce!",
         paragraphs: [
-          "Someone just added you to a Saleor project. That means you’ve got things to build, break, or ship (preferably in that order).",
+          "Someone just added you to a FSCommerce project. That means you’ve got things to build, break, or ship (preferably in that order).",
           "To get in, you’ll need to set a password. Just click the button below.",
           "Thank you!",
         ],
@@ -89,7 +89,7 @@ const getDefaultPreviewContent = (notificationId: string): DefaultPreviewContent
     default:
       return {
         heading: "Staff email",
-        paragraphs: ["This is the Saleor default message for this notification."],
+        paragraphs: ["This is the FSCommerce default message for this notification."],
       };
   }
 };

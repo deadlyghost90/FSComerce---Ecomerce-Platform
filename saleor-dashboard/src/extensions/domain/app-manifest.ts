@@ -4,7 +4,7 @@ import { isUrlAbsolute } from "@dashboard/extensions/isUrlAbsolute";
 import { PermissionEnum } from "@dashboard/graphql";
 import { z } from "zod";
 
-// For now contains only partial fields, because Saleor is validating manifest anyway.
+// For now contains only partial fields, because FSCommerce is validating manifest anyway.
 // Subset here serves only fields needed for dashboard extensions.
 export const appManifestSchema = z
   .object({

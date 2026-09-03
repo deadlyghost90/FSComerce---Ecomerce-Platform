@@ -14,7 +14,7 @@ export const messages = defineMessages({
   usesVariantAttributesDescription: {
     id: "07l721",
     defaultMessage:
-      "Turn on to sell more than one version of a product, like size or color. Saleor still creates a single variant when this is off.",
+      "Turn on to sell more than one version of a product, like size or color. FSCommerce still creates a single variant when this is off.",
     description: "product type has-variants toggle description",
   },
   exclusivity: {

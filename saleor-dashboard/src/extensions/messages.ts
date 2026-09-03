@@ -112,7 +112,7 @@ export const infoMessages = defineMessages({
   },
   permissionsDescription: {
     defaultMessage:
-      "Expand or restrict extension permissions to access certain part of Saleor system.",
+      "Expand or restrict extension permissions to access certain part of FSCommerce system.",
     id: "kr1PlW",
   },
   grantFullAccess: {
@@ -205,7 +205,7 @@ export const messages = defineMessages({
     id: "80g19N",
   },
   pluginDescription: {
-    defaultMessage: "Plugin built-in to Saleor's core codebase",
+    defaultMessage: "Plugin built-in to FSCommerce's core codebase",
     id: "EEWsPs",
   },
   pluginInfoImportant: {
@@ -223,7 +223,7 @@ export const messages = defineMessages({
   },
   selfHostedBanner: {
     defaultMessage:
-      "Apps are available for Saleor Cloud users. Most of them are available for self-hosting.",
+      "Apps are available for FSCommerce Cloud users. Most of them are available for self-hosting.",
     id: "6IteaF",
   },
   noExtensionsInstalled: {
@@ -243,7 +243,7 @@ export const messages = defineMessages({
     id: "4YJHut",
   },
   installationCloudOnly: {
-    defaultMessage: "Use Saleor Cloud to access Saleor Extensions",
+    defaultMessage: "Use FSCommerce Cloud to access FSCommerce Extensions",
     description: "description",
     id: "jm2YzF",
   },
@@ -264,7 +264,7 @@ export const messages = defineMessages({
   },
   learnMoreError: {
     defaultMessage: "Learn more about this error",
-    description: "Add custom extension error link to Saleor Docs",
+    description: "Add custom extension error link to FSCommerce Docs",
     id: "9pGRfy",
   },
   manifestFormatLink: {
@@ -301,7 +301,7 @@ export const messages = defineMessages({
   infoCardLearnMoreLink: {
     defaultMessage: "Learn more about data privacy.",
     id: "4KRhwm",
-    description: "link in infoCardText, to Saleor docs",
+    description: "link in infoCardText, to FSCommerce docs",
   },
   manifestUrlLabel: {
     defaultMessage: "Provide Manifest URL",
@@ -515,7 +515,7 @@ export const appManifestErrorMessages = defineMessages({
     // AppErrorCode.MANIFEST_URL_CANT_CONNECT
     defaultMessage:
       // TODO: Add docs link when we have docs page with explanation
-      "Saleor could not connect to the provided manifest URL. ({errorCode})",
+      "FSCommerce could not connect to the provided manifest URL. ({errorCode})",
     id: "DbNXK5",
   },
   notFound: {
@@ -591,11 +591,11 @@ export const appManifestErrorMessages = defineMessages({
     id: "q5I8Ac",
     defaultMessage: "An unexpected GraphQL error occurred. ({errorCode})",
   },
-  unsupportedSaleorVersion: {
+  unsupportedFSCommerceVersion: {
     // AppErrorCode.UNSUPPORTED_SALEOR_VERSION
     id: "fWaj1M",
     defaultMessage:
-      "The Saleor version your extension is trying to use is newer than your current Saleor version. {docsLink} ({errorCode})",
+      "The FSCommerce version your extension is trying to use is newer than your current FSCommerce version. {docsLink} ({errorCode})",
   },
 });
 
@@ -607,7 +607,7 @@ export const localAppErrorMessages = defineMessages({
   },
   invalidPermission: {
     id: "tI7/Ib",
-    defaultMessage: "Extension requested permissions that are not available in Saleor.",
+    defaultMessage: "Extension requested permissions that are not available in FSCommerce.",
   },
   outOfScopeApp: {
     id: "PFmBz7",

@@ -1,9 +1,9 @@
 ---
 name: saleor-dashboard-styles
-description: Styling guide for Saleor Dashboard React components using macaw-ui design system. Use when creating, refactoring, or modifying React components that need styling - especially layout, spacing, colors, borders, or any visual changes. Triggers on component creation, UI refactors, and style-related tasks.
+description: Styling guide for FSCommerce Dashboard React components using macaw-ui design system. Use when creating, refactoring, or modifying React components that need styling - especially layout, spacing, colors, borders, or any visual changes. Triggers on component creation, UI refactors, and style-related tasks.
 ---
 
-# Saleor Dashboard Styling
+# FSCommerce Dashboard Styling
 
 Two strategies for styling components. Choose based on complexity.
 

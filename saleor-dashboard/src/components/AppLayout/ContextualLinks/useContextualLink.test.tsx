@@ -26,7 +26,7 @@ describe("useContextualLink", () => {
     const { result } = renderHook(() => useContextualLink("extending_saleor"), { wrapper });
 
     // Assert
-    expect(result.current).toEqual("Learn more about {extendingSaleor}");
+    expect(result.current).toEqual("Learn more about {extendingFSCommerce}");
   });
 
   it("should return correct link for dev_panel", () => {

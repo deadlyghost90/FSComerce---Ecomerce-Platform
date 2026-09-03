@@ -22,16 +22,16 @@ export const rippleActionMessages = defineMessages({
   installPulse: {
     id: "F9116r",
     defaultMessage: "Install Pulse",
-    description: "ripple action to install Saleor Pulse",
+    description: "ripple action to install FSCommerce Pulse",
   },
   openPulse: {
     id: "r0blTm",
     defaultMessage: "Open Pulse",
-    description: "ripple action to open Saleor Pulse when already installed",
+    description: "ripple action to open FSCommerce Pulse when already installed",
   },
   explorePulse: {
     id: "c5sFXi",
     defaultMessage: "Explore Pulse",
-    description: "ripple action to explore Saleor Pulse on the App Store (non-cloud)",
+    description: "ripple action to explore FSCommerce Pulse on the App Store (non-cloud)",
   },
 });

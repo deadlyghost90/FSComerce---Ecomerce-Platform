@@ -27,7 +27,7 @@ export class OrderIdQueryVarsBuilder extends BaseMappableQueryVarsBuilder<OrderI
     const { value: selectedValue } = element.condition.selected;
 
     // For IDs, we need to return plain array, not {oneOf: [...]} structure
-    // See OrderWhereInput.ids type in Saleor Schema
+    // See OrderWhereInput.ids type in FSCommerce Schema
     if (isItemOptionArray(selectedValue)) {
       return selectedValue.map(x => x.originalSlug || x.value);
     }

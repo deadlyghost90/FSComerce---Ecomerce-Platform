@@ -103,7 +103,7 @@ interface QueryResult {
 }
 
 /**
- * Make an unauthenticated GraphQL request to the Saleor API.
+ * Make an unauthenticated GraphQL request to the FSCommerce API.
  * This simulates what a public API client (without dashboard permissions) would see.
  */
 async function fetchUnauthenticated(

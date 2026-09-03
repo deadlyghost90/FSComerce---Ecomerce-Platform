@@ -177,7 +177,7 @@ export class OrderFixture {
     __typename: "Address",
     city: "Wroclaw",
     id: "shipping-address-id",
-    companyName: "Saleor",
+    companyName: "FSCommerce",
     firstName: "Test",
     lastName: "Testowy",
     streetAddress1: "Teczowa 7",

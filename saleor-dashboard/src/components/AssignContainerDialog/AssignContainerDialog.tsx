@@ -6,7 +6,7 @@ import { InfiniteScroll } from "@dashboard/components/InfiniteScroll/InfiniteScr
 import { DashboardModal } from "@dashboard/components/Modal";
 import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/ResponsiveTable";
 import { TableBody } from "@dashboard/components/Table/Table";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { useAssignPickerListDisplayState } from "@dashboard/hooks/useAssignPickerListDisplayState";
 import { usePickerBackfill } from "@dashboard/hooks/usePickerBackfill";
 import { useStalePickerList } from "@dashboard/hooks/useStalePickerList";
@@ -172,7 +172,7 @@ const AssignContainerDialog = ({
                 label={labels.label}
                 placeholder={labels.placeholder}
                 autoComplete="off"
-                endAdornment={loading && <SaleorThrobber size={16} />}
+                endAdornment={loading && <FSCommerceThrobber size={16} />}
               />
 
               {filtersSlot}

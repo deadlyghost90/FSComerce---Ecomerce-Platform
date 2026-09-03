@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { getAbsoluteApiUrl } from "@dashboard/config";
 import {
   useWidgetIframeAutoHeight,
@@ -115,7 +115,7 @@ export const IframePost = ({
         alignItems={loaderType === "throbber" ? "center" : undefined}
         justifyContent={loaderType === "throbber" ? "center" : undefined}
       >
-        {loaderType === "throbber" ? <SaleorThrobber /> : <Skeleton __height={loaderHeight} />}
+        {loaderType === "throbber" ? <FSCommerceThrobber /> : <Skeleton __height={loaderHeight} />}
       </Box>
       <Box
         style={hiddenStyle}

@@ -16,7 +16,7 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_GFI_WEBHOOK_URL }}
           message: |
-            🎉 New Issue Labeled with "Help Wanted" in Saleor Dashboard
+            🎉 New Issue Labeled with "Help Wanted" in FSCommerce Dashboard
 
             **Issue Details:**
             - Title: ${{ github.event.issue.title }}

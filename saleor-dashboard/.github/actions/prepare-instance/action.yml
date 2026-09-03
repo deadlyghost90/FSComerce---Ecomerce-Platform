@@ -6,7 +6,7 @@ inputs:
     required: false
     default: "create"
   CLI_TOKEN:
-    description: "Saleor cli token"
+    description: "FSCommerce cli token"
     required: true
   BASE_URL:
     description: "Dashboard base url"
@@ -34,7 +34,7 @@ runs:
       with:
         node-version-file: "package.json"
         cache: "pnpm"
-    - name: Saleor login
+    - name: FSCommerce login
       uses: ./.github/actions/cli-login
       with:
         token: ${{ inputs.CLI_TOKEN }}

@@ -97,7 +97,7 @@ describe("useHomeRouteParams", () => {
   });
 
   it("round-trips a base64-style global ID containing '+', '/', and '='", () => {
-    // Arrange - shape of a typical Saleor global ID. These chars are URI-reserved,
+    // Arrange - shape of a typical FSCommerce global ID. These chars are URI-reserved,
     // so the history library's decodeURI does not touch them; the hook's
     // decodeURIComponent has to finish the job.
     const id = "QXBwRXh0ZW5zaW9uOjE+/=";
@@ -255,7 +255,7 @@ const panelExtension = (id: string, label: string): Extension => ({
   open: () => undefined,
   targetName: "WIDGET",
   settings: { homeWidgetTarget: { fullscreen: true, method: "POST" } },
-  isSaleorOfficial: true,
+  isFSCommerceOfficial: true,
   fromCache: false,
 });
 

@@ -342,7 +342,7 @@ describe("runAvailabilityChecks", () => {
     });
   });
 
-  describe("direct warehouse-channel stock availability mode (Saleor 3.23+)", () => {
+  describe("direct warehouse-channel stock availability mode (FSCommerce 3.23+)", () => {
     it("should NOT emit warehouse-not-in-zone in direct mode (would be a false positive)", () => {
       // Arrange - stock is in a warehouse linked to the channel but missing from shipping zones
       const product = createProduct({ isShippingRequired: true });

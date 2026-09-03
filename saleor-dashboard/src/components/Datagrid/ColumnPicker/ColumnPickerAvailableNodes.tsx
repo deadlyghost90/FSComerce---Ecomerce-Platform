@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { Box, Checkbox, Text } from "@saleor/macaw-ui-next";
 import type * as React from "react";
 import { FormattedMessage } from "react-intl";
@@ -28,7 +28,7 @@ export const ColumnPickerAvailableNodes = ({
     if (areNodesLoading) {
       return (
         <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
-          <SaleorThrobber />
+          <FSCommerceThrobber />
         </Box>
       );
     }

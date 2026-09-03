@@ -386,7 +386,7 @@ describe("buildLineWaterfall", () => {
 
   describe("gift lines", () => {
     it("emits gift_line for an ORDER_PROMOTION discount on a line with isGift=true (full zero-out)", () => {
-      // Arrange — Saleor's free-gift line: catalog price $75, billed $0,
+      // Arrange — FSCommerce's free-gift line: catalog price $75, billed $0,
       // with a single OrderLineDiscount of type ORDER_PROMOTION and amount
       // $75 attached to the gift line itself.
       const giftDiscount = makeLineDiscount({
@@ -646,7 +646,7 @@ describe("buildLineWaterfall", () => {
     it("multi-record order discount: collapsed into one combined factor with named contributors and exact slice", () => {
       // Arrange: 1 line, $45 undiscounted, recorded final $40.50.
       // Order has TWO order-level records that together caused the $4.50 drop:
-      // a manual order discount and a voucher. Saleor does not surface a
+      // a manual order discount and a voucher. FSCommerce does not surface a
       // per-record-per-line split, so the dashboard collapses the two into
       // a single combined factor — exact slice, named contributors, no
       // fabricated per-record amounts.

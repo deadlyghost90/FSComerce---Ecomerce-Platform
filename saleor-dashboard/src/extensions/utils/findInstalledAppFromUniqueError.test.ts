@@ -2,15 +2,15 @@ import { findInstalledAppFromUniqueError } from "./findInstalledAppFromUniqueErr
 
 describe("findInstalledAppFromUniqueError", () => {
   const installedApps = [
-    { id: "app-1", name: "Saleor Pulse" },
+    { id: "app-1", name: "FSCommerce Pulse" },
     { id: "app-2", name: "Other App" },
   ];
 
-  it("returns the installed app named in Saleor's UNIQUE error message", () => {
+  it("returns the installed app named in FSCommerce's UNIQUE error message", () => {
     // Arrange & Act
     const app = findInstalledAppFromUniqueError(installedApps, {
       field: "identifier",
-      message: "App with the same identifier is already installed: Saleor Pulse",
+      message: "App with the same identifier is already installed: FSCommerce Pulse",
     });
 
     // Assert
@@ -21,7 +21,7 @@ describe("findInstalledAppFromUniqueError", () => {
     // Arrange & Act
     const app = findInstalledAppFromUniqueError(installedApps, {
       field: "manifestUrl",
-      message: "App with the same identifier is already installed: Saleor Pulse",
+      message: "App with the same identifier is already installed: FSCommerce Pulse",
     });
 
     // Assert

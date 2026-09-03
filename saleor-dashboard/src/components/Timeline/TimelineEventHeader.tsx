@@ -9,7 +9,7 @@ import { getActorDisplayName, getActorLink } from "./utils";
 export interface TitleElement {
   text: string;
   link?: string;
-  /** Saleor entity icon when `link` is set. */
+  /** FSCommerce entity icon when `link` is set. */
   entity?: TimelineEntity;
 }
 

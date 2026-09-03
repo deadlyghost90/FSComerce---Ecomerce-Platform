@@ -1,6 +1,6 @@
-# Saleor Dashboard
+# FSCommerce Dashboard
 
-The admin interface for a Saleor store. This glossary records the terms whose dashboard-facing
+The admin interface for a FSCommerce store. This glossary records the terms whose dashboard-facing
 name differs from the API name, and the concepts the dashboard invents on top of the API.
 
 ## Modeling

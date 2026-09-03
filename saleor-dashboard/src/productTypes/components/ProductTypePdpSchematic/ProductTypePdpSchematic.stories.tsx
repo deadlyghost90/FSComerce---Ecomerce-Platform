@@ -18,7 +18,7 @@ export const Hoodie: Story = {
       {
         id: "brand",
         name: "Brand",
-        choices: { edges: [{ node: { name: "Saleor" } }] },
+        choices: { edges: [{ node: { name: "FSCommerce" } }] },
       },
       { id: "material", name: "Material" },
     ],

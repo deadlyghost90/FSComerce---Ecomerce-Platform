@@ -138,7 +138,7 @@ const Component = () => {
         <Route exact path={productAddPath} component={ProductCreateRedirect} />
         <Route exact path={productVariantAddPath(":id")} component={ProductVariantCreate} />
         {/* Redirect old product variant path to new format
-         * TODO: Remove in Saleor Dashboard 3.23 */}
+         * TODO: Remove in FSCommerce Dashboard 3.23 */}
         <Route
           path={productVariantLegacyEditPath(":productId", ":variantId")}
           exact

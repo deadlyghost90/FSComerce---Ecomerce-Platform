@@ -11,7 +11,7 @@ const choices = (...names: string[]) => ({
 
 describe("getPdpSchematicModel", () => {
   const productAttributes = [
-    { id: "brand", name: "Brand", choices: choices("Saleor") },
+    { id: "brand", name: "Brand", choices: choices("FSCommerce") },
     { id: "material", name: "Material" },
   ];
   const assignedVariantAttributes = [
@@ -31,7 +31,7 @@ describe("getPdpSchematicModel", () => {
 
     // Assert
     expect(model.specAttributes.map(attribute => attribute.name)).toEqual(["Brand", "Material"]);
-    expect(model.specAttributes[0].sampleValue).toBe("Saleor");
+    expect(model.specAttributes[0].sampleValue).toBe("FSCommerce");
     expect(model.specAttributes[1].sampleValue).toBeNull();
     expect(model.optionAttributes.map(attribute => attribute.name)).toEqual(["Color", "Size"]);
     expect(model.badgeAttributes.map(attribute => attribute.name)).toEqual(["Fit"]);

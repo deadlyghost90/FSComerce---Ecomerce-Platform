@@ -712,7 +712,7 @@
   },
   "2rJcFa": {
     "context": "delete app",
-    "string": "Odstránením tejto aplikácie vymažete aj jej inštaláciu. Ak platíte predplatné nezabudnite ho zrušiť v Saleor Marketplace."
+    "string": "Odstránením tejto aplikácie vymažete aj jej inštaláciu. Ak platíte predplatné nezabudnite ho zrušiť v FSCommerce Marketplace."
   },
   "2x9ZgK": {
     "context": "card title",
@@ -880,7 +880,7 @@
   },
   "45aV8u": {
     "context": "gift card bulk create modal bottom explanation",
-    "string": "Po vytvorení Saleor vytvorí zoznam darčekových poukážok ktoré budete vedieť stiahnuť."
+    "string": "Po vytvorení FSCommerce vytvorí zoznam darčekových poukážok ktoré budete vedieť stiahnuť."
   },
   "45zP+r": {
     "context": "voucher discount",
@@ -996,7 +996,7 @@
   },
   "4yRwN+": {
     "context": "content",
-    "string": "Saleor couldn’t fetch crucial information regarding installation. Without those System can’t install the app in your Saleor. Please use the button below to get back to system’s dashboard."
+    "string": "FSCommerce couldn’t fetch crucial information regarding installation. Without those System can’t install the app in your FSCommerce. Please use the button below to get back to system’s dashboard."
   },
   "54KYgS": {
     "context": "months after label",
@@ -1437,7 +1437,7 @@
   },
   "8aV98y": {
     "context": "new version notification content",
-    "string": "Aktualizujte Saleor na najnovšiu verziu. Predtým ako to spravíte uložte všetky zmeny aby ste nestratili svoje údaje. Aktualizujete kliknutím tlačidla dole."
+    "string": "Aktualizujte FSCommerce na najnovšiu verziu. Predtým ako to spravíte uložte všetky zmeny aby ste nestratili svoje údaje. Aktualizujete kliknutím tlačidla dole."
   },
   "8cUEPV": {
     "context": "page title",
@@ -1694,7 +1694,7 @@
   },
   "ARfw53": {
     "context": "description",
-    "string": "Inštalujte aplikácie vytvorené Saleorom alebo externé aplikácie."
+    "string": "Inštalujte aplikácie vytvorené FSCommerceom alebo externé aplikácie."
   },
   "AVF5T5": {
     "context": "voucher end date, switch button",
@@ -2019,7 +2019,7 @@
   },
   "ChGI4V": {
     "context": "error message",
-    "string": "Saleor je nedostupný, prosím skontrolujte pripojenie k internetu a skúste znovu."
+    "string": "FSCommerce je nedostupný, prosím skontrolujte pripojenie k internetu a skúste znovu."
   },
   "CjSRT1": {
     "context": "button",
@@ -2257,7 +2257,7 @@
   },
   "EWD/wU": {
     "context": "delete app",
-    "string": "Odstránením {name}, odstránite inštaláciu aplikácie. Ak platíte predplatné nezabudnite ho zrušiť v Saleor Marketplace. Ste si istý, že chcete odstrániť aplikáciu?"
+    "string": "Odstránením {name}, odstránite inštaláciu aplikácie. Ak platíte predplatné nezabudnite ho zrušiť v FSCommerce Marketplace. Ste si istý, že chcete odstrániť aplikáciu?"
   },
   "EY/jqC": {
     "string": "Posledný pokus o doručenie:"
@@ -2828,7 +2828,7 @@
   },
   "IEpmGQ": {
     "context": "description",
-    "string": "Použite Saleor Cloud pre prístup k aplikácii"
+    "string": "Použite FSCommerce Cloud pre prístup k aplikácii"
   },
   "IFWHn0": {
     "context": "error message",
@@ -3231,7 +3231,7 @@
     "string": "Autorizovaná suma"
   },
   "L/sNGY": {
-    "string": "Lokálne aplikácie sú vlastné webhooky a tokeny ktoré môžu byť prepájať aplikácie a pristúpiť k Saleor API."
+    "string": "Lokálne aplikácie sú vlastné webhooky a tokeny ktoré môžu byť prepájať aplikácie a pristúpiť k FSCommerce API."
   },
   "L2tvTm": {
     "context": "mark as paid strategy checkbox label",
@@ -3294,7 +3294,7 @@
     "string": "Heslo je príliš krátkeThis password is too short"
   },
   "LVa5ew": {
-    "string": "Saleor narazil na nečakaný problém"
+    "string": "FSCommerce narazil na nečakaný problém"
   },
   "LWmYSU": {
     "string": "Kompletný preklad"
@@ -3564,7 +3564,7 @@
   },
   "NhQboB": {
     "context": "dialog header",
-    "string": "Saleor nemohol zrušiť objednávku"
+    "string": "FSCommerce nemohol zrušiť objednávku"
   },
   "NivJal": {
     "context": "section header",
@@ -6736,7 +6736,7 @@
     "string": "Dosiahli ste limit skladov, nebudete schopní pridávať ďaľšie sklady do vášho obchodu. Ak chcete zvýšiť svoj limit konraktuje administratívny personál."
   },
   "kFYlu2": {
-    "string": "Saleor beží v móde len na čítanie. Zmeny sa neuložili."
+    "string": "FSCommerce beží v móde len na čítanie. Zmeny sa neuložili."
   },
   "kFkMoG": {
     "context": "set balance dialog subtitle",
@@ -6809,7 +6809,7 @@
   },
   "kYtxJ1": {
     "context": "delete app",
-    "string": "Odstránením {name}, odstránite aj inštaláciu aplikácie. Ak platíte predplatné nezabudnite ho zrušiť v Saleor Marketplace."
+    "string": "Odstránením {name}, odstránite aj inštaláciu aplikácie. Ak platíte predplatné nezabudnite ho zrušiť v FSCommerce Marketplace."
   },
   "kZfIl/": {
     "string": "Toto sú všeobecné informácie o tomto type obsahu."

@@ -36,7 +36,7 @@ import {
 import { DashboardCard } from "../Card";
 import { type CardMenuItem } from "../CardMenu/CardMenu";
 import { Placeholder } from "../Placeholder/Placeholder";
-import { SaleorThrobber } from "../Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "../Throbber/FSCommerceThrobber";
 import { FullScreenContainer } from "./components/FullScreenContainer";
 import { PreventHistoryBack } from "./components/PreventHistoryBack";
 import { RowActions } from "./components/RowActions";
@@ -636,7 +636,7 @@ export const Datagrid = ({
   if (loading) {
     return (
       <Box data-test-id="datagrid-loader" display="flex" justifyContent="center" marginY={9}>
-        <SaleorThrobber />
+        <FSCommerceThrobber />
       </Box>
     );
   }

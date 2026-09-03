@@ -69,7 +69,7 @@ export const messages = defineMessages({
     defaultMessage:
       "Inventory is tracked per warehouse. This channel can only reserve stock from warehouses you assign here—without one, checkout can’t allocate inventory for tracked products.",
     description:
-      "Expanded help for warehouse setup. Based on Saleor stock allocation: stocks allocate only from warehouses available in the order channel.",
+      "Expanded help for warehouse setup. Based on FSCommerce stock allocation: stocks allocate only from warehouses available in the order channel.",
   },
   shippingTitle: {
     id: "LWlDC+",
@@ -122,7 +122,7 @@ export const messages = defineMessages({
     defaultMessage:
       "Shipping zones define which countries you deliver to and which rates customers see at checkout. Assign this channel to a zone that covers your default country so shoppers can choose a shipping method.",
     description:
-      "Expanded help for shipping setup. Based on Saleor shipping zones: zones set countries/methods and must be linked to the channel for checkout rates.",
+      "Expanded help for shipping setup. Based on FSCommerce shipping zones: zones set countries/methods and must be linked to the channel for checkout rates.",
   },
   tasksSectionTitle: {
     id: "Y6amBy",

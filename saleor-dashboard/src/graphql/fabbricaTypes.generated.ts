@@ -149,7 +149,7 @@ export type AccountChangeEmailRequested = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -190,7 +190,7 @@ export type AccountConfirmationRequested = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -213,7 +213,7 @@ export type AccountConfirmed = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -252,7 +252,7 @@ export type AccountDeleteRequested = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -275,7 +275,7 @@ export type AccountDeleted = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -300,7 +300,7 @@ export type AccountEmailChanged = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -312,7 +312,7 @@ export type AccountError = {
   /**
    * List of attributes IDs which causes the error.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes: Maybe<Array<Scalars['ID']['output']>>;
   /** The error code. */
@@ -398,7 +398,7 @@ export type AccountRegister = {
   errors: Array<AccountError>;
   /** Informs whether users need to confirm their email address. */
   requiresConfirmation: Maybe<Scalars['Boolean']['output']>;
-  /** @deprecated The field always returns a `User` object constructed from the input data. The `user.id` is always empty. To determine whether the user exists in Saleor, query via an external app with the required permissions. */
+  /** @deprecated The field always returns a `User` object constructed from the input data. The `user.id` is always empty. To determine whether the user exists in FSCommerce, query via an external app with the required permissions. */
   user: Maybe<User>;
 };
 
@@ -478,7 +478,7 @@ export type AccountSetPasswordRequested = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -605,7 +605,7 @@ export type AddressCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -638,7 +638,7 @@ export type AddressDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -678,9 +678,9 @@ export type AddressInput = {
   /** Postal code. */
   postalCode: InputMaybe<Scalars['String']['input']>;
   /**
-   * Determine if the address should be validated. By default, Saleor accepts only address inputs matching ruleset from [Google Address Data]{https://chromium-i18n.appspot.com/ssl-address), using [i18naddress](https://github.com/mirumee/google-i18n-address) library. Some mutations may require additional permissions to use the the field. More info about permissions can be found in relevant mutation.
+   * Determine if the address should be validated. By default, FSCommerce accepts only address inputs matching ruleset from [Google Address Data]{https://chromium-i18n.appspot.com/ssl-address), using [i18naddress](https://github.com/mirumee/google-i18n-address) library. Some mutations may require additional permissions to use the the field. More info about permissions can be found in relevant mutation.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -741,7 +741,7 @@ export type AddressUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -888,13 +888,13 @@ export type App = Node & ObjectWithMetadata & {
   /**
    * Circuit breaker last state change date.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   breakerLastStateChange: Maybe<Scalars['DateTime']['output']>;
   /**
    * Circuit breaker state, if open, sync webhooks operation is disrupted.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   breakerState: CircuitBreakerStateEnum;
   /**
@@ -920,7 +920,7 @@ export type App = Node & ObjectWithMetadata & {
   /**
    * Canonical app ID from the manifest
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   identifier: Maybe<Scalars['String']['output']>;
   /** Determine if app will be set active or not. */
@@ -954,7 +954,7 @@ export type App = Node & ObjectWithMetadata & {
   /**
    * List of problems associated with this app.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: AUTHENTICATED_APP, MANAGE_APPS.
    */
@@ -1135,7 +1135,7 @@ export type AppDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -1182,7 +1182,7 @@ export type AppExtension = Node & {
   /**
    * Extension identifier, unique per app. Null when the app does not declare one.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   identifier: Maybe<Scalars['String']['output']>;
   /** Label of the extension to show in the dashboard. */
@@ -1190,7 +1190,7 @@ export type AppExtension = Node & {
   /**
    * Name of the extension mount point in the dashboard. Value returned in UPPERCASE.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   mountName: Scalars['String']['output'];
   /** List of the app extension's permissions. */
@@ -1198,13 +1198,13 @@ export type AppExtension = Node & {
   /**
    * App extension settings.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   settings: Scalars['JSON']['output'];
   /**
    * Name of the extension target in the dashboard. Value returned in UPPERCASE.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   targetName: Scalars['String']['output'];
   /** URL of a view where extension's iframe is placed. */
@@ -1232,13 +1232,13 @@ export type AppExtensionFilterInput = {
   /**
    * Plain-text mount name (case insensitive)
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   mountName: InputMaybe<Array<Scalars['String']['input']>>;
   /**
    * Plain-text target name (case insensitive)
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   targetName: InputMaybe<Scalars['String']['input']>;
 };
@@ -1267,7 +1267,7 @@ export type AppInput = {
   /**
    * Canonical app ID. If not provided, the identifier will be generated based on app.id.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   identifier: InputMaybe<Scalars['String']['input']>;
   /** Name of the app. */
@@ -1328,7 +1328,7 @@ export type AppInstalled = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -1358,7 +1358,7 @@ export type AppManifestExtension = {
   /**
    * Extension identifier, unique per app. Null when the app does not declare one.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   identifier: Maybe<Scalars['String']['output']>;
   /** Label of the extension to show in the dashboard. */
@@ -1366,7 +1366,7 @@ export type AppManifestExtension = {
   /**
    * Name of the extension mount point in the dashboard. Value returned in UPPERCASE.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   mountName: Scalars['String']['output'];
   /** List of the app extension's permissions. */
@@ -1374,24 +1374,24 @@ export type AppManifestExtension = {
   /**
    * App extension settings.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   settings: Scalars['JSON']['output'];
   /**
    * Name of the extension target in the dashboard. Value returned in UPPERCASE.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   targetName: Scalars['String']['output'];
   /** URL of a view where extension's iframe is placed. */
   url: Scalars['String']['output'];
 };
 
-export type AppManifestRequiredSaleorVersion = {
-  __typename: 'AppManifestRequiredSaleorVersion';
-  /** Required Saleor version as semver range. */
+export type AppManifestRequiredFSCommerceVersion = {
+  __typename: 'AppManifestRequiredFSCommerceVersion';
+  /** Required FSCommerce version as semver range. */
   constraint: Scalars['String']['output'];
-  /** Informs if the Saleor version matches the required one. */
+  /** Informs if the FSCommerce version matches the required one. */
   satisfied: Scalars['Boolean']['output'];
 };
 
@@ -1412,26 +1412,26 @@ export type AppManifestWebhook = {
 /**
  * Represents a problem associated with an app.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AppProblem = Node & {
   __typename: 'AppProblem';
   /**
    * Number of occurrences.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   count: Scalars['Int']['output'];
   /**
    * The date and time when the problem was created.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   createdAt: Scalars['DateTime']['output'];
   /**
    * Dismissal information. Null if the problem has not been dismissed.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: AUTHENTICATED_APP, MANAGE_APPS.
    */
@@ -1439,31 +1439,31 @@ export type AppProblem = Node & {
   /**
    * The ID of the app problem.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   id: Scalars['ID']['output'];
   /**
    * Whether the problem has reached critical threshold.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   isCritical: Scalars['Boolean']['output'];
   /**
    * Key identifying the type of problem.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   key: Scalars['String']['output'];
   /**
    * The problem message.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   message: Scalars['String']['output'];
   /**
    * The date and time when the problem was last updated.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -1471,7 +1471,7 @@ export type AppProblem = Node & {
 /**
  * Add a problem to the calling app.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  *
  * Requires one of the following permissions: AUTHENTICATED_APP.
  */
@@ -1512,7 +1512,7 @@ export type AppProblemCreateInput = {
 /**
  * Dismiss problems for an app.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  *
  * Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
  */
@@ -1573,20 +1573,20 @@ export type AppProblemDismissInput = {
 /**
  * Dismissal information for an app problem.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AppProblemDismissed = {
   __typename: 'AppProblemDismissed';
   /**
    * Whether the problem was dismissed by an App or a User.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   by: AppProblemDismissedByEnum;
   /**
    * The user who dismissed this problem. Null if dismissed by an app or the user was deleted.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: MANAGE_STAFF.
    */
@@ -1594,7 +1594,7 @@ export type AppProblemDismissed = {
   /**
    * Email of the user who dismissed this problem. Preserved even if the user is deleted.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
    */
@@ -1608,7 +1608,7 @@ export type AppProblemDismissedByEnum =
 /**
  * Re-enable sync webhooks for provided app. Can be used to manually re-enable sync webhooks for the app before the cooldown period ends.
  *
- * Added in Saleor 3.21.
+ * Added in FSCommerce 3.21.
  *
  * Requires one of the following permissions: MANAGE_APPS.
  */
@@ -1661,7 +1661,7 @@ export type AppStatusChanged = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -1723,9 +1723,9 @@ export type AppTokenVerify = {
 
 /** Enum determining type of your App. */
 export type AppTypeEnum =
-  /** Local Saleor App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
+  /** Local FSCommerce App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
   | 'LOCAL'
-  /** Third party external App. Installation is fully automated. Saleor uses a defined App manifest to gather all required information. */
+  /** Third party external App. Installation is fully automated. FSCommerce uses a defined App manifest to gather all required information. */
   | 'THIRDPARTY';
 
 /**
@@ -1755,7 +1755,7 @@ export type AppUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -1786,7 +1786,7 @@ export type AssignNavigation = {
 /**
  * Represents an attribute assigned to an object.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedAttribute = {
   /** Attribute assigned to an object. */
@@ -1835,7 +1835,7 @@ export type AssignedAttributeWhereInput = {
 /**
  * Represents a boolean attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedBooleanAttribute = AssignedAttribute & {
   __typename: 'AssignedBooleanAttribute';
@@ -1848,7 +1848,7 @@ export type AssignedBooleanAttribute = AssignedAttribute & {
 /**
  * Represents a single choice value of the attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedChoiceAttributeValue = {
   __typename: 'AssignedChoiceAttributeValue';
@@ -1864,7 +1864,7 @@ export type AssignedChoiceAttributeValue = {
 /**
  * Represents a single choice value of the attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedChoiceAttributeValueTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -1873,7 +1873,7 @@ export type AssignedChoiceAttributeValueTranslationArgs = {
 /**
  * Represents a date attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedDateAttribute = AssignedAttribute & {
   __typename: 'AssignedDateAttribute';
@@ -1886,7 +1886,7 @@ export type AssignedDateAttribute = AssignedAttribute & {
 /**
  * Represents a date time attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedDateTimeAttribute = AssignedAttribute & {
   __typename: 'AssignedDateTimeAttribute';
@@ -1899,7 +1899,7 @@ export type AssignedDateTimeAttribute = AssignedAttribute & {
 /**
  * Represents file attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedFileAttribute = AssignedAttribute & {
   __typename: 'AssignedFileAttribute';
@@ -1912,7 +1912,7 @@ export type AssignedFileAttribute = AssignedAttribute & {
 /**
  * Represents multi category reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiCategoryReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedMultiCategoryReferenceAttribute';
@@ -1926,7 +1926,7 @@ export type AssignedMultiCategoryReferenceAttribute = AssignedAttribute & {
 /**
  * Represents multi category reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiCategoryReferenceAttributeValueArgs = {
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -1935,7 +1935,7 @@ export type AssignedMultiCategoryReferenceAttributeValueArgs = {
 /**
  * Represents a multi choice attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiChoiceAttribute = AssignedAttribute & {
   __typename: 'AssignedMultiChoiceAttribute';
@@ -1949,7 +1949,7 @@ export type AssignedMultiChoiceAttribute = AssignedAttribute & {
 /**
  * Represents a multi choice attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiChoiceAttributeValueArgs = {
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -1958,7 +1958,7 @@ export type AssignedMultiChoiceAttributeValueArgs = {
 /**
  * Represents multi collection reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiCollectionReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedMultiCollectionReferenceAttribute';
@@ -1972,7 +1972,7 @@ export type AssignedMultiCollectionReferenceAttribute = AssignedAttribute & {
 /**
  * Represents multi collection reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiCollectionReferenceAttributeValueArgs = {
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -1981,7 +1981,7 @@ export type AssignedMultiCollectionReferenceAttributeValueArgs = {
 /**
  * Represents multi page reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiPageReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedMultiPageReferenceAttribute';
@@ -1995,7 +1995,7 @@ export type AssignedMultiPageReferenceAttribute = AssignedAttribute & {
 /**
  * Represents multi page reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiPageReferenceAttributeValueArgs = {
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -2004,7 +2004,7 @@ export type AssignedMultiPageReferenceAttributeValueArgs = {
 /**
  * Represents multi product reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiProductReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedMultiProductReferenceAttribute';
@@ -2018,7 +2018,7 @@ export type AssignedMultiProductReferenceAttribute = AssignedAttribute & {
 /**
  * Represents multi product reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiProductReferenceAttributeValueArgs = {
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -2027,7 +2027,7 @@ export type AssignedMultiProductReferenceAttributeValueArgs = {
 /**
  * Represents multi product variant reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiProductVariantReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedMultiProductVariantReferenceAttribute';
@@ -2041,7 +2041,7 @@ export type AssignedMultiProductVariantReferenceAttribute = AssignedAttribute & 
 /**
  * Represents multi product variant reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedMultiProductVariantReferenceAttributeValueArgs = {
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -2050,7 +2050,7 @@ export type AssignedMultiProductVariantReferenceAttributeValueArgs = {
 /**
  * Represents a numeric value of an attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedNumericAttribute = AssignedAttribute & {
   __typename: 'AssignedNumericAttribute';
@@ -2063,7 +2063,7 @@ export type AssignedNumericAttribute = AssignedAttribute & {
 /**
  * Represents plain text attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedPlainTextAttribute = AssignedAttribute & {
   __typename: 'AssignedPlainTextAttribute';
@@ -2079,7 +2079,7 @@ export type AssignedPlainTextAttribute = AssignedAttribute & {
 /**
  * Represents plain text attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedPlainTextAttributeTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -2088,7 +2088,7 @@ export type AssignedPlainTextAttributeTranslationArgs = {
 /**
  * Represents single category reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSingleCategoryReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedSingleCategoryReferenceAttribute';
@@ -2101,7 +2101,7 @@ export type AssignedSingleCategoryReferenceAttribute = AssignedAttribute & {
 /**
  * Represents a single choice attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSingleChoiceAttribute = AssignedAttribute & {
   __typename: 'AssignedSingleChoiceAttribute';
@@ -2114,7 +2114,7 @@ export type AssignedSingleChoiceAttribute = AssignedAttribute & {
 /**
  * Represents single collection reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSingleCollectionReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedSingleCollectionReferenceAttribute';
@@ -2127,7 +2127,7 @@ export type AssignedSingleCollectionReferenceAttribute = AssignedAttribute & {
 /**
  * Represents single page reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSinglePageReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedSinglePageReferenceAttribute';
@@ -2140,7 +2140,7 @@ export type AssignedSinglePageReferenceAttribute = AssignedAttribute & {
 /**
  * Represents single product reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSingleProductReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedSingleProductReferenceAttribute';
@@ -2153,7 +2153,7 @@ export type AssignedSingleProductReferenceAttribute = AssignedAttribute & {
 /**
  * Represents single product variant reference attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSingleProductVariantReferenceAttribute = AssignedAttribute & {
   __typename: 'AssignedSingleProductVariantReferenceAttribute';
@@ -2166,7 +2166,7 @@ export type AssignedSingleProductVariantReferenceAttribute = AssignedAttribute &
 /**
  * Represents a swatch attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSwatchAttribute = AssignedAttribute & {
   __typename: 'AssignedSwatchAttribute';
@@ -2179,7 +2179,7 @@ export type AssignedSwatchAttribute = AssignedAttribute & {
 /**
  * Represents a single swatch value.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSwatchAttributeValue = {
   __typename: 'AssignedSwatchAttributeValue';
@@ -2194,7 +2194,7 @@ export type AssignedSwatchAttributeValue = {
   /**
    * Translation of the name.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   translation: Maybe<Scalars['String']['output']>;
 };
@@ -2203,7 +2203,7 @@ export type AssignedSwatchAttributeValue = {
 /**
  * Represents a single swatch value.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedSwatchAttributeValueTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -2212,7 +2212,7 @@ export type AssignedSwatchAttributeValueTranslationArgs = {
 /**
  * Represents text attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedTextAttribute = AssignedAttribute & {
   __typename: 'AssignedTextAttribute';
@@ -2228,7 +2228,7 @@ export type AssignedTextAttribute = AssignedAttribute & {
 /**
  * Represents text attribute.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type AssignedTextAttributeTranslationArgs = {
   languageCode: LanguageCodeEnum;
@@ -2248,7 +2248,7 @@ export type Attribute = Node & ObjectWithMetadata & {
   __typename: 'Attribute';
   /**
    * Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   availableInGrid: Scalars['Boolean']['output'];
   /** A list of predefined attribute choices available for selection. Available only for attributes with predefined choices. */
@@ -2259,12 +2259,12 @@ export type Attribute = Node & ObjectWithMetadata & {
   externalReference: Maybe<Scalars['String']['output']>;
   /**
    * Whether the attribute can be filtered in dashboard. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the dashboard or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the dashboard or use `Attribute` metadata instead.
    */
   filterableInDashboard: Scalars['Boolean']['output'];
   /**
    * Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   filterableInStorefront: Scalars['Boolean']['output'];
   /** The ID of the attribute. */
@@ -2300,14 +2300,14 @@ export type Attribute = Node & ObjectWithMetadata & {
   /**
    * The reference types (product or page type) that are used to narrow down the choices of reference objects.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   referenceTypes: Maybe<Array<ReferenceType>>;
   /** Internal representation of an attribute name. */
   slug: Scalars['String']['output'];
   /**
    * The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   storefrontSearchPosition: Scalars['Int']['output'];
   /** Returns translated attribute fields for the given language code. */
@@ -2603,7 +2603,7 @@ export type AttributeCreate = {
 export type AttributeCreateInput = {
   /**
    * Whether the attribute can be displayed in the admin product list.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   availableInGrid: InputMaybe<Scalars['Boolean']['input']>;
   /** The entity type which can be used as a reference. */
@@ -2612,12 +2612,12 @@ export type AttributeCreateInput = {
   externalReference: InputMaybe<Scalars['String']['input']>;
   /**
    * Whether the attribute can be filtered in dashboard.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the dashboard or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the dashboard or use `Attribute` metadata instead.
    */
   filterableInDashboard: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Whether the attribute can be filtered in storefront.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   filterableInStorefront: InputMaybe<Scalars['Boolean']['input']>;
   /** The input type to use for entering attribute values in the dashboard. */
@@ -2631,14 +2631,14 @@ export type AttributeCreateInput = {
    *
    * A maximum of 100 reference types can be specified.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   referenceTypes: InputMaybe<Array<Scalars['ID']['input']>>;
   /** Internal representation of an attribute name. */
   slug: InputMaybe<Scalars['String']['input']>;
   /**
    * The position of the attribute in the storefront navigation (0 by default).
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   storefrontSearchPosition: InputMaybe<Scalars['Int']['input']>;
   /** The attribute type. */
@@ -2664,7 +2664,7 @@ export type AttributeCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -2695,7 +2695,7 @@ export type AttributeDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -2734,7 +2734,7 @@ export type AttributeErrorCode =
 export type AttributeFilterInput = {
   /**
    * Whether the attribute can be displayed in the admin product list.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   availableInGrid: InputMaybe<Scalars['Boolean']['input']>;
   /**
@@ -2744,12 +2744,12 @@ export type AttributeFilterInput = {
   channel: InputMaybe<Scalars['String']['input']>;
   /**
    * Whether the attribute can be filtered in dashboard.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the dashboard or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the dashboard or use `Attribute` metadata instead.
    */
   filterableInDashboard: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Whether the attribute can be filtered in storefront.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   filterableInStorefront: InputMaybe<Scalars['Boolean']['input']>;
   ids: InputMaybe<Array<Scalars['ID']['input']>>;
@@ -2957,19 +2957,19 @@ export type AttributeUpdateInput = {
   addValues: InputMaybe<Array<AttributeValueUpdateInput>>;
   /**
    * Whether the attribute can be displayed in the admin product list.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   availableInGrid: InputMaybe<Scalars['Boolean']['input']>;
   /** External ID of this product. */
   externalReference: InputMaybe<Scalars['String']['input']>;
   /**
    * Whether the attribute can be filtered in dashboard.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the dashboard or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the dashboard or use `Attribute` metadata instead.
    */
   filterableInDashboard: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Whether the attribute can be filtered in storefront.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   filterableInStorefront: InputMaybe<Scalars['Boolean']['input']>;
   /** Whether the attribute is for variants only. */
@@ -2981,7 +2981,7 @@ export type AttributeUpdateInput = {
    *
    * A maximum of 100 reference types can be specified.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   referenceTypes: InputMaybe<Array<Scalars['ID']['input']>>;
   /** IDs of values to be removed from this attribute. */
@@ -2990,7 +2990,7 @@ export type AttributeUpdateInput = {
   slug: InputMaybe<Scalars['String']['input']>;
   /**
    * The position of the attribute in the storefront navigation (0 by default).
-   * @deprecated This flag is not used by Saleor. Keep the logic in the storefront or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the storefront or use `Attribute` metadata instead.
    */
   storefrontSearchPosition: InputMaybe<Scalars['Int']['input']>;
   /** The unit of attribute values. */
@@ -3012,7 +3012,7 @@ export type AttributeUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -3192,7 +3192,7 @@ export type AttributeValueCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -3226,7 +3226,7 @@ export type AttributeValueDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -3262,7 +3262,7 @@ export type AttributeValueInput = {
   /**
    * ID of the referenced entity for single reference attribute.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reference: InputMaybe<Scalars['ID']['input']>;
   /** List of entity IDs that will be used as references. */
@@ -3435,7 +3435,7 @@ export type AttributeValueUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -3459,7 +3459,7 @@ export type AttributeWhereInput = {
   entityType: InputMaybe<AttributeEntityTypeEnumFilterInput>;
   /**
    * Whether the attribute can be filtered in dashboard.
-   * @deprecated This flag is not used by Saleor. Keep the logic in the dashboard or use `Attribute` metadata instead.
+   * @deprecated This flag is not used by FSCommerce. Keep the logic in the dashboard or use `Attribute` metadata instead.
    */
   filterableInDashboard: InputMaybe<Scalars['Boolean']['input']>;
   ids: InputMaybe<Array<Scalars['ID']['input']>>;
@@ -3502,7 +3502,7 @@ export type BulkAttributeValueInput = {
   /**
    * ID of the referenced entity for single reference attribute.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reference: InputMaybe<Scalars['ID']['input']>;
   /** List of entity IDs that will be used as references. */
@@ -3564,7 +3564,7 @@ export type CalculateTaxes = Event & {
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
   taxBase: TaxableObject;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -3585,7 +3585,7 @@ export type CardInput = {
 /**
  * Represents a card payment method used for a transaction.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type CardPaymentMethodDetails = PaymentMethodDetails & {
   __typename: 'CardPaymentMethodDetails';
@@ -3832,7 +3832,7 @@ export type CategoryCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -3860,7 +3860,7 @@ export type CategoryDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -3958,7 +3958,7 @@ export type CategoryTranslatableContent = Node & {
   /**
    * Slug to translate.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Returns translated category fields for the given language code. */
@@ -4013,7 +4013,7 @@ export type CategoryTranslation = Node & {
   /**
    * Translated category slug.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Represents the category fields to translate. */
@@ -4044,7 +4044,7 @@ export type CategoryUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -4145,7 +4145,7 @@ export type Channel = Node & ObjectWithMetadata & {
   /**
    * Channel specific tax configuration.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
    */
@@ -4269,7 +4269,7 @@ export type ChannelCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -4322,7 +4322,7 @@ export type ChannelDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -4378,7 +4378,7 @@ export type ChannelMetadataUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -4405,7 +4405,7 @@ export type ChannelStatusChanged = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -4479,7 +4479,7 @@ export type ChannelUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -4528,13 +4528,13 @@ export type Checkout = Node & ObjectWithMetadata & {
   /**
    * The customer note for the checkout.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   customerNote: Scalars['String']['output'];
   /**
    * The delivery method selected for this checkout.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   delivery: Maybe<Delivery>;
   /**
@@ -4661,7 +4661,7 @@ export type Checkout = Node & ObjectWithMetadata & {
   /**
    * The voucher assigned to the checkout.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    */
@@ -4720,7 +4720,7 @@ export type CheckoutAddressValidationRules = {
   checkFieldsFormat: InputMaybe<Scalars['Boolean']['input']>;
   /** Determines if an error should be raised when the provided address doesn't have all the required fields. The list of required fields is dynamic and depends on the country code (use the `addressValidationRules` query to fetch them). Note: country code is mandatory for all addresses regardless of the rules provided in this input. */
   checkRequiredFields: InputMaybe<Scalars['Boolean']['input']>;
-  /** Determines if Saleor should apply normalization on address fields. Example: converting city field to uppercase letters. */
+  /** Determines if FSCommerce should apply normalization on address fields. Example: converting city field to uppercase letters. */
   enableFieldsNormalization: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -4918,7 +4918,7 @@ export type CheckoutCreateInput = {
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   metadata: InputMaybe<Array<MetadataInput>>;
   /**
@@ -4928,19 +4928,19 @@ export type CheckoutCreateInput = {
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   privateMetadata: InputMaybe<Array<MetadataInput>>;
   /**
    * Indicates whether the billing address should be saved to the user’s address book upon checkout completion. Can only be set when a billing address is provided. If not specified along with the address, the default behavior is to save the address.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   saveBillingAddress: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Indicates whether the shipping address should be saved to the user’s address book upon checkout completion.Can only be set when a shipping address is provided. If not specified along with the address, the default behavior is to save the address.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   saveShippingAddress: InputMaybe<Scalars['Boolean']['input']>;
   /** The mailing address to where the checkout will be shipped. Note: the address will be ignored if the checkout doesn't contain shippable items. `skipValidation` requires HANDLE_CHECKOUTS and AUTHENTICATED_APP permissions. */
@@ -4960,7 +4960,7 @@ export type CheckoutCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -5001,7 +5001,7 @@ export type CheckoutCustomerDetach = {
 /**
  * Updates customer note in the existing checkout object.
  *
- * Added in Saleor 3.21.
+ * Added in FSCommerce 3.21.
  *
  * Triggers the following webhook events:
  * - CHECKOUT_UPDATED (async): A checkout was updated.
@@ -5018,7 +5018,7 @@ export type CheckoutCustomerNoteUpdate = {
 /**
  * Deletes a checkout.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_CHECKOUTS.
  */
@@ -5142,7 +5142,7 @@ export type CheckoutFilterShippingMethods = Event & {
   recipient: Maybe<App>;
   /** Shipping methods that can be used with this checkout. */
   shippingMethods: Maybe<Array<ShippingMethod>>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -5161,7 +5161,7 @@ export type CheckoutFullyAuthorized = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -5180,7 +5180,7 @@ export type CheckoutFullyPaid = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -5207,7 +5207,7 @@ export type CheckoutLine = Node & ObjectWithMetadata & {
   /**
    * Determine if the line is a gift.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -5225,7 +5225,7 @@ export type CheckoutLine = Node & ObjectWithMetadata & {
   /**
    * Reason explaining why a custom price was set on the line, provided by the app that set the price override.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CHECKOUTS, HANDLE_CHECKOUTS.
    */
@@ -5233,13 +5233,13 @@ export type CheckoutLine = Node & ObjectWithMetadata & {
   /**
    * The sum of the checkout line price prior to promotion.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   priorTotalPrice: Maybe<Money>;
   /**
    * The unit price of the checkout line prior to promotion.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   priorUnitPrice: Maybe<Money>;
   /** List of private metadata items. Requires staff permissions to access. */
@@ -5350,7 +5350,7 @@ export type CheckoutLineInput = {
   /**
    * Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   priceOverrideReason: InputMaybe<Scalars['String']['input']>;
   /** The number of items purchased. */
@@ -5386,7 +5386,7 @@ export type CheckoutLineUpdateInput = {
   /**
    * Checkout line public metadata. Will add and update keys. To delete keys use deleteMetadata mutation.
    *
-   * Added in Saleor 3.21. Can be read by any API client authorized to read the object it's attached to.
+   * Added in FSCommerce 3.21. Can be read by any API client authorized to read the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -5396,7 +5396,7 @@ export type CheckoutLineUpdateInput = {
   /**
    * Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   priceOverrideReason: InputMaybe<Scalars['String']['input']>;
   /** The number of items purchased. Optional for apps, required for any other users. */
@@ -5462,7 +5462,7 @@ export type CheckoutMetadataUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -5484,7 +5484,7 @@ export type CheckoutProblem = CheckoutLineProblemInsufficientStock | CheckoutLin
 /**
  * Indicates that the selected delivery method is invalid.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CheckoutProblemDeliveryMethodInvalid = {
   __typename: 'CheckoutProblemDeliveryMethodInvalid';
@@ -5494,7 +5494,7 @@ export type CheckoutProblemDeliveryMethodInvalid = {
 /**
  * Indicates that the delivery methods are stale.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CheckoutProblemDeliveryMethodStale = {
   __typename: 'CheckoutProblemDeliveryMethodStale';
@@ -5522,28 +5522,28 @@ export type CheckoutSettings = {
   /**
    * Default to `true`. Determines whether gift cards can be attached to a Checkout via `addPromoCode` mutation. Usage of this mutation with gift cards is deprecated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   allowLegacyGiftCardUse: Scalars['Boolean']['output'];
   /**
    * The date time defines the earliest checkout creation date on which fully paid checkouts can begin to be automatically completed.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   automaticCompletionCutOffDate: Maybe<Scalars['DateTime']['output']>;
   /**
    * The time in minutes to wait after a checkout is fully paid before automatically completing it.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   automaticCompletionDelay: Maybe<Scalars['Minute']['output']>;
   /**
    * Default `false`. Determines if the paid checkouts should be automatically completed. This setting applies only to checkouts where payment was processed through transactions.When enabled, the checkout will be automatically completed once the checkout `charge_status` reaches `FULL`. This occurs when the total sum of charged and authorized transaction amounts equals or exceeds the checkout's total amount.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   automaticallyCompleteFullyPaidCheckouts: Scalars['Boolean']['output'];
-  /** Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one. */
+  /** Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in FSCommerce 4.0. The flow with `checkout.problems` will be the default one. */
   useLegacyErrorFlow: Scalars['Boolean']['output'];
 };
 
@@ -5551,24 +5551,24 @@ export type CheckoutSettingsInput = {
   /**
    * Default to `true`. Determines whether gift cards can be attached to a Checkout via `addPromoCode` mutation. Usage of this mutation with gift cards is deprecated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   allowLegacyGiftCardUse: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Settings for automatic completion of fully paid checkouts.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   automaticCompletion: InputMaybe<CheckoutAutoCompleteInput>;
   /**
    * Default `false`. Determines if the paid checkouts should be automatically completed. This setting applies only to checkouts where payment was processed through transactions.When enabled, the checkout will be automatically completed once the checkout `authorize_status` reaches `FULL`. This occurs when the total sum of charged and authorized transaction amounts equals or exceeds the checkout's total amount.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    * @deprecated Use `automatic_completion` instead.
    */
   automaticallyCompleteFullyPaidCheckouts: InputMaybe<Scalars['Boolean']['input']>;
   /**
-   * Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one.
+   * Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in FSCommerce 4.0. The flow with `checkout.problems` will be the default one.
    * @deprecated Field no longer supported
    */
   useLegacyErrorFlow: InputMaybe<Scalars['Boolean']['input']>;
@@ -5634,7 +5634,7 @@ export type CheckoutUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -5936,7 +5936,7 @@ export type CollectionCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -5970,7 +5970,7 @@ export type CollectionDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -6064,7 +6064,7 @@ export type CollectionMetadataUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -6176,7 +6176,7 @@ export type CollectionTranslatableContent = Node & {
   /**
    * Slug to translate
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Returns translated collection fields for the given language code. */
@@ -6231,7 +6231,7 @@ export type CollectionTranslation = Node & {
   /**
    * Translated collection slug.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Represents the collection fields to translate. */
@@ -6262,7 +6262,7 @@ export type CollectionUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -6357,7 +6357,7 @@ export type ContainsFilterInput = {
 /**
  * Represents country codes defined by the ISO 3166-1 alpha-2 standard.
  *
- * The `EU` value is DEPRECATED and will be removed in Saleor 3.21.
+ * The `EU` value is DEPRECATED and will be removed in FSCommerce 3.21.
  */
 export type CountryCode =
   /** Andorra */
@@ -6983,7 +6983,7 @@ export type CustomerBulkUpdateError = {
   /**
    * List of attributes IDs which causes the error.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes: Maybe<Array<Scalars['ID']['output']>>;
   /** The error code. */
@@ -7043,7 +7043,7 @@ export type CustomerCreated = Event & {
   recipient: Maybe<App>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -7066,7 +7066,7 @@ export type CustomerDelete = {
 /**
  * Event sent when customer user is deleted.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerDeleted = Event & {
   __typename: 'CustomerDeleted';
@@ -7078,7 +7078,7 @@ export type CustomerDeleted = Event & {
   recipient: Maybe<App>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -7135,13 +7135,13 @@ export type CustomerInput = {
   /**
    * List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes: InputMaybe<Array<AttributeValueInput>>;
   /**
    * ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   customerType: InputMaybe<Scalars['ID']['input']>;
   /** Billing address of the customer. */
@@ -7189,7 +7189,7 @@ export type CustomerMetadataUpdated = Event & {
   recipient: Maybe<App>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -7252,7 +7252,7 @@ export type CustomerOrderWhereInput = {
 /**
  * Represents a type of customer. It allows to segment users and defines what attributes are available to users of this type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerType = Node & ObjectWithMetadata & {
   __typename: 'CustomerType';
@@ -7298,7 +7298,7 @@ export type CustomerType = Node & ObjectWithMetadata & {
 /**
  * Represents a type of customer. It allows to segment users and defines what attributes are available to users of this type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypeAvailableAttributesArgs = {
   after: InputMaybe<Scalars['String']['input']>;
@@ -7313,7 +7313,7 @@ export type CustomerTypeAvailableAttributesArgs = {
 /**
  * Represents a type of customer. It allows to segment users and defines what attributes are available to users of this type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypeMetafieldArgs = {
   key: Scalars['String']['input'];
@@ -7323,7 +7323,7 @@ export type CustomerTypeMetafieldArgs = {
 /**
  * Represents a type of customer. It allows to segment users and defines what attributes are available to users of this type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypeMetafieldsArgs = {
   keys: InputMaybe<Array<Scalars['String']['input']>>;
@@ -7333,7 +7333,7 @@ export type CustomerTypeMetafieldsArgs = {
 /**
  * Represents a type of customer. It allows to segment users and defines what attributes are available to users of this type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypePrivateMetafieldArgs = {
   key: Scalars['String']['input'];
@@ -7343,7 +7343,7 @@ export type CustomerTypePrivateMetafieldArgs = {
 /**
  * Represents a type of customer. It allows to segment users and defines what attributes are available to users of this type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypePrivateMetafieldsArgs = {
   keys: InputMaybe<Array<Scalars['String']['input']>>;
@@ -7352,7 +7352,7 @@ export type CustomerTypePrivateMetafieldsArgs = {
 /**
  * Assign attributes to a given customer type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
  *
@@ -7404,7 +7404,7 @@ export type CustomerTypeCountableEdge = {
 /**
  * Creates a new customer type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
  *
@@ -7446,7 +7446,7 @@ export type CustomerTypeCreateInput = {
 /**
  * Event sent when new customer type is created.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypeCreated = Event & {
   __typename: 'CustomerTypeCreated';
@@ -7458,14 +7458,14 @@ export type CustomerTypeCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
 /**
  * Deletes a customer type. Users of the deleted customer type are reassigned to the default customer type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
  *
@@ -7497,7 +7497,7 @@ export type CustomerTypeDeleteErrorCode =
 /**
  * Event sent when customer type is deleted.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypeDeleted = Event & {
   __typename: 'CustomerTypeDeleted';
@@ -7509,14 +7509,14 @@ export type CustomerTypeDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
 /**
  * Reorder the attributes of a customer type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
  *
@@ -7563,7 +7563,7 @@ export type CustomerTypeSortingInput = {
 /**
  * Unassign attributes from a given customer type. Values already assigned to users are kept in the database, but are hidden until the attribute is assigned to the user's customer type again.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
  *
@@ -7595,7 +7595,7 @@ export type CustomerTypeUnassignAttributesErrorCode =
 /**
  * Updates a customer type.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
  *
@@ -7638,7 +7638,7 @@ export type CustomerTypeUpdateInput = {
 /**
  * Event sent when customer type is updated.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type CustomerTypeUpdated = Event & {
   __typename: 'CustomerTypeUpdated';
@@ -7650,7 +7650,7 @@ export type CustomerTypeUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -7698,7 +7698,7 @@ export type CustomerUpdated = Event & {
   recipient: Maybe<App>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -7712,13 +7712,13 @@ export type CustomerWhereInput = {
   /**
    * Filter by attributes associated with the customer.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes: InputMaybe<Array<AssignedAttributeWhereInput>>;
   /**
    * Filter by customer type. Filtering by the default customer type also matches users without an explicitly assigned customer type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   customerType: InputMaybe<GlobalIdFilterInput>;
   /** Filter by date joined. */
@@ -7816,7 +7816,7 @@ export type DeletePrivateMetadata = {
 /**
  * Represents a delivery option for the checkout.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type Delivery = {
   __typename: 'Delivery';
@@ -7832,7 +7832,7 @@ export type DeliveryMethod = ShippingMethod | Warehouse;
 /**
  * Calculates available delivery options for a checkout.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Triggers the following webhook events:
  * - SHIPPING_LIST_METHODS_FOR_CHECKOUT (sync): Triggered to fetch external shipping methods.
@@ -7875,7 +7875,7 @@ export type DiscountError = {
   /**
    * List of voucher codes which causes the error.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   voucherCodes: Maybe<Array<Scalars['String']['output']>>;
 };
@@ -7990,7 +7990,7 @@ export type DraftOrderCreateInput = {
   /**
    * Order language code.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   languageCode: InputMaybe<LanguageCodeEnum>;
   /** Variant line input consisting of variant ID and quantity of products. */
@@ -7998,7 +7998,7 @@ export type DraftOrderCreateInput = {
   /**
    * Order public metadata.
    *
-   * Added in Saleor 3.21. Can be read by any API client authorized to read the object it's attached to.
+   * Added in FSCommerce 3.21. Can be read by any API client authorized to read the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -8006,7 +8006,7 @@ export type DraftOrderCreateInput = {
   /**
    * Order private metadata.
    *
-   * Added in Saleor 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
+   * Added in FSCommerce 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -8016,13 +8016,13 @@ export type DraftOrderCreateInput = {
   /**
    * Indicates whether the billing address should be saved to the user’s address book upon draft order completion. Can only be set when a billing address is provided. If not specified along with the address, the default behavior is to not save the address.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   saveBillingAddress: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Indicates whether the shipping address should be saved to the user’s address book upon draft order completion.Can only be set when a shipping address is provided. If not specified along with the address, the default behavior is to not save the address.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   saveShippingAddress: InputMaybe<Scalars['Boolean']['input']>;
   /** Shipping address of the customer. */
@@ -8041,7 +8041,7 @@ export type DraftOrderCreateInput = {
   /**
    * A code of the voucher associated with the order.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   voucherCode: InputMaybe<Scalars['String']['input']>;
 };
@@ -8057,7 +8057,7 @@ export type DraftOrderCreated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -8085,7 +8085,7 @@ export type DraftOrderDeleted = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -8106,13 +8106,13 @@ export type DraftOrderInput = {
   /**
    * Order language code.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   languageCode: InputMaybe<LanguageCodeEnum>;
   /**
    * Order public metadata.
    *
-   * Added in Saleor 3.21. Can be read by any API client authorized to read the object it's attached to.
+   * Added in FSCommerce 3.21. Can be read by any API client authorized to read the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -8120,7 +8120,7 @@ export type DraftOrderInput = {
   /**
    * Order private metadata.
    *
-   * Added in Saleor 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
+   * Added in FSCommerce 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -8130,13 +8130,13 @@ export type DraftOrderInput = {
   /**
    * Indicates whether the billing address should be saved to the user’s address book upon draft order completion. Can only be set when a billing address is provided. If not specified along with the address, the default behavior is to not save the address.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   saveBillingAddress: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Indicates whether the shipping address should be saved to the user’s address book upon draft order completion.Can only be set when a shipping address is provided. If not specified along with the address, the default behavior is to not save the address.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   saveShippingAddress: InputMaybe<Scalars['Boolean']['input']>;
   /** Shipping address of the customer. */
@@ -8155,7 +8155,7 @@ export type DraftOrderInput = {
   /**
    * A code of the voucher associated with the order.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   voucherCode: InputMaybe<Scalars['String']['input']>;
 };
@@ -8198,7 +8198,7 @@ export type DraftOrderUpdated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -8265,7 +8265,7 @@ export type Event = {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -8579,7 +8579,7 @@ export type ExportScope =
 /**
  * Export voucher codes to csv/xlsx file.
  *
- * Added in Saleor 3.18.
+ * Added in FSCommerce 3.18.
  *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  *
@@ -8767,13 +8767,13 @@ export type Fulfillment = Node & ObjectWithMetadata & {
   /**
    * Reason for returning this fulfillment.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason: Maybe<Scalars['String']['output']>;
   /**
    * Reason Model (Page) reference for this fulfillment.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: Maybe<Page>;
   /** Amount of refunded shipping price. */
@@ -8848,7 +8848,7 @@ export type FulfillmentApproved = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -8886,7 +8886,7 @@ export type FulfillmentCanceled = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -8905,7 +8905,7 @@ export type FulfillmentCreated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -8931,13 +8931,13 @@ export type FulfillmentLine = Node & {
   /**
    * Reason for returning this fulfillment line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason: Maybe<Scalars['String']['output']>;
   /**
    * Reason Model (Page) reference for this fulfillment line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: Maybe<Page>;
 };
@@ -8955,7 +8955,7 @@ export type FulfillmentMetadataUpdated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -9025,7 +9025,7 @@ export type FulfillmentTrackingNumberUpdated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -9088,7 +9088,7 @@ export type GiftCard = Node & ObjectWithMetadata & {
    *
    * Requires one of the following permissions: MANAGE_USERS, OWNER.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedTo: Maybe<User>;
   /**
@@ -9096,7 +9096,7 @@ export type GiftCard = Node & ObjectWithMetadata & {
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD, OWNER.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedToEmail: Maybe<Scalars['String']['output']>;
   /** Slug of the channel where the gift card was bought. */
@@ -9263,7 +9263,7 @@ export type GiftCardAddNoteInput = {
 /**
  * Restrict a gift card so only the given customer can use it.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  *
@@ -9282,7 +9282,7 @@ export type GiftCardAssignUser = {
 /**
  * Adjust a gift card's balance by a delta.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  *
@@ -9414,7 +9414,7 @@ export type GiftCardCreateInput = {
   /**
    * ID of the customer the gift card is restricted to.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedTo: InputMaybe<Scalars['ID']['input']>;
   /** Balance of the gift card. */
@@ -9438,7 +9438,7 @@ export type GiftCardCreateInput = {
   /**
    * Gift Card public metadata.
    *
-   * Added in Saleor 3.21. Can be read by any API client authorized to read the object it's attached to.
+   * Added in FSCommerce 3.21. Can be read by any API client authorized to read the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -9448,7 +9448,7 @@ export type GiftCardCreateInput = {
   /**
    * Gift Card private metadata.
    *
-   * Added in Saleor 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
+   * Added in FSCommerce 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -9473,7 +9473,7 @@ export type GiftCardCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -9521,7 +9521,7 @@ export type GiftCardDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -9556,7 +9556,7 @@ export type GiftCardEvent = Node & {
   /**
    * The customer assignment change recorded by the event. Only set for ASSIGNED_TO_USER and UNASSIGNED_FROM_USER events.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedTo: Maybe<GiftCardEventAssignment>;
   /** The gift card balance. */
@@ -9660,7 +9660,7 @@ export type GiftCardExportCompleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -9668,7 +9668,7 @@ export type GiftCardFilterInput = {
   /**
    * Filter by the customer the gift card usage is restricted to.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedTo: InputMaybe<Array<Scalars['ID']['input']>>;
   code: InputMaybe<Scalars['String']['input']>;
@@ -9699,33 +9699,33 @@ export type GiftCardMetadataUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
 /**
  * Represents a gift card payment method used for a transaction.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type GiftCardPaymentMethodDetails = PaymentMethodDetails & {
   __typename: 'GiftCardPaymentMethodDetails';
   /**
    * Brand of the gift card.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   brand: Maybe<Scalars['String']['output']>;
   /**
-   * Indicates whether the gift card is a built-in Saleor gift card.
+   * Indicates whether the gift card is a built-in FSCommerce gift card.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
-  isSaleorGiftcard: Scalars['Boolean']['output'];
+  isFSCommerceGiftcard: Scalars['Boolean']['output'];
   /**
    * Last characters of the gift card code. Max 4 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   lastChars: Maybe<Scalars['String']['output']>;
   /** Name of the gift card. */
@@ -9736,19 +9736,19 @@ export type GiftCardPaymentMethodDetailsInput = {
   /**
    * Brand of the gift card used for the transaction. Max length is 40 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   brand: InputMaybe<Scalars['String']['input']>;
   /**
    * Last characters of the gift card used for the transaction. Max length is 4 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   lastChars: InputMaybe<Scalars['String']['input']>;
   /**
    * Name of the payment method used for the transaction. Max length is 256 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   name: Scalars['String']['input'];
 };
@@ -9792,7 +9792,7 @@ export type GiftCardSent = Event & {
   recipient: Maybe<App>;
   /** E-mail address to which gift card was sent. */
   sentToEmail: Maybe<Scalars['String']['output']>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -9873,7 +9873,7 @@ export type GiftCardStatusChanged = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -9910,7 +9910,7 @@ export type GiftCardTagFilterInput = {
 /**
  * Remove a customer restriction from a gift card.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  *
@@ -9957,7 +9957,7 @@ export type GiftCardUpdateInput = {
   /**
    * Gift Card public metadata.
    *
-   * Added in Saleor 3.21. Can be read by any API client authorized to read the object it's attached to.
+   * Added in FSCommerce 3.21. Can be read by any API client authorized to read the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -9965,7 +9965,7 @@ export type GiftCardUpdateInput = {
   /**
    * Gift Card private metadata.
    *
-   * Added in Saleor 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
+   * Added in FSCommerce 3.21. Requires permissions to modify and to read the metadata of the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -9990,7 +9990,7 @@ export type GiftCardUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -10201,7 +10201,7 @@ export type InvoiceDeleted = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -10278,7 +10278,7 @@ export type InvoiceRequested = Event & {
   order: Order;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -10312,7 +10312,7 @@ export type InvoiceSent = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -10348,7 +10348,7 @@ export type JobStatusEnum =
   | 'PENDING'
   | 'SUCCESS';
 
-/** Language code enum. It contains all the languages supported by Saleor. */
+/** Language code enum. It contains all the languages supported by FSCommerce. */
 export type LanguageCodeEnum =
   /** Afrikaans */
   | 'AF'
@@ -11963,7 +11963,7 @@ export type ListStoredPaymentMethods = Event & {
   recipient: Maybe<App>;
   /** The user for which the app should return a list of payment methods. */
   user: User;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -11992,7 +11992,7 @@ export type Manifest = {
   dataPrivacy: Maybe<Scalars['String']['output']>;
   /** URL to the full privacy policy. */
   dataPrivacyUrl: Maybe<Scalars['String']['output']>;
-  /** List of extensions that will be mounted in Saleor's dashboard. For details, please [see the extension section.](https://docs.saleor.io/developer/extending/apps/extending-dashboard-with-apps#key-concepts) */
+  /** List of extensions that will be mounted in FSCommerce's dashboard. For details, please [see the extension section.](https://docs.saleor.io/developer/extending/apps/extending-dashboard-with-apps#key-concepts) */
   extensions: Array<AppManifestExtension>;
   /** External URL to the app homepage. */
   homepageUrl: Maybe<Scalars['String']['output']>;
@@ -12002,8 +12002,8 @@ export type Manifest = {
   name: Scalars['String']['output'];
   /** The array permissions required for the app. */
   permissions: Maybe<Array<Permission>>;
-  /** Determines the app's required Saleor version as semver range. */
-  requiredSaleorVersion: Maybe<AppManifestRequiredSaleorVersion>;
+  /** Determines the app's required FSCommerce version as semver range. */
+  requiredFSCommerceVersion: Maybe<AppManifestRequiredFSCommerceVersion>;
   /** External URL to the page where app users can find support. */
   supportUrl: Maybe<Scalars['String']['output']>;
   /** Endpoint used during process of app installation, [see installing an app.](https://docs.saleor.io/developer/extending/apps/installing-apps#installing-an-app) */
@@ -12226,7 +12226,7 @@ export type MenuCreated = Event & {
   menu: Maybe<Menu>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -12263,7 +12263,7 @@ export type MenuDeleted = Event & {
   menu: Maybe<Menu>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -12463,7 +12463,7 @@ export type MenuItemCreated = Event & {
   menuItem: Maybe<MenuItem>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -12500,7 +12500,7 @@ export type MenuItemDeleted = Event & {
   menuItem: Maybe<MenuItem>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -12638,7 +12638,7 @@ export type MenuItemUpdated = Event & {
   menuItem: Maybe<MenuItem>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -12692,7 +12692,7 @@ export type MenuUpdated = Event & {
   menu: Maybe<Menu>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -12963,7 +12963,7 @@ export type Mutation = {
   /**
    * Add a problem to the calling app.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: AUTHENTICATED_APP.
    */
@@ -12971,7 +12971,7 @@ export type Mutation = {
   /**
    * Dismiss problems for an app.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
    */
@@ -12979,7 +12979,7 @@ export type Mutation = {
   /**
    * Re-enable sync webhooks for provided app. Can be used to manually re-enable sync webhooks for the app before the cooldown period ends.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Requires one of the following permissions: MANAGE_APPS.
    */
@@ -13299,7 +13299,7 @@ export type Mutation = {
   /**
    * Updates customer note in the existing checkout object.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Triggers the following webhook events:
    * - CHECKOUT_UPDATED (async): A checkout was updated.
@@ -13308,7 +13308,7 @@ export type Mutation = {
   /**
    * Deletes a checkout.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CHECKOUTS.
    */
@@ -13515,7 +13515,7 @@ export type Mutation = {
   /**
    * Assign attributes to a given customer type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
    *
@@ -13526,7 +13526,7 @@ export type Mutation = {
   /**
    * Creates a new customer type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
    *
@@ -13537,7 +13537,7 @@ export type Mutation = {
   /**
    * Deletes a customer type. Users of the deleted customer type are reassigned to the default customer type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
    *
@@ -13548,7 +13548,7 @@ export type Mutation = {
   /**
    * Reorder the attributes of a customer type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
    *
@@ -13559,7 +13559,7 @@ export type Mutation = {
   /**
    * Unassign attributes from a given customer type. Values already assigned to users are kept in the database, but are hidden until the attribute is assigned to the user's customer type again.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
    *
@@ -13570,7 +13570,7 @@ export type Mutation = {
   /**
    * Updates a customer type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
    *
@@ -13611,7 +13611,7 @@ export type Mutation = {
   /**
    * Calculates available delivery options for a checkout.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Triggers the following webhook events:
    * - SHIPPING_LIST_METHODS_FOR_CHECKOUT (sync): Triggered to fetch external shipping methods.
@@ -13686,7 +13686,7 @@ export type Mutation = {
   /**
    * Export voucher codes to csv/xlsx file.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    *
@@ -13737,7 +13737,7 @@ export type Mutation = {
   /**
    * Restrict a gift card so only the given customer can use it.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    *
@@ -13748,7 +13748,7 @@ export type Mutation = {
   /**
    * Adjust a gift card's balance by a delta.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    *
@@ -13839,7 +13839,7 @@ export type Mutation = {
   /**
    * Remove a customer restriction from a gift card.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    *
@@ -14740,7 +14740,7 @@ export type Mutation = {
   /**
    * Updates RefundSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to refund mutations is no longer accepted and will raise error.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
@@ -14748,7 +14748,7 @@ export type Mutation = {
   /**
    * Update refund settings across all channels.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
@@ -14775,7 +14775,7 @@ export type Mutation = {
   /**
    * Updates ReturnSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to return mutations is no longer accepted and will raise error.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
@@ -14783,7 +14783,7 @@ export type Mutation = {
   /**
    * Update return settings across all channels.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
@@ -15241,7 +15241,7 @@ export type Mutation = {
   /**
    * Deletes voucher codes.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    *
@@ -17324,19 +17324,19 @@ export type Node = {
 /**
  * An object with attributes.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type ObjectWithAttributes = {
   /**
    * Get a single attribute attached to the object by attribute slug.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttribute: Maybe<AssignedAttribute>;
   /**
    * List of attributes assigned to the object.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttributes: Array<AssignedAttribute>;
 };
@@ -17345,7 +17345,7 @@ export type ObjectWithAttributes = {
 /**
  * An object with attributes.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type ObjectWithAttributesAssignedAttributeArgs = {
   slug: Scalars['String']['input'];
@@ -17355,7 +17355,7 @@ export type ObjectWithAttributesAssignedAttributeArgs = {
 /**
  * An object with attributes.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type ObjectWithAttributesAssignedAttributesArgs = {
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -17418,7 +17418,7 @@ export type Order = Node & ObjectWithMetadata & {
    * @deprecated Use `shippingMethods`, this field will be removed in 4.0
    */
   availableShippingMethods: Maybe<Array<ShippingMethod>>;
-  /** Billing address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+  /** Billing address. The full data can be access for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
   billingAddress: Maybe<Address>;
   /** Informs whether a draft order can be finalized(turned into a regular order). */
   canFinalize: Scalars['Boolean']['output'];
@@ -17472,7 +17472,7 @@ export type Order = Node & ObjectWithMetadata & {
   grantedRefunds: Array<OrderGrantedRefund>;
   /** ID of the order. */
   id: Scalars['ID']['output'];
-  /** List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+  /** List of order invoices. Can be fetched for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
   invoices: Array<Invoice>;
   /** Informs if an order is fully paid. */
   isPaid: Scalars['Boolean']['output'];
@@ -17521,7 +17521,7 @@ export type Order = Node & ObjectWithMetadata & {
   privateMetafields: Maybe<Scalars['Metadata']['output']>;
   /** URL to which user should be redirected after order is placed. */
   redirectUrl: Maybe<Scalars['String']['output']>;
-  /** Shipping address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+  /** Shipping address. The full data can be access for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
   shippingAddress: Maybe<Address>;
   /**
    * Shipping method for this order.
@@ -17623,23 +17623,23 @@ export type Order = Node & ObjectWithMetadata & {
   /**
    * Undiscounted total price of shipping.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   undiscountedShippingPrice: Money;
   /** Undiscounted total amount of the order. */
   undiscountedTotal: TaxedMoney;
   /** Date and time when the order was created. */
   updatedAt: Scalars['DateTime']['output'];
-  /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, HANDLE_PAYMENTS, OWNER. */
+  /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, HANDLE_PAYMENTS, OWNER. */
   user: Maybe<User>;
-  /** Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+  /** Email address of the customer. The full data can be access for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
   userEmail: Maybe<Scalars['String']['output']>;
   /** Voucher linked to the order. */
   voucher: Maybe<Voucher>;
   /**
    * Voucher code that was used for Order.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   voucherCode: Maybe<Scalars['String']['output']>;
   /** Weight of the order. */
@@ -17846,7 +17846,7 @@ export type OrderBulkCreateInput = {
   billingAddress: AddressInput;
   /** Slug of the channel associated with the order. */
   channel: Scalars['String']['input'];
-  /** The date, when the order was inserted to Saleor database. */
+  /** The date, when the order was inserted to FSCommerce database. */
   createdAt: Scalars['DateTime']['input'];
   /** Currency code. */
   currency: Scalars['String']['input'];
@@ -17897,7 +17897,7 @@ export type OrderBulkCreateInput = {
   /**
    * Code of a voucher associated with the order.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   voucherCode: InputMaybe<Scalars['String']['input']>;
   /** Weight of the order in kg. */
@@ -17964,7 +17964,7 @@ export type OrderBulkCreateOrderLineInput = {
   /**
    * The SKU of the product.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   productSku: InputMaybe<Scalars['String']['input']>;
   /** Number of items in the order line */
@@ -17998,19 +17998,19 @@ export type OrderBulkCreateOrderLineInput = {
   /**
    * Reason of the discount on order line.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   unitDiscountReason: InputMaybe<Scalars['String']['input']>;
   /**
    * Type of the discount: fixed or percent
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   unitDiscountType: InputMaybe<DiscountValueTypeEnum>;
   /**
    * Value of the discount. Can store fixed value or percent value
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   unitDiscountValue: InputMaybe<Scalars['PositiveDecimal']['input']>;
   /** The external ID of the product variant. */
@@ -18053,7 +18053,7 @@ export type OrderBulkCreated = Event & {
   orders: Maybe<Array<Order>>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18082,7 +18082,7 @@ export type OrderCancelled = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18159,7 +18159,7 @@ export type OrderConfirmed = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18243,7 +18243,7 @@ export type OrderCreated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18274,7 +18274,7 @@ export type OrderDiscount = Node & {
   /**
    * The amount of discount applied to the order.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   total: Money;
   /** Translated name of the applied discount. */
@@ -18602,7 +18602,7 @@ export type OrderExpired = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18648,7 +18648,7 @@ export type OrderFilterShippingMethods = Event & {
   recipient: Maybe<App>;
   /** Shipping methods that can be used with this checkout. */
   shippingMethods: Maybe<Array<ShippingMethod>>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18710,7 +18710,7 @@ export type OrderFulfilled = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18725,7 +18725,7 @@ export type OrderFullyPaid = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18740,7 +18740,7 @@ export type OrderFullyRefunded = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -18791,13 +18791,13 @@ export type OrderGrantRefundCreateInput = {
   /**
    * ID of a `Page` (Model) to reference in reason.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reasonReference: InputMaybe<Scalars['ID']['input']>;
   /**
-   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used. Field required starting from Saleor 3.21.
+   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by FSCommerce, the `min(calculatedAmount, transaction.chargedAmount)` will be used. Field required starting from FSCommerce 3.21.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -18833,7 +18833,7 @@ export type OrderGrantRefundCreateLineInput = {
   /**
    * ID of a `Page` (Model) to reference in reason for the line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: InputMaybe<Scalars['ID']['input']>;
 };
@@ -18887,15 +18887,15 @@ export type OrderGrantRefundUpdateInput = {
   /**
    * ID of a `Page` (Model) to reference in reason.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reasonReference: InputMaybe<Scalars['ID']['input']>;
   /** Lines to remove from granted refund. */
   removeLines: InputMaybe<Array<Scalars['ID']['input']>>;
   /**
-   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used.Field will be required starting from Saleor 3.21.
+   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by FSCommerce, the `min(calculatedAmount, transaction.chargedAmount)` will be used.Field will be required starting from FSCommerce 3.21.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -18912,7 +18912,7 @@ export type OrderGrantRefundUpdateLineAddInput = {
   /**
    * ID of a `Page` (Model) to reference in reason for the line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: InputMaybe<Scalars['ID']['input']>;
 };
@@ -18951,13 +18951,13 @@ export type OrderGrantedRefund = {
   /**
    * Reason of the refund.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reason: Maybe<Scalars['String']['output']>;
   /**
    * Reason Model (Page) reference for refund.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reasonReference: Maybe<Page>;
   /** If true, the refunded amount includes the shipping price.If false, the refunded amount does not include the shipping price. */
@@ -18965,19 +18965,19 @@ export type OrderGrantedRefund = {
   /**
    * Status of the granted refund calculated based on transactionItem assigned to granted refund.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   status: OrderGrantedRefundStatusEnum;
   /**
    * The transaction assigned to the granted refund.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   transaction: Maybe<TransactionItem>;
   /**
    * List of refund events associated with the granted refund.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   transactionEvents: Maybe<Array<TransactionEvent>>;
   /** Time of last update. */
@@ -18999,7 +18999,7 @@ export type OrderGrantedRefundLine = {
   /**
    * Reason Model (Page) reference for this refund line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: Maybe<Page>;
 };
@@ -19030,7 +19030,7 @@ export type OrderLine = Node & ObjectWithMetadata & {
   /**
    * List of applied discounts
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   discounts: Maybe<Array<OrderLineDiscount>>;
   /** ID of the order line. */
@@ -19038,7 +19038,7 @@ export type OrderLine = Node & ObjectWithMetadata & {
   /**
    * Determine if the line is a gift.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -19060,7 +19060,7 @@ export type OrderLine = Node & ObjectWithMetadata & {
   /**
    * Reason explaining why a custom price was set on the line, copied from the checkout line when the order was created from a checkout.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
    */
@@ -19310,7 +19310,7 @@ export type OrderMetadataUpdated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -19395,7 +19395,7 @@ export type OrderPaid = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -19441,7 +19441,7 @@ export type OrderRefundProductsInput = {
   amountToRefund: InputMaybe<Scalars['PositiveDecimal']['input']>;
   /** List of fulfilled lines to refund. */
   fulfillmentLines: InputMaybe<Array<OrderRefundFulfillmentLineInput>>;
-  /** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+  /** If true, FSCommerce will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
   includeShippingCosts: InputMaybe<Scalars['Boolean']['input']>;
   /** List of unfulfilled lines to refund. */
   orderLines: InputMaybe<Array<OrderRefundLineInput>>;
@@ -19458,7 +19458,7 @@ export type OrderRefunded = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -19470,13 +19470,13 @@ export type OrderReturnFulfillmentLineInput = {
   /**
    * Reason for returning this fulfillment line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason: InputMaybe<Scalars['String']['input']>;
   /**
    * ID of a `Page` (Model) to reference in reason for this fulfillment line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: InputMaybe<Scalars['ID']['input']>;
   /** Determines, if the line should be added to replace order. */
@@ -19491,13 +19491,13 @@ export type OrderReturnLineInput = {
   /**
    * Reason for returning this line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason: InputMaybe<Scalars['String']['input']>;
   /**
    * ID of a `Page` (Model) to reference in reason for this line.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: InputMaybe<Scalars['ID']['input']>;
   /** Determines, if the line should be added to replace order. */
@@ -19509,23 +19509,23 @@ export type OrderReturnProductsInput = {
   amountToRefund: InputMaybe<Scalars['PositiveDecimal']['input']>;
   /** List of fulfilled lines to return. */
   fulfillmentLines: InputMaybe<Array<OrderReturnFulfillmentLineInput>>;
-  /** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+  /** If true, FSCommerce will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
   includeShippingCosts: InputMaybe<Scalars['Boolean']['input']>;
   /** List of unfulfilled lines to return. */
   orderLines: InputMaybe<Array<OrderReturnLineInput>>;
   /**
    * Reason for returning this order.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reason: InputMaybe<Scalars['String']['input']>;
   /**
    * ID of a `Page` (Model) to reference in reason for this return.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReference: InputMaybe<Scalars['ID']['input']>;
-  /** If true, Saleor will call refund action for all lines. */
+  /** If true, FSCommerce will call refund action for all lines. */
   refund: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -19543,7 +19543,7 @@ export type OrderSettings = {
   /**
    * Time in hours after which the draft order line price will be refreshed.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -19553,7 +19553,7 @@ export type OrderSettings = {
   /**
    * Determine if voucher applied on draft order should be count toward voucher usage.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -19570,7 +19570,7 @@ export type OrderSettings = {
    * - When legacy propagation is disabled, discounts are represented as `OrderLineDiscount` objects, attached to individual lines and returned in the `OrderLine.discounts` field. In this case, percentage-based vouchers retain their original type.
    * In future releases, `OrderLineDiscount` will become the default behavior, and this flag will be deprecated and removed.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   useLegacyLineDiscountPropagation: Scalars['Boolean']['output'];
 };
@@ -19600,7 +19600,7 @@ export type OrderSettingsInput = {
   /**
    * Time in hours after which the draft order line price will be refreshed. Default value is 24 hours. Enter 0 or null to disable.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -19612,7 +19612,7 @@ export type OrderSettingsInput = {
    *
    * Warning:  when switching this setting from `false` to `true`, the vouchers will be disconnected from all draft orders.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -19629,7 +19629,7 @@ export type OrderSettingsInput = {
    * - When legacy propagation is disabled, discounts are represented as `OrderLineDiscount` objects, attached to individual lines and returned in the `OrderLine.discounts` field. In this case, percentage-based vouchers retain their original type.
    * In future releases, `OrderLineDiscount` will become the default behavior, and this flag will be deprecated and removed.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   useLegacyLineDiscountPropagation: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -19675,7 +19675,7 @@ export type OrderSortField =
   /**
    * Sort orders by order status.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   | 'STATUS';
 
@@ -19735,13 +19735,13 @@ export type OrderUpdateInput = {
   /**
    * Order language code.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   languageCode: InputMaybe<LanguageCodeEnum>;
   /**
    * Order public metadata.
    *
-   * Added in Saleor 3.21.Can be read by any API client authorized to read the object it's attached to.
+   * Added in FSCommerce 3.21.Can be read by any API client authorized to read the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -19749,7 +19749,7 @@ export type OrderUpdateInput = {
   /**
    * Order private metadata.
    *
-   * Added in Saleor 3.21.Requires permissions to modify and to read the metadata of the object it's attached to.
+   * Added in FSCommerce 3.21.Requires permissions to modify and to read the metadata of the object it's attached to.
    *
    * Warning: never store sensitive information, including financial data such as credit card details.
    */
@@ -19790,7 +19790,7 @@ export type OrderUpdated = Event & {
   order: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -19877,7 +19877,7 @@ export type OrderWhereInput = {
 /**
  * Represents a payment method used for a transaction.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type OtherPaymentMethodDetails = PaymentMethodDetails & {
   __typename: 'OtherPaymentMethodDetails';
@@ -19896,13 +19896,13 @@ export type Page = Node & ObjectWithAttributes & ObjectWithMetadata & {
   /**
    * Get a single attribute attached to page by attribute slug.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttribute: Maybe<AssignedAttribute>;
   /**
    * List of attributes assigned to this page.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttributes: Array<AssignedAttribute>;
   /**
@@ -20145,7 +20145,7 @@ export type PageCreated = Event & {
   page: Maybe<Page>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20173,7 +20173,7 @@ export type PageDeleted = Event & {
   page: Maybe<Page>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20320,7 +20320,7 @@ export type PageTranslatableContent = Node & {
   /**
    * Slug to translate.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Page title to translate. */
@@ -20375,7 +20375,7 @@ export type PageTranslation = Node & {
   /**
    * Translated page slug.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Translated page title. */
@@ -20542,7 +20542,7 @@ export type PageTypeCreated = Event & {
   pageType: Maybe<PageType>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20570,7 +20570,7 @@ export type PageTypeDeleted = Event & {
   pageType: Maybe<PageType>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20641,7 +20641,7 @@ export type PageTypeUpdated = Event & {
   pageType: Maybe<PageType>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20669,7 +20669,7 @@ export type PageUpdated = Event & {
   page: Maybe<Page>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20862,7 +20862,7 @@ export type PaymentAuthorize = Event & {
   payment: Maybe<Payment>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20898,7 +20898,7 @@ export type PaymentCaptureEvent = Event & {
   payment: Maybe<Payment>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -20956,7 +20956,7 @@ export type PaymentConfirmEvent = Event & {
   payment: Maybe<Payment>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21096,7 +21096,7 @@ export type PaymentGatewayInitializeSession = Event & {
   recipient: Maybe<App>;
   /** Checkout or order */
   sourceObject: OrderOrCheckout;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21162,7 +21162,7 @@ export type PaymentGatewayInitializeTokenizationSession = Event & {
   recipient: Maybe<App>;
   /** The user related to the requested action. */
   user: User;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21237,14 +21237,14 @@ export type PaymentListGateways = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
 /**
  * Represents a payment method used for a transaction.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type PaymentMethodDetails = {
   /** Name of the payment method. */
@@ -21266,7 +21266,7 @@ export type PaymentMethodDetailsFilterInput = {
 /**
  * Details of the payment method used for the transaction. One of `card`, `other`, or `giftCard` is required.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type PaymentMethodDetailsInput = {
   /** Details of the card payment method used for the transaction. */
@@ -21274,7 +21274,7 @@ export type PaymentMethodDetailsInput = {
   /**
    * Details of the gift card payment method used for the transaction.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   giftCard: InputMaybe<GiftCardPaymentMethodDetailsInput>;
   /** Details of the non-card payment method used for this transaction. */
@@ -21334,7 +21334,7 @@ export type PaymentMethodInitializeTokenizationSession = Event & {
   recipient: Maybe<App>;
   /** The user related to the requested action. */
   user: User;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21391,7 +21391,7 @@ export type PaymentMethodProcessTokenizationSession = Event & {
   recipient: Maybe<App>;
   /** The user related to the requested action. */
   user: User;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21460,7 +21460,7 @@ export type PaymentProcessEvent = Event & {
   payment: Maybe<Payment>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21496,7 +21496,7 @@ export type PaymentRefundEvent = Event & {
   payment: Maybe<Payment>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21506,13 +21506,13 @@ export type PaymentSettings = {
   /**
    * Specifies the earliest date on which funds for expired checkouts can begin to be released. Expired checkouts dated before this cut-off will not have their funds released. Additionally, no funds will be released for checkouts that are more than one year old, regardless of the cut-off date.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   checkoutReleaseFundsCutOffDate: Maybe<Scalars['DateTime']['output']>;
   /**
    * The time in hours after which funds for expired checkouts will be released.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   checkoutTtlBeforeReleasingFunds: Maybe<Scalars['Hour']['output']>;
   /** Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction. */
@@ -21520,7 +21520,7 @@ export type PaymentSettings = {
   /**
    * Determine if the funds for expired checkouts should be released automatically.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   releaseFundsForExpiredCheckouts: Maybe<Scalars['Boolean']['output']>;
 };
@@ -21529,13 +21529,13 @@ export type PaymentSettingsInput = {
   /**
    * Specifies the earliest date on which funds for expired checkouts can begin to be released. Expired checkouts dated before this cut-off will not have their funds released. Additionally, no funds will be released for checkouts that are more than one year old, regardless of the cut-off date.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   checkoutReleaseFundsCutOffDate: InputMaybe<Scalars['DateTime']['input']>;
   /**
    * The time in hours after which funds for expired checkouts will be released.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   checkoutTtlBeforeReleasingFunds: InputMaybe<Scalars['Hour']['input']>;
   /** Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction. */
@@ -21543,7 +21543,7 @@ export type PaymentSettingsInput = {
   /**
    * Determine if the funds for expired checkouts should be released automatically.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    */
   releaseFundsForExpiredCheckouts: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -21601,7 +21601,7 @@ export type PaymentVoidEvent = Event & {
   payment: Maybe<Payment>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21681,7 +21681,7 @@ export type PermissionGroupCreated = Event & {
   permissionGroup: Maybe<Group>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21712,7 +21712,7 @@ export type PermissionGroupDeleted = Event & {
   permissionGroup: Maybe<Group>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -21806,7 +21806,7 @@ export type PermissionGroupUpdated = Event & {
   permissionGroup: Maybe<Group>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -22013,13 +22013,13 @@ export type Product = Node & ObjectWithAttributes & ObjectWithMetadata & {
   /**
    * Get a single attribute attached to product by attribute slug.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttribute: Maybe<AssignedAttribute>;
   /**
    * List of attributes assigned to this product.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttributes: Array<AssignedAttribute>;
   /**
@@ -22120,7 +22120,7 @@ export type Product = Node & ObjectWithAttributes & ObjectWithMetadata & {
   /**
    * List of variants for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   productVariants: Maybe<ProductVariantCountableConnection>;
   /** Rating of the product. */
@@ -22428,7 +22428,7 @@ export type ProductBulkCreateInput = {
   taxClass: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode: InputMaybe<Scalars['String']['input']>;
   /** Input list of product variants to create. */
@@ -22710,7 +22710,7 @@ export type ProductCreateInput = {
   taxClass: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode: InputMaybe<Scalars['String']['input']>;
   /** Weight of the Product. */
@@ -22730,7 +22730,7 @@ export type ProductCreated = Event & {
   product: Maybe<Product>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -22766,7 +22766,7 @@ export type ProductDeleted = Event & {
   product: Maybe<Product>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -22832,7 +22832,7 @@ export type ProductExportCompleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -22955,7 +22955,7 @@ export type ProductInput = {
   taxClass: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode: InputMaybe<Scalars['String']['input']>;
   /** Weight of the Product. */
@@ -23082,7 +23082,7 @@ export type ProductMediaCreated = Event & {
   productMedia: Maybe<ProductMedia>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -23111,7 +23111,7 @@ export type ProductMediaDeleted = Event & {
   productMedia: Maybe<ProductMedia>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -23163,7 +23163,7 @@ export type ProductMediaUpdated = Event & {
   productMedia: Maybe<ProductMedia>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -23180,7 +23180,7 @@ export type ProductMetadataUpdated = Event & {
   product: Maybe<Product>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -23274,7 +23274,7 @@ export type ProductPricingInfo = {
   /**
    * The discount amount compared to prior price. Null if product is not on sale or prior price was not provided in VariantChannelListing
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   discountPrior: Maybe<TaxedMoney>;
   /** Determines whether displayed prices should include taxes. */
@@ -23291,7 +23291,7 @@ export type ProductPricingInfo = {
   /**
    * The prior price range of the product variants.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   priceRangePrior: Maybe<TaxedMoneyRange>;
   /** The undiscounted price range of the product variants. */
@@ -23353,7 +23353,7 @@ export type ProductTranslatableContent = Node & {
   /**
    * Slug to translate.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Returns translated product fields for the given language code. */
@@ -23414,7 +23414,7 @@ export type ProductTranslation = Node & {
   /**
    * Translated product slug.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   slug: Maybe<Scalars['String']['output']>;
   /** Represents the product fields to translate. */
@@ -23655,7 +23655,7 @@ export type ProductTypeInput = {
   taxClass: InputMaybe<Scalars['ID']['input']>;
   /**
    * Tax rate for enabled tax gateway.
-   * @deprecated Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   * @deprecated Use tax classes to control the tax calculation for a product type. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode: InputMaybe<Scalars['String']['input']>;
   /** List of attributes used to distinguish between different variants of a product. */
@@ -23736,7 +23736,7 @@ export type ProductUpdated = Event & {
   product: Maybe<Product>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -23752,13 +23752,13 @@ export type ProductVariant = Node & ObjectWithAttributes & ObjectWithMetadata & 
   /**
    * Get a single attribute attached to product by attribute slug.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttribute: Maybe<AssignedAttribute>;
   /**
    * List of attributes assigned to this variant.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   assignedAttributes: Array<AssignedAttribute>;
   /**
@@ -23939,7 +23939,7 @@ export type ProductVariantBackInStock = Event & {
   productVariant: Maybe<ProductVariant>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** Look up a warehouse. */
   warehouse: Maybe<Warehouse>;
@@ -23956,7 +23956,7 @@ export type ProductVariantBackInStockProductVariantArgs = {
  *
  * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type ProductVariantBackInStockForClickAndCollect = Event & {
   __typename: 'ProductVariantBackInStockForClickAndCollect';
@@ -23970,7 +23970,7 @@ export type ProductVariantBackInStockForClickAndCollect = Event & {
   productVariant: ProductVariant;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -23979,7 +23979,7 @@ export type ProductVariantBackInStockForClickAndCollect = Event & {
  *
  * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type ProductVariantBackInStockInChannel = Event & {
   __typename: 'ProductVariantBackInStockInChannel';
@@ -23993,7 +23993,7 @@ export type ProductVariantBackInStockInChannel = Event & {
   productVariant: ProductVariant;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24243,7 +24243,7 @@ export type ProductVariantChannelListing = Node & {
    *
    *  Warning: This field is not updated automatically. Use Channel Listings mutation to update it manually.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   priorPrice: Maybe<Money>;
 };
@@ -24263,7 +24263,7 @@ export type ProductVariantChannelListingAddInput = {
   /**
    * Previous price of the variant in channel. Useful for providing promotion information required by customer protection laws such as EU Omnibus directive.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   priorPrice: InputMaybe<Scalars['PositiveDecimal']['input']>;
 };
@@ -24370,7 +24370,7 @@ export type ProductVariantCreated = Event & {
   productVariant: Maybe<ProductVariant>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24404,7 +24404,7 @@ export type ProductVariantDeleted = Event & {
   productVariant: Maybe<ProductVariant>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24417,7 +24417,7 @@ export type ProductVariantDeletedProductVariantArgs = {
 /**
  * Event sent when product variant discounted price is recalculated.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type ProductVariantDiscountedPriceUpdated = Event & {
   __typename: 'ProductVariantDiscountedPriceUpdated';
@@ -24435,7 +24435,7 @@ export type ProductVariantDiscountedPriceUpdated = Event & {
   productVariant: ProductVariant;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24496,7 +24496,7 @@ export type ProductVariantMetadataUpdated = Event & {
   productVariant: Maybe<ProductVariant>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24517,7 +24517,7 @@ export type ProductVariantOutOfStock = Event & {
   productVariant: Maybe<ProductVariant>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** Look up a warehouse. */
   warehouse: Maybe<Warehouse>;
@@ -24534,7 +24534,7 @@ export type ProductVariantOutOfStockProductVariantArgs = {
  *
  * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type ProductVariantOutOfStockForClickAndCollect = Event & {
   __typename: 'ProductVariantOutOfStockForClickAndCollect';
@@ -24548,7 +24548,7 @@ export type ProductVariantOutOfStockForClickAndCollect = Event & {
   productVariant: ProductVariant;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24557,7 +24557,7 @@ export type ProductVariantOutOfStockForClickAndCollect = Event & {
  *
  * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type ProductVariantOutOfStockInChannel = Event & {
   __typename: 'ProductVariantOutOfStockInChannel';
@@ -24571,7 +24571,7 @@ export type ProductVariantOutOfStockInChannel = Event & {
   productVariant: ProductVariant;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24651,7 +24651,7 @@ export type ProductVariantStockUpdated = Event & {
   productVariant: Maybe<ProductVariant>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** Look up a warehouse. */
   warehouse: Maybe<Warehouse>;
@@ -24831,7 +24831,7 @@ export type ProductVariantUpdated = Event & {
   productVariant: Maybe<ProductVariant>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -24849,7 +24849,7 @@ export type ProductVariantWhereInput = {
   /**
    * Filter by attributes associated with the variant.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   attributes: InputMaybe<Array<AssignedAttributeWhereInput>>;
   ids: InputMaybe<Array<Scalars['ID']['input']>>;
@@ -24953,7 +24953,7 @@ export type Promotion = Node & ObjectWithMetadata & {
   /**
    * The type of the promotion. Implicate if the discount is applied on catalogue or order level.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25085,7 +25085,7 @@ export type PromotionCreateInput = {
   /**
    * Defines the promotion type. Implicate the required promotion rules predicate type and whether the promotion rules will give the catalogue or order discount.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   type: PromotionTypeEnum;
 };
@@ -25101,7 +25101,7 @@ export type PromotionCreated = Event & {
   promotion: Maybe<Promotion>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -25160,7 +25160,7 @@ export type PromotionDeleted = Event & {
   promotion: Maybe<Promotion>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -25175,7 +25175,7 @@ export type PromotionEnded = Event & {
   promotion: Maybe<Promotion>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -25236,7 +25236,7 @@ export type PromotionRule = Node & {
   /**
    * Product variant IDs available as a gift to choose.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25244,7 +25244,7 @@ export type PromotionRule = Node & {
   /**
    * Defines the maximum number of gifts to choose from the gifts list.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25255,7 +25255,7 @@ export type PromotionRule = Node & {
   /**
    * The checkout/order predicate that must be met to apply the rule reward.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25263,7 +25263,7 @@ export type PromotionRule = Node & {
   /**
    * The type of the predicate that must be met to apply the reward.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25273,7 +25273,7 @@ export type PromotionRule = Node & {
   /**
    * The reward type of the promotion rule.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25281,7 +25281,7 @@ export type PromotionRule = Node & {
   /**
    * The reward value of the promotion rule. Defines the discount value applied when the rule conditions are met.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25352,7 +25352,7 @@ export type PromotionRuleCreateInput = {
   /**
    * Product variant IDs available as a gift to choose.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25362,7 +25362,7 @@ export type PromotionRuleCreateInput = {
   /**
    * Defines the conditions on the checkout/draft order level that must be met for the reward to be applied.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25372,7 +25372,7 @@ export type PromotionRuleCreateInput = {
   /**
    * Defines the reward type of the promotion rule.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25394,7 +25394,7 @@ export type PromotionRuleCreated = Event & {
   promotionRule: Maybe<PromotionRule>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -25455,7 +25455,7 @@ export type PromotionRuleDeleted = Event & {
   promotionRule: Maybe<PromotionRule>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -25493,7 +25493,7 @@ export type PromotionRuleInput = {
   /**
    * Product variant IDs available as a gift to choose.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25503,7 +25503,7 @@ export type PromotionRuleInput = {
   /**
    * Defines the conditions on the checkout/draft order level that must be met for the reward to be applied.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25511,7 +25511,7 @@ export type PromotionRuleInput = {
   /**
    * Defines the reward type of the promotion rule.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25635,7 +25635,7 @@ export type PromotionRuleUpdateInput = {
   /**
    * List of variant IDs available as a gift to add.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25649,7 +25649,7 @@ export type PromotionRuleUpdateInput = {
   /**
    * Defines the conditions on the checkout/draft order level that must be met for the reward to be applied.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25659,7 +25659,7 @@ export type PromotionRuleUpdateInput = {
   /**
    * List of variant IDs available as a gift to remove.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25667,7 +25667,7 @@ export type PromotionRuleUpdateInput = {
   /**
    * Defines the reward type of the promotion rule.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -25689,7 +25689,7 @@ export type PromotionRuleUpdated = Event & {
   promotionRule: Maybe<PromotionRule>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -25739,7 +25739,7 @@ export type PromotionStarted = Event & {
   promotion: Maybe<Promotion>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -25889,7 +25889,7 @@ export type PromotionUpdated = Event & {
   promotion: Maybe<Promotion>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -26023,7 +26023,7 @@ export type Query = {
   /**
    * Look up a customer type by ID.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP, MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES, MANAGE_USERS.
    */
@@ -26031,7 +26031,7 @@ export type Query = {
   /**
    * List of the customer types.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP, MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES, MANAGE_USERS.
    */
@@ -26307,7 +26307,7 @@ export type Query = {
   /**
    * List of transactions. For apps with `MANAGE_ORDERS` permission, returns all transactions. For apps with just `HANDLE_PAYMENTS` permission, returns only transactions created by that app. For staff users, returns transactions from orders and checkouts in channels they have access to.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: HANDLE_PAYMENTS, MANAGE_ORDERS.
    */
@@ -27027,7 +27027,7 @@ export type RefreshToken = {
 /**
  * Updates RefundSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to refund mutations is no longer accepted and will raise error.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  *
  * Requires one of the following permissions: MANAGE_SETTINGS.
  */
@@ -27053,7 +27053,7 @@ export type RefundReasonReferenceTypeClearError = {
 /**
  * Refund related settings from site settings.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  */
 export type RefundSettings = {
   __typename: 'RefundSettings';
@@ -27069,7 +27069,7 @@ export type RefundSettingsErrorCode =
 /**
  * Update refund settings across all channels.
  *
- * Added in Saleor 3.22.
+ * Added in FSCommerce 3.22.
  *
  * Requires one of the following permissions: MANAGE_SETTINGS.
  */
@@ -27096,7 +27096,7 @@ export type RefundSettingsUpdateInput = {
   /**
    * The ID of a model type, that will be used to reference refund reasons. All models with of this type will be accepted as refund reasons.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   refundReasonReferenceType: Scalars['ID']['input'];
 };
@@ -27148,7 +27148,7 @@ export type RequestPasswordReset = {
 /**
  * Updates ReturnSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to return mutations is no longer accepted and will raise error.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_SETTINGS.
  */
@@ -27174,14 +27174,14 @@ export type ReturnReasonReferenceTypeClearError = {
 /**
  * Return related settings from site settings.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type ReturnSettings = {
   __typename: 'ReturnSettings';
   /**
    * Model type used for return reasons.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   reasonReferenceType: Maybe<PageType>;
 };
@@ -27195,7 +27195,7 @@ export type ReturnSettingsErrorCode =
 /**
  * Update return settings across all channels.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  *
  * Requires one of the following permissions: MANAGE_SETTINGS.
  */
@@ -27222,7 +27222,7 @@ export type ReturnSettingsUpdateInput = {
   /**
    * The ID of a model type, that will be used to reference return reasons. All models of this type will be accepted as return reasons.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   returnReasonReferenceType: Scalars['ID']['input'];
 };
@@ -27539,7 +27539,7 @@ export type SaleCreated = Event & {
   recipient: Maybe<App>;
   /** The sale the event relates to. */
   sale: Maybe<Sale>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -27584,7 +27584,7 @@ export type SaleDeleted = Event & {
   recipient: Maybe<App>;
   /** The sale the event relates to. */
   sale: Maybe<Sale>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -27691,7 +27691,7 @@ export type SaleToggle = Event & {
   recipient: Maybe<App>;
   /** The sale the event relates to. */
   sale: Maybe<Sale>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -27805,7 +27805,7 @@ export type SaleUpdated = Event & {
   recipient: Maybe<App>;
   /** The sale the event relates to. */
   sale: Maybe<Sale>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -27918,7 +27918,7 @@ export type ShippingListMethodsForCheckout = Event & {
   recipient: Maybe<App>;
   /** Shipping methods that can be used with this checkout. */
   shippingMethods: Maybe<Array<ShippingMethod>>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28307,7 +28307,7 @@ export type ShippingPriceCreated = Event & {
   shippingMethod: Maybe<ShippingMethodType>;
   /** The shipping zone the shipping method belongs to. */
   shippingZone: Maybe<ShippingZone>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28352,7 +28352,7 @@ export type ShippingPriceDeleted = Event & {
   shippingMethod: Maybe<ShippingMethodType>;
   /** The shipping zone the shipping method belongs to. */
   shippingZone: Maybe<ShippingZone>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28479,7 +28479,7 @@ export type ShippingPriceUpdated = Event & {
   shippingMethod: Maybe<ShippingMethodType>;
   /** The shipping zone the shipping method belongs to. */
   shippingZone: Maybe<ShippingZone>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28632,7 +28632,7 @@ export type ShippingZoneCreated = Event & {
   recipient: Maybe<App>;
   /** The shipping zone the event relates to. */
   shippingZone: Maybe<ShippingZone>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28666,7 +28666,7 @@ export type ShippingZoneDeleted = Event & {
   recipient: Maybe<App>;
   /** The shipping zone the event relates to. */
   shippingZone: Maybe<ShippingZone>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28692,7 +28692,7 @@ export type ShippingZoneMetadataUpdated = Event & {
   recipient: Maybe<App>;
   /** The shipping zone the event relates to. */
   shippingZone: Maybe<ShippingZone>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28745,7 +28745,7 @@ export type ShippingZoneUpdated = Event & {
   recipient: Maybe<App>;
   /** The shipping zone the event relates to. */
   shippingZone: Maybe<ShippingZone>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -28769,7 +28769,7 @@ export type Shop = ObjectWithMetadata & {
   /**
    * Determines whether the GraphQL API accepts storefront requests (anonymous requests and authenticated non-staff customers). When disabled, only apps and staff users may call the API directly; all other requests are rejected with an HTTP 401 and the `STOREFRONT_TRAFFIC_NOT_ALLOWED` error code.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   allowStorefrontTraffic: Scalars['Boolean']['output'];
   /**
@@ -28788,9 +28788,9 @@ export type Shop = ObjectWithMetadata & {
   /** Shipping methods that are available for the shop. */
   availableShippingMethods: Maybe<Array<ShippingMethod>>;
   /**
-   * List of tax apps that can be assigned to the channel. The list will be calculated by Saleor based on the apps that are subscribed to webhooks related to tax calculations: CHECKOUT_CALCULATE_TAXES
+   * List of tax apps that can be assigned to the channel. The list will be calculated by FSCommerce based on the apps that are subscribed to webhooks related to tax calculations: CHECKOUT_CALCULATE_TAXES
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, MANAGE_APPS.
    */
@@ -28886,7 +28886,7 @@ export type Shop = ObjectWithMetadata & {
   /**
    * Controls whether password-based authentication is allowed.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   passwordLoginMode: PasswordLoginModeEnum;
   /** List of available permissions. */
@@ -28896,7 +28896,7 @@ export type Shop = ObjectWithMetadata & {
   /**
    * When enabled, address fields that are not valid for a given country (according to Google's i18n address data) will be preserved instead of being removed during validation. Validation errors are still returned.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
@@ -28923,7 +28923,7 @@ export type Shop = ObjectWithMetadata & {
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
   reserveStockDurationAuthenticatedUser: Maybe<Scalars['Int']['output']>;
-  /** Minor Saleor API version. */
+  /** Minor FSCommerce API version. */
   schemaVersion: Scalars['String']['output'];
   /**
    * List of staff notification recipients.
@@ -28938,18 +28938,18 @@ export type Shop = ObjectWithMetadata & {
   /**
    * When enabled, stock availability is filtered by shipping zones and the destination address (legacy behavior). When disabled, stock availability is determined only by the direct warehouse-channel link, ignoring shipping zones.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   useLegacyShippingZoneStockAvailability: Scalars['Boolean']['output'];
   /**
    * Use legacy update webhook emission. When enabled, update webhooks (e.g. `customerUpdated`,`productVariantUpdated`) are sent even when only metadata changes. When disabled, update webhooks are not sent for metadata-only changes; only metadata-specific webhooks (e.g., `customerMetadataUpdated`, `productVariantMetadataUpdated`) are sent.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    * @deprecated Field no longer supported
    */
   useLegacyUpdateWebhookEmission: Maybe<Scalars['Boolean']['output']>;
   /**
-   * Saleor API version.
+   * FSCommerce API version.
    *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
    */
@@ -29080,7 +29080,7 @@ export type ShopMetadataUpdated = Event & {
   recipient: Maybe<App>;
   /** Shop data. */
   shop: Maybe<Shop>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -29092,7 +29092,7 @@ export type ShopSettingsInput = {
   /**
    * Determines whether the GraphQL API accepts storefront requests (anonymous requests and authenticated non-staff customers). When disabled, only apps and staff users may call the API directly; all other requests are rejected with an HTTP 401 and the `STOREFRONT_TRAFFIC_NOT_ALLOWED` error code.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   allowStorefrontTraffic: InputMaybe<Scalars['Boolean']['input']>;
   /**
@@ -29139,19 +29139,19 @@ export type ShopSettingsInput = {
   /**
    * Shop's name.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   name: InputMaybe<Scalars['String']['input']>;
   /**
    * Controls whether password-based authentication is allowed.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   passwordLoginMode: InputMaybe<PasswordLoginModeEnum>;
   /**
    * When enabled, address fields that are not valid for a given country (according to Google's i18n address data) will be preserved instead of being removed during validation. Validation errors are still returned.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   preserveAllAddressFields: InputMaybe<Scalars['Boolean']['input']>;
   /**
@@ -29169,13 +29169,13 @@ export type ShopSettingsInput = {
   /**
    * When enabled, stock availability is filtered by shipping zones and the destination address (legacy behavior). When disabled, stock availability is determined only by the direct warehouse-channel link, ignoring shipping zones.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   useLegacyShippingZoneStockAvailability: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Use legacy update webhook emission. When enabled, update webhooks (e.g. `customerUpdated`,`productVariantUpdated`) are sent even when only metadata changes. When disabled, update webhooks are not sent for metadata-only changes; only metadata-specific webhooks (e.g., `customerMetadataUpdated`, `productVariantMetadataUpdated`) are sent.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    * @deprecated Field no longer supported
    */
   useLegacyUpdateWebhookEmission: InputMaybe<Scalars['Boolean']['input']>;
@@ -29313,7 +29313,7 @@ export type StaffCreated = Event & {
   recipient: Maybe<App>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -29344,7 +29344,7 @@ export type StaffDeleted = Event & {
   recipient: Maybe<App>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -29355,7 +29355,7 @@ export type StaffError = {
   /**
    * List of attributes IDs which causes the error.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes: Maybe<Array<Scalars['ID']['output']>>;
   /** The error code. */
@@ -29379,7 +29379,7 @@ export type StaffMemberStatus =
   /** User account has not been activated yet. */
   | 'DEACTIVATED';
 
-/** Represents a recipient of email notifications send by Saleor, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses. */
+/** Represents a recipient of email notifications send by FSCommerce, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses. */
 export type StaffNotificationRecipient = Node & {
   __typename: 'StaffNotificationRecipient';
   /** Determines if a notification active. */
@@ -29459,7 +29459,7 @@ export type StaffSetPasswordRequested = Event & {
   token: Maybe<Scalars['String']['output']>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -29520,7 +29520,7 @@ export type StaffUpdated = Event & {
   recipient: Maybe<App>;
   /** The user the event relates to. */
   user: Maybe<User>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -29739,7 +29739,7 @@ export type StoredPaymentMethodDeleteRequested = Event & {
   recipient: Maybe<App>;
   /** The user for which the app should proceed with payment method delete request. */
   user: User;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -29792,7 +29792,7 @@ export type Subscription = {
   /**
    * Event sent when new checkout is created.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29800,7 +29800,7 @@ export type Subscription = {
   /**
    * Event sent when checkout is fully authorized.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29808,7 +29808,7 @@ export type Subscription = {
   /**
    * Event sent when checkout is fully-paid.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29816,7 +29816,7 @@ export type Subscription = {
   /**
    * Event sent when checkout metadata is updated.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29824,7 +29824,7 @@ export type Subscription = {
   /**
    * Event sent when checkout is updated.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29832,7 +29832,7 @@ export type Subscription = {
   /**
    * Event sent when new draft order is created.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29840,7 +29840,7 @@ export type Subscription = {
   /**
    * Event sent when draft order is deleted.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29848,7 +29848,7 @@ export type Subscription = {
   /**
    * Event sent when draft order is updated.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29858,7 +29858,7 @@ export type Subscription = {
   /**
    * Event sent when orders are imported.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29866,7 +29866,7 @@ export type Subscription = {
   /**
    * Event sent when order is cancelled.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29874,7 +29874,7 @@ export type Subscription = {
   /**
    * Event sent when order is confirmed.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29882,7 +29882,7 @@ export type Subscription = {
   /**
    * Event sent when new order is created.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29890,7 +29890,7 @@ export type Subscription = {
   /**
    * Event sent when order becomes expired.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29898,7 +29898,7 @@ export type Subscription = {
   /**
    * Event sent when order is fulfilled.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29906,7 +29906,7 @@ export type Subscription = {
   /**
    * Event sent when order is fully paid.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29914,7 +29914,7 @@ export type Subscription = {
   /**
    * The order is fully refunded.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29922,7 +29922,7 @@ export type Subscription = {
   /**
    * Event sent when order metadata is updated.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29930,7 +29930,7 @@ export type Subscription = {
   /**
    * Payment has been made. The order may be partially or fully paid.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29938,7 +29938,7 @@ export type Subscription = {
   /**
    * The order received a refund. The order may be partially or fully refunded.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29946,7 +29946,7 @@ export type Subscription = {
   /**
    * Event sent when order is updated.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29956,7 +29956,7 @@ export type Subscription = {
    *
    * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29966,7 +29966,7 @@ export type Subscription = {
    *
    * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29974,7 +29974,7 @@ export type Subscription = {
   /**
    * Event sent when product variant discounted price is recalculated.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29984,7 +29984,7 @@ export type Subscription = {
    *
    * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -29994,7 +29994,7 @@ export type Subscription = {
    *
    * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -30372,9 +30372,9 @@ export type TaxConfiguration = Node & ObjectWithMetadata & {
   /** Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything. */
   privateMetafields: Maybe<Scalars['Metadata']['output']>;
   /**
-   * The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that Saleor will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
+   * The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that FSCommerce will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   taxAppId: Maybe<Scalars['String']['output']>;
   /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
@@ -30382,7 +30382,7 @@ export type TaxConfiguration = Node & ObjectWithMetadata & {
   /**
    * Determines whether to use weighted tax for shipping. When set to true, the tax rate for shipping will be calculated based on the weighted average of tax rates from the order or checkout lines.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   useWeightedTaxForShipping: Maybe<Scalars['Boolean']['output']>;
 };
@@ -30445,7 +30445,7 @@ export type TaxConfigurationPerCountry = {
   /**
    * The tax app `App.identifier` that will be used to calculate the taxes for the given channel and country. If not provided, use the value from the channel's tax configuration.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   taxAppId: Maybe<Scalars['String']['output']>;
   /** A country-specific strategy to use for tax calculation. Taxes can be calculated either using user-defined flat rates or with a tax app. If not provided, use the value from the channel's tax configuration. */
@@ -30453,7 +30453,7 @@ export type TaxConfigurationPerCountry = {
   /**
    * Determines whether to use weighted tax for shipping. When set to true, the tax rate for shipping will be calculated based on the weighted average of tax rates from the order or checkout lines.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   useWeightedTaxForShipping: Maybe<Scalars['Boolean']['output']>;
 };
@@ -30468,7 +30468,7 @@ export type TaxConfigurationPerCountryInput = {
   /**
    * The tax app `App.identifier` that will be used to calculate the taxes for the given channel and country. If not provided, use the value from the channel's tax configuration.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   taxAppId: InputMaybe<Scalars['String']['input']>;
   /** A country-specific strategy to use for tax calculation. Taxes can be calculated either using user-defined flat rates or with a tax app. If not provided, use the value from the channel's tax configuration. */
@@ -30476,7 +30476,7 @@ export type TaxConfigurationPerCountryInput = {
   /**
    * Determines whether to use weighted tax for shipping. When set to true, the tax rate for shipping will be calculated based on the weighted average of tax rates from the order or checkout lines. Default value is `False`.Can be used only with `taxCalculationStrategy` set to `FLAT_RATES`.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   useWeightedTaxForShipping: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -30520,9 +30520,9 @@ export type TaxConfigurationUpdateInput = {
   /** List of country codes for which to remove the tax configuration. */
   removeCountriesConfiguration: InputMaybe<Array<CountryCode>>;
   /**
-   * The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that Saleor will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. It's possible to set plugin by using prefix `plugin:` with `PLUGIN_ID` e.g. with Avalara `plugin:mirumee.taxes.avalara`.Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
+   * The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that FSCommerce will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. It's possible to set plugin by using prefix `plugin:` with `PLUGIN_ID` e.g. with Avalara `plugin:mirumee.taxes.avalara`.Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
    *
-   * Added in Saleor 3.19.
+   * Added in FSCommerce 3.19.
    */
   taxAppId: InputMaybe<Scalars['String']['input']>;
   /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
@@ -30532,7 +30532,7 @@ export type TaxConfigurationUpdateInput = {
   /**
    * Determines whether to use weighted tax for shipping. When set to true, the tax rate for shipping will be calculated based on the weighted average of tax rates from the order or checkout lines. Default value is `False`.Can be used only with `taxCalculationStrategy` set to `FLAT_RATES`.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   useWeightedTaxForShipping: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -30746,7 +30746,7 @@ export type ThumbnailCreated = Event & {
   recipient: Maybe<App>;
   /** Thumbnail url. */
   url: Maybe<Scalars['String']['output']>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -30832,7 +30832,7 @@ export type TransactionAction = {
  *     The following actions are possible:
  *     CHARGE - Represents the charge action.
  *     REFUND - Represents a refund action.
- *     CANCEL - Represents a cancel action. Added in Saleor 3.12.
+ *     CANCEL - Represents a cancel action. Added in FSCommerce 3.12.
  */
 export type TransactionActionEnum =
   | 'CANCEL'
@@ -30852,7 +30852,7 @@ export type TransactionCancelationRequested = Event & {
   recipient: Maybe<App>;
   /** Look up a transaction. */
   transaction: Maybe<TransactionItem>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -30869,7 +30869,7 @@ export type TransactionChargeRequested = Event & {
   recipient: Maybe<App>;
   /** Look up a transaction. */
   transaction: Maybe<TransactionItem>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -30945,7 +30945,7 @@ export type TransactionCreateInput = {
   /**
    * Details of the payment method used for the transaction.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   paymentMethodDetails: InputMaybe<PaymentMethodDetailsInput>;
   /**
@@ -30980,7 +30980,7 @@ export type TransactionEvent = Node & {
   /**
    * Reason model of the transaction refund.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reasonReference: Maybe<Page>;
   /** The type of action related to this event. */
@@ -30990,19 +30990,19 @@ export type TransactionEvent = Node & {
 /**
  * Filter input for transaction events data.
  *
- * Added in Saleor 3.23.
+ * Added in FSCommerce 3.23.
  */
 export type TransactionEventFilterInput = {
   /**
    * Filter transaction events by created at date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   createdAt: InputMaybe<DateTimeRangeInput>;
   /**
    * Filter transaction events by type.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   type: InputMaybe<TransactionEventTypeEnumFilterInput>;
 };
@@ -31056,7 +31056,7 @@ export type TransactionEventReportErrorCode =
 /**
  * Represents possible event types.
  *
- *     Added in Saleor 3.12.
+ *     Added in FSCommerce 3.12.
  *
  *     The following types are possible:
  *     AUTHORIZATION_SUCCESS - represents success authorization.
@@ -31116,7 +31116,7 @@ export type TransactionFilterInput = {
   /**
    * Filter by PSP reference of transactions.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   pspReference: InputMaybe<StringFilterInput>;
 };
@@ -31165,7 +31165,7 @@ export type TransactionInitializeSession = Event & {
   __typename: 'TransactionInitializeSession';
   /** Action to proceed for the transaction */
   action: TransactionProcessAction;
-  /** The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own. */
+  /** The customer's IP address. If not provided as a parameter in the mutation, FSCommerce will try to determine the customer's IP address on its own. */
   customerIpAddress: Maybe<Scalars['String']['output']>;
   /** Payment gateway data in JSON format, received from storefront. */
   data: Maybe<Scalars['JSON']['output']>;
@@ -31183,7 +31183,7 @@ export type TransactionInitializeSession = Event & {
   sourceObject: OrderOrCheckout;
   /** Look up a transaction. */
   transaction: TransactionItem;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -31237,7 +31237,7 @@ export type TransactionItem = Node & ObjectWithMetadata & {
   /**
    * The payment method used for this transaction.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   paymentMethodDetails: Maybe<PaymentMethodDetails>;
   /** List of private metadata items. Requires staff permissions to access. */
@@ -31255,13 +31255,13 @@ export type TransactionItem = Node & ObjectWithMetadata & {
   /**
    * Reason of the refund.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reason: Maybe<Scalars['String']['output']>;
   /**
    * Reason `Page` (Model) for refund.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   reasonReference: Maybe<Page>;
   /** Total amount of ongoing refund requests for the transaction. */
@@ -31307,7 +31307,7 @@ export type TransactionItemMetadataUpdated = Event & {
   recipient: Maybe<App>;
   /** Look up a transaction. */
   transaction: Maybe<TransactionItem>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -31368,7 +31368,7 @@ export type TransactionProcessSession = Event & {
   __typename: 'TransactionProcessSession';
   /** Action to proceed for the transaction */
   action: TransactionProcessAction;
-  /** The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own. */
+  /** The customer's IP address. If not provided as a parameter in the mutation, FSCommerce will try to determine the customer's IP address on its own. */
   customerIpAddress: Maybe<Scalars['String']['output']>;
   /** Payment gateway data in JSON format, received from storefront. */
   data: Maybe<Scalars['JSON']['output']>;
@@ -31384,7 +31384,7 @@ export type TransactionProcessSession = Event & {
   sourceObject: OrderOrCheckout;
   /** Look up a transaction. */
   transaction: TransactionItem;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -31407,7 +31407,7 @@ export type TransactionRefundRequested = Event & {
   recipient: Maybe<App>;
   /** Look up a transaction. */
   transaction: Maybe<TransactionItem>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -31473,13 +31473,13 @@ export type TransactionSortField =
   /**
    * Sort transactions by creation date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'CREATED_AT'
   /**
    * Sort transactions by modification date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'MODIFIED_AT';
 
@@ -31545,7 +31545,7 @@ export type TransactionUpdateInput = {
   /**
    * Details of the payment method used for the transaction.
    *
-   * Added in Saleor 3.22.
+   * Added in FSCommerce 3.22.
    */
   paymentMethodDetails: InputMaybe<PaymentMethodDetailsInput>;
   /**
@@ -31568,20 +31568,20 @@ export type TransactionWhereInput = {
   /**
    * Filter transactions by created at date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   createdAt: InputMaybe<DateTimeRangeInput>;
   /**
    * Filter by transaction events. Each list item represents conditions that must be satisfied by a single event. The filter matches transactions that have related events meeting all specified groups of conditions.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   events: InputMaybe<Array<TransactionEventFilterInput>>;
   ids: InputMaybe<Array<Scalars['ID']['input']>>;
   /**
    * Filter transactions by modified at date.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   modifiedAt: InputMaybe<DateTimeRangeInput>;
   /** Filter by PSP reference. */
@@ -31633,7 +31633,7 @@ export type TranslationCreated = Event & {
   recipient: Maybe<App>;
   /** The translation the event relates to. */
   translation: Maybe<TranslationTypes>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -31680,7 +31680,7 @@ export type TranslationUpdated = Event & {
   recipient: Maybe<App>;
   /** The translation the event relates to. */
   translation: Maybe<TranslationTypes>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
@@ -31762,13 +31762,13 @@ export type User = Node & ObjectWithAttributes & ObjectWithMetadata & {
   /**
    * Get a single attribute assigned to the user by attribute slug. The attribute is looked up among the attributes of the user's customer type. Requires one of the following permissions: MANAGE_USERS, OWNER. The owner can access only attributes that are visible in the storefront.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedAttribute: Maybe<AssignedAttribute>;
   /**
    * List of attributes assigned to the user through the user's customer type. Requires one of the following permissions: MANAGE_USERS, OWNER. The owner can access only attributes that are visible in the storefront.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   assignedAttributes: Array<AssignedAttribute>;
   /** The avatar of the user. */
@@ -31790,7 +31790,7 @@ export type User = Node & ObjectWithAttributes & ObjectWithMetadata & {
   /**
    * The customer type assigned to the user. Requires one of the following permissions: MANAGE_USERS, OWNER.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   customerType: Maybe<CustomerType>;
   /** The data when the user create account. */
@@ -32033,7 +32033,7 @@ export type UserCreateInput = {
   /**
    * List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   attributes: InputMaybe<Array<AttributeValueInput>>;
   /** Slug of a channel which will be used for notify user. Optional when only one channel exists. */
@@ -32041,7 +32041,7 @@ export type UserCreateInput = {
   /**
    * ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   customerType: InputMaybe<Scalars['ID']['input']>;
   /** Billing address of the customer. */
@@ -32182,7 +32182,7 @@ export type VariantPricingInfo = {
   /**
    * The discount amount compared to prior price. Null if product is not on sale or prior price was not provided in VariantChannelListing
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   discountPrior: Maybe<TaxedMoney>;
   /** Whether it is in sale or not. */
@@ -32197,7 +32197,7 @@ export type VariantPricingInfo = {
   /**
    * The price prior to discount.
    *
-   * Added in Saleor 3.21.
+   * Added in FSCommerce 3.21.
    */
   pricePrior: Maybe<TaxedMoney>;
   /** The price without any discount. */
@@ -32253,7 +32253,7 @@ export type Voucher = Node & ObjectWithMetadata & {
   /**
    * List of codes available for this voucher.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   codes: Maybe<VoucherCodeCountableConnection>;
   /**
@@ -32311,7 +32311,7 @@ export type Voucher = Node & ObjectWithMetadata & {
   /**
    * Determine if the voucher codes can be used once or multiple times.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -32494,7 +32494,7 @@ export type VoucherChannelListingUpdate = {
 /**
  * Represents voucher code.
  *
- * Added in Saleor 3.18.
+ * Added in FSCommerce 3.18.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -32515,7 +32515,7 @@ export type VoucherCode = {
 /**
  * Deletes voucher codes.
  *
- * Added in Saleor 3.18.
+ * Added in FSCommerce 3.18.
  *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  *
@@ -32566,7 +32566,7 @@ export type VoucherCodeCountableEdge = {
 /**
  * Event sent when voucher code export is completed.
  *
- * Added in Saleor 3.18.
+ * Added in FSCommerce 3.18.
  *
  * Export functionality is deprecated and will be removed. All data can be fetched via the GraphQL API and parsed into the desired format by apps or external tools.
  */
@@ -32583,14 +32583,14 @@ export type VoucherCodeExportCompleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
 };
 
 /**
  * Event sent when new voucher codes were created.
  *
- * Added in Saleor 3.19.
+ * Added in FSCommerce 3.19.
  */
 export type VoucherCodesCreated = Event & {
   __typename: 'VoucherCodesCreated';
@@ -32600,7 +32600,7 @@ export type VoucherCodesCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The voucher codes the event relates to. */
   voucherCodes: Maybe<Array<VoucherCode>>;
@@ -32609,7 +32609,7 @@ export type VoucherCodesCreated = Event & {
 /**
  * Event sent when voucher codes were deleted.
  *
- * Added in Saleor 3.19.
+ * Added in FSCommerce 3.19.
  */
 export type VoucherCodesDeleted = Event & {
   __typename: 'VoucherCodesDeleted';
@@ -32619,7 +32619,7 @@ export type VoucherCodesDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The voucher codes the event relates to. */
   voucherCodes: Maybe<Array<VoucherCode>>;
@@ -32668,7 +32668,7 @@ export type VoucherCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The voucher the event relates to. */
   voucher: Maybe<Voucher>;
@@ -32705,7 +32705,7 @@ export type VoucherDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The voucher the event relates to. */
   voucher: Maybe<Voucher>;
@@ -32736,7 +32736,7 @@ export type VoucherInput = {
   /**
    * List of codes to add.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -32773,7 +32773,7 @@ export type VoucherInput = {
    *
    * The option can only be changed if none of the voucher codes have been used.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
@@ -32797,7 +32797,7 @@ export type VoucherMetadataUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The voucher the event relates to. */
   voucher: Maybe<Voucher>;
@@ -32840,7 +32840,7 @@ export type VoucherSortField =
   /**
    * Sort vouchers by name.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   | 'NAME'
   /** Sort vouchers by start date. */
@@ -32951,7 +32951,7 @@ export type VoucherUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The voucher the event relates to. */
   voucher: Maybe<Voucher>;
@@ -33012,7 +33012,7 @@ export type Warehouse = Node & ObjectWithMetadata & {
   /**
    * Stocks that belong to this warehouse.
    *
-   * Added in Saleor 3.20.
+   * Added in FSCommerce 3.20.
    *
    * Requires one of the following permissions: MANAGE_PRODUCTS, MANAGE_ORDERS.
    */
@@ -33123,7 +33123,7 @@ export type WarehouseCreated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The warehouse the event relates to. */
   warehouse: Maybe<Warehouse>;
@@ -33161,7 +33161,7 @@ export type WarehouseDeleted = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The warehouse the event relates to. */
   warehouse: Maybe<Warehouse>;
@@ -33206,7 +33206,7 @@ export type WarehouseMetadataUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The warehouse the event relates to. */
   warehouse: Maybe<Warehouse>;
@@ -33288,7 +33288,7 @@ export type WarehouseUpdated = Event & {
   issuingPrincipal: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient: Maybe<App>;
-  /** Saleor version that triggered the event. */
+  /** FSCommerce version that triggered the event. */
   version: Maybe<Scalars['String']['output']>;
   /** The warehouse the event relates to. */
   warehouse: Maybe<Warehouse>;
@@ -33315,7 +33315,7 @@ export type Webhook = Node & {
   /**
    * The unique identifier of the webhook, set by the app. Unique per app, null when not set.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   identifier: Maybe<Scalars['String']['output']>;
   /** Informs if webhook is activated. */
@@ -33324,7 +33324,7 @@ export type Webhook = Node & {
   name: Maybe<Scalars['String']['output']>;
   /**
    * Used to create a hash signature for each payload.
-   * @deprecated As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+   * @deprecated As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.
    */
   secretKey: Maybe<Scalars['String']['output']>;
   /** Used to define payloads for specific events. */
@@ -33374,7 +33374,7 @@ export type WebhookCreateInput = {
   /**
    * The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   identifier: InputMaybe<Scalars['String']['input']>;
   /** Determine if webhook will be set active or not. */
@@ -33385,7 +33385,7 @@ export type WebhookCreateInput = {
   query: InputMaybe<Scalars['String']['input']>;
   /**
    * The secret key used to create a hash signature with each payload.
-   * @deprecated As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+   * @deprecated As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.
    */
   secretKey: InputMaybe<Scalars['String']['input']>;
   /** The synchronous events that webhook wants to subscribe. */
@@ -33586,19 +33586,19 @@ export type WebhookEventTypeAsyncEnum =
   /**
    * A new customer type is created.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'CUSTOMER_TYPE_CREATED'
   /**
    * A customer type is deleted.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'CUSTOMER_TYPE_DELETED'
   /**
    * A customer type is updated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'CUSTOMER_TYPE_UPDATED'
   /** A customer account is updated. */
@@ -33812,7 +33812,7 @@ export type WebhookEventTypeAsyncEnum =
   /**
    * A voucher code export is completed.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   | 'VOUCHER_CODE_EXPORT_COMPLETED'
   /** A new voucher created. */
@@ -33931,19 +33931,19 @@ export type WebhookEventTypeEnum =
   /**
    * A new customer type is created.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'CUSTOMER_TYPE_CREATED'
   /**
    * A customer type is deleted.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'CUSTOMER_TYPE_DELETED'
   /**
    * A customer type is updated.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   | 'CUSTOMER_TYPE_UPDATED'
   /** A customer account is updated. */
@@ -34191,7 +34191,7 @@ export type WebhookEventTypeEnum =
   /**
    * A voucher code export is completed.
    *
-   * Added in Saleor 3.18.
+   * Added in FSCommerce 3.18.
    */
   | 'VOUCHER_CODE_EXPORT_COMPLETED'
   /** A new voucher created. */
@@ -34465,7 +34465,7 @@ export type WebhookUpdateInput = {
   /**
    * The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters. Pass a blank value to clear it.
    *
-   * Added in Saleor 3.23.
+   * Added in FSCommerce 3.23.
    */
   identifier: InputMaybe<Scalars['String']['input']>;
   /** Determine if webhook will be set active or not. */
@@ -34476,7 +34476,7 @@ export type WebhookUpdateInput = {
   query: InputMaybe<Scalars['String']['input']>;
   /**
    * Use to create a hash signature with each payload.
-   * @deprecated As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+   * @deprecated As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.
    */
   secretKey: InputMaybe<Scalars['String']['input']>;
   /** The synchronous events that webhook wants to subscribe. */

@@ -27,7 +27,7 @@ interface UseImageLoadRetry {
 
 /**
  * Retries failed image loads with exponential backoff (2s, 4s, 8s, ... capped at 30s,
- * ~2 minutes total). Saleor generates thumbnails lazily and serves 503 until ready,
+ * ~2 minutes total). FSCommerce generates thumbnails lazily and serves 503 until ready,
  * so transient load errors usually resolve on their own.
  */
 export const useImageLoadRetry = (src: string | undefined): UseImageLoadRetry => {

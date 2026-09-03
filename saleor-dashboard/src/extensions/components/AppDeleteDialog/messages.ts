@@ -9,7 +9,7 @@ export default defineMessages({
   deleteApp: {
     id: "IW4YT7",
     defaultMessage:
-      "By deleting this extension, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in Saleor Marketplace.",
+      "By deleting this extension, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in FSCommerce Marketplace.",
     description: "delete app",
   },
   deleteLocalApp: {
@@ -21,7 +21,7 @@ export default defineMessages({
   deleteNamedApp: {
     id: "nIwoHa",
     defaultMessage:
-      "By deleting {name}, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in Saleor Marketplace.",
+      "By deleting {name}, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in FSCommerce Marketplace.",
     description: "delete app",
   },
   deleteLocalNamedApp: {

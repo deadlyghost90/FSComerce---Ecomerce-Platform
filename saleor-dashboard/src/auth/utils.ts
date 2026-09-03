@@ -122,7 +122,7 @@ export const getExternalAuthenticationMethodName = ({
   switch (pluginId) {
     case CLOUD_PLUGIN_ID:
       return intl.formatMessage({
-        defaultMessage: "Continue with Saleor Cloud",
+        defaultMessage: "Continue with FSCommerce Cloud",
         id: "qf8OtW",
       });
     case SSO_PLUGIN_ID:

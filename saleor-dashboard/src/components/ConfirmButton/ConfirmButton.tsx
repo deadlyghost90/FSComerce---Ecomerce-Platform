@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { buttonMessages } from "@dashboard/intl";
 import { Button, type ButtonProps, sprinkles } from "@saleor/macaw-ui-next";
 import clsx from "clsx";
@@ -95,7 +95,7 @@ export const ConfirmButton = ({
     if (transitionState === "loading") {
       return (
         // TODO: Replace with new component when it will be ready https://github.com/saleor/macaw-ui/issues/443
-        <SaleorThrobber
+        <FSCommerceThrobber
           size={20}
           data-test-id="button-progress"
           className={sprinkles({

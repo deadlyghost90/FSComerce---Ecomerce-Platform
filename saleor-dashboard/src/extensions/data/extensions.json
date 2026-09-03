@@ -62,7 +62,7 @@
             "en": "Stripe"
           },
           "description": {
-            "en": "Finalize orders successfully by offering a variety of payment methods through the integration of Saleor and Stripe."
+            "en": "Finalize orders successfully by offering a variety of payment methods through the integration of FSCommerce and Stripe."
           },
           "logo": {
             "light": {
@@ -83,7 +83,7 @@
             "en": "Authorize.net"
           },
           "description": {
-            "en": "Connect Saleor with Authorize.net payments."
+            "en": "Connect FSCommerce with Authorize.net payments."
           },
           "logo": {
             "light": {
@@ -104,7 +104,7 @@
             "en": "Juspay"
           },
           "description": {
-            "en": "Connect Saleor with a unified global payments solution to access multiple gateways and offer seamless transactions to your customers."
+            "en": "Connect FSCommerce with a unified global payments solution to access multiple gateways and offer seamless transactions to your customers."
           },
           "logo": {
             "light": {
@@ -125,7 +125,7 @@
             "en": "Klarna"
           },
           "description": {
-            "en": "Connect Saleor with Klarna, the leading BNPL provider."
+            "en": "Connect FSCommerce with Klarna, the leading BNPL provider."
           },
           "logo": {
             "light": {
@@ -146,7 +146,7 @@
             "en": "Dummy Payment App"
           },
           "description": {
-            "en": "Bare-bones app for testing Saleor's Trnsactions API without a real payment provider."
+            "en": "Bare-bones app for testing FSCommerce's Trnsactions API without a real payment provider."
           },
           "logo": {
             "light": {
@@ -188,7 +188,7 @@
             "en": "seQura"
           },
           "description": {
-            "en": "Connect Saleor with seQura - a global payments solution that offers buy now, pay later and installment payment options."
+            "en": "Connect FSCommerce with seQura - a global payments solution that offers buy now, pay later and installment payment options."
           },
           "logo": {
             "light": {
@@ -217,7 +217,7 @@
             "en": "Avalara AvaTax"
           },
           "description": {
-            "en": "Automate your tax management process by integrating Saleor with AvaTax, a leading cloud-based tax calculation software."
+            "en": "Automate your tax management process by integrating FSCommerce with AvaTax, a leading cloud-based tax calculation software."
           },
           "logo": {
             "light": {
@@ -238,7 +238,7 @@
             "en": "TaxJar"
           },
           "description": {
-            "en": "Simplify tax calculations for your Saleor orders and checkouts by relying on TaxJar, a trusted tax calculation solution."
+            "en": "Simplify tax calculations for your FSCommerce orders and checkouts by relying on TaxJar, a trusted tax calculation solution."
           },
           "logo": {
             "light": {
@@ -267,7 +267,7 @@
             "en": "Strapi CMS"
           },
           "description": {
-            "en": "Integrate Strapi CMS with Saleor to manage your products alongside your content."
+            "en": "Integrate Strapi CMS with FSCommerce to manage your products alongside your content."
           },
           "logo": {
             "light": {
@@ -288,7 +288,7 @@
             "en": "Contentful CMS"
           },
           "description": {
-            "en": "Synchronize Saleor with Contentful CMS to extend your product management capabilities."
+            "en": "Synchronize FSCommerce with Contentful CMS to extend your product management capabilities."
           },
           "logo": {
             "light": {
@@ -309,7 +309,7 @@
             "en": "DatoCMS"
           },
           "description": {
-            "en": "Leverage the composable architecture by connecting your Saleor products to DatoCMS."
+            "en": "Leverage the composable architecture by connecting your FSCommerce products to DatoCMS."
           },
           "logo": {
             "light": {
@@ -351,7 +351,7 @@
             "en": "Payload CMS"
           },
           "description": {
-            "en": "Sync your Saleor products with Payload CMS - a TypeScript-first headless CMS."
+            "en": "Sync your FSCommerce products with Payload CMS - a TypeScript-first headless CMS."
           },
           "logo": {
             "light": {
@@ -380,7 +380,7 @@
             "en": "Algolia"
           },
           "description": {
-            "en": "Enable fast and efficient product search by integrating Saleor with Algolia."
+            "en": "Enable fast and efficient product search by integrating FSCommerce with Algolia."
           },
           "logo": {
             "light": {
@@ -401,7 +401,7 @@
             "en": "Klaviyo"
           },
           "description": {
-            "en": "Deliver a personalized purchase experience by leveraging integrating Saleor with Klaviyo."
+            "en": "Deliver a personalized purchase experience by leveraging integrating FSCommerce with Klaviyo."
           },
           "logo": {
             "light": {
@@ -422,7 +422,7 @@
             "en": "Google Merchant Center"
           },
           "description": {
-            "en": "Enable your products to appear in Google's shopping results by connecting Saleor with Google Merchant Center."
+            "en": "Enable your products to appear in Google's shopping results by connecting FSCommerce with Google Merchant Center."
           },
           "logo": {
             "light": {
@@ -443,7 +443,7 @@
             "en": "Twilio Segment"
           },
           "description": {
-            "en": "Reach your customers through video, voice, or email by leveraging the Saleor-Twilio Segment integration."
+            "en": "Reach your customers through video, voice, or email by leveraging the FSCommerce-Twilio Segment integration."
           },
           "logo": {
             "light": {
@@ -485,7 +485,7 @@
             "en": "Invoices"
           },
           "description": {
-            "en": "Generate PDF invoices for Orders and store them in Saleor file storage."
+            "en": "Generate PDF invoices for Orders and store them in FSCommerce file storage."
           },
           "logo": {
             "light": {
@@ -527,7 +527,7 @@
             "en": "Slack"
           },
           "description": {
-            "en": "Never miss a beat by receiving real-time notifications on Slack whenever new orders come into your Saleor store."
+            "en": "Never miss a beat by receiving real-time notifications on Slack whenever new orders come into your FSCommerce store."
           },
           "logo": {
             "light": {
@@ -548,7 +548,7 @@
             "en": "Twilio SendGrid"
           },
           "description": {
-            "en": "Connect Saleor to SendGrid."
+            "en": "Connect FSCommerce to SendGrid."
           },
           "logo": {
             "light": {

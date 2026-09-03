@@ -173,7 +173,7 @@ export const useFetchManifest = ({
 
         errorTracker.captureException(
           new Error(
-            `Manifest data was empty, but no errors were returned from Saleor for manifestUrl: ${getValues("manifestUrl")}`,
+            `Manifest data was empty, but no errors were returned from FSCommerce for manifestUrl: ${getValues("manifestUrl")}`,
           ),
         );
       } else {

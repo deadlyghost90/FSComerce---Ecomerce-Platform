@@ -35,7 +35,7 @@ const getLatest = (
 const getLatestFailedAttemptFromWebhook = (
   webhook: Webhook,
 ): LatestWebhookDeliveryWithMoment | null => {
-  // Edge case: Saleor failed to make a single delivery attempt
+  // Edge case: FSCommerce failed to make a single delivery attempt
   const failedEventDelivery = toWebhookDeliveryWithMoment(webhook.failedDelivers?.edges?.[0]?.node);
   const fromFailedDeliveryAttempts = toWebhookDeliveryWithMoment(
     webhook.failedDelivers?.edges?.[0]?.node?.attempts?.edges?.[0]?.node,

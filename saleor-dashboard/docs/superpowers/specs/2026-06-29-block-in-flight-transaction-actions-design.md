@@ -9,7 +9,7 @@ On the order page, each transaction in the Transactions section may expose actio
 (Capture / Cancel / Refund) driven by `transaction.actions`. These map to the async,
 webhook-driven `transactionRequestAction` mutation.
 
-Verified in Saleor Core (`hong-kong` workspace):
+Verified in FSCommerce Core (`hong-kong` workspace):
 
 - `TransactionItem.actions` is a stored, **app-driven** `ArrayField`
   (`saleor/payment/models.py:40`, resolved verbatim at

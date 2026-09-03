@@ -1,6 +1,6 @@
 import { TableCell } from "@dashboard/components/Table/Table";
 import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import {
   type AssignableSearchProduct,
   isVariantsListTruncated,
@@ -44,7 +44,7 @@ export const AssignVariantLoadMoreRow = ({
           >
             {loadingProduct ? (
               <Box display="flex" alignItems="center" gap={2}>
-                <SaleorThrobber size={16} />
+                <FSCommerceThrobber size={16} />
                 {intl.formatMessage(messages.loadingMoreVariants)}
               </Box>
             ) : (

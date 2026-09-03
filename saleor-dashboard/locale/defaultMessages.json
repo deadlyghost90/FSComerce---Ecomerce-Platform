@@ -56,7 +56,7 @@
     "string": "Grid view"
   },
   "+CE3ZW": {
-    "context": "ripple video announcement CTA when Saleor Pulse is already installed",
+    "context": "ripple video announcement CTA when FSCommerce Pulse is already installed",
     "string": "Open Pulse"
   },
   "+FovSZ": {
@@ -573,7 +573,7 @@
   },
   "07l721": {
     "context": "product type has-variants toggle description",
-    "string": "Turn on to sell more than one version of a product, like size or color. Saleor still creates a single variant when this is off."
+    "string": "Turn on to sell more than one version of a product, like size or color. FSCommerce still creates a single variant when this is off."
   },
   "07nmyw": {
     "context": "quick pick label for United States, Canada, and Mexico",
@@ -957,7 +957,7 @@
   },
   "1cednX": {
     "context": "confirm dialog bullet: custom subjects reset",
-    "string": "Custom subjects will be reset to Saleor defaults."
+    "string": "Custom subjects will be reset to FSCommerce defaults."
   },
   "1jGDif": {
     "context": "voucher fixed amount spreadsheet paste hint",
@@ -1200,7 +1200,7 @@
     "string": "Variant updates"
   },
   "2jHGjL": {
-    "context": "message row status: only subject differs from Saleor default",
+    "context": "message row status: only subject differs from FSCommerce default",
     "string": "Custom subject"
   },
   "2kJxEe": {
@@ -1462,7 +1462,7 @@
   },
   "3k1Hiz": {
     "context": "hint for email-only staff notification recipients",
-    "string": "Not linked to an active staff member, so Saleor will not send new-order emails to this address."
+    "string": "Not linked to an active staff member, so FSCommerce will not send new-order emails to this address."
   },
   "3kJE8G": {
     "string": "Something went wrong. Try again."
@@ -1517,7 +1517,7 @@
   },
   "3zQ8xn": {
     "context": "accessible label for Pulse promo video",
-    "string": "Preview of Saleor Pulse analytics"
+    "string": "Preview of FSCommerce Pulse analytics"
   },
   "3zdm8A": {
     "context": "Dialog title",
@@ -1568,7 +1568,7 @@
   },
   "45aV8u": {
     "context": "gift card bulk create modal bottom explanation",
-    "string": "After creation Saleor will create a list of gift card codes that you will be able to download."
+    "string": "After creation FSCommerce will create a list of gift card codes that you will be able to download."
   },
   "48dMqY": {
     "context": "Dry run trigger button",
@@ -1617,7 +1617,7 @@
     "string": "Invite staff member"
   },
   "4KRhwm": {
-    "context": "link in infoCardText, to Saleor docs",
+    "context": "link in infoCardText, to FSCommerce docs",
     "string": "Learn more about data privacy."
   },
   "4Kq3O6": {
@@ -2119,7 +2119,7 @@
     "string": "No redemptions left"
   },
   "6IteaF": {
-    "string": "Apps are available for Saleor Cloud users. Most of them are available for self-hosting."
+    "string": "Apps are available for FSCommerce Cloud users. Most of them are available for self-hosting."
   },
   "6J1m2c": {
     "string": "Create a Model"
@@ -2353,7 +2353,7 @@
   },
   "74H6RX": {
     "context": "hint when default template mode is selected",
-    "string": "Using the built-in Saleor template for this message."
+    "string": "Using the built-in FSCommerce template for this message."
   },
   "74Zo/H": {
     "context": "channel slug",
@@ -2399,7 +2399,7 @@
     "string": "Passwords do not match"
   },
   "7CpvZg": {
-    "context": "Expanded help for shipping setup. Based on Saleor shipping zones: zones set countries/methods and must be linked to the channel for checkout rates.",
+    "context": "Expanded help for shipping setup. Based on FSCommerce shipping zones: zones set countries/methods and must be linked to the channel for checkout rates.",
     "string": "Shipping zones define which countries you deliver to and which rates customers see at checkout. Assign this channel to a zone that covers your default country so shoppers can choose a shipping method."
   },
   "7DXZAW": {
@@ -2482,7 +2482,7 @@
   },
   "7UOtno": {
     "context": "eyebrow label for Pulse homepage promotion",
-    "string": "Saleor Pulse"
+    "string": "FSCommerce Pulse"
   },
   "7WEeNq": {
     "context": "select label",
@@ -2871,7 +2871,7 @@
   },
   "94nQ+l": {
     "context": "Expanded help for shipping countries setup",
-    "string": "Saleor treats an empty country list as worldwide. Assign countries to restrict free shipping, or skip this step if worldwide is intentional."
+    "string": "FSCommerce treats an empty country list as worldwide. Assign countries to restrict free shipping, or skip this step if worldwide is intentional."
   },
   "95oJ5d": {
     "context": "button",
@@ -3069,7 +3069,7 @@
     "string": "No products are available matching query in the channel assigned to this order."
   },
   "9pGRfy": {
-    "context": "Add custom extension error link to Saleor Docs",
+    "context": "Add custom extension error link to FSCommerce Docs",
     "string": "Learn more about this error"
   },
   "9pLPLn": {
@@ -3397,7 +3397,7 @@
   },
   "B3TMMF": {
     "context": "staff delivery mode section description with link to customer emails",
-    "string": "How staff emails are sent. In Saleor, staff communication is separate from customer notifications. For the latter, see {customerEmailsLink}."
+    "string": "How staff emails are sent. In FSCommerce, staff communication is separate from customer notifications. For the latter, see {customerEmailsLink}."
   },
   "B3dqGE": {
     "context": "usage summary for model attribute assignments",
@@ -3417,7 +3417,7 @@
     "string": "{count, plural, one {# item} other {# items}}"
   },
   "B8PvdI": {
-    "string": "extending Saleor with Webhooks"
+    "string": "extending FSCommerce with Webhooks"
   },
   "B9OFxo": {
     "context": "tooltip for unpin action",
@@ -3808,7 +3808,7 @@
   },
   "CPiLc1": {
     "context": "confirm dialog bullet: don’t-send messages resume with defaults",
-    "string": "Messages set to “Don’t send” will send again with Saleor default templates."
+    "string": "Messages set to “Don’t send” will send again with FSCommerce default templates."
   },
   "CQKgD/": {
     "context": "bulk actions button label",
@@ -3889,7 +3889,7 @@
   },
   "ChGI4V": {
     "context": "error message",
-    "string": "Saleor is unavailable, please check your network connection and try again."
+    "string": "FSCommerce is unavailable, please check your network connection and try again."
   },
   "CiWUaq": {
     "string": "Make sure to save token, you won't be able to see it again."
@@ -4118,7 +4118,7 @@
     "string": "Select channels in the {zoneName} shipping zone where this method will be offered at checkout. You'll set prices for each channel next."
   },
   "DbNXK5": {
-    "string": "Saleor could not connect to the provided manifest URL. ({errorCode})"
+    "string": "FSCommerce could not connect to the provided manifest URL. ({errorCode})"
   },
   "Dd0Dwl": {
     "string": "Go to promotions"
@@ -4139,7 +4139,7 @@
     "string": "Invoice Generation"
   },
   "DiMS8t": {
-    "context": "SMTP username field — optional; many servers need it, Saleor does not require it",
+    "context": "SMTP username field — optional; many servers need it, FSCommerce does not require it",
     "string": "SMTP user (optional)"
   },
   "DovGIa": {
@@ -4227,7 +4227,7 @@
     "string": "Examples"
   },
   "EEWsPs": {
-    "string": "Plugin built-in to Saleor's core codebase"
+    "string": "Plugin built-in to FSCommerce's core codebase"
   },
   "EGycu/": {
     "context": "voucher status active",
@@ -4284,7 +4284,7 @@
     "string": "General"
   },
   "EXqb2l": {
-    "string": "Go to Saleor Cloud"
+    "string": "Go to FSCommerce Cloud"
   },
   "EYkW1J": {
     "context": "checkbox label",
@@ -4337,7 +4337,7 @@
   },
   "Eli6K6": {
     "context": "Expanded help for channel setup",
-    "string": "Saleor sells through channels (like markets). Each channel needs a stock location—and shipping if you deliver—before customers can check out."
+    "string": "FSCommerce sells through channels (like markets). Each channel needs a stock location—and shipping if you deliver—before customers can check out."
   },
   "Em4Fzl": {
     "context": "bulk publish price validation",
@@ -4455,7 +4455,7 @@
     "string": "Optional"
   },
   "F9116r": {
-    "context": "ripple action to install Saleor Pulse",
+    "context": "ripple action to install FSCommerce Pulse",
     "string": "Install Pulse"
   },
   "F9hInY": {
@@ -4578,7 +4578,7 @@
     "string": "You need shipping permissions to create or assign zones for this channel."
   },
   "Fbkcn2": {
-    "context": "CTA to install Saleor Pulse from homepage empty state",
+    "context": "CTA to install FSCommerce Pulse from homepage empty state",
     "string": "Install Pulse"
   },
   "Fbr4Vp": {
@@ -4991,7 +4991,7 @@
   },
   "GsyvkU": {
     "context": "staff emails active toggle description",
-    "string": "When off, Saleor will not send any of these staff emails."
+    "string": "When off, FSCommerce will not send any of these staff emails."
   },
   "Gt5T8I": {
     "context": "automatic completion cut-off date warning",
@@ -5003,7 +5003,7 @@
   },
   "GuYTfQ": {
     "context": "card description",
-    "string": "Expand or restrict extension permissions to access certain part of Saleor system."
+    "string": "Expand or restrict extension permissions to access certain part of FSCommerce system."
   },
   "GufXy5": {
     "string": "Value"
@@ -5087,7 +5087,7 @@
   },
   "H9gOMX": {
     "context": "deprecation banner shown in the sidebar",
-    "string": "This Saleor version is deprecated and will be automatically upgraded on {date}."
+    "string": "This FSCommerce version is deprecated and will be automatically upgraded on {date}."
   },
   "HA0fD3": {
     "string": "Channel created"
@@ -5483,7 +5483,7 @@
   },
   "IW4YT7": {
     "context": "delete app",
-    "string": "By deleting this extension, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in Saleor Marketplace."
+    "string": "By deleting this extension, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in FSCommerce Marketplace."
   },
   "IWP25U": {
     "string": "You cannot issue a granted refund for this order. None of your transactions have authorized or charged amount."
@@ -6218,7 +6218,7 @@
     "string": "Add {count} {count, plural, one {variant} other {variants}}"
   },
   "LVa5ew": {
-    "string": "Saleor ran into an unexpected problem"
+    "string": "FSCommerce ran into an unexpected problem"
   },
   "LVtwcF": {
     "string": "Create new warehouse"
@@ -6725,7 +6725,7 @@
   },
   "NOvpOq": {
     "context": "setup task description when category missing",
-    "string": "Saleor needs a category before a product can go live."
+    "string": "FSCommerce needs a category before a product can go live."
   },
   "NOwJdG": {
     "context": "success deactivate alert message",
@@ -6802,7 +6802,7 @@
   },
   "NhQboB": {
     "context": "dialog header",
-    "string": "Saleor couldn’t cancel order"
+    "string": "FSCommerce couldn’t cancel order"
   },
   "Nj9iSB": {
     "context": "table header column",
@@ -6887,7 +6887,7 @@
   },
   "Nyxzpe": {
     "context": "onboarding step description",
-    "string": "Saleor includes a GraphQL Playground, an interactive GraphQL editor, allowing access to your Saleor instance's API through the web browser. The Playground lets you quickly familiarize yourself with the API, perform example operations, and send your first queries and mutations."
+    "string": "FSCommerce includes a GraphQL Playground, an interactive GraphQL editor, allowing access to your FSCommerce instance's API through the web browser. The Playground lets you quickly familiarize yourself with the API, perform example operations, and send your first queries and mutations."
   },
   "NzifUg": {
     "context": "window title",
@@ -6989,7 +6989,7 @@
   },
   "OP3Fgn": {
     "context": "section description for advanced store settings",
-    "string": "Legacy API options that may change in future Saleor versions. Prefer defaults unless you know you need these."
+    "string": "Legacy API options that may change in future FSCommerce versions. Prefer defaults unless you know you need these."
   },
   "OPSxxI": {
     "context": "review row when the product type has no attributes",
@@ -7568,7 +7568,7 @@
   },
   "QVYKtb": {
     "context": "default mode hint on cloud",
-    "string": "Saleor Cloud sends staff mail for you. Custom subjects and templates stay locked to Saleor defaults."
+    "string": "FSCommerce Cloud sends staff mail for you. Custom subjects and templates stay locked to FSCommerce defaults."
   },
   "QVhelr": {
     "context": "set balance dialog subtitle",
@@ -8168,8 +8168,8 @@
     "string": "{channelCount} {channelCount,plural, =1 {Channel} other {Channels}}"
   },
   "T0lfLH": {
-    "context": "Define where this attribute should be used in Saleor system",
-    "string": "Define where this attribute should be used in Saleor system"
+    "context": "Define where this attribute should be used in FSCommerce system",
+    "string": "Define where this attribute should be used in FSCommerce system"
   },
   "T1f2Yl": {
     "string": "Variant Name"
@@ -8466,7 +8466,7 @@
   },
   "U2uWJ0": {
     "context": "hint when message templates are editable",
-    "string": "Choose Saleor default, a custom subject and body, or don’t send for each message."
+    "string": "Choose FSCommerce default, a custom subject and body, or don’t send for each message."
   },
   "U353oB": {
     "context": "configuration section for staff and permission groups",
@@ -8478,7 +8478,7 @@
   },
   "U4Ppt6": {
     "context": "use default template option",
-    "string": "Saleor default"
+    "string": "FSCommerce default"
   },
   "U5CH0u": {
     "string": "Are you sure you want to delete {name} preset?"
@@ -9200,7 +9200,7 @@
     "string": "No warehouse"
   },
   "WuuXbr": {
-    "context": "callout title when Saleor can’t open an SMTP session",
+    "context": "callout title when FSCommerce can’t open an SMTP session",
     "string": "Couldn’t connect to SMTP"
   },
   "Wv/8tv": {
@@ -9208,7 +9208,7 @@
     "string": "Review unpublished products"
   },
   "WvabuR": {
-    "context": "Expanded help for warehouse setup. Based on Saleor stock allocation: stocks allocate only from warehouses available in the order channel.",
+    "context": "Expanded help for warehouse setup. Based on FSCommerce stock allocation: stocks allocate only from warehouses available in the order channel.",
     "string": "Inventory is tracked per warehouse. This channel can only reserve stock from warehouses you assign here—without one, checkout can’t allocate inventory for tracked products."
   },
   "Ww69SE": {
@@ -9466,7 +9466,7 @@
     "string": "Schedule for later"
   },
   "XcwOQt": {
-    "context": "ripple video announcement CTA to install Saleor Pulse",
+    "context": "ripple video announcement CTA to install FSCommerce Pulse",
     "string": "Install Pulse"
   },
   "XgsXQv": {
@@ -9819,7 +9819,7 @@
   },
   "Yr1YZv": {
     "context": "shown when Cloud default delivery locks copy editing",
-    "string": "Saleor Cloud sends this with the default subject and template. Switch to Custom SMTP above to edit copy or turn this email off."
+    "string": "FSCommerce Cloud sends this with the default subject and template. Switch to Custom SMTP above to edit copy or turn this email off."
   },
   "Ys86kI": {
     "string": "Refunded amount will not be automatically returned to the customer. You’ll need to decide on a method and refund via balance sheet section of the order."
@@ -10696,7 +10696,7 @@
     "string": "API error"
   },
   "c5sFXi": {
-    "context": "ripple action to explore Saleor Pulse on the App Store (non-cloud)",
+    "context": "ripple action to explore FSCommerce Pulse on the App Store (non-cloud)",
     "string": "Explore Pulse"
   },
   "c5tWY8": {
@@ -10805,7 +10805,7 @@
     "string": "Refund with line items"
   },
   "cNCKU1": {
-    "context": "ripple video announcement CTA to explore Saleor Pulse",
+    "context": "ripple video announcement CTA to explore FSCommerce Pulse",
     "string": "Explore Pulse"
   },
   "cNXv4f": {
@@ -11134,7 +11134,7 @@
   },
   "daJDoe": {
     "context": "validation when Custom template mode has empty body",
-    "string": "Add an email body, or choose Saleor default or Don’t send. An empty custom body is not allowed."
+    "string": "Add an email body, or choose FSCommerce default or Don’t send. An empty custom body is not allowed."
   },
   "dc5KWn": {
     "context": "products export type label",
@@ -11525,7 +11525,7 @@
     "string": "Category Name"
   },
   "fWaj1M": {
-    "string": "The Saleor version your extension is trying to use is newer than your current Saleor version. {docsLink} ({errorCode})"
+    "string": "The FSCommerce version your extension is trying to use is newer than your current FSCommerce version. {docsLink} ({errorCode})"
   },
   "fXdkiI": {
     "string": "is"
@@ -11606,7 +11606,7 @@
   },
   "fq4FLl": {
     "context": "warning callout title when saving default over custom SMTP",
-    "string": "Default delivery uses Saleor’s built-in staff email templates. Saleor does not keep a separate Custom SMTP profile — saving will remove these overrides."
+    "string": "Default delivery uses FSCommerce’s built-in staff email templates. FSCommerce does not keep a separate Custom SMTP profile — saving will remove these overrides."
   },
   "fqJXzO": {
     "context": "order history message",
@@ -12690,7 +12690,7 @@
   },
   "jm2YzF": {
     "context": "description",
-    "string": "Use Saleor Cloud to access Saleor Extensions"
+    "string": "Use FSCommerce Cloud to access FSCommerce Extensions"
   },
   "jmZSK1": {
     "string": "Product is not available in selected channels"
@@ -12868,7 +12868,7 @@
     "string": "You have reached your warehouse limit, you will be no longer able to add warehouses to your store. If you would like to up your limit, contact your administration staff about raising your limits."
   },
   "kFYlu2": {
-    "string": "Saleor runs in read-only mode. Changes not saved."
+    "string": "FSCommerce runs in read-only mode. Changes not saved."
   },
   "kFkPWB": {
     "string": "Number"
@@ -13030,7 +13030,7 @@
     "string": "Require email confirmation link"
   },
   "kr1PlW": {
-    "string": "Expand or restrict extension permissions to access certain part of Saleor system."
+    "string": "Expand or restrict extension permissions to access certain part of FSCommerce system."
   },
   "krer6Z": {
     "string": "Features preview"
@@ -13349,7 +13349,7 @@
     "string": "Amount"
   },
   "lsPIVu": {
-    "context": "factor label when multiple order-level discounts contributed to a line; the per-record split is not stored by Saleor so we show the combined slice with the contributing records named below",
+    "context": "factor label when multiple order-level discounts contributed to a line; the per-record split is not stored by FSCommerce so we show the combined slice with the contributing records named below",
     "string": "Order-level discounts (combined)"
   },
   "ltSmln": {
@@ -13711,7 +13711,7 @@
   },
   "nIwoHa": {
     "context": "delete app",
-    "string": "By deleting {name}, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in Saleor Marketplace."
+    "string": "By deleting {name}, you will remove installation of the extension. If you are paying for extension's subscription, remember to unsubscribe from the extension in FSCommerce Marketplace."
   },
   "nJ0tek": {
     "context": "tab name",
@@ -14728,7 +14728,7 @@
     "string": "When enabled, stock availability is filtered by shipping zones and the destination address (legacy behavior). When disabled, it is determined only by the direct warehouse-channel link. <a>Learn more</a>."
   },
   "qf8OtW": {
-    "string": "Continue with Saleor Cloud"
+    "string": "Continue with FSCommerce Cloud"
   },
   "qfEVRX": {
     "context": "collection background image helper text below upload area",
@@ -14849,7 +14849,7 @@
     "string": "{number, plural, one {# included postal code range} other {# included postal code ranges}}"
   },
   "r0blTm": {
-    "context": "ripple action to open Saleor Pulse when already installed",
+    "context": "ripple action to open FSCommerce Pulse when already installed",
     "string": "Open Pulse"
   },
   "r1aQ2f": {
@@ -15360,7 +15360,7 @@
     "string": "Email"
   },
   "sykM/J": {
-    "context": "SMTP sender name field — optional; Saleor only requires sender email",
+    "context": "SMTP sender name field — optional; FSCommerce only requires sender email",
     "string": "Sender name (optional)"
   },
   "szXISP": {
@@ -15380,7 +15380,7 @@
     "string": "Translation saved"
   },
   "t0awJM": {
-    "context": "link to Saleor Pulse documentation from video announcement",
+    "context": "link to FSCommerce Pulse documentation from video announcement",
     "string": "See docs"
   },
   "t17+Fa": {
@@ -15439,7 +15439,7 @@
     "string": "No pinned model types"
   },
   "tI7/Ib": {
-    "string": "Extension requested permissions that are not available in Saleor."
+    "string": "Extension requested permissions that are not available in FSCommerce."
   },
   "tIc2/h": {
     "context": "input helper text, search attributes",
@@ -16096,7 +16096,7 @@
   },
   "vLInt4": {
     "context": "staff delivery description for Cmd+K / settings search without link",
-    "string": "How staff emails are sent. In Saleor, staff communication is separate from customer notifications."
+    "string": "How staff emails are sent. In FSCommerce, staff communication is separate from customer notifications."
   },
   "vLc9Td": {
     "context": "Title for public API verification section",
@@ -16466,7 +16466,7 @@
   },
   "wUMBnP": {
     "context": "warning callout title when disabling staff emails",
-    "string": "Saleor will stop sending these messages."
+    "string": "FSCommerce will stop sending these messages."
   },
   "wUQCnQ": {
     "context": "Save filters button text",
@@ -16772,7 +16772,7 @@
     "string": "Customers deleted"
   },
   "xhruoo": {
-    "context": "Empty option on shipping method tax class combobox — uses Saleor default tax class",
+    "context": "Empty option on shipping method tax class combobox — uses FSCommerce default tax class",
     "string": "Default"
   },
   "xi32al": {
@@ -16913,7 +16913,7 @@
     "string": "Cancel fulfillment"
   },
   "y9464e": {
-    "context": "CTA to learn about Saleor Pulse for open-source users",
+    "context": "CTA to learn about FSCommerce Pulse for open-source users",
     "string": "Explore Pulse"
   },
   "yAFaVK": {
@@ -17251,7 +17251,7 @@
     "string": "Use flat tax rate"
   },
   "zT1CvH": {
-    "string": "Learn more about {extendingSaleor}"
+    "string": "Learn more about {extendingFSCommerce}"
   },
   "zUHPnm": {
     "context": "fulfillment status returned",
@@ -17381,7 +17381,7 @@
   },
   "zsz6LN": {
     "context": "onboarding step description",
-    "string": "Review the central hub for managing all available extensions. Here, you can easily oversee your extensions and enhance Saleor with custom solutions using webhooks and APIs."
+    "string": "Review the central hub for managing all available extensions. Here, you can easily oversee your extensions and enhance FSCommerce with custom solutions using webhooks and APIs."
   },
   "ztQgD8": {
     "string": "No attributes found"

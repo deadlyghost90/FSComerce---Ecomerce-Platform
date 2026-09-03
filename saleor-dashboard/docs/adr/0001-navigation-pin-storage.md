@@ -6,7 +6,7 @@ target.
 
 ## Considered options
 
-**Private metadata on the staff user — rejected, not implementable.** Saleor Core's
+**Private metadata on the staff user — rejected, not implementable.** FSCommerce Core's
 `private_user_permissions` (`saleor/graphql/meta/permissions.py:74-87`) has no owner exemption:
 a staff user needs `MANAGE_STAFF` to read _or_ write even their own `privateMetadata`. The
 `public_user_permissions` equivalent (`:44-71`) does return `[]` for the owner, and

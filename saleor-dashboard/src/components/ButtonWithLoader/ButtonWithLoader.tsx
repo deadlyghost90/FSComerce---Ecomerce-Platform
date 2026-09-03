@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { buttonMessages } from "@dashboard/intl";
 import { Button, type ButtonProps, sprinkles } from "@saleor/macaw-ui-next";
 import clsx from "clsx";
@@ -25,7 +25,7 @@ export const ButtonWithLoader = ({
   const renderLoader = () => {
     if (isLoading) {
       return (
-        <SaleorThrobber
+        <FSCommerceThrobber
           size={20}
           data-test-id="button-progress"
           className={sprinkles({

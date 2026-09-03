@@ -2,7 +2,7 @@ import { Tab } from "@dashboard/components/Tab/Tab";
 import { TabContainer } from "@dashboard/components/Tab/TabContainer";
 import { InlineExtensionPreferenceControls } from "@dashboard/extensions/preferences/InlineExtensionPreferenceControls";
 import { type Extension } from "@dashboard/extensions/types";
-import { SaleorLogo } from "@dashboard/extensions/views/InstallCustomExtension/components/InstallSectionData/InstallExtensionManifestData/SaleorLogo";
+import { FSCommerceLogo } from "@dashboard/extensions/views/InstallCustomExtension/components/InstallSectionData/InstallExtensionManifestData/FSCommerceLogo";
 import useNavigator from "@dashboard/hooks/useNavigator";
 import { Box, sprinkles, Text } from "@saleor/macaw-ui-next";
 import clsx from "clsx";
@@ -58,16 +58,16 @@ export const HomeWidgetTabs = ({
           >
             <Box display="inline-flex" alignItems="center" gap={2}>
               <Box
-                __width={extension.isSaleorOfficial ? 20 : 0}
+                __width={extension.isFSCommerceOfficial ? 20 : 0}
                 __height={20}
                 display="inline-flex"
                 alignItems="center"
                 justifyContent="center"
                 data-test-id={
-                  extension.isSaleorOfficial ? `saleor-app-badge-${extension.id}` : undefined
+                  extension.isFSCommerceOfficial ? `saleor-app-badge-${extension.id}` : undefined
                 }
               >
-                {extension.isSaleorOfficial && <SaleorLogo />}
+                {extension.isFSCommerceOfficial && <FSCommerceLogo />}
               </Box>
               <Box display="inline-flex" flexDirection="column">
                 <span>{extension.label}</span>

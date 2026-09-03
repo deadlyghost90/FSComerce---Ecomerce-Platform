@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from "@dashboard/components/Table/Table";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { Box } from "@saleor/macaw-ui-next";
 
 import styles from "./AssignPickerListPlaceholder.module.css";
@@ -12,7 +12,7 @@ export const AssignPickerListLoading = (): JSX.Element => (
     justifyContent="center"
     data-test-id="assign-picker-list-loading"
   >
-    <SaleorThrobber />
+    <FSCommerceThrobber />
   </Box>
 );
 

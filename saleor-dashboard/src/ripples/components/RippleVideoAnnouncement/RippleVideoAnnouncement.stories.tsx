@@ -11,7 +11,7 @@ const model: Ripple = {
   TTL_seconds: 999999,
   dateAdded: new Date(2026, 6, 31),
   content: {
-    oneLiner: "Saleor Pulse",
+    oneLiner: "FSCommerce Pulse",
     contextual: "See real-time store analytics on your homepage.",
     global: "Global description.",
   },

@@ -166,7 +166,7 @@ export const CustomExtensionDetailsPage = (props: CustomExtensionDetailsPageProp
               description={intl.formatMessage({
                 id: "GuYTfQ",
                 defaultMessage:
-                  "Expand or restrict extension permissions to access certain part of Saleor system.",
+                  "Expand or restrict extension permissions to access certain part of FSCommerce system.",
                 description: "card description",
               })}
             />

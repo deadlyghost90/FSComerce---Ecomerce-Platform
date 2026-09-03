@@ -432,7 +432,7 @@ describe("useProductAvailabilityDiagnostics", () => {
     );
   });
 
-  describe("useLegacyShippingZoneStockAvailability flag plumbing (Saleor 3.23+)", () => {
+  describe("useLegacyShippingZoneStockAvailability flag plumbing (FSCommerce 3.23+)", () => {
     it("should forward legacy=true from the diagnostics query to runAvailabilityChecks", () => {
       // Arrange
       const product = createMockProduct();

@@ -42,7 +42,7 @@ interface TimelineLinkProps {
 
 /**
  * Inline timeline link: text-colored (not accent blue), underline on hover,
- * optional Saleor-entity icon (order, customer, staff, …).
+ * optional FSCommerce-entity icon (order, customer, staff, …).
  */
 export const TimelineLink = ({
   href,

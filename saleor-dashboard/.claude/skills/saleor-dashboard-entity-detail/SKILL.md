@@ -18,7 +18,7 @@ Conventions for **models you work with daily** — edit surfaces under `src/<fea
 
 ### External reference — [Vercel design resources](https://vercel.com/design)
 
-Vercel splits **product UI** from **editorial/report surfaces**. Saleor Dashboard is product UI (macaw-ui-next), but several hubs are worth bookmarking:
+Vercel splits **product UI** from **editorial/report surfaces**. FSCommerce Dashboard is product UI (macaw-ui-next), but several hubs are worth bookmarking:
 
 | Hub                     | URL                                                                                           | Borrow for entity detail                                                                                                                                                                                                               |
 | ----------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

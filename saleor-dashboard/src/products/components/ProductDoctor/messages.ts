@@ -325,7 +325,7 @@ export const messages = defineMessages({
 
   // Mode-aware reassurance shown beneath the verification badge after a run.
   // Tells the user what the public-API result means for the shop's active
-  // stock-availability mode (Saleor 3.23+).
+  // stock-availability mode (FSCommerce 3.23+).
   verificationReassurance_purchasableLegacy: {
     id: "QEXGYB",
     defaultMessage:
@@ -623,7 +623,7 @@ export const messages = defineMessages({
     description: "Message when no errors or warnings, but more than one info-level advisory exists",
   },
 
-  // Stock availability mode indicator (Saleor 3.23+)
+  // Stock availability mode indicator (FSCommerce 3.23+)
   stockAvailabilityModeLegacy: {
     id: "7sSOgb",
     defaultMessage: "Stock availability uses shipping zones (legacy)",
@@ -660,7 +660,7 @@ export const messages = defineMessages({
     description: "Badge showing number of issues in a channel",
   },
   // Issue category headings — group diagnostic issues by which surface area
-  // they affect (Saleor 3.23+ direct mode treats these as orthogonal).
+  // they affect (FSCommerce 3.23+ direct mode treats these as orthogonal).
   categoryPurchasabilityTitle: {
     id: "WZ2kxO",
     defaultMessage: "Purchasability",

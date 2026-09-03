@@ -119,7 +119,7 @@ describe("hasCollectionChannelListingsChanges", () => {
   });
 
   it("treats equivalent publishedAt instants as unchanged after scheduled save", () => {
-    // Arrange — form emit vs typical Saleor DateTime serialization
+    // Arrange — form emit vs typical FSCommerce DateTime serialization
     const formListings: ChannelCollectionData[] = [
       {
         ...savedChannelListings[0],

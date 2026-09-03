@@ -185,7 +185,7 @@ export const CUSTOMER_ADDRESS = {
   changeBillingAddress: {
     firstName: "Change Billing Address",
     lastName: "Automation",
-    companyName: "Saleor",
+    companyName: "FSCommerce",
     phone: "123456789",
     addressLine1: "Teczowa",
     addressLine2: "7",
@@ -196,7 +196,7 @@ export const CUSTOMER_ADDRESS = {
   changeShippingAddress: {
     firstName: "Change Shipping Address",
     lastName: "Automation",
-    companyName: "Saleor",
+    companyName: "FSCommerce",
     phone: "123456789",
     addressLine1: "Teczowa",
     addressLine2: "7",
@@ -606,7 +606,7 @@ export const USERS = {
 export const APPS = {
   appToBeDeleted: {
     id: "QXBwOjcw",
-    name: "Saleor QA App",
+    name: "FSCommerce QA App",
     info: "App used in delete app test",
   },
 };
@@ -730,7 +730,7 @@ export const CUSTOMERS = {
     initialShippingAddress: {
       firstName: "e2e_customer_with_addresses",
       lastName: "to-be-edited",
-      companyName: "Saleor",
+      companyName: "FSCommerce",
       phone: "+48225042123",
       addressLine1: "Teczowa",
       addressLine2: "7",
@@ -741,7 +741,7 @@ export const CUSTOMERS = {
     initialBillingAddress: {
       firstName: "address",
       lastName: "to-be-deleted",
-      companyName: "Saleor",
+      companyName: "FSCommerce",
       phone: "+48225042123",
       addressLine1: "Teczowa",
       addressLine2: "7",

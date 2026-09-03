@@ -203,7 +203,7 @@ describe("emailNotificationConfig", () => {
     ).toBe(false);
   });
 
-  it("forces notification copy back to Saleor defaults", () => {
+  it("forces notification copy back to FSCommerce defaults", () => {
     // Arrange
     const formState = buildFormStateFromConfiguration({
       active: true,

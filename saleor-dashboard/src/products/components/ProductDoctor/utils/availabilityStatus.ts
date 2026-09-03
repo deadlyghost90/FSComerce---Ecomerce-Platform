@@ -20,7 +20,7 @@ export const getAvailabilityStatus = (
   }
 
   // Check if publication date is in the future (scheduled)
-  // Note: Saleor auto-sets publishedAt to current server time when publishing without a date
+  // Note: FSCommerce auto-sets publishedAt to current server time when publishing without a date
   // We add a small tolerance (2 seconds) to avoid "scheduled" flash due to clock differences
   const CLOCK_TOLERANCE_MS = 2000;
   const publishedAtTime = summary.publishedAt ? Date.parse(summary.publishedAt) : null;

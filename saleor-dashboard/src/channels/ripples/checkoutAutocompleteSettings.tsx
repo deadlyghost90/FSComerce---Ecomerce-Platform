@@ -10,7 +10,7 @@ export const checkoutAutocompleteSettings: Ripple = {
     oneLiner: "Checkout autocomplete feature can be now configured in settings",
     contextual: "You can configure checkouts to automatically complete when paid",
     global:
-      "When checkouts are paid, but not completed by the customer, they can be automatically completed by Saleor. Visit settings to configure this behavior.",
+      "When checkouts are paid, but not completed by the customer, they can be automatically completed by FSCommerce. Visit settings to configure this behavior.",
   },
   dateAdded: new Date("2025-12-15"),
   actions: [

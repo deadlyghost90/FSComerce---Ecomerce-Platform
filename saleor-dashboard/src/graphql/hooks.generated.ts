@@ -2241,7 +2241,7 @@ export const GiftCardPaymentMethodDetailsFragmentDoc = gql`
   name
   brand
   lastChars
-  isSaleorGiftcard
+  isFSCommerceGiftcard
 }
     `;
 export const OtherPaymentMethodDetailsFragmentDoc = gql`

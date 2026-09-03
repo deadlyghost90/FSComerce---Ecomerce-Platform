@@ -43,7 +43,7 @@ describe("mapToExtensionsItems", () => {
     mountName: "NAVIGATION_CATALOG",
     targetName: "APP_PAGE",
     settings: {},
-    isSaleorOfficial: false,
+    isFSCommerceOfficial: false,
     fromCache: false,
   };
 
@@ -295,7 +295,7 @@ describe("getMenuItemExtension", () => {
     mountName: "NAVIGATION_CATALOG",
     settings: {},
     targetName: "POPUP",
-    isSaleorOfficial: false,
+    isFSCommerceOfficial: false,
     fromCache: false,
   };
 

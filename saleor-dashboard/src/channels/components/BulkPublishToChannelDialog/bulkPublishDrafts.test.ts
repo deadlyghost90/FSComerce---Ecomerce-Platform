@@ -476,7 +476,7 @@ describe("bulkPublishDrafts", () => {
       expect(isValidBulkPublishPrice("9.99")).toBe(true);
     });
 
-    it("accepts zero — Saleor PositiveDecimal allows free products", () => {
+    it("accepts zero — FSCommerce PositiveDecimal allows free products", () => {
       expect(isValidBulkPublishPrice("0")).toBe(true);
       expect(isValidBulkPublishPrice("0.00")).toBe(true);
     });

@@ -1,10 +1,10 @@
-import { isSaleorOfficialAppUrl } from "./isSaleorOfficialAppUrl";
+import { isFSCommerceOfficialAppUrl } from "./isFSCommerceOfficialAppUrl";
 
 const setCloudDomain = (value: string | undefined): void => {
   window.__SALEOR_CONFIG__ = { ...window.__SALEOR_CONFIG__, SALEOR_CLOUD_APP_DOMAIN: value };
 };
 
-describe("isSaleorOfficialAppUrl", () => {
+describe("isFSCommerceOfficialAppUrl", () => {
   const originalConfig = window.__SALEOR_CONFIG__;
 
   afterEach(() => {
@@ -16,7 +16,7 @@ describe("isSaleorOfficialAppUrl", () => {
     setCloudDomain(undefined);
 
     // Act
-    const result = isSaleorOfficialAppUrl("https://app.saleor.app/widget");
+    const result = isFSCommerceOfficialAppUrl("https://app.saleor.app/widget");
 
     // Assert
     expect(result).toBe(false);
@@ -27,7 +27,7 @@ describe("isSaleorOfficialAppUrl", () => {
     setCloudDomain("");
 
     // Act
-    const result = isSaleorOfficialAppUrl("https://app.saleor.app/widget");
+    const result = isFSCommerceOfficialAppUrl("https://app.saleor.app/widget");
 
     // Assert
     expect(result).toBe(false);
@@ -38,7 +38,7 @@ describe("isSaleorOfficialAppUrl", () => {
     setCloudDomain("saleor.app");
 
     // Act
-    const result = isSaleorOfficialAppUrl("https://saleor.app/widget");
+    const result = isFSCommerceOfficialAppUrl("https://saleor.app/widget");
 
     // Assert
     expect(result).toBe(true);
@@ -49,7 +49,7 @@ describe("isSaleorOfficialAppUrl", () => {
     setCloudDomain("saleor.app");
 
     // Act
-    const result = isSaleorOfficialAppUrl("https://my-app.saleor.app/widget");
+    const result = isFSCommerceOfficialAppUrl("https://my-app.saleor.app/widget");
 
     // Assert
     expect(result).toBe(true);
@@ -60,7 +60,7 @@ describe("isSaleorOfficialAppUrl", () => {
     setCloudDomain("saleor.app");
 
     // Act
-    const result = isSaleorOfficialAppUrl("https://example.com/widget");
+    const result = isFSCommerceOfficialAppUrl("https://example.com/widget");
 
     // Assert
     expect(result).toBe(false);
@@ -71,7 +71,7 @@ describe("isSaleorOfficialAppUrl", () => {
     setCloudDomain("saleor.app");
 
     // Act - "evilsaleor.app" must not be treated as a subdomain of "saleor.app"
-    const result = isSaleorOfficialAppUrl("https://evilsaleor.app/widget");
+    const result = isFSCommerceOfficialAppUrl("https://evilsaleor.app/widget");
 
     // Assert
     expect(result).toBe(false);
@@ -82,7 +82,7 @@ describe("isSaleorOfficialAppUrl", () => {
     setCloudDomain("saleor.app");
 
     // Act
-    const result = isSaleorOfficialAppUrl("not-a-url");
+    const result = isFSCommerceOfficialAppUrl("not-a-url");
 
     // Assert
     expect(result).toBe(false);

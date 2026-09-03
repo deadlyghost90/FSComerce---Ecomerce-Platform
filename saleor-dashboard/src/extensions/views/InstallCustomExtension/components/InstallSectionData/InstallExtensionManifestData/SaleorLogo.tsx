@@ -3,7 +3,7 @@ import saleorLogoLightMode from "@assets/images/sidebar-default-logo.png";
 import { useTheme } from "@dashboard/theme/hook";
 import { type DefaultTheme } from "@saleor/macaw-ui-next";
 
-const getSaleorLogoUrl = (theme: DefaultTheme) => {
+const getFSCommerceLogoUrl = (theme: DefaultTheme) => {
   switch (theme) {
     case "defaultLight":
       return saleorLogoLightMode;
@@ -14,8 +14,8 @@ const getSaleorLogoUrl = (theme: DefaultTheme) => {
   }
 };
 
-export const SaleorLogo = () => {
+export const FSCommerceLogo = () => {
   const { theme } = useTheme();
 
-  return <img src={getSaleorLogoUrl(theme)} alt="" />;
+  return <img src={getFSCommerceLogoUrl(theme)} alt="" />;
 };

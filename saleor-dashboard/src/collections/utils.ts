@@ -6,7 +6,7 @@ import { mapEdgesToItems } from "@dashboard/utils/maps";
 type CollectionChannelListingFields = Pick<ChannelCollectionData, "isPublished" | "publishedAt">;
 
 /**
- * DateTimeTimezoneField emits UTC with a `Z` suffix; Saleor often returns the same
+ * DateTimeTimezoneField emits UTC with a `Z` suffix; FSCommerce often returns the same
  * instant as `+00:00` (sometimes with fractional seconds). String equality would
  * leave channel availability dirty after a successful scheduled save.
  */
@@ -39,7 +39,7 @@ const areCollectionChannelFieldsDifferent = (
   current: CollectionChannelListingFields,
   baseline: CollectionChannelListingFields,
 ): boolean => {
-  // Saleor ignores publishedAt when the listing is hidden.
+  // FSCommerce ignores publishedAt when the listing is hidden.
   if (!current.isPublished && !baseline.isPublished) {
     return false;
   }

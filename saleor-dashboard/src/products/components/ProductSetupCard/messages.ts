@@ -77,7 +77,7 @@ export const messages = defineMessages({
   channelDetails: {
     id: "Eli6K6",
     defaultMessage:
-      "Saleor sells through channels (like markets). Each channel needs a stock location—and shipping if you deliver—before customers can check out.",
+      "FSCommerce sells through channels (like markets). Each channel needs a stock location—and shipping if you deliver—before customers can check out.",
     description: "Expanded help for channel setup",
   },
   channelAssignAction: {
@@ -98,7 +98,7 @@ export const messages = defineMessages({
   },
   categoryDescription: {
     id: "NOvpOq",
-    defaultMessage: "Saleor needs a category before a product can go live.",
+    defaultMessage: "FSCommerce needs a category before a product can go live.",
     description: "setup task description when category missing",
   },
   categoryDone: {

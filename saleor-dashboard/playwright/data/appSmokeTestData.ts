@@ -38,7 +38,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
     {
       identifier: "saleor.app.cms2",
       name: "CMS",
-      heading: "Saleor App CMS",
+      heading: "FSCommerce App CMS",
       assertContent: expectText("No configurations yet"),
     },
     {
@@ -50,7 +50,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
     {
       identifier: "saleor.app.dummy.tax",
       name: "Dummy Tax",
-      heading: "Welcome to Saleor Dummy Tax App",
+      heading: "Welcome to FSCommerce Dummy Tax App",
       assertContent: expectText("See what your app can do"),
     },
     {
@@ -63,7 +63,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
       identifier: "saleor.app.smtp",
       name: "SMTP",
       heading: "Configuration",
-      assertContent: expectText("Saleor Cloud SMTP available"),
+      assertContent: expectText("FSCommerce Cloud SMTP available"),
     },
   ],
   v321: [
@@ -76,7 +76,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
     {
       identifier: "saleor.app.cms2",
       name: "CMS",
-      heading: "Saleor App CMS",
+      heading: "FSCommerce App CMS",
       assertContent: expectText("No configurations yet"),
     },
     {
@@ -88,7 +88,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
     {
       identifier: "saleor.app.dummy.tax",
       name: "Dummy Tax",
-      heading: "Welcome to Saleor Dummy Tax App",
+      heading: "Welcome to FSCommerce Dummy Tax App",
       assertContent: expectText("See what your app can do"),
     },
     {
@@ -101,7 +101,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
       identifier: "saleor.app.smtp",
       name: "SMTP",
       heading: "Configuration",
-      assertContent: expectText("Saleor Cloud SMTP available"),
+      assertContent: expectText("FSCommerce Cloud SMTP available"),
     },
     {
       identifier: "saleor.app.payment.np-atobarai",
@@ -147,7 +147,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
     {
       identifier: "saleor.app.cms2",
       name: "CMS",
-      heading: "Saleor App CMS",
+      heading: "FSCommerce App CMS",
       assertContent: expectText("No configurations yet"),
     },
     {
@@ -159,7 +159,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
     {
       identifier: "saleor.app.dummy.tax",
       name: "Dummy Tax",
-      heading: "Welcome to Saleor Dummy Tax App",
+      heading: "Welcome to FSCommerce Dummy Tax App",
       assertContent: expectText("See what your app can do"),
     },
     {
@@ -172,7 +172,7 @@ export const APP_SMOKE_DATA: Record<string, AppSmokeEntry[]> = {
       identifier: "saleor.app.smtp",
       name: "SMTP",
       heading: "Configuration",
-      assertContent: expectText("Saleor Cloud SMTP available"),
+      assertContent: expectText("FSCommerce Cloud SMTP available"),
     },
     {
       identifier: "saleor.app.payment.np-atobarai",

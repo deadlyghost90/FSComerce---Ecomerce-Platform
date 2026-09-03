@@ -5,7 +5,7 @@ describe("Permission Parsing", () => {
     // Arrange
     // -> Order.invoices
     //    https://docs.saleor.io/api-reference/orders/objects/order
-    const description = `List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.`;
+    const description = `List of order invoices. Can be fetched for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.`;
     // Act
     const { permissions } = extractPermissions(description);
 
@@ -28,7 +28,7 @@ describe("Permission Parsing", () => {
     // Arrange
     // -> Order.invoices
     //    https://docs.saleor.io/api-reference/orders/objects/order
-    const description = `List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.`;
+    const description = `List of order invoices. Can be fetched for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.`;
     // Act
     const { permissions, isOneOfRequired } = extractPermissions(description);
 

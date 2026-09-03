@@ -7,7 +7,7 @@ import { DashboardModal } from "@dashboard/components/Modal";
 import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/ResponsiveTable";
 import { TableBody, TableCell } from "@dashboard/components/Table/Table";
 import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { type OrderFulfillLineFragment, type WarehouseFragment } from "@dashboard/graphql";
 import { useAssignPickerListDisplayState } from "@dashboard/hooks/useAssignPickerListDisplayState";
 import useModalDialogOpen from "@dashboard/hooks/useModalDialogOpen/useModalDialogOpen";
@@ -155,7 +155,7 @@ export const OrderChangeWarehouseDialog = ({
               label={intl.formatMessage(messages.searchFieldPlaceholder)}
               placeholder={intl.formatMessage(messages.searchFieldPlaceholder)}
               autoComplete="off"
-              endAdornment={loading && <SaleorThrobber size={16} />}
+              endAdornment={loading && <FSCommerceThrobber size={16} />}
             />
           }
         >

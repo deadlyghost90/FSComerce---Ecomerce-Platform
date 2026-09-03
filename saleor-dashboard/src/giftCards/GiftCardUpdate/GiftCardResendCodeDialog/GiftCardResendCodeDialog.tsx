@@ -4,7 +4,7 @@ import { ConfirmButton } from "@dashboard/components/ConfirmButton/ConfirmButton
 import { DashboardModal } from "@dashboard/components/Modal";
 import { ModalSectionHeader } from "@dashboard/components/Modal/ModalSectionHeader";
 import { type INotification } from "@dashboard/components/notifications/NotificationContext";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { useGiftCardPermissions } from "@dashboard/giftCards/hooks/useGiftCardPermissions";
 import { useChannelsQuery, useGiftCardResendMutation } from "@dashboard/graphql";
 import useForm from "@dashboard/hooks/useForm";
@@ -166,7 +166,7 @@ export const GiftCardResendCodeDialog = ({ open, onClose }: DialogProps) => {
             <DashboardModal.Inset>
               {loadingChannels ? (
                 <Box display="flex" width="100%" justifyContent="center" padding={6}>
-                  <SaleorThrobber />
+                  <FSCommerceThrobber />
                 </Box>
               ) : (
                 <Box display="flex" flexDirection="column" gap={6}>

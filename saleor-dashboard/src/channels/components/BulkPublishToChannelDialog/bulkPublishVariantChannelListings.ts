@@ -11,7 +11,7 @@ export type BulkPublishVariantChannelListingSource = {
  * Decides what a run does to one variant's price in the target channel.
  *
  * An undefined price means "leave it alone": on an existing listing we omit the field so the
- * current price survives, and on a variant with no listing there is nothing to update — Saleor
+ * current price survives, and on a variant with no listing there is nothing to update — FSCommerce
  * requires a price to create one, so the variant stays unlisted rather than being published at an
  * invented price.
  */

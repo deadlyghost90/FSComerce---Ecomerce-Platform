@@ -74,7 +74,7 @@ const transactionHasUnresolvedRequest = (
  * has a charge/refund/cancel REQUEST event not yet resolved by a SUCCESS/FAILURE
  * event sharing its pspReference.
  *
- * We key off events rather than the pending *amount* fields: Saleor Core creates the
+ * We key off events rather than the pending *amount* fields: FSCommerce Core creates the
  * REQUEST event synchronously but only folds it into the pending amount once the app
  * responds (include_in_calculations), so right after the user triggers an action the
  * pending amount is still 0 — the event is the only signal available immediately.
@@ -97,7 +97,7 @@ export const orderHasInFlightTransactionAction = (
  * transaction — i.e. it has a matching `*_REQUEST` event not yet resolved by a
  * SUCCESS/FAILURE event sharing its pspReference. Used to disable the corresponding
  * action button so the user cannot submit the same action twice while it is pending
- * (Saleor Core does not guard against this server-side).
+ * (FSCommerce Core does not guard against this server-side).
  */
 export const transactionActionInFlight = (
   events: readonly InFlightEvent[] | null | undefined,

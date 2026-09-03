@@ -129,7 +129,7 @@ export const useProductInitialAPIState = (): InitialProductAPIState => {
 
         if (allAttributeSlugs.length > 0) {
           // Only fetch choices values for regular attributes, not reference attributes
-          // (if we try fetching reference attribute options Saleor returns 500 error)
+          // (if we try fetching reference attribute options FSCommerce returns 500 error)
           const regularChoiceIds = Object.values(attribute).flat().filter(Boolean);
 
           queriesToRun.push(

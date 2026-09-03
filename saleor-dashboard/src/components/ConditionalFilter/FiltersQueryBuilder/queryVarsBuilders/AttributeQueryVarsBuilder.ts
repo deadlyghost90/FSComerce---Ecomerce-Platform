@@ -29,7 +29,7 @@ type AttributeFilterQueryPart = { attributes?: AttributeInput[] };
 /**
  * Builds `AttributeInput` for product list (WHERE) and product export (FILTER).
  * Every item uses `value` only — mixing deprecated `values`/`boolean`/`date`
- * with reference `value` makes Saleor reject the whole `attributes` list.
+ * with reference `value` makes FSCommerce reject the whole `attributes` list.
  */
 export class AttributeQueryVarsBuilder
   implements BothApiQueryVarsBuilder<AttributeFilterQueryPart>

@@ -3,7 +3,7 @@ import { WebhookEventTypeAsyncEnum, WebhookEventTypeSyncEnum } from "@dashboard/
 type Actions = string[];
 
 /**
- * Saleor 3.23 introduced four channel-scoped variant stock-availability events
+ * FSCommerce 3.23 introduced four channel-scoped variant stock-availability events
  * that fire only when `Shop.useLegacyShippingZoneStockAvailability` is `false`
  * (i.e. the new direct warehouse-channel stock-availability mode is enabled).
  * Subscribing to them on a shop still in legacy mode is a silent footgun — the
@@ -11,7 +11,7 @@ type Actions = string[];
  *
  * The picker surfaces a small advisory badge next to each of these events so
  * admins see the prerequisite at the moment of subscription, regardless of
- * the shop's current mode. Keep this list in sync with the schema if Saleor
+ * the shop's current mode. Keep this list in sync with the schema if FSCommerce
  * adds further events with the same precondition.
  */
 export const DIRECT_STOCK_MODE_ONLY_EVENTS: ReadonlySet<WebhookEventTypeAsyncEnum> = new Set([

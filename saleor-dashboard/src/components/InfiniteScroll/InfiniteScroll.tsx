@@ -2,7 +2,7 @@ import { Box } from "@saleor/macaw-ui-next";
 import type * as React from "react";
 import InfiniteScrollComponent, { type Props } from "react-infinite-scroll-component";
 
-import { SaleorThrobber } from "../Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "../Throbber/FSCommerceThrobber";
 import styles from "./InfiniteScroll.module.css";
 
 type InfiniteScrollBaseProps = Omit<Props, "loader" | "id" | "scrollableTarget"> & {
@@ -27,7 +27,7 @@ const InfiniteScrollLoader = () => (
     marginTop={4}
     marginBottom={4}
   >
-    <SaleorThrobber size={20} />
+    <FSCommerceThrobber size={20} />
   </Box>
 );
 

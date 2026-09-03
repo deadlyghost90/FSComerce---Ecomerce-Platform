@@ -202,7 +202,7 @@ export const ExtensionsUrls = {
   ) => {
     const apiUrl = getAbsoluteApiUrl();
     /**
-     * Use host to preserve port, in case of multiple Saleors running on localhost
+     * Use host to preserve port, in case of multiple FSCommerces running on localhost
      */
     const apiUrlHost = new URL(apiUrl).host;
     const iframeContextQueryString = `?${stringifyQs(

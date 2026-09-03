@@ -2,7 +2,7 @@ import { useTheme } from "@dashboard/theme/hook";
 import { type DefaultTheme } from "@saleor/macaw-ui-next";
 import { render, screen } from "@testing-library/react";
 
-import { SaleorLogo } from "./SaleorLogo";
+import { FSCommerceLogo } from "./FSCommerceLogo";
 
 jest.mock("@dashboard/theme/hook", () => {
   const actualTheme = jest.requireActual("@dashboard/theme/hook");
@@ -13,7 +13,7 @@ jest.mock("@dashboard/theme/hook", () => {
   };
 });
 
-describe("SaleorLogo", () => {
+describe("FSCommerceLogo", () => {
   it("should display light mode logo when theme is defaultLight", () => {
     // Arrange
     const mockTheme: DefaultTheme = "defaultLight";
@@ -23,7 +23,7 @@ describe("SaleorLogo", () => {
     });
 
     // Act
-    render(<SaleorLogo />);
+    render(<FSCommerceLogo />);
 
     // Assert
     const img = screen.getByRole("img");
@@ -40,7 +40,7 @@ describe("SaleorLogo", () => {
     });
 
     // Act
-    render(<SaleorLogo />);
+    render(<FSCommerceLogo />);
 
     // Assert
     const img = screen.getByRole("img");
@@ -61,7 +61,7 @@ describe("SaleorLogo", () => {
 
     // Act & Assert
     expect(() => {
-      render(<SaleorLogo />);
+      render(<FSCommerceLogo />);
     }).toThrow("Invalid theme mode, should not happen.");
   });
 });

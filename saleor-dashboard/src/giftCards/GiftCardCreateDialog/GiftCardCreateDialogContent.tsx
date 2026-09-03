@@ -6,7 +6,7 @@ import {
   type ConfirmButtonTransitionState,
 } from "@dashboard/components/ConfirmButton/ConfirmButton";
 import { DashboardModal } from "@dashboard/components/Modal";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { useGiftCardCreateMutation } from "@dashboard/graphql";
 import { useCurrentDate } from "@dashboard/hooks/useCurrentDate";
 import { useNotifier } from "@dashboard/hooks/useNotifier/useNotifier";
@@ -151,7 +151,7 @@ export const GiftCardCreateDialogContent = ({
                 <DashboardModal.Inset>
                   {loadingSettings ? (
                     <Box display="flex" alignItems="center" justifyContent="center" padding={6}>
-                      <SaleorThrobber />
+                      <FSCommerceThrobber />
                     </Box>
                   ) : (
                     <GiftCardCreateDialogFields

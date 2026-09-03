@@ -6,7 +6,7 @@ interface SmtpPluginErrorState {
   /** Per-field messages from the API (or client), keyed by configuration name. */
   fieldErrors: Record<string, string>;
   /**
-   * When Saleor can’t open an SMTP session it attaches the same message to every
+   * When FSCommerce can’t open an SMTP session it attaches the same message to every
    * config key — surface once instead of repeating on each input.
    */
   connectionError: string | null;
@@ -55,7 +55,7 @@ export const mapPluginErrorsToSmtpState = (
       continue;
     }
 
-    // First message wins per field (Saleor usually sends one).
+    // First message wins per field (FSCommerce usually sends one).
     if (!fieldErrors[error.field]) {
       fieldErrors[error.field] = text;
     }

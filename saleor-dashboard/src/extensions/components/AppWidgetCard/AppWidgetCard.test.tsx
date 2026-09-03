@@ -12,7 +12,7 @@ describe("AppWidgetCard", () => {
       label: "Product Insights",
       app: {
         id: appDetails.id,
-        name: "Saleor Pulse",
+        name: "FSCommerce Pulse",
         brand: null,
       },
     };
@@ -40,7 +40,7 @@ describe("AppWidgetCard", () => {
       label: "",
       app: {
         id: appDetails.id,
-        name: "Saleor Pulse",
+        name: "FSCommerce Pulse",
         brand: null,
       },
     };
@@ -57,6 +57,6 @@ describe("AppWidgetCard", () => {
     );
 
     // Assert
-    expect(screen.getByText("Saleor Pulse")).toBeInTheDocument();
+    expect(screen.getByText("FSCommerce Pulse")).toBeInTheDocument();
   });
 });

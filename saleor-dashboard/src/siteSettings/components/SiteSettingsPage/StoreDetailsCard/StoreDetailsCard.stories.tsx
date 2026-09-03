@@ -19,7 +19,7 @@ type Story = StoryObj<typeof StoreDetailsCard>;
 export const Default: Story = {
   args: {
     data: {
-      name: "Saleor e-commerce",
+      name: "FSCommerce e-commerce",
       description: "The best place to shop online.",
     },
   },
@@ -38,7 +38,7 @@ export const Disabled: Story = {
   args: {
     disabled: true,
     data: {
-      name: "Saleor e-commerce",
+      name: "FSCommerce e-commerce",
       description: "The best place to shop online.",
     },
   },

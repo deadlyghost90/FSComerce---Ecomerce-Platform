@@ -31,7 +31,7 @@ const buildExtension = (overrides: Partial<ExtensionWithParams> = {}): Extension
     open: jest.fn(),
     targetName: "WIDGET",
     settings: {},
-    isSaleorOfficial: false,
+    isFSCommerceOfficial: false,
     fromCache: false,
     ...overrides,
   }) as ExtensionWithParams;

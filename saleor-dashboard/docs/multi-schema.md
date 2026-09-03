@@ -1,6 +1,6 @@
 # Multi-Schema Support
 
-This document describes the multi-schema GraphQL support in Saleor Dashboard, which allows the application to work with both production (main) and staging (staging) API schemas.
+This document describes the multi-schema GraphQL support in FSCommerce Dashboard, which allows the application to work with both production (main) and staging (staging) API schemas.
 
 ## Overview
 
@@ -16,8 +16,8 @@ Both schemas are generated at build time, and runtime selection is controlled by
 ### Schema Files
 
 ```
-schema-main.graphql     # Production schema (Saleor stable tags like 3.22, 3.23)
-schema-staging.graphql     # Staging schema (Saleor staging - main branch)
+schema-main.graphql     # Production schema (FSCommerce stable tags like 3.22, 3.23)
+schema-staging.graphql     # Staging schema (FSCommerce staging - main branch)
 schema.graphql          # Symlink to schema-main.graphql (for tooling compatibility)
 ```
 
@@ -188,7 +188,7 @@ pnpm run check-types
 
 ### Build Time
 
-1. Both schemas are fetched from the Saleor repository
+1. Both schemas are fetched from the FSCommerce repository
 2. GraphQL Codegen generates separate TypeScript files for each schema
 3. Production schema generates base types (no suffix)
 4. Staging schema generates Staging-suffixed document variables

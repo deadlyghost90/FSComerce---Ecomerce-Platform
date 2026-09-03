@@ -6,7 +6,7 @@ import { messages } from "./messages";
 
 /**
  * Renders a small grey footnote beneath the per-warehouse stock table that
- * explains how the active stock-availability mode (Saleor 3.23+) governs
+ * explains how the active stock-availability mode (FSCommerce 3.23+) governs
  * whether a customer in a given channel actually sees this stock.
  *
  * In legacy mode (`useLegacyShippingZoneStockAvailability=true`) stock is

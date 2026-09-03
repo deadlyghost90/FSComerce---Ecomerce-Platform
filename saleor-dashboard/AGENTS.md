@@ -1,8 +1,8 @@
-# Saleor Dashboard
+# FSCommerce Dashboard
 
 ## Project Overview
 
-Saleor Dashboard is a GraphQL-powered, single-page React application built with TypeScript that serves as the admin interface for the Saleor e-commerce platform. It is built on React, @saleor/macaw-ui-next, Apollo Client and Vite. Check `package.json` to resolve installed package versions and `package.json` `engines` for the required Node/pnpm versions.
+FSCommerce Dashboard is a GraphQL-powered, single-page React application built with TypeScript that serves as the admin interface for the FSCommerce e-commerce platform. It is built on React, @saleor/macaw-ui-next, Apollo Client and Vite. Check `package.json` to resolve installed package versions and `package.json` `engines` for the required Node/pnpm versions.
 
 ## Development Commands
 
@@ -41,11 +41,11 @@ See `package.json` `scripts` for the full, current list.
 
 ### GraphQL & Code Generation
 
-The dashboard generates against two schemas: **main** (pinned Saleor version, see `config.saleor.schemaVersion` in `package.json`) and **staging** (Saleor `main` branch), selected at runtime by the `FF_USE_STAGING_SCHEMA` feature flag. See `docs/multi-schema.md`.
+The dashboard generates against two schemas: **main** (pinned FSCommerce version, see `config.saleor.schemaVersion` in `package.json`) and **staging** (FSCommerce `main` branch), selected at runtime by the `FF_USE_STAGING_SCHEMA` feature flag. See `docs/multi-schema.md`.
 
 - `pnpm run generate` - Generate GraphQL types and hooks for both schemas, after making changes in queries/mutations or updating schema
-- `pnpm run fetch-schema` - Download both main and staging schemas from the Saleor repository
-- `pnpm run fetch-local-schema` - Fetch schema from local Saleor instance
+- `pnpm run fetch-schema` - Download both main and staging schemas from the FSCommerce repository
+- `pnpm run fetch-local-schema` - Fetch schema from local FSCommerce instance
 
 ### Internationalization
 
@@ -110,7 +110,7 @@ Check `package.json` to resolve installed package versions.
 
 ### Before Starting Development
 
-1. Ensure you have a running Saleor backend instance
+1. Ensure you have a running FSCommerce backend instance
 2. Configure environment variables as described in `docs/configuration.md`
 3. Run `pnpm run generate` to generate GraphQL types
 4. Install dependencies with `pnpm i`
@@ -170,11 +170,11 @@ Always use the latest version when resolving package version conflicts between b
 
 ## Backend Integration
 
-This frontend connects to a Saleor GraphQL backend:
+This frontend connects to a FSCommerce GraphQL backend:
 
 - Default local backend URL: http://localhost:8000/graphql/ (`API_URL`, see `.env.template`)
 - Configure via environment variables (see `docs/configuration.md`)
-- Default development credentials for local Saleor instance: `admin@example.com` / `admin`
+- Default development credentials for local FSCommerce instance: `admin@example.com` / `admin`
 - Use `pnpm run fetch-local-schema` to sync GraphQL schema from local backend
 
 ## Package Updates

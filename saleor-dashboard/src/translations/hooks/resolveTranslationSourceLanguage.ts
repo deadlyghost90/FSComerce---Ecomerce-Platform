@@ -6,7 +6,7 @@ export interface TranslationSourceLanguage {
 }
 
 /**
- * Base translatable fields come from the entity itself — Saleor stores them without
+ * Base translatable fields come from the entity itself — FSCommerce stores them without
  * a language code ("original translatable fields" in the API). Shop languages only
  * define which translations exist, not which language content was authored in.
  */

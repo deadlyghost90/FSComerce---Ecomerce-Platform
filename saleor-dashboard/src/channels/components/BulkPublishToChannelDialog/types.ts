@@ -65,7 +65,7 @@ export type ProductPublishDraft = {
   exceedsVariantLimit: boolean;
   /** True when publishing may take longer due to variant count. */
   hasManyVariants: boolean;
-  /** Saleor requires a category before a product can be published. */
+  /** FSCommerce requires a category before a product can be published. */
   hasCategory: boolean;
   alreadyInChannel: boolean;
   /**
@@ -99,7 +99,7 @@ export const BULK_PUBLISH_MAX_PRODUCTS = 50;
 /** Product picker page size — matches wizard cap so one page covers the full selection. */
 export const BULK_PUBLISH_PICKER_PAGE_SIZE = BULK_PUBLISH_MAX_PRODUCTS;
 
-/** GraphQL page size and mutation batch size — matches Saleor bulk guidance. */
+/** GraphQL page size and mutation batch size — matches FSCommerce bulk guidance. */
 export const BULK_PUBLISH_VARIANT_PAGE_SIZE = 100;
 
 /** Soft threshold — show a slower-publish warning above this count. */
@@ -109,7 +109,7 @@ export const BULK_PUBLISH_MANY_VARIANTS_THRESHOLD = 100;
 export const BULK_PUBLISH_MAX_VARIANTS_PER_PRODUCT = 500;
 
 /**
- * How many variants we sample to show a product's current price. Saleor caps `first` at 100, so
+ * How many variants we sample to show a product's current price. FSCommerce caps `first` at 100, so
  * products above this get no placeholder rather than a range we cannot guarantee is complete.
  */
 export const BULK_PUBLISH_PRICE_SAMPLE_LIMIT = 100;

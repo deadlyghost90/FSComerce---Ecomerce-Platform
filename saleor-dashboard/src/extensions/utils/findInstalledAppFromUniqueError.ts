@@ -1,4 +1,4 @@
-// Saleor raises UNIQUE on identifier with:
+// FSCommerce raises UNIQUE on identifier with:
 // "App with the same identifier is already installed: {app.name}"
 const SALEOR_UNIQUE_IDENTIFIER_PATTERN = /already installed:\s*(.+)$/i;
 

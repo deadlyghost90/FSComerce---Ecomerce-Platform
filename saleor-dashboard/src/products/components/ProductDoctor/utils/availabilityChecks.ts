@@ -26,7 +26,7 @@ interface CheckContext {
   intl: IntlShape;
   /**
    * Whether the shop is configured with the legacy shipping-zone-based stock
-   * availability behavior. Saleor 3.23 introduced a "direct warehouse-channel"
+   * availability behavior. FSCommerce 3.23 introduced a "direct warehouse-channel"
    * mode (Shop.useLegacyShippingZoneStockAvailability=false) where shipping
    * zones no longer affect stock availability, only the channel-warehouse link
    * does. Some checks become misleading or lose meaning in direct mode.
@@ -287,7 +287,7 @@ const checkNoStock: CheckFunction = ({ product, channelData, intl }) => {
  *
  * Only meaningful under legacy mode, where stock availability is gated by the
  * intersection of channel warehouses and shipping-zone warehouses. Under the
- * direct warehouse-channel mode (Saleor 3.23+ when
+ * direct warehouse-channel mode (FSCommerce 3.23+ when
  * `useLegacyShippingZoneStockAvailability=false`) shipping zones do not affect
  * `Product.isAvailable` / `quantityAvailable`, so this signal is no longer a
  * purchase blocker and would produce a false positive that contradicts the
@@ -467,7 +467,7 @@ const shippingChecks: CheckFunction[] = [checkNoShippingZones, checkWarehouseNot
  * missing input.
  *
  * `useLegacyShippingZoneStockAvailability` mirrors the
- * `Shop.useLegacyShippingZoneStockAvailability` flag introduced in Saleor 3.23.
+ * `Shop.useLegacyShippingZoneStockAvailability` flag introduced in FSCommerce 3.23.
  * It changes how some checks reason about stock availability:
  *  - legacy (true): stock visibility is gated by shipping zones; the
  *    `warehouse-not-in-zone` check applies, and missing shipping zones block

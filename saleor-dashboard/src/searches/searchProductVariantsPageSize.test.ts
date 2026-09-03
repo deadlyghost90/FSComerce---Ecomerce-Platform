@@ -17,7 +17,7 @@ describe("SEARCH_PRODUCT_VARIANTS_PAGE_SIZE", () => {
     // Arrange // Act
     const document = print(SearchProductsDocument);
 
-    // Assert — Non-Null + default is invalid; Saleor Cloud returns HTTP 400
+    // Assert — Non-Null + default is invalid; FSCommerce Cloud returns HTTP 400
     expect(document).toContain("$includeVariants: Boolean = false");
     expect(document).not.toContain("$includeVariants: Boolean! = false");
   });

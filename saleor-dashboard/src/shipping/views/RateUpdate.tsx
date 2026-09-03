@@ -279,7 +279,7 @@ const RateUpdate = ({ id, rateId, params }: RateUpdateProps) => {
         ? getUpdateShippingPriceRateVariables
         : getUpdateShippingWeightRateVariables;
 
-    // Saleor stores inclusionType per postal-code rule, so flipping it for the
+    // FSCommerce stores inclusionType per postal-code rule, so flipping it for the
     // whole method is not persisted by sending the new inclusionType alone -
     // the existing rules must be deleted and re-created with it. When the
     // inclusion type changed we strip ids from the current rules (so they are

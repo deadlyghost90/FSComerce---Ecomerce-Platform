@@ -10,7 +10,7 @@ import { useIntl } from "react-intl";
 
 type PromotionUpdateFn = (options: {
   variables: PromotionUpdateMutationVariables;
-  /** Skip success toast + cache write (used for the Saleor end-date clear workaround). */
+  /** Skip success toast + cache write (used for the FSCommerce end-date clear workaround). */
   silent?: boolean;
 }) => ReturnType<ReturnType<typeof usePromotionUpdateMutation>[0]>;
 

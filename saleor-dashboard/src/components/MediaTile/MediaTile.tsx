@@ -8,7 +8,7 @@ import clsx from "clsx";
 import { Pencil, Trash2 } from "lucide-react";
 import type * as React from "react";
 
-import { SaleorThrobber } from "../Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "../Throbber/FSCommerceThrobber";
 
 const useStyles = makeStyles(
   theme => ({
@@ -175,7 +175,7 @@ const MediaTile = (props: MediaTileProps) => {
         })}
       >
         {loading ? (
-          <SaleorThrobber size={32} data-test-id="media-tile-loading" />
+          <FSCommerceThrobber size={32} data-test-id="media-tile-loading" />
         ) : (
           <div className={classes.mediaOverlayToolbar}>
             {(onEdit || editHref) && (

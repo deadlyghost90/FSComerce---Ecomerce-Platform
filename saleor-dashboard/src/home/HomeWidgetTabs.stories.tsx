@@ -10,7 +10,7 @@ const buildExtension = (overrides: Partial<Extension>): Extension => ({
     id: "app-1",
     identifier: null,
     appUrl: "https://my-app.saleor.app",
-    name: "Saleor App",
+    name: "FSCommerce App",
     brand: null,
   },
   accessToken: "token",
@@ -22,7 +22,7 @@ const buildExtension = (overrides: Partial<Extension>): Extension => ({
   open: () => undefined,
   targetName: "WIDGET",
   settings: null,
-  isSaleorOfficial: true,
+  isFSCommerceOfficial: true,
   fromCache: false,
   ...overrides,
 });
@@ -35,11 +35,11 @@ const officialExtension = buildExtension({
     id: "saleor-app",
     identifier: null,
     appUrl: "https://insights.saleor.app",
-    name: "Saleor Insights",
+    name: "FSCommerce Insights",
     brand: null,
   },
   url: "https://insights.saleor.app/widget",
-  isSaleorOfficial: true,
+  isFSCommerceOfficial: true,
 });
 
 const externalExtension = buildExtension({
@@ -54,7 +54,7 @@ const externalExtension = buildExtension({
     brand: null,
   },
   url: "https://third-party.example.com/widget",
-  isSaleorOfficial: false,
+  isFSCommerceOfficial: false,
 });
 
 const meta: Meta<typeof HomeWidgetTabs> = {
@@ -100,11 +100,11 @@ export const OnlyOfficialApps: Story = {
           id: "saleor-orders",
           identifier: null,
           appUrl: "https://orders.saleor.app",
-          name: "Saleor Orders",
+          name: "FSCommerce Orders",
           brand: null,
         },
         url: "https://orders.saleor.app/widget",
-        isSaleorOfficial: true,
+        isFSCommerceOfficial: true,
       }),
     ],
   },
@@ -127,7 +127,7 @@ export const OnlyExternalApps: Story = {
           brand: null,
         },
         url: "https://marketing.example.com/widget",
-        isSaleorOfficial: false,
+        isFSCommerceOfficial: false,
       }),
     ],
   },

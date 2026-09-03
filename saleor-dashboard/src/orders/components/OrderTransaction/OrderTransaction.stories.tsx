@@ -168,7 +168,7 @@ export const WithOtherPaymentMethod: Story = {
   ),
 };
 
-export const WithSaleorGiftCardPaymentMethod: Story = {
+export const WithFSCommerceGiftCardPaymentMethod: Story = {
   args: {
     transaction: {
       ...transactions.chargeSuccess[0],
@@ -177,7 +177,7 @@ export const WithSaleorGiftCardPaymentMethod: Story = {
         __typename: "GiftCardPaymentMethodDetails",
         name: "Gift card",
         lastChars: "A34F",
-        isSaleorGiftcard: true,
+        isFSCommerceGiftcard: true,
         brand: null,
       },
     },
@@ -193,7 +193,7 @@ export const WithExternalGiftCardPaymentMethod: Story = {
         __typename: "GiftCardPaymentMethodDetails",
         name: "Gift card",
         lastChars: "X9K2",
-        isSaleorGiftcard: false,
+        isFSCommerceGiftcard: false,
         brand: "givex",
       },
     },
@@ -209,7 +209,7 @@ export const WithExternalGiftCardNoBrand: Story = {
         __typename: "GiftCardPaymentMethodDetails",
         name: "Gift card",
         lastChars: "B72M",
-        isSaleorGiftcard: false,
+        isFSCommerceGiftcard: false,
         brand: null,
       },
     },

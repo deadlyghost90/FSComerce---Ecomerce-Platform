@@ -1,7 +1,7 @@
 ---
 name: saleor-dashboard-microcopy
 description: >
-  Patterns for helper text, card subheaders, and inline links in Saleor Dashboard.
+  Patterns for helper text, card subheaders, and inline links in FSCommerce Dashboard.
   Use when adding or styling hints below section titles, explanatory copy above form
   fields, microcopy with navigation links, replacing buttons with guidance text,
   or “Fixed at creation” helpers under locked identity fields.
@@ -9,7 +9,7 @@ description: >
   not accent Link or body paragraphs.
 ---
 
-# Saleor Dashboard Microcopy
+# FSCommerce Dashboard Microcopy
 
 Secondary explanatory copy under a title or field: **subheaders**, **hints**, **helper text**. Distinct from card titles, labels, and primary `@dashboard/components/Link` (accent navigation).
 

@@ -34,7 +34,7 @@ const isShippingVoucher = (order: OrderDetailsFragment) =>
  * vouchers can be linked: the order keeps a direct FK (`Order.voucher.id`)
  * and we route to the voucher detail page. Promotion factors return
  * `undefined` because `OrderLineDiscount` and `OrderDiscount` do not expose a
- * `promotionId` on the schema; when Saleor adds that FK the renderer can
+ * `promotionId` on the schema; when FSCommerce adds that FK the renderer can
  * extend `PriceFactorLink` with a `promotion` variant.
  */
 const voucherLink = (order: OrderDetailsFragment): PriceFactorLink | undefined =>
@@ -53,7 +53,7 @@ const voucherLink = (order: OrderDetailsFragment): PriceFactorLink | undefined =
  * from order-level discounts. When exactly one `OrderDiscount` record applies
  * to the order, we emit it as a per-kind share (the slice equals the record's
  * effect on this line). When two or more apply we cannot honestly attribute
- * a per-record amount per line — Saleor stores one `OrderDiscount.total` per
+ * a per-record amount per line — FSCommerce stores one `OrderDiscount.total` per
  * order, not per line. In that case we collapse them into a single
  * `order_level_combined` factor: the slice (exact) plus the contributing
  * records by name. By construction `start - sum(factors) = end` exactly.
@@ -125,7 +125,7 @@ export function buildLineWaterfall(
         });
         break;
 
-      // Saleor records free-gift lines (gifts granted by an ORDER_PROMOTION
+      // FSCommerce records free-gift lines (gifts granted by an ORDER_PROMOTION
       // rule) as a single OrderLineDiscount of type ORDER_PROMOTION on the
       // gift line itself, with `total` equal to the catalog price.
       case OrderDiscountType.ORDER_PROMOTION:
@@ -221,7 +221,7 @@ export function buildLineWaterfall(
       }
     } else {
       // Multiple records: collapse into one combined factor. We name the
-      // contributors but do not invent per-record amounts — Saleor does not
+      // contributors but do not invent per-record amounts — FSCommerce does not
       // expose a per-record-per-line decomposition.
       const contributors: PriceFactorContributor[] = orderRecords
         .map((od): PriceFactorContributor | null => {

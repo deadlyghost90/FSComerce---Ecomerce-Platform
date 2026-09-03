@@ -44,7 +44,7 @@ export class AppsApiService {
     const appId = appMap.get(identifier);
 
     if (!appId) {
-      throw new Error(`App with identifier "${identifier}" not found in Saleor`);
+      throw new Error(`App with identifier "${identifier}" not found in FSCommerce`);
     }
 
     return appId;

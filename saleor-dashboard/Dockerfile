@@ -48,10 +48,10 @@ COPY --from=builder /app/build/ /app/
 
 LABEL \
   org.opencontainers.image.title="saleor/saleor-dashboard" \
-  org.opencontainers.image.description="A GraphQL-powered, single-page dashboard application for Saleor." \
+  org.opencontainers.image.description="A GraphQL-powered, single-page dashboard application for FSCommerce." \
   org.opencontainers.image.url="https://saleor.io/" \
   org.opencontainers.image.source="https://github.com/saleor/saleor-dashboard" \
   org.opencontainers.image.revision="$COMMIT_ID" \
   org.opencontainers.image.version="$PROJECT_VERSION" \
-  org.opencontainers.image.authors="Saleor Commerce (https://saleor.io)" \
+  org.opencontainers.image.authors="FSCommerce Commerce (https://saleor.io)" \
   org.opencontainers.image.licenses="BSD 3"

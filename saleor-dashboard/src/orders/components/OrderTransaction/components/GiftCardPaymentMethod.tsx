@@ -12,7 +12,7 @@ const BRAND_LOGO_SIZE = 26;
 const getPaymentMethodIconUrl = (fileName: string) =>
   `${getStaticUrl()}payment-methods/${fileName}.svg`;
 
-const SaleorGiftCardIcon = () => (
+const FSCommerceGiftCardIcon = () => (
   <Box
     width={6}
     height={4}
@@ -24,7 +24,7 @@ const SaleorGiftCardIcon = () => (
     alignItems="center"
     justifyContent="center"
   >
-    <img src={icon} alt="Saleor Gift Card" title="Saleor Gift Card" />
+    <img src={icon} alt="FSCommerce Gift Card" title="FSCommerce Gift Card" />
   </Box>
 );
 
@@ -58,12 +58,12 @@ interface GiftCardPaymentMethodProps {
 export const GiftCardPaymentMethod = ({ details }: GiftCardPaymentMethodProps) => {
   const formattedCode = formatGiftCardCode(details.lastChars);
 
-  if (details.isSaleorGiftcard) {
+  if (details.isFSCommerceGiftcard) {
     return (
       <Box display="flex" alignItems="center" gap={2}>
-        <SaleorGiftCardIcon />
+        <FSCommerceGiftCardIcon />
         <Text size={2} color="default2">
-          Saleor Gift Card
+          FSCommerce Gift Card
         </Text>
         {formattedCode && (
           <Text size={2} color="default2">

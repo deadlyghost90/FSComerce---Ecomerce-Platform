@@ -98,7 +98,7 @@ export function createAttributeReferenceAdditionalDataHandler(
   attributes: UseFormsetOutput<AttributeInputData>,
   triggerChange: () => void,
 ): FormsetAdditionalDataChange<AttributeValuesMetadata[]> {
-  /* Note: "additionalData" is a part of useFormset API, NOT Saleor metadata
+  /* Note: "additionalData" is a part of useFormset API, NOT FSCommerce metadata
    * In here it is used to hold display values for references selected by user
    * before they are returned from our API as attribute references
    *  */

@@ -14,7 +14,7 @@ export const MODEL_TYPE_ICON_COLORS = {
   green: { light: "#15803D", dark: "#4ADE80" },
   amber: { light: "#B45309", dark: "#FBBF24" },
   red: { light: "#DC2626", dark: "#F87171" },
-  purple: { light: "#7C3AED", dark: "#A78BFA" },
+  purple: { light: "#00ff88", dark: "#A78BFA" },
 } as const;
 
 export type ModelTypeIconColor = keyof typeof MODEL_TYPE_ICON_COLORS;

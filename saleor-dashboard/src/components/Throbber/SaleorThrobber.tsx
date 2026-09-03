@@ -1,16 +1,16 @@
 import { THROBBER_BEAM_LENGTH, THROBBER_PATH_D, THROBBER_PATH_LENGTH } from "./throbberGeometry";
 
-interface SaleorThrobberProps {
+interface FSCommerceThrobberProps {
   size?: number;
   className?: string;
   "data-test-id"?: string;
 }
 
-export function SaleorThrobber({
+export function FSCommerceThrobber({
   size = 40,
   className,
   "data-test-id": dataTestId,
-}: SaleorThrobberProps) {
+}: FSCommerceThrobberProps) {
   const pathLength = THROBBER_PATH_LENGTH;
   const beamLength = THROBBER_BEAM_LENGTH;
 

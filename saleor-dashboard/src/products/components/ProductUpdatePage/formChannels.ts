@@ -90,7 +90,7 @@ export const areChannelFieldsDifferent = (
   }
 
   // availableForPurchaseAt: DateTime - this is the SOURCE OF TRUTH for availability
-  // IMPORTANT: Do NOT compare isAvailableForPurchase because it's COMPUTED by Saleor:
+  // IMPORTANT: Do NOT compare isAvailableForPurchase because it's COMPUTED by FSCommerce:
   // - date is null → isAvailableForPurchase = false/null
   // - date is in past → isAvailableForPurchase = true
   // - date is in future → isAvailableForPurchase = false (scheduled!)

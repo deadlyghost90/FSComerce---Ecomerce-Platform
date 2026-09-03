@@ -1,6 +1,6 @@
 # Datagrid
 
-Datagrid component is a wrapper for NPM's package `@glideapps/glide-data-grid`, providing easy (ok, at least easiest than implementing it from scratch) integration with Saleor Dashboard's forms.
+Datagrid component is a wrapper for NPM's package `@glideapps/glide-data-grid`, providing easy (ok, at least easiest than implementing it from scratch) integration with FSCommerce Dashboard's forms.
 
 ## Forms
 

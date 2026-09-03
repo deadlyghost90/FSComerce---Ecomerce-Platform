@@ -9,22 +9,22 @@ const messages = defineMessages({
   installCta: {
     id: "XcwOQt",
     defaultMessage: "Install Pulse",
-    description: "ripple video announcement CTA to install Saleor Pulse",
+    description: "ripple video announcement CTA to install FSCommerce Pulse",
   },
   openCta: {
     id: "+CE3ZW",
     defaultMessage: "Open Pulse",
-    description: "ripple video announcement CTA when Saleor Pulse is already installed",
+    description: "ripple video announcement CTA when FSCommerce Pulse is already installed",
   },
   exploreCta: {
     id: "cNCKU1",
     defaultMessage: "Explore Pulse",
-    description: "ripple video announcement CTA to explore Saleor Pulse",
+    description: "ripple video announcement CTA to explore FSCommerce Pulse",
   },
   seeDocs: {
     id: "t0awJM",
     defaultMessage: "See docs",
-    description: "link to Saleor Pulse documentation from video announcement",
+    description: "link to FSCommerce Pulse documentation from video announcement",
   },
   dismissAriaLabel: {
     id: "pML8C9",

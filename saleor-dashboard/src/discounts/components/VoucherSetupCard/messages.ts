@@ -182,7 +182,7 @@ export const messages = defineMessages({
   countriesDetails: {
     id: "94nQ+l",
     defaultMessage:
-      "Saleor treats an empty country list as worldwide. Assign countries to restrict free shipping, or skip this step if worldwide is intentional.",
+      "FSCommerce treats an empty country list as worldwide. Assign countries to restrict free shipping, or skip this step if worldwide is intentional.",
     description: "Expanded help for shipping countries setup",
   },
   countriesAction: {

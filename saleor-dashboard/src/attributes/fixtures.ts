@@ -307,7 +307,7 @@ export const attributes: Array<
             __typename: "AttributeValue" as const,
             file: null,
             id: "UHJvZHVjdEF0dHJpYnV0ZVZhbHVlOjY=",
-            name: "Saleor",
+            name: "FSCommerce",
             reference: null,
             slug: "saleor",
 
@@ -957,7 +957,7 @@ export const attributes: Array<
             __typename: "AttributeValue" as const,
             file: null,
             id: "UHJvZHVjdEF0dHJpYnV0ZVZhbHVlOjI3",
-            name: "Saleor Publishing",
+            name: "FSCommerce Publishing",
             reference: null,
             slug: "saleor-publishing",
 

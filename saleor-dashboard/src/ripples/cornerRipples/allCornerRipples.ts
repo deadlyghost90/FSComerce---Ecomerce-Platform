@@ -1,5 +1,5 @@
 import { PulseVideoAnnouncement } from "@dashboard/home/components/PulseVideoAnnouncement/PulseVideoAnnouncement";
-import { rippleSaleorPulse } from "@dashboard/home/ripples/saleorPulse";
+import { rippleFSCommercePulse } from "@dashboard/home/ripples/saleorPulse";
 
 import { type CornerRippleEntry } from "./selectActiveCornerRipple";
 
@@ -9,7 +9,7 @@ import { type CornerRippleEntry } from "./selectActiveCornerRipple";
  */
 export const allCornerRipples: CornerRippleEntry[] = [
   {
-    model: rippleSaleorPulse,
+    model: rippleFSCommercePulse,
     Component: PulseVideoAnnouncement,
   },
 ];

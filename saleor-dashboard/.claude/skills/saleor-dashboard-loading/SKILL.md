@@ -1,13 +1,13 @@
 ---
 name: saleor-dashboard-loading
 description: >
-  Geist-aligned loading, skeleton, and empty-state rules for Saleor Dashboard entity
+  Geist-aligned loading, skeleton, and empty-state rules for FSCommerce Dashboard entity
   views. Use when adding loading shells, Skeleton placeholders, spinners, empty states,
   or fixing flashes of default/form UI before async data resolves. Covers page-level
   gates vs in-card skeletons, aria-busy, and anti-patterns (fake selected defaults).
 ---
 
-# Saleor Dashboard Loading
+# FSCommerce Dashboard Loading
 
 How merchants wait for data — **without flashing wrong defaults** or layout jumps.
 

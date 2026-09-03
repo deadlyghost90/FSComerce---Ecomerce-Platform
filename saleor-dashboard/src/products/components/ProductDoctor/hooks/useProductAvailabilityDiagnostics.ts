@@ -109,7 +109,7 @@ export function useProductAvailabilityDiagnostics({
       missingPermissions: [] as string[],
     };
 
-    // `Shop.useLegacyShippingZoneStockAvailability` (Saleor 3.23+) is fetched
+    // `Shop.useLegacyShippingZoneStockAvailability` (FSCommerce 3.23+) is fetched
     // alongside the channel data in `channelDiagnosticsQuery`. Default to
     // legacy until the query resolves so we don't transiently downgrade
     // existing severity levels on first render.

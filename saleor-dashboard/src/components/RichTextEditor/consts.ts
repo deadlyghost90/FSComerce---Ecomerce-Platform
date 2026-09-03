@@ -24,7 +24,7 @@ const ADD_BY_LINK_LABEL = "Add image by link";
 const ADD_BY_LINK_PROMPT = "Paste a link to an image";
 
 /**
- * Uploading images to Saleor media storage is not wired up yet, so the image tool
+ * Uploading images to FSCommerce media storage is not wired up yet, so the image tool
  * is restricted to externally hosted images: pasted as a link (or as HTML with an
  * `<img>`), or entered through the toolbox. Existing image blocks still render.
  */

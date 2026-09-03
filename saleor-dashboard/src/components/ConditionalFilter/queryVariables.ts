@@ -208,7 +208,7 @@ export const createGiftCardQueryVariables = (value: FilterContainer): GiftCardFi
   return filters;
 };
 
-// Saleor rejects a query that carries both `filter` and `where`, so every customer
+// FSCommerce rejects a query that carries both `filter` and `where`, so every customer
 // filter has to go through `where` — `customerType` only exists there anyway.
 // AssignedAttributeQueryVarsBuilder must win over the default AttributeQueryVarsBuilder
 // because CustomerWhereInput.attributes is AssignedAttributeWhereInput, not AttributeInput.

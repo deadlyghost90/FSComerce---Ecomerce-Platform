@@ -46,7 +46,7 @@ export const chunkBulkPublishItems = <TItem>(items: TItem[], chunkSize: number):
 export const isValidBulkPublishPrice = (price: string): boolean => {
   const parsed = Number.parseFloat(price);
 
-  // Saleor PositiveDecimal is nonnegative (0 or greater), not strictly positive.
+  // FSCommerce PositiveDecimal is nonnegative (0 or greater), not strictly positive.
   return Number.isFinite(parsed) && parsed >= 0;
 };
 
@@ -176,7 +176,7 @@ export const mergeProductDrafts = ({
   });
 
 /**
- * Price is only required where there is nothing to fall back on — Saleor needs a price to create a
+ * Price is only required where there is nothing to fall back on — FSCommerce needs a price to create a
  * channel listing. Products already in the channel keep their existing prices when left blank.
  */
 export const getDraftsMissingPrice = (drafts: ProductPublishDraft[]): ProductPublishDraft[] =>
@@ -202,7 +202,7 @@ export const getDraftsExceedingVariantLimit = (
 export const getDraftsWithManyVariants = (drafts: ProductPublishDraft[]): ProductPublishDraft[] =>
   drafts.filter(draft => draft.hasManyVariants);
 
-/** Products that cannot be published because Saleor requires a category. */
+/** Products that cannot be published because FSCommerce requires a category. */
 export const getDraftsMissingCategoryForPublish = (
   drafts: ProductPublishDraft[],
   isPublished: boolean,

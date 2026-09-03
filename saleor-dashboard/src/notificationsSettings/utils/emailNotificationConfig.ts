@@ -185,7 +185,7 @@ export const ensureSmtpFieldDefaults = (
 };
 
 /**
- * Fields Saleor validates as required when the admin email plugin is active
+ * Fields FSCommerce validates as required when the admin email plugin is active
  * (`REQUIRED_EMAIL_CONFIG_FIELDS` in saleor/plugins/email_common.py).
  * `sender_name` is optional.
  */
@@ -197,11 +197,11 @@ type CustomSmtpClientErrors = Partial<
   Record<(typeof SMTP_CONFIG_FIELD_NAMES)[number], CustomSmtpClientErrorCode>
 >;
 
-/** Lightweight email shape check — Saleor also runs Django’s EmailValidator. */
+/** Lightweight email shape check — FSCommerce also runs Django’s EmailValidator. */
 const looksLikeEmail = (value: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 /**
- * Client-side Custom SMTP checks aligned with Saleor’s plugin validators.
+ * Client-side Custom SMTP checks aligned with FSCommerce’s plugin validators.
  * Returns field → error code (resolve copy via intl in the view).
  */
 export const getCustomSmtpClientErrors = (
@@ -243,7 +243,7 @@ export const clearSmtpFields = (otherFields: Record<string, string>): Record<str
   return next;
 };
 
-/** Reset every notification to Saleor default subject + template (used when leaving Custom SMTP). */
+/** Reset every notification to FSCommerce default subject + template (used when leaving Custom SMTP). */
 export const forceDefaultNotificationCopy = ({
   formState,
   definitions,

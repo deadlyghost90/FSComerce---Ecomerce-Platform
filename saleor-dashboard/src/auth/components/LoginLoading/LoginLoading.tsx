@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { makeStyles } from "@saleor/macaw-ui";
 
 const useStyles = makeStyles(
@@ -17,7 +17,7 @@ const LoginLoading = (props: {}) => {
 
   return (
     <div className={classes.root}>
-      <SaleorThrobber size={64} />
+      <FSCommerceThrobber size={64} />
     </div>
   );
 };

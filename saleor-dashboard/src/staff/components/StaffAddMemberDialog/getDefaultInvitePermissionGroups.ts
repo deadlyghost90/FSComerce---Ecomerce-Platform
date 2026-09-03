@@ -1,7 +1,7 @@
 import { type SearchPermissionGroupsQuery } from "@dashboard/graphql";
 import { type Option } from "@saleor/macaw-ui-next";
 
-/** Exact seed name used by Saleor; not "Full Access (Saleor Cloud users)". */
+/** Exact seed name used by FSCommerce; not "Full Access (FSCommerce Cloud users)". */
 export const DEFAULT_INVITE_PERMISSION_GROUP_NAME = "Full Access";
 
 type SearchPermissionGroup = NonNullable<

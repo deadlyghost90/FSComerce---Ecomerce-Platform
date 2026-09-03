@@ -85,7 +85,7 @@ describe("createFetch", () => {
 
     // Act & Assert
     await expect(fetchFn("http://localhost:8000/graphql/")).rejects.toThrow(
-      "Could not find Saleor's auth client. Did you forget to call initAuth()?",
+      "Could not find FSCommerce's auth client. Did you forget to call initAuth()?",
     );
   });
 

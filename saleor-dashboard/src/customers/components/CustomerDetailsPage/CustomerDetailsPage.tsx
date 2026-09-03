@@ -165,7 +165,7 @@ const CustomerDetailsPage = ({
   // hidden or disabled below.
   //
   // Reading + writing customer metadata (public AND private) also requires
-  // MANAGE_USERS for non-staff `User`s — see Saleor's
+  // MANAGE_USERS for non-staff `User`s — see FSCommerce's
   // `meta/permissions.py::public_user_permissions` and `private_user_permissions`,
   // which key off `user.is_staff`. The customers list (`User.objects.customers`)
   // filters `is_staff=False`, so the resolver always returns `[MANAGE_USERS]`

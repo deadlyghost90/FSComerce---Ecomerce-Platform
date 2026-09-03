@@ -11,7 +11,7 @@ import { DashboardModal } from "@dashboard/components/Modal";
 import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/ResponsiveTable";
 import { TableBody, TableCell } from "@dashboard/components/Table/Table";
 import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { UserAvatar } from "@dashboard/components/UserAvatar/UserAvatar";
 import { type SearchStaffMembersQuery } from "@dashboard/graphql";
 import { useAssignPickerListDisplayState } from "@dashboard/hooks/useAssignPickerListDisplayState";
@@ -144,7 +144,7 @@ const AssignMembersDialog = ({
               label={intl.formatMessage(messages.searchInputLabel)}
               placeholder={intl.formatMessage(messages.searchInputPlaceholder)}
               autoComplete="off"
-              endAdornment={loading && <SaleorThrobber size={16} />}
+              endAdornment={loading && <FSCommerceThrobber size={16} />}
               disabled={disabled}
             />
           }

@@ -6,7 +6,7 @@ import { useIntl } from "react-intl";
 import { AppActions } from "../components/AppActions/AppActions";
 import { PluginActions } from "../components/PluginActions";
 
-const saleor = "Saleor Commerce";
+const saleor = "FSCommerce Commerce";
 
 export const useExtension = (extension: ExtensionData) => {
   const intl = useIntl();

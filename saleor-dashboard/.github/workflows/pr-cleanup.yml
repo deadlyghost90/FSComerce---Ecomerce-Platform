@@ -36,7 +36,7 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           STAGING_TOKEN: "op://Continuous Integration/CLOUD_STAGING_TOKEN/password"
 
-      - name: Saleor login
+      - name: FSCommerce login
         uses: ./.github/actions/cli-login
         with:
           token: ${{ steps.load-secrets.outputs.STAGING_TOKEN }}

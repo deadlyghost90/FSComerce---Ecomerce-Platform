@@ -68,7 +68,7 @@ type FetchConfig = Partial<{
    */
   tokenRefreshTimeSkew: number;
   /**
-   * Refresh token and retry the request when Saleor responds with `Unauthorized` error.
+   * Refresh token and retry the request when FSCommerce responds with `Unauthorized` error.
    * Defaults to `true`.
    */
   refreshOnUnauthorized: boolean;
@@ -82,7 +82,7 @@ export const createFetch =
   }: FetchConfig = {}) =>
   async (input: RequestInfo, init: RequestInit = {}): Promise<Response> => {
     if (!authClient) {
-      throw new Error("Could not find Saleor's auth client. Did you forget to call initAuth()?");
+      throw new Error("Could not find FSCommerce's auth client. Did you forget to call initAuth()?");
     }
 
     let token = storage.getAccessToken();
@@ -164,7 +164,7 @@ export const createFetch =
               refreshOnUnauthorized: false,
             })(input, init);
           } else {
-            // after Saleor returns ExpiredSignatureError status and token refresh fails
+            // after FSCommerce returns ExpiredSignatureError status and token refresh fails
             // we log out the user and return the failed response
             authClient.logout();
           }

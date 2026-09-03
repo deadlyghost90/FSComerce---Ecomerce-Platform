@@ -15,7 +15,7 @@ const defaultMaxPrice = {
 };
 
 const lineData = {
-  productName: "Saleor Branded T-Shirt",
+  productName: "FSCommerce Branded T-Shirt",
   variantName: "Size M / Black",
   productSku: "SKU-TSHIRT-M-BLK",
   quantity: 3,

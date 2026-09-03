@@ -1,6 +1,6 @@
 // @ts-strict-ignore
 import { CardSpacer } from "@dashboard/components/CardSpacer";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import {
   type OrderDetailsFragment,
   type OrderDetailsQuery,
@@ -64,7 +64,7 @@ export const OrderTransactionsSection = ({
               <FormattedMessage defaultMessage="Transactions" id="/jJLYy" />
             </Text>
             {hasPendingTransaction && (
-              <SaleorThrobber size={20} data-test-id="order-transaction-polling-throbber" />
+              <FSCommerceThrobber size={20} data-test-id="order-transaction-polling-throbber" />
             )}
           </Box>
           <OrderAddTransaction order={order} onAddTransaction={onAddManualTransaction} />

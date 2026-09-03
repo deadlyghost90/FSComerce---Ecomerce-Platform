@@ -1,7 +1,7 @@
 export type IssueSeverity = "error" | "warning" | "info";
 
 /**
- * Diagnostic categories mirror the two orthogonal concerns that Saleor 3.23
+ * Diagnostic categories mirror the two orthogonal concerns that FSCommerce 3.23
  * direct stock-availability mode now treats as independent:
  *
  * - "purchasability": can a customer add this product to cart? Driven by
@@ -119,7 +119,7 @@ export interface ChannelSummary {
   isActive: boolean;
   isPublished: boolean;
   publishedAt: string | null;
-  /** Note: This is COMPUTED by Saleor, not stored. Use availableForPurchaseAt !== null to check if enabled. */
+  /** Note: This is COMPUTED by FSCommerce, not stored. Use availableForPurchaseAt !== null to check if enabled. */
   isAvailableForPurchase: boolean | null;
   availableForPurchaseAt: string | null;
   visibleInListings: boolean;
@@ -148,7 +148,7 @@ export interface DiagnosticsResult {
   isLoading: boolean;
   permissions: DiagnosticsPermissions;
   /**
-   * Mirrors `Shop.useLegacyShippingZoneStockAvailability` (Saleor 3.23+).
+   * Mirrors `Shop.useLegacyShippingZoneStockAvailability` (FSCommerce 3.23+).
    * Surfaced here so consuming UI can adapt copy without re-querying the shop.
    */
   useLegacyShippingZoneStockAvailability: boolean;

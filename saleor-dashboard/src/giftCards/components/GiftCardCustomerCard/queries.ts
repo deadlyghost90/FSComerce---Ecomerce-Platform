@@ -5,7 +5,7 @@ import { getOperationAST } from "graphql";
 // `User.giftCards` is the canonical "this user's gift cards" resolver. Note
 // that, like the top-level `giftCards(filter: { usedBy })` query, it only
 // returns cards the customer has *redeemed* — its dataloader filters by
-// `used_by_id` (see `GiftCardsByUserLoader` in Saleor core). Saleor's data
+// `used_by_id` (see `GiftCardsByUserLoader` in FSCommerce core). FSCommerce's data
 // model has no persisted "issued to" link on `GiftCard`, so cards just issued
 // from the dashboard appear here only after the customer applies the code at
 // checkout. We still prefer this resolver over the top-level filter because

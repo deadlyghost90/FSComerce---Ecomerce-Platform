@@ -1,6 +1,6 @@
 // @ts-strict-ignore
 import { Placeholder } from "@dashboard/components/Placeholder/Placeholder";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { type ProductListColumns } from "@dashboard/config";
 import { type ProductListQuery } from "@dashboard/graphql";
 import { type ListProps, type RelayToFlat } from "@dashboard/types";
@@ -31,7 +31,7 @@ export const ProductListTiles = ({
     if (loading) {
       return (
         <Box display="flex" justifyContent="center" marginY={9}>
-          <SaleorThrobber />
+          <FSCommerceThrobber />
         </Box>
       );
     }

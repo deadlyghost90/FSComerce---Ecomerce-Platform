@@ -9,7 +9,7 @@ import { type ReadonlyAddressData } from "./types";
 const sampleAddress: ReadonlyAddressData = {
   firstName: "Miroslaw",
   lastName: "Mencel",
-  companyName: "Saleor Commerce, Inc.",
+  companyName: "FSCommerce Commerce, Inc.",
   streetAddress1: "South Dupont Highway",
   streetAddress2: "Suite GW-101",
   city: "DOVER",

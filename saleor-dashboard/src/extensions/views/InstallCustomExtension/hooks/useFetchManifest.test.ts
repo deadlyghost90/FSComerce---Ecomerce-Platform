@@ -11,7 +11,7 @@ const PULSE_IDENTIFIER = "saleor.pulse";
 const pulseInstalledAppNode = {
   id: "pulse-app-id",
   identifier: PULSE_IDENTIFIER,
-  name: "Saleor Pulse",
+  name: "FSCommerce Pulse",
   manifestUrl: PULSE_MANIFEST_URL,
   type: AppTypeEnum.THIRDPARTY,
   isActive: true,
@@ -21,7 +21,7 @@ const pulseInstalledAppNode = {
 const saleorUniqueError = {
   field: "identifier",
   code: AppErrorCode.UNIQUE,
-  message: "App with the same identifier is already installed: Saleor Pulse",
+  message: "App with the same identifier is already installed: FSCommerce Pulse",
 };
 
 jest.mock("@dashboard/graphql", () => {
@@ -322,7 +322,7 @@ describe("useFetchManifest", () => {
 
     // Assert
     expect(result.current.alreadyInstalledApp).toEqual({
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
       href: ExtensionsUrls.resolveViewManifestExtensionUrl("pulse-app-id"),
       isActive: true,
       linkTarget: "app",
@@ -331,7 +331,7 @@ describe("useFetchManifest", () => {
     expect(mockSetError).not.toHaveBeenCalled();
   });
 
-  it("returns an already-installed app from Saleor's UNIQUE error message", async () => {
+  it("returns an already-installed app from FSCommerce's UNIQUE error message", async () => {
     // Arrange
     const alternateManifestUrl = "https://staging.pulse.saleor.app/api/manifest";
 
@@ -370,7 +370,7 @@ describe("useFetchManifest", () => {
 
     // Assert
     expect(result.current.alreadyInstalledApp).toEqual({
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
       href: ExtensionsUrls.resolveViewManifestExtensionUrl("pulse-app-id"),
       isActive: true,
       linkTarget: "app",
@@ -416,7 +416,7 @@ describe("useFetchManifest", () => {
 
     // Assert
     expect(result.current.alreadyInstalledApp).toEqual({
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
       href: ExtensionsUrls.resolveViewManifestExtensionUrl("pulse-app-id"),
       isActive: true,
       linkTarget: "app",
@@ -501,7 +501,7 @@ describe("useFetchManifest", () => {
 
     // Assert
     expect(result.current.alreadyInstalledApp).toEqual({
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
       href: ExtensionsUrls.resolveViewManifestExtensionUrl("pulse-app-id"),
       isActive: true,
       linkTarget: "app",

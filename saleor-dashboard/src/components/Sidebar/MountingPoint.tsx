@@ -28,7 +28,7 @@ export const MountingPoint = () => {
     >
       <Avatar.Store src={logo} scheme="accent1" size="small" />
       <Text size={3} fontWeight="bold" __flex="1">
-        Saleor Dashboard
+        FSCommerce Dashboard
       </Text>
       {isAuthenticatedViaCloud && (
         <>
@@ -55,7 +55,7 @@ export const MountingPoint = () => {
             <Tooltip.Content side="bottom">
               <Tooltip.Arrow />
               <Text size={2}>
-                <FormattedMessage defaultMessage="Go to Saleor Cloud" id="EXqb2l" />
+                <FormattedMessage defaultMessage="Go to FSCommerce Cloud" id="EXqb2l" />
               </Text>
             </Tooltip.Content>
           </Tooltip>

@@ -12,7 +12,7 @@ export const customerTypeFragment = gql`
 export const customerTypeDetailsFragment = gql`
   fragment CustomerTypeDetails on CustomerType {
     ...CustomerType
-    # Saleor currently 500s on CustomerType.privateMetadata (MODEL_TO_TYPE_MAP).
+    # FSCommerce currently 500s on CustomerType.privateMetadata (MODEL_TO_TYPE_MAP).
     # Restore ...Metadata once that resolver maps CustomerType.
     metadata {
       ...MetadataItem

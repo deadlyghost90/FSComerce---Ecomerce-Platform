@@ -6,7 +6,7 @@ import { type MoneyFragment, type OrderDiscountType } from "@dashboard/graphql";
  * Currently only vouchers can be deep-linked — `Order.voucher.id` exposes the
  * FK once a voucher is attached to the order. Promotion factors carry no
  * link because `OrderLineDiscount` and `OrderDiscount` do not surface a
- * `promotionId` on the schema. When Saleor exposes that FK the union should
+ * `promotionId` on the schema. When FSCommerce exposes that FK the union should
  * gain a `{ kind: "promotion"; promotionId: string }` variant; renderer and
  * builder are shaped around the `kind` discriminator already.
  */
@@ -137,7 +137,7 @@ export interface LinePriceWaterfall {
    *  then the order-level slice derived from `start - lineDeltas - end`.
    *  When exactly one order-level record contributed, that slice is emitted
    *  as a per-kind share; with multiple records it collapses into a single
-   *  `order_level_combined` factor (Saleor doesn't surface per-record-per-line
+   *  `order_level_combined` factor (FSCommerce doesn't surface per-record-per-line
    *  attribution). By construction the running total reconciles to `end`
    *  exactly. */
   factors: PriceFactor[];

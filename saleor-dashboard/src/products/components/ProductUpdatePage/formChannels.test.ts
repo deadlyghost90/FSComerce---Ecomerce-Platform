@@ -63,7 +63,7 @@ describe("ProductUpdatePage - fromChannels", () => {
       expect(result).toBe(false);
     });
 
-    it("should NOT compare isAvailableForPurchase (it's computed by Saleor from the date)", () => {
+    it("should NOT compare isAvailableForPurchase (it's computed by FSCommerce from the date)", () => {
       // Arrange - isAvailableForPurchase differs but dates are the same (both null)
       // This happens for scheduled products where server returns false (computed)
       // but form sends true (user intent)

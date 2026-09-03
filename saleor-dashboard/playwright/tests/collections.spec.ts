@@ -14,12 +14,12 @@ test("TC: SALEOR_112 Create collection #collections  #e2e", async () => {
   await collectionsPage.gotoCollectionsListView();
   await collectionsPage.waitForDOMToFullyLoad();
   await collectionsPage.clickCreateCollectionButton();
-  await collectionsPage.typeCollectionName("Saleor automation collection");
+  await collectionsPage.typeCollectionName("FSCommerce automation collection");
   await collectionsPage.typeCreateCollectionDescription("Best collection ever");
   await collectionsPage.clickCreateCollectionSubmitButton();
   await collectionsPage.expectSuccessBanner();
   await expect(collectionsPage.page).toHaveURL(/\/collections\/.+/);
-  await expect(collectionsPage.collectionNameInput).toHaveValue("Saleor automation collection");
+  await expect(collectionsPage.collectionNameInput).toHaveValue("FSCommerce automation collection");
 });
 test("TC: SALEOR_113 Edit collection: assign product #collections  #e2e", async () => {
   const productToBeAssigned = "Bean Juice";

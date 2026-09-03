@@ -1,14 +1,14 @@
 ---
 name: saleor-dashboard-detail-pages
 description: >
-  Patterns for Saleor Dashboard entity detail views (channels, products, collections,
+  Patterns for FSCommerce Dashboard entity detail views (channels, products, collections,
   customers, shipping zones, warehouses, models/pages). Use when building or refactoring
   detail pages, moving metadata out of the main form, or aligning TopNav actions.
   For the full update language (sidebar ops, settings cards, checklist), see
   saleor-dashboard-entity-detail skill.
 ---
 
-# Saleor Dashboard Detail Pages
+# FSCommerce Dashboard Detail Pages
 
 Conventions for `DetailPageLayout` entity views under `src/<feature>/`.
 

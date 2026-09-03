@@ -7,7 +7,7 @@ import {
 
 /**
  * Resolves the deprecation banner state from the build-time env config and the
- * connected Saleor version. Returns `null` when the banner should not be shown.
+ * connected FSCommerce version. Returns `null` when the banner should not be shown.
  */
 export const useDeprecationBanner = (): DeprecationBannerState | null => {
   const shop = useShop();

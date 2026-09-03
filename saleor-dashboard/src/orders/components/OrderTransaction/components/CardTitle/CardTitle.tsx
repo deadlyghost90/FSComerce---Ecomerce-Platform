@@ -1,5 +1,5 @@
 import { iconSize, iconStrokeWidthBySize } from "@dashboard/components/icons";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { Title2 } from "@dashboard/components/Title2/Title2";
 import { TransactionActionEnum } from "@dashboard/graphql";
 import { buttonMessages } from "@dashboard/intl";
@@ -186,7 +186,7 @@ export const OrderTransactionCardTitle = ({
                     data-test-id={`transaction-action-${action.toLowerCase()}-button`}
                   >
                     <Box display="flex" alignItems="center" gap={2}>
-                      {inFlight && <SaleorThrobber size={16} />}
+                      {inFlight && <FSCommerceThrobber size={16} />}
                       <FormattedMessage
                         {...(inFlight
                           ? mapActionToInProgressMessage[action]
@@ -240,7 +240,7 @@ export const OrderTransactionCardTitle = ({
                             }
                           >
                             <Box display="flex" alignItems="center" gap={2}>
-                              {inFlight && <SaleorThrobber size={16} />}
+                              {inFlight && <FSCommerceThrobber size={16} />}
                               <Text
                                 color={
                                   inFlight

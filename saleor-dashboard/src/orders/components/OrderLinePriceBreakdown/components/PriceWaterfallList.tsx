@@ -187,7 +187,7 @@ function getFactorDetail(factor: PriceFactor, intl: IntlShape): ReactNode {
 /**
  * Render the contributor list under a combined order-level factor. Each
  * contributor is named (voucher names link to the voucher detail page when an
- * id is available); deliberately no per-record amounts — Saleor does not
+ * id is available); deliberately no per-record amounts — FSCommerce does not
  * surface a per-record-per-line decomposition and we will not invent one.
  */
 function renderContributors(contributors: PriceFactorContributor[], intl: IntlShape): ReactNode {

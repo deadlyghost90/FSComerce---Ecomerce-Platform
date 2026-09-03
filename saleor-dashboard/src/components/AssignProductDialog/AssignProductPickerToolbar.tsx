@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { Input } from "@saleor/macaw-ui-next";
 import { useIntl } from "react-intl";
 
@@ -24,7 +24,7 @@ export const AssignProductPickerToolbar = ({ picker }: AssignProductPickerToolba
         label={intl.formatMessage(messages.assignProductDialogSearch)}
         placeholder={intl.formatMessage(messages.assignProductDialogContent)}
         autoComplete="off"
-        endAdornment={loading && !showListLoading ? <SaleorThrobber size={16} /> : null}
+        endAdornment={loading && !showListLoading ? <FSCommerceThrobber size={16} /> : null}
       />
 
       <ModalFilters />

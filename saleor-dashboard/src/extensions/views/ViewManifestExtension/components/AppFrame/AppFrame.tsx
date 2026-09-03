@@ -1,4 +1,4 @@
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { useWidgetIframeAutoHeight } from "@dashboard/extensions/hooks/useWidgetIframeAutoHeight";
 import { useAppFrameReferences } from "@dashboard/extensions/popup-frame-reference";
 import { type AppDetailsUrlQueryParams } from "@dashboard/extensions/urls";
@@ -110,7 +110,7 @@ export const AppFrame = ({
     <>
       {!handshakeDone && (
         <div className={classes.loader}>
-          <SaleorThrobber />
+          <FSCommerceThrobber />
         </div>
       )}
       <AppIFrame

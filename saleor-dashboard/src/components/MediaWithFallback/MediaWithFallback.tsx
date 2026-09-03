@@ -75,7 +75,7 @@ export const MediaWithFallback = ({
         alt={alt ?? undefined}
         onLoad={handleLoad}
         onError={() => {
-          // Saleor serves 503 while a thumbnail is still being generated, so keep the
+          // FSCommerce serves 503 while a thumbnail is still being generated, so keep the
           // loading state and retry; give up only once the backoff budget is exhausted.
           if (!handleError()) {
             setLoadingStatus("error");

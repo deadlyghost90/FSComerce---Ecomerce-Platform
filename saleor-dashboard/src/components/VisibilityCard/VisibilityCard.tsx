@@ -112,7 +112,7 @@ const VisibilityCard = (props: VisibilityCardProps) => {
 
   const [isPublishedAt, setPublishedAt] = useState(!!publishedAt);
 
-  // A page scheduled for future publication is stored in Saleor Core as
+  // A page scheduled for future publication is stored in FSCommerce Core as
   // `isPublished: true` together with a future `publishedAt`. Core only exposes
   // it to storefront visitors once that date passes. Such a page is therefore
   // "published" but not yet visible, so we present it under the "Hidden" option
@@ -232,7 +232,7 @@ const VisibilityCard = (props: VisibilityCardProps) => {
                     },
                   });
                   // A scheduled publication date requires isPublished=true so
-                  // Saleor Core makes the page visible once the date passes.
+                  // FSCommerce Core makes the page visible once the date passes.
                   // Clearing the date reverts to a plainly hidden page.
                   onChange({
                     target: {

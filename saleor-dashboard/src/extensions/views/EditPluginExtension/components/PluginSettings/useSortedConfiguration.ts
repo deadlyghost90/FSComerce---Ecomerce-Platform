@@ -1,7 +1,7 @@
 import { type ConfigurationItemFragment, ConfigurationTypeFieldEnum } from "@dashboard/graphql";
 import { useMemo } from "react";
 
-/** This hook sorts plugin input controls received from Saleor and puts boolean (checkboxes) inputs at the end */
+/** This hook sorts plugin input controls received from FSCommerce and puts boolean (checkboxes) inputs at the end */
 export const useSortedConfiguration = (configuration: ConfigurationItemFragment[]) => {
   return useMemo(() => {
     const textConfigFields = [];

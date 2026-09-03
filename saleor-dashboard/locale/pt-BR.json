@@ -551,7 +551,7 @@
     },
     "EWD/wU": {
         "context": "delete app",
-        "string": "Excluindo {name}, você excluirá a instalação do aplicativo. Se você está pagando pela assinatura do aplicativo, lembre-se de cancelar a assinatura do aplicativo no Marketplace Saleor. Tem certeza que deseja excluir o aplicativo?"
+        "string": "Excluindo {name}, você excluirá a instalação do aplicativo. Se você está pagando pela assinatura do aplicativo, lembre-se de cancelar a assinatura do aplicativo no Marketplace FSCommerce. Tem certeza que deseja excluir o aplicativo?"
     },
     "whTEcF": {
         "context": "link",
@@ -602,7 +602,7 @@
     },
     "4yRwN+": {
         "context": "content",
-        "string": "Saleor não conseguiu obter informações cruciais da instalação. Sem isto, o Sistema não pode instalar o aplicativo em seu Saleor. Por favor use o botão abaixo para voltar no dashboard do sistema."
+        "string": "FSCommerce não conseguiu obter informações cruciais da instalação. Sem isto, o Sistema não pode instalar o aplicativo em seu FSCommerce. Por favor use o botão abaixo para voltar no dashboard do sistema."
     },
     "906uUr": {
         "context": "button",
@@ -658,7 +658,7 @@
     },
     "flP8Hj": {
         "context": "card description",
-        "string": "Expanda ou restrinja as permissões do aplicativo para acessar determinada parte do sistema Saleor."
+        "string": "Expanda ou restrinja as permissões do aplicativo para acessar determinada parte do sistema FSCommerce."
     },
     "GjH9uy": {
         "context": "header",
@@ -737,7 +737,7 @@
     },
     "SwISVH": {
         "context": "section header",
-        "string": "Marketplace Saleor"
+        "string": "Marketplace FSCommerce"
     },
     "NskBjH": {
         "context": "marketplace content",
@@ -749,7 +749,7 @@
     },
     "LATpSE": {
         "context": "marketplace content",
-        "string": "Descubra grandes aplicativos gratuitos e pagos em nosso Marketplace Saleor."
+        "string": "Descubra grandes aplicativos gratuitos e pagos em nosso Marketplace FSCommerce."
     },
     "k0rGBI": {
         "string": "Token de acesso é usado para autenticar contas de serviços"
@@ -1001,7 +1001,7 @@
         "string": "Etiqueta Padrão"
     },
     "ErNH3D": {
-        "string": "Defina onde este atributo deverá ser usado no sistema Saleor"
+        "string": "Defina onde este atributo deverá ser usado no sistema FSCommerce"
     },
     "nwvQPg": {
         "context": "section header",
@@ -1160,7 +1160,7 @@
     },
     "ChGI4V": {
         "context": "error message",
-        "string": "Saleor não está disponível. Verifique sua conexão de rede e tente novamente."
+        "string": "FSCommerce não está disponível. Verifique sua conexão de rede e tente novamente."
     },
     "Ev6SEF": {
         "string": "Nova senha"
@@ -2395,7 +2395,7 @@
     },
     "8aV98y": {
         "context": "new version notification content",
-        "string": "Você precisa atualizar o Saleor para a versão mais recente. Antes de fazer isso, salve todas as alterações para evitar perda de dados. Para atualizar use o botão abaixo."
+        "string": "Você precisa atualizar o FSCommerce para a versão mais recente. Antes de fazer isso, salve todas as alterações para evitar perda de dados. Para atualizar use o botão abaixo."
     },
     "tEdFmZ": {
         "context": "notification title",
@@ -5356,7 +5356,7 @@
     },
     "CYZse9": {
         "context": "card description",
-        "string": "Expanda ou restrinja as permissões do grupo para acessar determinada parte do sistema Saleor."
+        "string": "Expanda ou restrinja as permissões do grupo para acessar determinada parte do sistema FSCommerce."
     },
     "sR0urA": {
         "context": "dialog content",
@@ -6871,7 +6871,7 @@
         "string": "Informações da Empresa"
     },
     "LVa5ew": {
-        "string": "Saleor encontrou um problema inesperado"
+        "string": "FSCommerce encontrou um problema inesperado"
     },
     "AQFMYU": {
         "context": "staff section name",

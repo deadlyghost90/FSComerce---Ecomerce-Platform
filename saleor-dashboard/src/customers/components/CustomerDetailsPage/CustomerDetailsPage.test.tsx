@@ -193,9 +193,9 @@ describe("CustomerDetailsPage", () => {
   });
 
   // Read-only roles: MANAGE_ORDERS and MANAGE_STAFF can both reach the
-  // customer detail page (matching `Query.user`'s permission set in Saleor)
+  // customer detail page (matching `Query.user`'s permission set in FSCommerce)
   // but neither can mutate. Crucially the metadata button is hidden for both
-  // — the customers list is server-filtered to non-staff users, and Saleor's
+  // — the customers list is server-filtered to non-staff users, and FSCommerce's
   // `meta/permissions.py::{public,private}_user_permissions` dispatch by
   // `user.is_staff`, returning `[MANAGE_USERS]` for non-staff users. So a
   // MANAGE_STAFF-only role is denied on metadata read+write here, and we

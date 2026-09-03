@@ -158,10 +158,10 @@ This looks like a test data issue, not a test bug:
 Questions:
 1. Has the test environment been restored recently?
 2. Can you verify this data exists in the test DB?
-3. Should we check if Saleor backend behavior changed?
+3. Should we check if FSCommerce backend behavior changed?
 
 I can:
 - Trigger `gh workflow run run-test-manual.yml` to restore environment
-- Query the Saleor API to verify data (if auth token is in .env)
-- Investigate Saleor backend code (at ../saleor/)
+- Query the FSCommerce API to verify data (if auth token is in .env)
+- Investigate FSCommerce backend code (at ../saleor/)
 ```

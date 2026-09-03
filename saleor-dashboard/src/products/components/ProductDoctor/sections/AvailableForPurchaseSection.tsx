@@ -24,7 +24,7 @@ interface AvailableForPurchaseSectionProps {
 /**
  * AvailableForPurchaseSection - Controls product purchasability in storefront
  *
- * IMPORTANT: Saleor's availability logic is DIFFERENT from publication!
+ * IMPORTANT: FSCommerce's availability logic is DIFFERENT from publication!
  *
  * Unlike isPublished (which is a stored boolean), isAvailableForPurchase is COMPUTED:
  * - DB only stores: available_for_purchase_at (date)

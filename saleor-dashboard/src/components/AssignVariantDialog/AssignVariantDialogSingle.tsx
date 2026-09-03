@@ -9,7 +9,7 @@ import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/Responsiv
 import { TableBody, TableCell } from "@dashboard/components/Table/Table";
 import TableCellAvatar from "@dashboard/components/TableCellAvatar/TableCellAvatar";
 import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import { type ProductWhereInput, type SearchProductsQuery } from "@dashboard/graphql";
 import { useAssignPickerListDisplayState } from "@dashboard/hooks/useAssignPickerListDisplayState";
 import useModalDialogOpen from "@dashboard/hooks/useModalDialogOpen/useModalDialogOpen";
@@ -167,7 +167,7 @@ export const AssignVariantDialogSingle = (props: AssignVariantDialogSingleProps)
                 label={intl.formatMessage(messages.assignVariantDialogSearch)}
                 placeholder={intl.formatMessage(messages.assignVariantDialogContent)}
                 autoComplete="off"
-                endAdornment={loading && <SaleorThrobber size={16} />}
+                endAdornment={loading && <FSCommerceThrobber size={16} />}
               />
 
               <ModalFilters />

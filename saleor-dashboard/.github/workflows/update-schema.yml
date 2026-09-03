@@ -50,7 +50,7 @@ jobs:
         id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-      - name: Get Saleor schema version
+      - name: Get FSCommerce schema version
         if: steps.git-check.outputs.has_changes == 'true'
         id: schema-version
         run: echo "version=$(node -p "require('./package.json').config.saleor.schemaVersion")" >> $GITHUB_OUTPUT
@@ -76,7 +76,7 @@ jobs:
 
             ## Changes
 
-            - Updated `schema.graphql` with the latest schema from Saleor (schema version: **${{ steps.schema-version.outputs.version }}**)
+            - Updated `schema.graphql` with the latest schema from FSCommerce (schema version: **${{ steps.schema-version.outputs.version }}**)
             - Regenerated TypeScript types and Apollo Client hooks using GraphQL Code Generator
 
             ## Verification

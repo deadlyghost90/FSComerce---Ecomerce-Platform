@@ -72,7 +72,7 @@ describe("Extensions / ExtensionItem / useExtension", () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         title: "Braintreee",
-        subtitle: "Developed by Saleor Commerce",
+        subtitle: "Developed by FSCommerce Commerce",
         description: "Description",
         isInstalled: false,
       }),
@@ -94,7 +94,7 @@ describe("Extensions / ExtensionItem / useExtension", () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         title: "Braintreee",
-        subtitle: "Developed by Saleor Commerce",
+        subtitle: "Developed by FSCommerce Commerce",
         description: "Description",
         isInstalled: true,
       }),
@@ -116,7 +116,7 @@ describe("Extensions / ExtensionItem / useExtension", () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         title: "Adyen",
-        subtitle: "Developed by Saleor Commerce",
+        subtitle: "Developed by FSCommerce Commerce",
         description: "App description",
         isInstalled: false,
       }),
@@ -138,7 +138,7 @@ describe("Extensions / ExtensionItem / useExtension", () => {
     expect(result.current).toEqual(
       expect.objectContaining({
         title: "Adyen",
-        subtitle: "Developed by Saleor Commerce",
+        subtitle: "Developed by FSCommerce Commerce",
         description: "App description",
         isInstalled: true,
       }),

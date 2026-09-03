@@ -14,7 +14,7 @@ describe("ProductTypePdpSchematic", () => {
     render(
       <ProductTypePdpSchematic
         hasVariants={true}
-        productAttributes={[{ id: "brand", name: "Brand", choices: choices("Saleor") }]}
+        productAttributes={[{ id: "brand", name: "Brand", choices: choices("FSCommerce") }]}
         assignedVariantAttributes={[
           { variantSelection: true, attribute: { id: "color", name: "Color" } },
           {
@@ -38,7 +38,7 @@ describe("ProductTypePdpSchematic", () => {
     expect(screen.getAllByTestId("pdp-schematic-option")[1]).toHaveTextContent("Size");
     expect(screen.getAllByTestId("pdp-schematic-option")[1]).toHaveTextContent("S");
     expect(screen.getByTestId("pdp-schematic-spec")).toHaveTextContent("Brand");
-    expect(screen.getByTestId("pdp-schematic-spec")).toHaveTextContent("Saleor");
+    expect(screen.getByTestId("pdp-schematic-spec")).toHaveTextContent("FSCommerce");
     expect(screen.queryByTestId("pdp-schematic-sample-skeleton")).not.toBeInTheDocument();
     expect(screen.getByTestId("pdp-schematic-legend")).toHaveTextContent("Where attributes show");
     expect(screen.getByTestId("pdp-schematic-legend")).toHaveTextContent("Shopper picks");
@@ -120,7 +120,7 @@ describe("ProductTypePdpSchematic", () => {
 
     // Assert
     expect(screen.getAllByTestId("pdp-schematic-sample-skeleton").length).toBeGreaterThan(0);
-    expect(screen.queryByText("Saleor")).not.toBeInTheDocument();
+    expect(screen.queryByText("FSCommerce")).not.toBeInTheDocument();
     expect(screen.queryByText("GOTS")).not.toBeInTheDocument();
   });
 

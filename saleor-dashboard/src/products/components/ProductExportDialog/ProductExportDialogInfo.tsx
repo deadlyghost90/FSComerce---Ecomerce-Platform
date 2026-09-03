@@ -8,7 +8,7 @@ import ChannelsAvailabilityDialogChannelsList from "@dashboard/components/Channe
 import ChannelsAvailabilityDialogContentWrapper from "@dashboard/components/ChannelsAvailabilityDialogWrapper/ChannelsAvailabilityDialogWrapper";
 import Checkbox from "@dashboard/components/Checkbox/Checkbox";
 import Chip from "@dashboard/components/Chip/Chip";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import {
   type ChannelFragment,
   type ExportProductsInput,
@@ -419,7 +419,7 @@ const ProductExportDialogInfo = ({
             description: "input helper text, search attributes",
           })}
           autoComplete="off"
-          endAdornment={loading && <SaleorThrobber size={16} />}
+          endAdornment={loading && <FSCommerceThrobber size={16} />}
         />
         <Divider className={classes.hr} />
         {attributes.map(attribute => (
@@ -439,7 +439,7 @@ const ProductExportDialogInfo = ({
                 <FormattedMessage id="ZDJEat" defaultMessage="Load More" description="button" />
               </Button>
             )}
-            {loading && <SaleorThrobber size={32} />}
+            {loading && <FSCommerceThrobber size={32} />}
           </div>
         )}
       </Accordion>

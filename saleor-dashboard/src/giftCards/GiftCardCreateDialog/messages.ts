@@ -121,7 +121,7 @@ export const giftCardCreateMessages = defineMessages({
   bulkCreateExplanation: {
     id: "45aV8u",
     defaultMessage:
-      "After creation Saleor will create a list of gift card codes that you will be able to download. ",
+      "After creation FSCommerce will create a list of gift card codes that you will be able to download. ",
     description: "gift card bulk create modal bottom explanation",
   },
   bulkCreateIssuedTitle: {

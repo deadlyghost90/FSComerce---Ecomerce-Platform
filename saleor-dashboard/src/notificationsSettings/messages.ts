@@ -53,13 +53,13 @@ export const notificationsMessages = defineMessages({
   staffDeliveryDescription: {
     id: "B3TMMF",
     defaultMessage:
-      "How staff emails are sent. In Saleor, staff communication is separate from customer notifications. For the latter, see {customerEmailsLink}.",
+      "How staff emails are sent. In FSCommerce, staff communication is separate from customer notifications. For the latter, see {customerEmailsLink}.",
     description: "staff delivery mode section description with link to customer emails",
   },
   staffDeliveryDescriptionPlain: {
     id: "vLInt4",
     defaultMessage:
-      "How staff emails are sent. In Saleor, staff communication is separate from customer notifications.",
+      "How staff emails are sent. In FSCommerce, staff communication is separate from customer notifications.",
     description: "staff delivery description for Cmd+K / settings search without link",
   },
   staffDeliveryCustomerEmailsLink: {
@@ -75,7 +75,7 @@ export const notificationsMessages = defineMessages({
   staffDeliveryModeDefaultHintCloud: {
     id: "QVYKtb",
     defaultMessage:
-      "Saleor Cloud sends staff mail for you. Custom subjects and templates stay locked to Saleor defaults.",
+      "FSCommerce Cloud sends staff mail for you. Custom subjects and templates stay locked to FSCommerce defaults.",
     description: "default mode hint on cloud",
   },
   staffDeliveryModeDefaultHintSelfHosted: {
@@ -113,7 +113,7 @@ export const notificationsMessages = defineMessages({
   messagesSubsectionHint: {
     id: "U2uWJ0",
     defaultMessage:
-      "Choose Saleor default, a custom subject and body, or don’t send for each message.",
+      "Choose FSCommerce default, a custom subject and body, or don’t send for each message.",
     description: "hint when message templates are editable",
   },
   orderAlertsTitle: {
@@ -151,7 +151,7 @@ export const notificationsMessages = defineMessages({
   orderAlertsUnlinkedHint: {
     id: "3k1Hiz",
     defaultMessage:
-      "Not linked to an active staff member, so Saleor will not send new-order emails to this address.",
+      "Not linked to an active staff member, so FSCommerce will not send new-order emails to this address.",
     description: "hint for email-only staff notification recipients",
   },
   orderAlertsInactiveHint: {
@@ -241,7 +241,7 @@ export const notificationsMessages = defineMessages({
   },
   emailsEnabledDescription: {
     id: "GsyvkU",
-    defaultMessage: "When off, Saleor will not send any of these staff emails.",
+    defaultMessage: "When off, FSCommerce will not send any of these staff emails.",
     description: "staff emails active toggle description",
   },
   subjectLabel: {
@@ -256,7 +256,7 @@ export const notificationsMessages = defineMessages({
   },
   templateDefault: {
     id: "U4Ppt6",
-    defaultMessage: "Saleor default",
+    defaultMessage: "FSCommerce default",
     description: "use default template option",
   },
   templateCustom: {
@@ -267,7 +267,7 @@ export const notificationsMessages = defineMessages({
   statusCustomSubject: {
     id: "2jHGjL",
     defaultMessage: "Custom subject",
-    description: "message row status: only subject differs from Saleor default",
+    description: "message row status: only subject differs from FSCommerce default",
   },
   statusCustomBody: {
     id: "ysIDsl",
@@ -286,7 +286,7 @@ export const notificationsMessages = defineMessages({
   },
   templateDefaultHint: {
     id: "74H6RX",
-    defaultMessage: "Using the built-in Saleor template for this message.",
+    defaultMessage: "Using the built-in FSCommerce template for this message.",
     description: "hint when default template mode is selected",
   },
   emailPreviewLabel: {
@@ -312,13 +312,13 @@ export const notificationsMessages = defineMessages({
   templateCustomBodyRequired: {
     id: "daJDoe",
     defaultMessage:
-      "Add an email body, or choose Saleor default or Don’t send. An empty custom body is not allowed.",
+      "Add an email body, or choose FSCommerce default or Don’t send. An empty custom body is not allowed.",
     description: "validation when Custom template mode has empty body",
   },
   templateLockedToDefaultHint: {
     id: "Yr1YZv",
     defaultMessage:
-      "Saleor Cloud sends this with the default subject and template. Switch to Custom SMTP above to edit copy or turn this email off.",
+      "FSCommerce Cloud sends this with the default subject and template. Switch to Custom SMTP above to edit copy or turn this email off.",
     description: "shown when Cloud default delivery locks copy editing",
   },
   variablesLabel: {
@@ -369,7 +369,7 @@ export const notificationsMessages = defineMessages({
   smtpConnectionFailedTitle: {
     id: "WuuXbr",
     defaultMessage: "Couldn’t connect to SMTP",
-    description: "callout title when Saleor can’t open an SMTP session",
+    description: "callout title when FSCommerce can’t open an SMTP session",
   },
   smtpHost: {
     id: "kIas9j",
@@ -395,7 +395,7 @@ export const notificationsMessages = defineMessages({
   smtpUsername: {
     id: "DiMS8t",
     defaultMessage: "SMTP user (optional)",
-    description: "SMTP username field — optional; many servers need it, Saleor does not require it",
+    description: "SMTP username field — optional; many servers need it, FSCommerce does not require it",
   },
   smtpPassword: {
     id: "jN3XL5",
@@ -410,7 +410,7 @@ export const notificationsMessages = defineMessages({
   smtpSenderName: {
     id: "sykM/J",
     defaultMessage: "Sender name (optional)",
-    description: "SMTP sender name field — optional; Saleor only requires sender email",
+    description: "SMTP sender name field — optional; FSCommerce only requires sender email",
   },
   smtpSenderAddress: {
     id: "IAmnQ/",
@@ -440,7 +440,7 @@ export const notificationsMessages = defineMessages({
   switchToDefaultWarningTitle: {
     id: "fq4FLl",
     defaultMessage:
-      "Default delivery uses Saleor’s built-in staff email templates. Saleor does not keep a separate Custom SMTP profile — saving will remove these overrides.",
+      "Default delivery uses FSCommerce’s built-in staff email templates. FSCommerce does not keep a separate Custom SMTP profile — saving will remove these overrides.",
     description: "warning callout title when saving default over custom SMTP",
   },
   switchToDefaultLoseSmtp: {
@@ -450,7 +450,7 @@ export const notificationsMessages = defineMessages({
   },
   switchToDefaultLoseSubjects: {
     id: "1cednX",
-    defaultMessage: "Custom subjects will be reset to Saleor defaults.",
+    defaultMessage: "Custom subjects will be reset to FSCommerce defaults.",
     description: "confirm dialog bullet: custom subjects reset",
   },
   switchToDefaultLoseBodies: {
@@ -460,7 +460,7 @@ export const notificationsMessages = defineMessages({
   },
   switchToDefaultLoseOff: {
     id: "CPiLc1",
-    defaultMessage: "Messages set to “Don’t send” will send again with Saleor default templates.",
+    defaultMessage: "Messages set to “Don’t send” will send again with FSCommerce default templates.",
     description: "confirm dialog bullet: don’t-send messages resume with defaults",
   },
   switchToDefaultDownloadTitle: {
@@ -496,7 +496,7 @@ export const notificationsMessages = defineMessages({
   },
   disableEmailsWarningTitle: {
     id: "wUMBnP",
-    defaultMessage: "Saleor will stop sending these messages.",
+    defaultMessage: "FSCommerce will stop sending these messages.",
     description: "warning callout title when disabling staff emails",
   },
   disableEmailsLoseInvites: {

@@ -295,7 +295,7 @@ const hasSelectableValue = (
 ): boolean => Boolean(value?.id || value?.value);
 
 /**
- * Saleor keeps assignments that aren't in the payload. Empty values in the
+ * FSCommerce keeps assignments that aren't in the payload. Empty values in the
  * payload are treated as "clear this attribute" and delete the assignment.
  * On type change we must not send empties: hidden values from the previous
  * type would be wiped if the merchant later switched back.

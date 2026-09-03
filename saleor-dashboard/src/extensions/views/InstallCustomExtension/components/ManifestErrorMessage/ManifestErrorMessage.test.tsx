@@ -130,15 +130,15 @@ describe("ManifestErrorMessage", () => {
   it("renders an already-installed message with a named open link", () => {
     // Arrange
     renderAlreadyInstalled({
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
       href: "/extensions/app/pulse-app-id",
       isActive: true,
       linkTarget: "app",
     });
 
     // Assert
-    expect(screen.getByText(/Saleor Pulse is already installed/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Open Saleor Pulse" })).toHaveAttribute(
+    expect(screen.getByText(/FSCommerce Pulse is already installed/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open FSCommerce Pulse" })).toHaveAttribute(
       "href",
       "/extensions/app/pulse-app-id",
     );
@@ -147,14 +147,14 @@ describe("ManifestErrorMessage", () => {
   it("renders a disabled already-installed message with a settings link", () => {
     // Arrange
     renderAlreadyInstalled({
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
       href: "/extensions/app/pulse-app-id/edit",
       isActive: false,
       linkTarget: "settings",
     });
 
     // Assert
-    expect(screen.getByText(/Saleor Pulse is installed but disabled/)).toBeInTheDocument();
+    expect(screen.getByText(/FSCommerce Pulse is installed but disabled/)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Open settings" })).toHaveAttribute(
       "href",
       "/extensions/app/pulse-app-id/edit",

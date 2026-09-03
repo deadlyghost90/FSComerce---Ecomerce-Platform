@@ -36,7 +36,7 @@ import { iconSize, iconStrokeWidthBySize } from "@dashboard/components/icons";
 import { DetailPageLayout } from "@dashboard/components/Layouts/Detail";
 import { hasOneOfPermissions, hasPermissions } from "@dashboard/components/RequirePermissions";
 import { Savebar } from "@dashboard/components/Savebar";
-import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { FSCommerceThrobber } from "@dashboard/components/Throbber/FSCommerceThrobber";
 import {
   type ChannelDetailsFragment,
   type ChannelErrorFragment,
@@ -446,7 +446,7 @@ const ChannelDetailsPage = function <TErrors extends ChannelErrorFragment[]>({
             paddingY={12}
             data-test-id="channel-details-loader"
           >
-            <SaleorThrobber />
+            <FSCommerceThrobber />
           </Box>
         </DetailPageLayout.Content>
         {showRightSidebar ? (

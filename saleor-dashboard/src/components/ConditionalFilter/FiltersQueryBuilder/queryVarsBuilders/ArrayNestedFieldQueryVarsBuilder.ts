@@ -17,8 +17,8 @@ type ArrayNestedFilterQueryPart = {
 /** Builds query for elements that have nested array structure, e.g.:
  * `transactions` on `order.where`
  * Example:
- * `transactions: [{ paymentMethodDetails: {type: {eq: "CARD"}} }, {paymentMethodDetails: {card: {eq: "SaleorCard"}}}]`
- * is created from two separate inputs for Payment method = "CARD" and Payment method card = "SaleorCard" l*/
+ * `transactions: [{ paymentMethodDetails: {type: {eq: "CARD"}} }, {paymentMethodDetails: {card: {eq: "FSCommerceCard"}}}]`
+ * is created from two separate inputs for Payment method = "CARD" and Payment method card = "FSCommerceCard" l*/
 export class ArrayNestedFieldQueryVarsBuilder
   implements WhereOnlyQueryVarsBuilder<ArrayNestedFilterQueryPart>
 {

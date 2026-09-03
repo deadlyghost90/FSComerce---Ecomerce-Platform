@@ -12,7 +12,7 @@ describe("stripGiftCardCodeSeparators", () => {
 });
 
 describe("formatGiftCardCodeDisplay", () => {
-  it("leaves Saleor-generated hyphenated codes unchanged", () => {
+  it("leaves FSCommerce-generated hyphenated codes unchanged", () => {
     // Arrange / Act / Assert
     expect(formatGiftCardCodeDisplay("ABCD-EFGH-IJKL")).toBe("ABCD-EFGH-IJKL");
   });

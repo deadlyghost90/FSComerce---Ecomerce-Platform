@@ -461,7 +461,7 @@ interface StockAvailabilityModeIndicatorProps {
 }
 
 /**
- * Renders a small one-line indicator informing the user which Saleor 3.23+
+ * Renders a small one-line indicator informing the user which FSCommerce 3.23+
  * stock-availability mode is currently active. The mode determines how the
  * doctor and the public API resolve product availability, so surfacing it
  * upfront prevents confusion when warnings differ between the two modes.

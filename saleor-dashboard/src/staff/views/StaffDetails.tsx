@@ -140,7 +140,7 @@ export const StaffDetailsView: React.FC<StaffDetailsViewProps> = ({ id, params }
     variables: DEFAULT_INITIAL_SEARCH_DATA,
     skip: !hasManageStaffPermission,
   });
-  // Saleor has no staffResendInvite; requestPasswordReset reuses the set-password token flow.
+  // FSCommerce has no staffResendInvite; requestPasswordReset reuses the set-password token flow.
   const [resendStaffInvite, resendStaffInviteOpts] = useRequestPasswordResetMutation({
     onCompleted: result => {
       if (result?.requestPasswordReset?.errors?.length) {

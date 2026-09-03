@@ -7,7 +7,7 @@ import {
 import { appExtensionManifestOptionsSchemaWithDefault } from "@dashboard/extensions/domain/app-extension-manifest-options";
 import { AppExtensionManifestTarget } from "@dashboard/extensions/domain/app-extension-manifest-target";
 import { useRegisterExtensions } from "@dashboard/extensions/extension-registry";
-import { isSaleorOfficialAppUrl } from "@dashboard/extensions/isSaleorOfficialAppUrl";
+import { isFSCommerceOfficialAppUrl } from "@dashboard/extensions/isFSCommerceOfficialAppUrl";
 import { isUrlAbsolute } from "@dashboard/extensions/isUrlAbsolute";
 import { newTabActions } from "@dashboard/extensions/new-tab-actions";
 import { type ExtensionListQuery, useExtensionListQuery } from "@dashboard/graphql";
@@ -84,7 +84,7 @@ const prepareExtensionsWithActions = ({
           mountName: ALL_APP_EXTENSION_MOUNTS.parse(mountName),
           targetName: AppExtensionManifestTarget.parse(targetName),
           settings,
-          isSaleorOfficial: isSaleorOfficialAppUrl(resolvedUrl),
+          isFSCommerceOfficial: isFSCommerceOfficialAppUrl(resolvedUrl),
           fromCache,
           refetch,
           /**

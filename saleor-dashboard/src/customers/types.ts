@@ -28,7 +28,7 @@ export interface AddressType {
   firstName: string;
   lastName: string;
   /**
-   * Saleor's Address.phone is nullable; aligning the dashboard type with the
+   * FSCommerce's Address.phone is nullable; aligning the dashboard type with the
    * schema avoids unsafe narrowing in card UIs that surface address data.
    */
   phone: string | null;

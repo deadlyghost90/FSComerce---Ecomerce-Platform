@@ -522,7 +522,7 @@ type Query {
     """
     Search product variants.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     search: String
 
@@ -631,7 +631,7 @@ type Query {
   """
   List of transactions. For apps with `MANAGE_ORDERS` permission, returns all transactions. For apps with just `HANDLE_PAYMENTS` permission, returns only transactions created by that app. For staff users, returns transactions from orders and checkouts in channels they have access to.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   
   Requires one of the following permissions: HANDLE_PAYMENTS, MANAGE_ORDERS.
   """
@@ -642,7 +642,7 @@ type Query {
     """
     Sort transactions.
     
-    Added in Saleor 3.23.
+    Added in FSCommerce 3.23.
     """
     sortBy: TransactionSortingInput
 
@@ -677,7 +677,7 @@ type Query {
     """
     Slug of a channel for which the data should be returned.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     channel: String
   ): Page @doc(category: "Pages")
@@ -693,21 +693,21 @@ type Query {
     """
     Search pages. Overrides filter.search input.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     search: String
 
     """
     Where filtering options for pages.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     where: PageWhereInput
 
     """
     Slug of a channel for which the data should be returned.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     channel: String
 
@@ -810,7 +810,7 @@ type Query {
     """
     Where filtering options for orders.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     where: OrderWhereInput
 
@@ -820,7 +820,7 @@ type Query {
     """
     Search orders.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     search: String
 
@@ -856,14 +856,14 @@ type Query {
     """
     Where filtering options for draft orders.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     where: DraftOrderWhereInput
 
     """
     Search orders.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     search: String
 
@@ -1529,7 +1529,7 @@ type Query {
     """
     Where filtering options for customers.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     where: CustomerWhereInput
 
@@ -1539,7 +1539,7 @@ type Query {
     """
     Search customers.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     search: String
 
@@ -1563,7 +1563,7 @@ type Query {
   """
   Look up a customer type by ID.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP, MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES, MANAGE_USERS.
   """
@@ -1575,7 +1575,7 @@ type Query {
   """
   List of the customer types.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP, MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES, MANAGE_USERS.
   """
@@ -1707,7 +1707,7 @@ type Webhook implements Node @doc(category: "Webhooks") {
   """
   The unique identifier of the webhook, set by the app. Unique per app, null when not set.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   identifier: String
 
@@ -1755,7 +1755,7 @@ type Webhook implements Node @doc(category: "Webhooks") {
   isActive: Boolean!
 
   """Used to create a hash signature for each payload."""
-  secretKey: String @deprecated(reason: "As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.")
+  secretKey: String @deprecated(reason: "As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.")
 
   """Used to define payloads for specific events."""
   subscriptionQuery: String
@@ -2028,21 +2028,21 @@ enum WebhookEventTypeEnum @doc(category: "Webhooks") {
   """
   A new customer type is created.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   CUSTOMER_TYPE_CREATED
 
   """
   A customer type is updated.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   CUSTOMER_TYPE_UPDATED
 
   """
   A customer type is deleted.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   CUSTOMER_TYPE_DELETED
 
@@ -2267,7 +2267,7 @@ enum WebhookEventTypeEnum @doc(category: "Webhooks") {
   VOUCHER_METADATA_UPDATED
 
   """An observability event is created."""
-  OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This event will be removed in Saleor 3.24.")
+  OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This event will be removed in FSCommerce 3.24.")
 
   """A thumbnail is created."""
   THUMBNAIL_CREATED
@@ -2652,21 +2652,21 @@ enum WebhookEventTypeAsyncEnum @doc(category: "Webhooks") {
   """
   A new customer type is created.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   CUSTOMER_TYPE_CREATED
 
   """
   A customer type is updated.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   CUSTOMER_TYPE_UPDATED
 
   """
   A customer type is deleted.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   CUSTOMER_TYPE_DELETED
 
@@ -2891,7 +2891,7 @@ enum WebhookEventTypeAsyncEnum @doc(category: "Webhooks") {
   VOUCHER_METADATA_UPDATED
 
   """An observability event is created."""
-  OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This event will be removed in Saleor 3.24.")
+  OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This event will be removed in FSCommerce 3.24.")
 
   """A thumbnail is created."""
   THUMBNAIL_CREATED
@@ -3006,7 +3006,7 @@ type App implements Node & ObjectWithMetadata @doc(category: "Apps") {
   """
   List of problems associated with this app.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   
   Requires one of the following permissions: AUTHENTICATED_APP, MANAGE_APPS.
   """
@@ -3092,7 +3092,7 @@ enum PermissionEnum @doc(category: "Users") {
   MANAGE_STAFF
   IMPERSONATE_USER
   MANAGE_APPS
-  MANAGE_OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This permission will be removed in Saleor 3.24.")
+  MANAGE_OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This permission will be removed in FSCommerce 3.24.")
   MANAGE_CHECKOUTS
   HANDLE_CHECKOUTS
   HANDLE_TAXES
@@ -3125,12 +3125,12 @@ scalar DateTime
 """Enum determining type of your App."""
 enum AppTypeEnum @doc(category: "Apps") {
   """
-  Local Saleor App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token
+  Local FSCommerce App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token
   """
   LOCAL
 
   """
-  Third party external App. Installation is fully automated. Saleor uses a defined App manifest to gather all required information.
+  Third party external App. Installation is fully automated. FSCommerce uses a defined App manifest to gather all required information.
   """
   THIRDPARTY
 }
@@ -3164,28 +3164,28 @@ type AppExtension implements Node @doc(category: "Apps") {
   """
   Name of the extension mount point in the dashboard. Value returned in UPPERCASE.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   mountName: String!
 
   """
   Name of the extension target in the dashboard. Value returned in UPPERCASE.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   targetName: String!
 
   """
   App extension settings.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   settings: JSON!
 
   """
   Extension identifier, unique per app. Null when the app does not declare one.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   identifier: String
 
@@ -3201,48 +3201,48 @@ scalar JSON
 """
 Represents a problem associated with an app.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AppProblem implements Node @doc(category: "Apps") {
   """
   The ID of the app problem.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   id: ID!
 
   """
   The date and time when the problem was created.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   createdAt: DateTime!
 
   """
   The date and time when the problem was last updated.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   updatedAt: DateTime!
 
   """
   Number of occurrences.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   count: Int!
 
   """
   Whether the problem has reached critical threshold.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   isCritical: Boolean!
 
   """
   Dismissal information. Null if the problem has not been dismissed.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   
   Requires one of the following permissions: AUTHENTICATED_APP, MANAGE_APPS.
   """
@@ -3251,14 +3251,14 @@ type AppProblem implements Node @doc(category: "Apps") {
   """
   The problem message.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   message: String!
 
   """
   Key identifying the type of problem.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   key: String!
 }
@@ -3266,20 +3266,20 @@ type AppProblem implements Node @doc(category: "Apps") {
 """
 Dismissal information for an app problem.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AppProblemDismissed {
   """
   Whether the problem was dismissed by an App or a User.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   by: AppProblemDismissedByEnum!
 
   """
   The user who dismissed this problem. Null if dismissed by an app or the user was deleted.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   
   Requires one of the following permissions: MANAGE_STAFF.
   """
@@ -3288,7 +3288,7 @@ type AppProblemDismissed {
   """
   Email of the user who dismissed this problem. Preserved even if the user is deleted.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   
   Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
   """
@@ -3338,7 +3338,7 @@ type User implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(categ
   """
   Get a single attribute assigned to the user by attribute slug. The attribute is looked up among the attributes of the user's customer type. Requires one of the following permissions: MANAGE_USERS, OWNER. The owner can access only attributes that are visible in the storefront.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   assignedAttribute(
     """Slug of the attribute"""
@@ -3348,7 +3348,7 @@ type User implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(categ
   """
   List of attributes assigned to the user through the user's customer type. Requires one of the following permissions: MANAGE_USERS, OWNER. The owner can access only attributes that are visible in the storefront.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   assignedAttributes(
     """Maximum number of attributes to return. Default is 100."""
@@ -3448,7 +3448,7 @@ type User implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(categ
     """
     Where filtering options for orders.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     where: CustomerOrderWhereInput
 
@@ -3531,7 +3531,7 @@ type User implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(categ
   """
   The customer type assigned to the user. Requires one of the following permissions: MANAGE_USERS, OWNER.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   customerType: CustomerType
 
@@ -3556,13 +3556,13 @@ type User implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(categ
 """
 An object with attributes.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 interface ObjectWithAttributes @doc(category: "Attributes") {
   """
   Get a single attribute attached to the object by attribute slug.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttribute(
     """Slug of the attribute"""
@@ -3572,7 +3572,7 @@ interface ObjectWithAttributes @doc(category: "Attributes") {
   """
   List of attributes assigned to the object.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttributes(
     """Maximum number of attributes to return. Default is 100."""
@@ -3583,7 +3583,7 @@ interface ObjectWithAttributes @doc(category: "Attributes") {
 """
 Represents an attribute assigned to an object.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 interface AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -3636,7 +3636,7 @@ type Attribute implements Node & ObjectWithMetadata @doc(category: "Attributes")
   """
   The reference types (product or page type) that are used to narrow down the choices of reference objects.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   referenceTypes(
     """
@@ -3670,14 +3670,14 @@ type Attribute implements Node & ObjectWithMetadata @doc(category: "Attributes")
     """
     Where filtering options for attribute choices.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     where: AttributeValueWhereInput
 
     """
     Search attribute choices.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     search: String
 
@@ -4024,7 +4024,7 @@ type Product implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(ca
   """
   Get a single attribute attached to product by attribute slug.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttribute(
     """Slug of the attribute"""
@@ -4034,7 +4034,7 @@ type Product implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(ca
   """
   List of attributes assigned to this product.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttributes(
     """Maximum number of attributes to return. Default is 100."""
@@ -4902,7 +4902,7 @@ type LanguageDisplay {
   language: String!
 }
 
-"""Language code enum. It contains all the languages supported by Saleor."""
+"""Language code enum. It contains all the languages supported by FSCommerce."""
 enum LanguageCodeEnum {
   """Afrikaans"""
   AF
@@ -7326,7 +7326,7 @@ type ProductVariant implements Node & ObjectWithMetadata & ObjectWithAttributes 
   """
   Get a single attribute attached to product by attribute slug.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttribute(
     """Slug of the attribute"""
@@ -7336,7 +7336,7 @@ type ProductVariant implements Node & ObjectWithMetadata & ObjectWithAttributes 
   """
   List of attributes assigned to this variant.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttributes(
     """Maximum number of attributes to return. Default is 100."""
@@ -8269,7 +8269,7 @@ type ShippingMethodsPerCountry @doc(category: "Shipping") {
 """
 Represents country codes defined by the ISO 3166-1 alpha-2 standard.
 
-The `EU` value is DEPRECATED and will be removed in Saleor 3.21.
+The `EU` value is DEPRECATED and will be removed in FSCommerce 3.21.
 """
 enum CountryCode {
   """Afghanistan"""
@@ -9214,7 +9214,7 @@ scalar Hour
 """Represents the channel-specific checkout settings."""
 type CheckoutSettings {
   """
-  Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one.
+  Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in FSCommerce 4.0. The flow with `checkout.problems` will be the default one.
   """
   useLegacyErrorFlow: Boolean!
 
@@ -9226,21 +9226,21 @@ type CheckoutSettings {
   """
   The time in minutes to wait after a checkout is fully paid before automatically completing it.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   automaticCompletionDelay: Minute
 
   """
   The date time defines the earliest checkout creation date on which fully paid checkouts can begin to be automatically completed. 
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   automaticCompletionCutOffDate: DateTime
 
   """
   Default to `true`. Determines whether gift cards can be attached to a Checkout via `addPromoCode` mutation. Usage of this mutation with gift cards is deprecated.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   allowLegacyGiftCardUse: Boolean!
 }
@@ -9335,7 +9335,7 @@ type TaxConfiguration implements Node & ObjectWithMetadata @doc(category: "Taxes
   countries: [TaxConfigurationPerCountry!]!
 
   """
-  The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that Saleor will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
+  The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that FSCommerce will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
   """
   taxAppId: String
 
@@ -9471,7 +9471,7 @@ input AddressInput {
   metadata: [MetadataInput!]
 
   """
-  Determine if the address should be validated. By default, Saleor accepts only address inputs matching ruleset from [Google Address Data]{https://chromium-i18n.appspot.com/ssl-address), using [i18naddress](https://github.com/mirumee/google-i18n-address) library. Some mutations may require additional permissions to use the the field. More info about permissions can be found in relevant mutation.
+  Determine if the address should be validated. By default, FSCommerce accepts only address inputs matching ruleset from [Google Address Data]{https://chromium-i18n.appspot.com/ssl-address), using [i18naddress](https://github.com/mirumee/google-i18n-address) library. Some mutations may require additional permissions to use the the field. More info about permissions can be found in relevant mutation.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -9959,21 +9959,21 @@ input ProductVariantWhereInput @doc(category: "Products") {
   """
   Filter by attributes associated with the variant.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   attributes: [AssignedAttributeWhereInput!]
 
   """
   Filter by variants having a specific stock status in the given channel.
   
-  Added in Saleor 3.24.
+  Added in FSCommerce 3.24.
   """
   stockAvailability: StockAvailability
 
   """
   Filter by stock of the variant.
   
-  Added in Saleor 3.24.
+  Added in FSCommerce 3.24.
   """
   stocks: ProductStockFilterInput
 
@@ -10774,7 +10774,7 @@ type Checkout implements Node & ObjectWithMetadata @doc(category: "Checkout") {
   """
   The delivery method selected for this checkout.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   delivery: Delivery
 
@@ -11310,7 +11310,7 @@ type GiftCard implements Node & ObjectWithMetadata @doc(category: "Gift cards") 
   
   Requires one of the following permissions: MANAGE_USERS, OWNER. 
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   assignedTo: User
 
@@ -11319,7 +11319,7 @@ type GiftCard implements Node & ObjectWithMetadata @doc(category: "Gift cards") 
   
   Requires one of the following permissions: MANAGE_GIFT_CARD, OWNER. 
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   assignedToEmail: String
 
@@ -11417,7 +11417,7 @@ type GiftCardEvent implements Node @doc(category: "Gift cards") {
   """
   The customer assignment change recorded by the event. Only set for ASSIGNED_TO_USER and UNASSIGNED_FROM_USER events. 
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   assignedTo: GiftCardEventAssignment
 
@@ -11582,7 +11582,7 @@ type CheckoutLine implements Node & ObjectWithMetadata @doc(category: "Checkout"
   """
   Reason explaining why a custom price was set on the line, provided by the app that set the price override.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Requires one of the following permissions: MANAGE_CHECKOUTS, HANDLE_CHECKOUTS.
   """
@@ -11617,7 +11617,7 @@ type CheckoutLineProblemVariantNotAvailable @doc(category: "Checkout") {
 """
 Represents a delivery option for the checkout.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type Delivery {
   """The ID of the delivery."""
@@ -11736,21 +11736,21 @@ type TransactionItem implements Node & ObjectWithMetadata @doc(category: "Paymen
   """
   The payment method used for this transaction.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   paymentMethodDetails: PaymentMethodDetails
 
   """
   Reason of the refund.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reason: String
 
   """
   Reason `Page` (Model) for refund.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reasonReference: Page
 }
@@ -11814,7 +11814,7 @@ type Order implements Node & ObjectWithMetadata @doc(category: "Orders") {
   status: OrderStatus!
 
   """
-  User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, HANDLE_PAYMENTS, OWNER.
+  User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, HANDLE_PAYMENTS, OWNER.
   """
   user: User
 
@@ -11822,12 +11822,12 @@ type Order implements Node & ObjectWithMetadata @doc(category: "Orders") {
   trackingClientId: String!
 
   """
-  Billing address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
+  Billing address. The full data can be access for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
   """
   billingAddress: Address
 
   """
-  Shipping address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
+  Shipping address. The full data can be access for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
   """
   shippingAddress: Address
 
@@ -11860,7 +11860,7 @@ type Order implements Node & ObjectWithMetadata @doc(category: "Orders") {
   availableCollectionPoints: [Warehouse!]!
 
   """
-  List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
+  List of order invoices. Can be fetched for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
   """
   invoices: [Invoice!]!
 
@@ -11988,7 +11988,7 @@ type Order implements Node & ObjectWithMetadata @doc(category: "Orders") {
   totalBalance: Money!
 
   """
-  Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
+  Email address of the customer. The full data can be access for orders created in FSCommerce 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER.
   """
   userEmail: String
 
@@ -12156,14 +12156,14 @@ type Fulfillment implements Node & ObjectWithMetadata @doc(category: "Orders") {
   """
   Reason for returning this fulfillment.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reason: String
 
   """
   Reason Model (Page) reference for this fulfillment.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: Page
 }
@@ -12192,14 +12192,14 @@ type FulfillmentLine implements Node @doc(category: "Orders") {
   """
   Reason for returning this fulfillment line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reason: String
 
   """
   Reason Model (Page) reference for this fulfillment line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: Page
 }
@@ -12316,7 +12316,7 @@ type OrderLine implements Node & ObjectWithMetadata @doc(category: "Orders") {
   """
   Reason explaining why a custom price was set on the line, copied from the checkout line when the order was created from a checkout.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Requires one of the following permissions: MANAGE_ORDERS.
   """
@@ -12489,7 +12489,7 @@ type Page implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(categ
   """
   Get a single attribute attached to page by attribute slug.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttribute(
     """Slug of the attribute"""
@@ -12499,7 +12499,7 @@ type Page implements Node & ObjectWithMetadata & ObjectWithAttributes @doc(categ
   """
   List of attributes assigned to this page.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   assignedAttributes(
     """Maximum number of attributes to return. Default is 100."""
@@ -13292,14 +13292,14 @@ type OrderGrantedRefund @doc(category: "Orders") {
   """
   Reason of the refund.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reason: String
 
   """
   Reason Model (Page) reference for refund.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reasonReference: Page
 
@@ -13347,7 +13347,7 @@ type OrderGrantedRefundLine {
   """
   Reason Model (Page) reference for this refund line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: Page
 }
@@ -13384,7 +13384,7 @@ type TransactionEvent implements Node @doc(category: "Payments") {
   """
   Reason model of the transaction refund.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reasonReference: Page
 
@@ -13457,7 +13457,7 @@ union UserOrApp = User | App
 """
 Represents a payment method used for a transaction.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 interface PaymentMethodDetails {
   """Name of the payment method."""
@@ -13555,7 +13555,7 @@ union CheckoutProblem = CheckoutProblemDeliveryMethodStale | CheckoutProblemDeli
 """
 Indicates that the delivery methods are stale.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type CheckoutProblemDeliveryMethodStale @doc(category: "Checkout") {
   delivery: Delivery!
@@ -13564,7 +13564,7 @@ type CheckoutProblemDeliveryMethodStale @doc(category: "Checkout") {
 """
 Indicates that the selected delivery method is invalid.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type CheckoutProblemDeliveryMethodInvalid @doc(category: "Checkout") {
   delivery: Delivery!
@@ -13931,7 +13931,7 @@ type PaymentSource @doc(category: "Payments") {
 """
 Represents a type of customer. It allows to segment users and defines what attributes are available to users of this type.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type CustomerType implements Node & ObjectWithMetadata @doc(category: "Users") {
   """The ID of the customer type."""
@@ -14347,7 +14347,7 @@ enum WebhookSampleEventTypeEnum @doc(category: "Webhooks") {
   VOUCHER_CODES_CREATED
   VOUCHER_CODES_DELETED
   VOUCHER_METADATA_UPDATED
-  OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This event will be removed in Saleor 3.24.")
+  OBSERVABILITY @deprecated(reason: "The observability feature is no longer supported. This event will be removed in FSCommerce 3.24.")
   THUMBNAIL_CREATED
   SHOP_METADATA_UPDATED
 }
@@ -15091,7 +15091,7 @@ type Shop implements ObjectWithMetadata {
   description: String
 
   """
-  Shop's domain data. Can be customized using the `PUBLIC_URL` environment variable if self-hosted. If a custom domain is needed in your Saleor Cloud environment, then contact Saleor support.
+  Shop's domain data. Can be customized using the `PUBLIC_URL` environment variable if self-hosted. If a custom domain is needed in your FSCommerce Cloud environment, then contact FSCommerce support.
   """
   domain: Domain!
 
@@ -15124,7 +15124,7 @@ type Shop implements ObjectWithMetadata {
   """
   Determines whether the GraphQL API accepts storefront requests (anonymous requests and authenticated non-staff customers). When disabled, only apps and staff users may call the API directly; all other requests are rejected with an HTTP 401 and the `STOREFRONT_TRAFFIC_NOT_ALLOWED` error code.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   allowStorefrontTraffic: Boolean!
 
@@ -15200,17 +15200,17 @@ type Shop implements ObjectWithMetadata {
   announcements: [Announcement!]!
 
   """
-  Saleor API version.
+  FSCommerce API version.
   
   Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
   """
   version: String!
 
-  """Minor Saleor API version."""
+  """Minor FSCommerce API version."""
   schemaVersion: String!
 
   """
-  List of tax apps that can be assigned to the channel. The list will be calculated by Saleor based on the apps that are subscribed to webhooks related to tax calculations: CHECKOUT_CALCULATE_TAXES
+  List of tax apps that can be assigned to the channel. The list will be calculated by FSCommerce based on the apps that are subscribed to webhooks related to tax calculations: CHECKOUT_CALCULATE_TAXES
   
   Requires one of the following permissions: AUTHENTICATED_STAFF_USER, MANAGE_APPS.
   """
@@ -15219,7 +15219,7 @@ type Shop implements ObjectWithMetadata {
   """
   When enabled, address fields that are not valid for a given country (according to Google's i18n address data) will be preserved instead of being removed during validation. Validation errors are still returned.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   
   Requires one of the following permissions: MANAGE_SETTINGS.
   """
@@ -15228,7 +15228,7 @@ type Shop implements ObjectWithMetadata {
   """
   Controls whether password-based authentication is allowed.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   passwordLoginMode: PasswordLoginModeEnum!
 
@@ -15244,14 +15244,14 @@ type Shop implements ObjectWithMetadata {
   """
   When enabled, stock availability is filtered by shipping zones and the destination address (legacy behavior). When disabled, stock availability is determined only by the direct warehouse-channel link, ignoring shipping zones.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   useLegacyShippingZoneStockAvailability: Boolean!
 
   """
   Use legacy update webhook emission. When enabled, update webhooks (e.g. `customerUpdated`,`productVariantUpdated`) are sent even when only metadata changes. When disabled, update webhooks are not sent for metadata-only changes; only metadata-specific webhooks (e.g., `customerMetadataUpdated`, `productVariantMetadataUpdated`) are sent.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   useLegacyUpdateWebhookEmission: Boolean @deprecated
 
@@ -15305,7 +15305,7 @@ type ShopTranslation implements Node @doc(category: "Shop") {
 }
 
 """
-Represents a recipient of email notifications send by Saleor, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses.
+Represents a recipient of email notifications send by FSCommerce, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses.
 """
 type StaffNotificationRecipient implements Node {
   """The ID of the staff notification recipient."""
@@ -15450,7 +15450,7 @@ enum TimePeriodTypeEnum {
 """
 Refund related settings from site settings.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type RefundSettings @doc(category: "Orders") {
   """Model type used for refund reasons."""
@@ -15460,13 +15460,13 @@ type RefundSettings @doc(category: "Orders") {
 """
 Return related settings from site settings.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type ReturnSettings @doc(category: "Orders") {
   """
   Model type used for return reasons.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReferenceType: PageType
 }
@@ -15680,21 +15680,21 @@ input TransactionWhereInput @doc(category: "Payments") {
   """
   Filter transactions by created at date.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   createdAt: DateTimeRangeInput
 
   """
   Filter transactions by modified at date.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   modifiedAt: DateTimeRangeInput
 
   """
   Filter by transaction events. Each list item represents conditions that must be satisfied by a single event. The filter matches transactions that have related events meeting all specified groups of conditions.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   events: [TransactionEventFilterInput!]
 
@@ -15708,20 +15708,20 @@ input TransactionWhereInput @doc(category: "Payments") {
 """
 Filter input for transaction events data.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 input TransactionEventFilterInput @doc(category: "Payments") {
   """
   Filter transaction events by created at date.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   createdAt: DateTimeRangeInput
 
   """
   Filter transaction events by type.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   type: TransactionEventTypeEnumFilterInput
 }
@@ -15746,14 +15746,14 @@ enum TransactionSortField @doc(category: "Payments") {
   """
   Sort transactions by creation date. 
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   CREATED_AT
 
   """
   Sort transactions by modification date. 
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   MODIFIED_AT
 }
@@ -15933,7 +15933,7 @@ enum OrderSortField @doc(category: "Orders") {
   """
   Sort orders by order status. 
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   STATUS
 }
@@ -16124,7 +16124,7 @@ input TransactionFilterInput @doc(category: "Orders") {
   """
   Filter by PSP reference of transactions.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   pspReference: StringFilterInput
 
@@ -16385,7 +16385,7 @@ input GiftCardFilterInput @doc(category: "Gift cards") {
   """
   Filter by the customer the gift card usage is restricted to.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   assignedTo: [ID!]
   used: Boolean
@@ -17342,14 +17342,14 @@ input AppExtensionFilterInput @doc(category: "Apps") {
   """
   Plain-text mount name (case insensitive)
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   mountName: [String!]
 
   """
   Plain-text target name (case insensitive)
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   targetName: String
 }
@@ -17516,14 +17516,14 @@ input CustomerWhereInput @doc(category: "Users") {
   """
   Filter by customer type. Filtering by the default customer type also matches users without an explicitly assigned customer type.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   customerType: GlobalIDFilterInput
 
   """
   Filter by attributes associated with the customer.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   attributes: [AssignedAttributeWhereInput!]
 
@@ -17695,7 +17695,7 @@ type Mutation {
     """
     App-provided identifier of a webhook to delete. Identifiers are unique per app only, so this argument is available exclusively to an app referencing its own webhook; staff users must use `id`. Cannot be used together with `id`.
     
-    Added in Saleor 3.23.
+    Added in FSCommerce 3.23.
     """
     identifier: String
   ): WebhookDelete @doc(category: "Webhooks")
@@ -17712,7 +17712,7 @@ type Mutation {
     """
     App-provided identifier of a webhook to update. Identifiers are unique per app only, so this argument is available exclusively to an app referencing its own webhook; staff users must use `id`. Cannot be used together with `id`.
     
-    Added in Saleor 3.23.
+    Added in FSCommerce 3.23.
     """
     identifier: String
 
@@ -18010,7 +18010,7 @@ type Mutation {
   """
   Update refund settings across all channels.
   
-  Added in Saleor 3.22. 
+  Added in FSCommerce 3.22. 
   
   Requires one of the following permissions: MANAGE_SETTINGS.
   """
@@ -18022,7 +18022,7 @@ type Mutation {
   """
   Updates RefundSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to refund mutations is no longer accepted and will raise error.
   
-  Added in Saleor 3.22. 
+  Added in FSCommerce 3.22. 
   
   Requires one of the following permissions: MANAGE_SETTINGS.
   """
@@ -18031,7 +18031,7 @@ type Mutation {
   """
   Update return settings across all channels.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_SETTINGS.
   """
@@ -18043,7 +18043,7 @@ type Mutation {
   """
   Updates ReturnSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to return mutations is no longer accepted and will raise error.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_SETTINGS.
   """
@@ -18052,7 +18052,7 @@ type Mutation {
   """
   Calculates available delivery options for a checkout.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Triggers the following webhook events:
   - SHIPPING_LIST_METHODS_FOR_CHECKOUT (sync): Triggered to fetch external shipping methods.
@@ -19073,14 +19073,14 @@ type Mutation {
     """
     Reason of the refund
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     refundReason: String
 
     """
     ID of a `Page` (Model) to reference in reason.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     refundReasonReference: ID
 
@@ -19145,7 +19145,7 @@ type Mutation {
     """
     Details of the payment method used for the transaction.
     
-    Added in Saleor 3.22.
+    Added in FSCommerce 3.22.
     """
     paymentMethodDetails: PaymentMethodDetailsInput
 
@@ -19211,7 +19211,7 @@ type Mutation {
     amount: PositiveDecimal
 
     """
-    The customer's IP address. If not provided Saleor will try to determine the customer's IP address on its own. The customer's IP address will be passed to the payment app. The IP should be in ipv4 or ipv6 format. The field can be used only by an app that has `HANDLE_PAYMENTS` permission.
+    The customer's IP address. If not provided FSCommerce will try to determine the customer's IP address on its own. The customer's IP address will be passed to the payment app. The IP should be in ipv4 or ipv6 format. The field can be used only by an app that has `HANDLE_PAYMENTS` permission.
     """
     customerIpAddress: String
 
@@ -19232,7 +19232,7 @@ type Mutation {
   """
   transactionProcess(
     """
-    The customer's IP address. If not provided Saleor will try to determine the customer's IP address on its own. The customer's IP address will be passed to the payment app. The IP should be in ipv4 or ipv6 format. The field can be used only by an app that has `HANDLE_PAYMENTS` permission.
+    The customer's IP address. If not provided FSCommerce will try to determine the customer's IP address on its own. The customer's IP address will be passed to the payment app. The IP should be in ipv4 or ipv6 format. The field can be used only by an app that has `HANDLE_PAYMENTS` permission.
     """
     customerIpAddress: String
 
@@ -20249,7 +20249,7 @@ type Mutation {
   """
   Restrict a gift card so only the given customer can use it. 
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_GIFT_CARD.
   
@@ -20267,7 +20267,7 @@ type Mutation {
   """
   Remove a customer restriction from a gift card. 
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_GIFT_CARD.
   
@@ -20282,7 +20282,7 @@ type Mutation {
   """
   Adjust a gift card's balance by a delta. 
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_GIFT_CARD.
   
@@ -20293,7 +20293,7 @@ type Mutation {
     """
     Signed amount to adjust the current balance by. Positive tops up, negative deducts. A deduction below zero clamps the balance to zero. A top-up above the initial balance raises the initial balance to the new current balance. 
     
-    Added in Saleor 3.23.
+    Added in FSCommerce 3.23.
     """
     amount: Decimal!
 
@@ -20462,7 +20462,7 @@ type Mutation {
   """
   externalNotificationTrigger(
     """
-    Channel slug. Saleor will send a notification within a provided channel. Please, make sure that necessary plugins are active.
+    Channel slug. FSCommerce will send a notification within a provided channel. Please, make sure that necessary plugins are active.
     """
     channel: String!
 
@@ -21054,7 +21054,7 @@ type Mutation {
   """
   Deletes a checkout.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_CHECKOUTS.
   """
@@ -21062,7 +21062,7 @@ type Mutation {
     """
     The checkout's ID.
     
-    Added in Saleor 3.23.
+    Added in FSCommerce 3.23.
     """
     id: ID!
   ): CheckoutDelete @doc(category: "Checkout")
@@ -21778,7 +21778,7 @@ type Mutation {
   """
   Add a problem to the calling app.
   
-  Added in Saleor 3.22. 
+  Added in FSCommerce 3.22. 
   
   Requires one of the following permissions: AUTHENTICATED_APP.
   """
@@ -21790,7 +21790,7 @@ type Mutation {
   """
   Dismiss problems for an app.
   
-  Added in Saleor 3.22. 
+  Added in FSCommerce 3.22. 
   
   Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
   """
@@ -22311,7 +22311,7 @@ type Mutation {
   """
   Creates a new customer type.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
   
@@ -22326,7 +22326,7 @@ type Mutation {
   """
   Updates a customer type.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
   
@@ -22344,7 +22344,7 @@ type Mutation {
   """
   Deletes a customer type. Users of the deleted customer type are reassigned to the default customer type.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
   
@@ -22359,7 +22359,7 @@ type Mutation {
   """
   Assign attributes to a given customer type.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
   
@@ -22377,7 +22377,7 @@ type Mutation {
   """
   Unassign attributes from a given customer type. Values already assigned to users are kept in the database, but are hidden until the attribute is assigned to the user's customer type again.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
   
@@ -22397,7 +22397,7 @@ type Mutation {
   """
   Reorder the attributes of a customer type.
   
-  Added in Saleor 3.23. 
+  Added in FSCommerce 3.23. 
   
   Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
   
@@ -22590,7 +22590,7 @@ input WebhookCreateInput @doc(category: "Webhooks") {
   """
   The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   identifier: String
 
@@ -22613,7 +22613,7 @@ input WebhookCreateInput @doc(category: "Webhooks") {
   isActive: Boolean
 
   """The secret key used to create a hash signature with each payload."""
-  secretKey: String @deprecated(reason: "As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.")
+  secretKey: String @deprecated(reason: "As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.")
 
   """Subscription query used to define a webhook payload."""
   query: String
@@ -22653,7 +22653,7 @@ input WebhookUpdateInput @doc(category: "Webhooks") {
   """
   The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters. Pass a blank value to clear it.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   identifier: String
 
@@ -22676,7 +22676,7 @@ input WebhookUpdateInput @doc(category: "Webhooks") {
   isActive: Boolean
 
   """Use to create a hash signature with each payload."""
-  secretKey: String @deprecated(reason: "As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.")
+  secretKey: String @deprecated(reason: "As of FSCommerce 3.5, webhook payloads default to signing using a verifiable JWS.")
 
   """Subscription query used to define a webhook payload."""
   query: String
@@ -23102,7 +23102,7 @@ input TaxConfigurationUpdateInput @doc(category: "Taxes") {
   useWeightedTaxForShipping: Boolean
 
   """
-  The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that Saleor will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. It's possible to set plugin by using prefix `plugin:` with `PLUGIN_ID` e.g. with Avalara `plugin:mirumee.taxes.avalara`.Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
+  The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that FSCommerce will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. It's possible to set plugin by using prefix `plugin:` with `PLUGIN_ID` e.g. with Avalara `plugin:mirumee.taxes.avalara`.Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`.
   """
   taxAppId: String
 }
@@ -23402,7 +23402,7 @@ input ShopSettingsInput {
   """
   Shop's name.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   name: String
 
@@ -23459,7 +23459,7 @@ input ShopSettingsInput {
   """
   Determines whether the GraphQL API accepts storefront requests (anonymous requests and authenticated non-staff customers). When disabled, only apps and staff users may call the API directly; all other requests are rejected with an HTTP 401 and the `STOREFRONT_TRAFFIC_NOT_ALLOWED` error code.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   allowStorefrontTraffic: Boolean
 
@@ -23480,21 +23480,21 @@ input ShopSettingsInput {
   """
   When enabled, address fields that are not valid for a given country (according to Google's i18n address data) will be preserved instead of being removed during validation. Validation errors are still returned.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   preserveAllAddressFields: Boolean
 
   """
   Controls whether password-based authentication is allowed.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   passwordLoginMode: PasswordLoginModeEnum
 
   """
   When enabled, stock availability is filtered by shipping zones and the destination address (legacy behavior). When disabled, stock availability is determined only by the direct warehouse-channel link, ignoring shipping zones.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   useLegacyShippingZoneStockAvailability: Boolean
 
@@ -23510,7 +23510,7 @@ input ShopSettingsInput {
   """
   Use legacy update webhook emission. When enabled, update webhooks (e.g. `customerUpdated`,`productVariantUpdated`) are sent even when only metadata changes. When disabled, update webhooks are not sent for metadata-only changes; only metadata-specific webhooks (e.g., `customerMetadataUpdated`, `productVariantMetadataUpdated`) are sent.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   useLegacyUpdateWebhookEmission: Boolean @deprecated
 
@@ -23619,7 +23619,7 @@ input TimePeriodInputType {
 """
 Update refund settings across all channels.
 
-Added in Saleor 3.22. 
+Added in FSCommerce 3.22. 
 
 Requires one of the following permissions: MANAGE_SETTINGS.
 """
@@ -23653,7 +23653,7 @@ input RefundSettingsUpdateInput @doc(category: "Shop") {
   """
   The ID of a model type, that will be used to reference refund reasons. All models with of this type will be accepted as refund reasons. 
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   refundReasonReferenceType: ID!
 }
@@ -23661,7 +23661,7 @@ input RefundSettingsUpdateInput @doc(category: "Shop") {
 """
 Updates RefundSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to refund mutations is no longer accepted and will raise error.
 
-Added in Saleor 3.22. 
+Added in FSCommerce 3.22. 
 
 Requires one of the following permissions: MANAGE_SETTINGS.
 """
@@ -23688,7 +23688,7 @@ type RefundReasonReferenceTypeClearError @doc(category: "Shop") {
 """
 Update return settings across all channels.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_SETTINGS.
 """
@@ -23723,7 +23723,7 @@ input ReturnSettingsUpdateInput @doc(category: "Shop") {
   """
   The ID of a model type, that will be used to reference return reasons. All models of this type will be accepted as return reasons. 
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   returnReasonReferenceType: ID!
 }
@@ -23731,7 +23731,7 @@ input ReturnSettingsUpdateInput @doc(category: "Shop") {
 """
 Updates ReturnSettings. The `Page` (Model) Type will be cleared from `reasonReferenceType`. When it's cleared, passing reason reference to return mutations is no longer accepted and will raise error.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_SETTINGS.
 """
@@ -23758,7 +23758,7 @@ type ReturnReasonReferenceTypeClearError @doc(category: "Shop") {
 """
 Calculates available delivery options for a checkout.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 
 Triggers the following webhook events:
 - SHIPPING_LIST_METHODS_FOR_CHECKOUT (sync): Triggered to fetch external shipping methods.
@@ -24649,7 +24649,7 @@ input ProductCreateInput @doc(category: "Products") {
   taxClass: ID
 
   """Tax rate for enabled tax gateway."""
-  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
+  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
 
   """Search engine optimization fields."""
   seo: SeoInput
@@ -24714,7 +24714,7 @@ input AttributeValueInput @doc(category: "Attributes") {
   """
   ID of the referenced entity for single reference attribute.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reference: ID
 
@@ -24866,7 +24866,7 @@ input ProductBulkCreateInput @doc(category: "Products") {
   taxClass: ID
 
   """Tax rate for enabled tax gateway."""
-  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
+  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
 
   """Search engine optimization fields."""
   seo: SeoInput
@@ -25024,7 +25024,7 @@ input BulkAttributeValueInput @doc(category: "Products") {
   """
   ID of the referenced entity for single reference attribute.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reference: ID
 
@@ -25128,7 +25128,7 @@ input ProductInput @doc(category: "Products") {
   taxClass: ID
 
   """Tax rate for enabled tax gateway."""
-  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
+  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
 
   """Search engine optimization fields."""
   seo: SeoInput
@@ -25454,7 +25454,7 @@ input ProductTypeInput @doc(category: "Products") {
   weight: WeightScalar
 
   """Tax rate for enabled tax gateway."""
-  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
+  taxCode: String @deprecated(reason: "Use tax classes to control the tax calculation for a product type. If taxCode is provided, FSCommerce will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.")
 
   """
   ID of a tax class to assign to this product type. All products of this product type would use this tax class, unless it's overridden in the `Product` type.
@@ -26347,7 +26347,7 @@ input TransactionCreateInput @doc(category: "Payments") {
   """
   Details of the payment method used for the transaction.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   paymentMethodDetails: PaymentMethodDetailsInput
 }
@@ -26355,7 +26355,7 @@ input TransactionCreateInput @doc(category: "Payments") {
 """
 Details of the payment method used for the transaction. One of `card`, `other`, or `giftCard` is required.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 input PaymentMethodDetailsInput {
   """Details of the card payment method used for the transaction."""
@@ -26367,7 +26367,7 @@ input PaymentMethodDetailsInput {
   """
   Details of the gift card payment method used for the transaction.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   giftCard: GiftCardPaymentMethodDetailsInput
 }
@@ -26413,21 +26413,21 @@ input GiftCardPaymentMethodDetailsInput {
   """
   Name of the payment method used for the transaction. Max length is 256 characters.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   name: String!
 
   """
   Brand of the gift card used for the transaction. Max length is 40 characters.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   brand: String
 
   """
   Last characters of the gift card used for the transaction. Max length is 4 characters.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   lastChars: String
 }
@@ -26519,7 +26519,7 @@ input TransactionUpdateInput @doc(category: "Payments") {
   """
   Details of the payment method used for the transaction.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   paymentMethodDetails: PaymentMethodDetailsInput
 }
@@ -27669,7 +27669,7 @@ input OrderRefundProductsInput @doc(category: "Orders") {
   amountToRefund: PositiveDecimal
 
   """
-  If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored.
+  If true, FSCommerce will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored.
   """
   includeShippingCosts: Boolean = false
 }
@@ -27722,24 +27722,24 @@ input OrderReturnProductsInput @doc(category: "Orders") {
   amountToRefund: PositiveDecimal
 
   """
-  If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored.
+  If true, FSCommerce will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored.
   """
   includeShippingCosts: Boolean = false
 
-  """If true, Saleor will call refund action for all lines."""
+  """If true, FSCommerce will call refund action for all lines."""
   refund: Boolean = false
 
   """
   Reason for returning this order.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reason: String
 
   """
   ID of a `Page` (Model) to reference in reason for this return.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: ID
 }
@@ -27757,14 +27757,14 @@ input OrderReturnLineInput @doc(category: "Orders") {
   """
   Reason for returning this line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reason: String
 
   """
   ID of a `Page` (Model) to reference in reason for this line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: ID
 }
@@ -27782,14 +27782,14 @@ input OrderReturnFulfillmentLineInput @doc(category: "Orders") {
   """
   Reason for returning this fulfillment line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reason: String
 
   """
   ID of a `Page` (Model) to reference in reason for this fulfillment line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: ID
 }
@@ -27870,7 +27870,7 @@ input OrderGrantRefundCreateInput @doc(category: "Orders") {
   """
   ID of a `Page` (Model) to reference in reason.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reasonReference: ID
 
@@ -27881,7 +27881,7 @@ input OrderGrantRefundCreateInput @doc(category: "Orders") {
   grantRefundForShipping: Boolean
 
   """
-  The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used. Field required starting from Saleor 3.21.
+  The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by FSCommerce, the `min(calculatedAmount, transaction.chargedAmount)` will be used. Field required starting from FSCommerce 3.21.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -27901,7 +27901,7 @@ input OrderGrantRefundCreateLineInput @doc(category: "Orders") {
   """
   ID of a `Page` (Model) to reference in reason for the line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: ID
 }
@@ -27985,7 +27985,7 @@ input OrderGrantRefundUpdateInput @doc(category: "Orders") {
   """
   ID of a `Page` (Model) to reference in reason.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   reasonReference: ID
 
@@ -27999,7 +27999,7 @@ input OrderGrantRefundUpdateInput @doc(category: "Orders") {
   grantRefundForShipping: Boolean
 
   """
-  The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used.Field will be required starting from Saleor 3.21.
+  The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by FSCommerce, the `min(calculatedAmount, transaction.chargedAmount)` will be used.Field will be required starting from FSCommerce 3.21.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -28019,7 +28019,7 @@ input OrderGrantRefundUpdateLineAddInput @doc(category: "Orders") {
   """
   ID of a `Page` (Model) to reference in reason for the line.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   reasonReference: ID
 }
@@ -28391,7 +28391,7 @@ input OrderBulkCreateInput @doc(category: "Orders") {
   """Slug of the channel associated with the order."""
   channel: String!
 
-  """The date, when the order was inserted to Saleor database."""
+  """The date, when the order was inserted to FSCommerce database."""
   createdAt: DateTime!
 
   """Status of the order."""
@@ -29216,7 +29216,7 @@ enum GiftCardErrorCode @doc(category: "Gift cards") {
 """
 Restrict a gift card so only the given customer can use it. 
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_GIFT_CARD.
 
@@ -29233,7 +29233,7 @@ type GiftCardAssignUser @doc(category: "Gift cards") @webhookEventsInfo(asyncEve
 """
 Remove a customer restriction from a gift card. 
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_GIFT_CARD.
 
@@ -29250,7 +29250,7 @@ type GiftCardUnassignUser @doc(category: "Gift cards") @webhookEventsInfo(asyncE
 """
 Adjust a gift card's balance by a delta. 
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_GIFT_CARD.
 
@@ -29327,7 +29327,7 @@ input GiftCardCreateInput @doc(category: "Gift cards") {
   """
   ID of the customer the gift card is restricted to. 
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   assignedTo: ID
 }
@@ -30840,7 +30840,7 @@ input CheckoutAddressValidationRules @doc(category: "Checkout") {
   checkFieldsFormat: Boolean = true
 
   """
-  Determines if Saleor should apply normalization on address fields. Example: converting city field to uppercase letters.
+  Determines if FSCommerce should apply normalization on address fields. Example: converting city field to uppercase letters.
   """
   enableFieldsNormalization: Boolean = true
 }
@@ -30963,7 +30963,7 @@ input CheckoutLineInput @doc(category: "Checkout") {
   """
   Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   priceOverrideReason: String
 
@@ -31092,7 +31092,7 @@ type CheckoutCustomerNoteUpdate @doc(category: "Checkout") @webhookEventsInfo(as
 """
 Deletes a checkout.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_CHECKOUTS.
 """
@@ -31181,7 +31181,7 @@ input CheckoutLineUpdateInput @doc(category: "Checkout") {
   """
   Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   priceOverrideReason: String
 
@@ -31546,7 +31546,7 @@ input OrderSettingsInput @doc(category: "Orders") {
 
 input CheckoutSettingsInput @doc(category: "Checkout") {
   """
-  Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one.
+  Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in FSCommerce 4.0. The flow with `checkout.problems` will be the default one.
   """
   useLegacyErrorFlow: Boolean @deprecated
 
@@ -31558,14 +31558,14 @@ input CheckoutSettingsInput @doc(category: "Checkout") {
   """
   Settings for automatic completion of fully paid checkouts.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   automaticCompletion: CheckoutAutoCompleteInput
 
   """
   Default to `true`. Determines whether gift cards can be attached to a Checkout via `addPromoCode` mutation. Usage of this mutation with gift cards is deprecated.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   allowLegacyGiftCardUse: Boolean
 }
@@ -31818,7 +31818,7 @@ input AttributeCreateInput @doc(category: "Attributes") {
   
   A maximum of 100 reference types can be specified.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   referenceTypes: [ID!]
 }
@@ -31917,7 +31917,7 @@ input AttributeUpdateInput @doc(category: "Attributes") {
   
   A maximum of 100 reference types can be specified.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   referenceTypes: [ID!]
 }
@@ -32540,7 +32540,7 @@ type Manifest @doc(category: "Apps") {
   supportUrl: String
 
   """
-  List of extensions that will be mounted in Saleor's dashboard. For details, please [see the extension section.](https://docs.saleor.io/developer/extending/apps/extending-dashboard-with-apps#key-concepts)
+  List of extensions that will be mounted in FSCommerce's dashboard. For details, please [see the extension section.](https://docs.saleor.io/developer/extending/apps/extending-dashboard-with-apps#key-concepts)
   """
   extensions: [AppManifestExtension!]!
 
@@ -32550,8 +32550,8 @@ type Manifest @doc(category: "Apps") {
   """The audience that will be included in all JWT tokens for the app."""
   audience: String
 
-  """Determines the app's required Saleor version as semver range."""
-  requiredSaleorVersion: AppManifestRequiredSaleorVersion
+  """Determines the app's required FSCommerce version as semver range."""
+  requiredFSCommerceVersion: AppManifestRequiredFSCommerceVersion
 
   """The App's author name."""
   author: String
@@ -32573,28 +32573,28 @@ type AppManifestExtension @doc(category: "Apps") {
   """
   Name of the extension mount point in the dashboard. Value returned in UPPERCASE.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   mountName: String!
 
   """
   Name of the extension target in the dashboard. Value returned in UPPERCASE.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   targetName: String!
 
   """
   App extension settings.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   settings: JSON!
 
   """
   Extension identifier, unique per app. Null when the app does not declare one.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   identifier: String
 }
@@ -32616,11 +32616,11 @@ type AppManifestWebhook @doc(category: "Apps") {
   targetUrl: String!
 }
 
-type AppManifestRequiredSaleorVersion @doc(category: "Apps") {
-  """Required Saleor version as semver range."""
+type AppManifestRequiredFSCommerceVersion @doc(category: "Apps") {
+  """Required FSCommerce version as semver range."""
   constraint: String!
 
-  """Informs if the Saleor version matches the required one."""
+  """Informs if the FSCommerce version matches the required one."""
   satisfied: Boolean!
 }
 
@@ -32677,7 +32677,7 @@ type AppDeactivate @doc(category: "Apps") @webhookEventsInfo(asyncEvents: [APP_S
 """
 Add a problem to the calling app.
 
-Added in Saleor 3.22. 
+Added in FSCommerce 3.22. 
 
 Requires one of the following permissions: AUTHENTICATED_APP.
 """
@@ -32732,7 +32732,7 @@ input AppProblemCreateInput {
 """
 Dismiss problems for an app.
 
-Added in Saleor 3.22. 
+Added in FSCommerce 3.22. 
 
 Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
 """
@@ -32845,7 +32845,7 @@ type AccountError @doc(category: "Users") {
   """
   List of attributes IDs which causes the error.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   attributes: [ID!]
 }
@@ -33191,7 +33191,7 @@ Triggers the following webhook events:
 - ACCOUNT_CONFIRMATION_REQUESTED (async): An user confirmation was requested. This event is always sent regardless of settings.
 """
 type AccountRegister @doc(category: "Users") @webhookEventsInfo(asyncEvents: [CUSTOMER_CREATED, NOTIFY_USER, ACCOUNT_CONFIRMATION_REQUESTED], syncEvents: []) {
-  user: User @deprecated(reason: "The field always returns a `User` object constructed from the input data. The `user.id` is always empty. To determine whether the user exists in Saleor, query via an external app with the required permissions.")
+  user: User @deprecated(reason: "The field always returns a `User` object constructed from the input data. The `user.id` is always empty. To determine whether the user exists in FSCommerce, query via an external app with the required permissions.")
 
   """Informs whether users need to confirm their email address."""
   requiresConfirmation: Boolean
@@ -33430,14 +33430,14 @@ input UserCreateInput @doc(category: "Users") {
   """
   ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   customerType: ID
 
   """
   List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   attributes: [AttributeValueInput!]
 
@@ -33515,14 +33515,14 @@ input CustomerInput @doc(category: "Users") {
   """
   ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   customerType: ID
 
   """
   List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   attributes: [AttributeValueInput!]
 }
@@ -33597,7 +33597,7 @@ type CustomerBulkUpdateError @doc(category: "Users") {
   """
   List of attributes IDs which causes the error.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   attributes: [ID!]
 }
@@ -33627,7 +33627,7 @@ input CustomerBulkUpdateInput @doc(category: "Users") {
 """
 Creates a new customer type.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
 
@@ -33678,7 +33678,7 @@ input CustomerTypeCreateInput @doc(category: "Users") {
 """
 Updates a customer type.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
 
@@ -33730,7 +33730,7 @@ input CustomerTypeUpdateInput @doc(category: "Users") {
 """
 Deletes a customer type. Users of the deleted customer type are reassigned to the default customer type.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
 
@@ -33765,7 +33765,7 @@ enum CustomerTypeDeleteErrorCode @doc(category: "Users") {
 """
 Assign attributes to a given customer type.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
 
@@ -33804,7 +33804,7 @@ enum CustomerTypeAssignAttributesErrorCode @doc(category: "Users") {
 """
 Unassign attributes from a given customer type. Values already assigned to users are kept in the database, but are hidden until the attribute is assigned to the user's customer type again.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
 
@@ -33839,7 +33839,7 @@ enum CustomerTypeUnassignAttributesErrorCode @doc(category: "Users") {
 """
 Reorder the attributes of a customer type.
 
-Added in Saleor 3.23. 
+Added in FSCommerce 3.23. 
 
 Requires one of the following permissions: MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES.
 
@@ -33908,7 +33908,7 @@ type StaffError @doc(category: "Users") {
   """
   List of attributes IDs which causes the error.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   attributes: [ID!]
 
@@ -34447,7 +34447,7 @@ type Subscription @doc(category: "Miscellaneous") {
   """
   Event sent when product variant discounted price is recalculated.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -34463,7 +34463,7 @@ type Subscription @doc(category: "Miscellaneous") {
   
   Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -34479,7 +34479,7 @@ type Subscription @doc(category: "Miscellaneous") {
   
   Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -34495,7 +34495,7 @@ type Subscription @doc(category: "Miscellaneous") {
   
   Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -34511,7 +34511,7 @@ type Subscription @doc(category: "Miscellaneous") {
   
   Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
@@ -34527,7 +34527,7 @@ interface Event {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34544,7 +34544,7 @@ type DraftOrderCreated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34562,7 +34562,7 @@ type DraftOrderUpdated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34580,7 +34580,7 @@ type DraftOrderDeleted implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34598,7 +34598,7 @@ type OrderCreated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34616,7 +34616,7 @@ type OrderUpdated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34634,7 +34634,7 @@ type OrderConfirmed implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34652,7 +34652,7 @@ type OrderPaid implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34670,7 +34670,7 @@ type OrderFullyPaid implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34690,7 +34690,7 @@ type OrderRefunded implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34708,7 +34708,7 @@ type OrderFullyRefunded implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34726,7 +34726,7 @@ type OrderFulfilled implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34744,7 +34744,7 @@ type OrderCancelled implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34762,7 +34762,7 @@ type OrderExpired implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34780,7 +34780,7 @@ type OrderMetadataUpdated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34798,7 +34798,7 @@ type OrderBulkCreated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34816,7 +34816,7 @@ type CheckoutCreated implements Event @doc(category: "Checkout") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34834,7 +34834,7 @@ type CheckoutUpdated implements Event @doc(category: "Checkout") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34856,7 +34856,7 @@ type CheckoutFullyPaid implements Event @doc(category: "Checkout") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34878,7 +34878,7 @@ type CheckoutFullyAuthorized implements Event @doc(category: "Checkout") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34896,7 +34896,7 @@ type CheckoutMetadataUpdated implements Event @doc(category: "Checkout") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34912,13 +34912,13 @@ type CheckoutMetadataUpdated implements Event @doc(category: "Checkout") {
 """
 Event sent when product variant discounted price is recalculated.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type ProductVariantDiscountedPriceUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34945,13 +34945,13 @@ Event sent when a product variant becomes out of stock across all non click-and-
 
 Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type ProductVariantOutOfStockInChannel implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34972,13 +34972,13 @@ Event sent when a product variant becomes available again across non click-and-c
 
 Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type ProductVariantBackInStockInChannel implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -34999,13 +34999,13 @@ Event sent when a product variant becomes out of stock across all click-and-coll
 
 Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type ProductVariantOutOfStockForClickAndCollect implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35026,13 +35026,13 @@ Event sent when a product variant becomes available again across click-and-colle
 
 Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type ProductVariantBackInStockForClickAndCollect implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35093,7 +35093,7 @@ type AccountConfirmationRequested implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35123,7 +35123,7 @@ type AccountChangeEmailRequested implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35156,7 +35156,7 @@ type AccountEmailChanged implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35189,7 +35189,7 @@ type AccountSetPasswordRequested implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35219,7 +35219,7 @@ type AccountConfirmed implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35249,7 +35249,7 @@ type AccountDeleteRequested implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35279,7 +35279,7 @@ type AccountDeleted implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35309,7 +35309,7 @@ type AddressCreated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35327,7 +35327,7 @@ type AddressUpdated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35345,7 +35345,7 @@ type AddressDeleted implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35363,7 +35363,7 @@ type AppInstalled implements Event @doc(category: "Apps") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35381,7 +35381,7 @@ type AppUpdated implements Event @doc(category: "Apps") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35399,7 +35399,7 @@ type AppDeleted implements Event @doc(category: "Apps") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35417,7 +35417,7 @@ type AppStatusChanged implements Event @doc(category: "Apps") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35435,7 +35435,7 @@ type AttributeCreated implements Event @doc(category: "Attributes") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35453,7 +35453,7 @@ type AttributeUpdated implements Event @doc(category: "Attributes") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35471,7 +35471,7 @@ type AttributeDeleted implements Event @doc(category: "Attributes") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35489,7 +35489,7 @@ type AttributeValueCreated implements Event @doc(category: "Attributes") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35507,7 +35507,7 @@ type AttributeValueUpdated implements Event @doc(category: "Attributes") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35525,7 +35525,7 @@ type AttributeValueDeleted implements Event @doc(category: "Attributes") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35543,7 +35543,7 @@ type CategoryCreated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35561,7 +35561,7 @@ type CategoryUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35579,7 +35579,7 @@ type CategoryDeleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35597,7 +35597,7 @@ type ChannelCreated implements Event @doc(category: "Channels") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35615,7 +35615,7 @@ type ChannelUpdated implements Event @doc(category: "Channels") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35633,7 +35633,7 @@ type ChannelDeleted implements Event @doc(category: "Channels") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35651,7 +35651,7 @@ type ChannelStatusChanged implements Event @doc(category: "Channels") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35669,7 +35669,7 @@ type ChannelMetadataUpdated implements Event @doc(category: "Channels") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35687,7 +35687,7 @@ type GiftCardCreated implements Event @doc(category: "Gift cards") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35705,7 +35705,7 @@ type GiftCardUpdated implements Event @doc(category: "Gift cards") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35723,7 +35723,7 @@ type GiftCardDeleted implements Event @doc(category: "Gift cards") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35741,7 +35741,7 @@ type GiftCardSent implements Event @doc(category: "Gift cards") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35765,7 +35765,7 @@ type GiftCardStatusChanged implements Event @doc(category: "Gift cards") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35783,7 +35783,7 @@ type GiftCardMetadataUpdated implements Event @doc(category: "Gift cards") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35801,7 +35801,7 @@ type MenuCreated implements Event @doc(category: "Menu") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35822,7 +35822,7 @@ type MenuUpdated implements Event @doc(category: "Menu") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35843,7 +35843,7 @@ type MenuDeleted implements Event @doc(category: "Menu") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35864,7 +35864,7 @@ type MenuItemCreated implements Event @doc(category: "Menu") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35885,7 +35885,7 @@ type MenuItemUpdated implements Event @doc(category: "Menu") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35906,7 +35906,7 @@ type MenuItemDeleted implements Event @doc(category: "Menu") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35927,7 +35927,7 @@ type ProductCreated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35951,7 +35951,7 @@ type ProductUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35975,7 +35975,7 @@ type ProductDeleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -35999,7 +35999,7 @@ type ProductMetadataUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36027,7 +36027,7 @@ type ProductExportCompleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36043,13 +36043,13 @@ type ProductExportCompleted implements Event @doc(category: "Products") {
 """
 Event sent when new product type is created.
 
-Added in Saleor 3.24.
+Added in FSCommerce 3.24.
 """
 type ProductTypeCreated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36065,13 +36065,13 @@ type ProductTypeCreated implements Event @doc(category: "Products") {
 """
 Event sent when product type is updated.
 
-Added in Saleor 3.24.
+Added in FSCommerce 3.24.
 """
 type ProductTypeUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36087,13 +36087,13 @@ type ProductTypeUpdated implements Event @doc(category: "Products") {
 """
 Event sent when product type is deleted.
 
-Added in Saleor 3.24.
+Added in FSCommerce 3.24.
 """
 type ProductTypeDeleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36111,7 +36111,7 @@ type ProductMediaCreated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36129,7 +36129,7 @@ type ProductMediaUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36147,7 +36147,7 @@ type ProductMediaDeleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36165,7 +36165,7 @@ type ProductVariantCreated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36186,7 +36186,7 @@ type ProductVariantUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36207,7 +36207,7 @@ type ProductVariantOutOfStock implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36231,7 +36231,7 @@ type ProductVariantBackInStock implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36255,7 +36255,7 @@ type ProductVariantStockUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36279,7 +36279,7 @@ type ProductVariantDeleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36300,7 +36300,7 @@ type ProductVariantMetadataUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36325,7 +36325,7 @@ type SaleCreated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36350,7 +36350,7 @@ type SaleUpdated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36375,7 +36375,7 @@ type SaleDeleted implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36400,7 +36400,7 @@ type SaleToggle implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36421,7 +36421,7 @@ type PromotionCreated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36439,7 +36439,7 @@ type PromotionUpdated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36457,7 +36457,7 @@ type PromotionDeleted implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36475,7 +36475,7 @@ type PromotionStarted implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36493,7 +36493,7 @@ type PromotionEnded implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36511,7 +36511,7 @@ type PromotionRuleCreated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36529,7 +36529,7 @@ type PromotionRuleUpdated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36547,7 +36547,7 @@ type PromotionRuleDeleted implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36565,7 +36565,7 @@ type InvoiceRequested implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36586,7 +36586,7 @@ type InvoiceDeleted implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36607,7 +36607,7 @@ type InvoiceSent implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36628,7 +36628,7 @@ type FulfillmentCreated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36652,7 +36652,7 @@ type FulfillmentTrackingNumberUpdated implements Event @doc(category: "Orders") 
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36673,7 +36673,7 @@ type FulfillmentCanceled implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36694,7 +36694,7 @@ type FulfillmentApproved implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36718,7 +36718,7 @@ type FulfillmentMetadataUpdated implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36739,7 +36739,7 @@ type CustomerCreated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36757,7 +36757,7 @@ type CustomerUpdated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36773,13 +36773,13 @@ type CustomerUpdated implements Event @doc(category: "Users") {
 """
 Event sent when customer user is deleted.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type CustomerDeleted implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36797,7 +36797,7 @@ type CustomerMetadataUpdated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36813,13 +36813,13 @@ type CustomerMetadataUpdated implements Event @doc(category: "Users") {
 """
 Event sent when new customer type is created.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type CustomerTypeCreated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36835,13 +36835,13 @@ type CustomerTypeCreated implements Event @doc(category: "Users") {
 """
 Event sent when customer type is updated.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type CustomerTypeUpdated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36857,13 +36857,13 @@ type CustomerTypeUpdated implements Event @doc(category: "Users") {
 """
 Event sent when customer type is deleted.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type CustomerTypeDeleted implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36881,7 +36881,7 @@ type CollectionCreated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36902,7 +36902,7 @@ type CollectionUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36923,7 +36923,7 @@ type CollectionDeleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36944,7 +36944,7 @@ type CollectionMetadataUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36965,7 +36965,7 @@ type PageCreated implements Event @doc(category: "Pages") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -36983,7 +36983,7 @@ type PageUpdated implements Event @doc(category: "Pages") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37001,7 +37001,7 @@ type PageDeleted implements Event @doc(category: "Pages") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37019,7 +37019,7 @@ type PageTypeCreated implements Event @doc(category: "Pages") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37037,7 +37037,7 @@ type PageTypeUpdated implements Event @doc(category: "Pages") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37055,7 +37055,7 @@ type PageTypeDeleted implements Event @doc(category: "Pages") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37073,7 +37073,7 @@ type PermissionGroupCreated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37091,7 +37091,7 @@ type PermissionGroupUpdated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37109,7 +37109,7 @@ type PermissionGroupDeleted implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37127,7 +37127,7 @@ type ShippingPriceCreated implements Event @doc(category: "Shipping") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37154,7 +37154,7 @@ type ShippingPriceUpdated implements Event @doc(category: "Shipping") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37181,7 +37181,7 @@ type ShippingPriceDeleted implements Event @doc(category: "Shipping") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37208,7 +37208,7 @@ type ShippingZoneCreated implements Event @doc(category: "Shipping") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37229,7 +37229,7 @@ type ShippingZoneUpdated implements Event @doc(category: "Shipping") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37250,7 +37250,7 @@ type ShippingZoneDeleted implements Event @doc(category: "Shipping") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37271,7 +37271,7 @@ type ShippingZoneMetadataUpdated implements Event @doc(category: "Shipping") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37292,7 +37292,7 @@ type ShopMetadataUpdated implements Event {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37310,7 +37310,7 @@ type StaffCreated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37328,7 +37328,7 @@ type StaffUpdated implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37346,7 +37346,7 @@ type StaffDeleted implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37364,7 +37364,7 @@ type StaffSetPasswordRequested implements Event @doc(category: "Users") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37394,7 +37394,7 @@ type TransactionItemMetadataUpdated implements Event @doc(category: "Payments") 
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37412,7 +37412,7 @@ type TranslationCreated implements Event @doc(category: "Miscellaneous") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37432,7 +37432,7 @@ type TranslationUpdated implements Event @doc(category: "Miscellaneous") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37450,7 +37450,7 @@ type VoucherCreated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37471,7 +37471,7 @@ type VoucherUpdated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37492,7 +37492,7 @@ type VoucherDeleted implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37513,7 +37513,7 @@ type VoucherCodesCreated implements Event {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37531,7 +37531,7 @@ type VoucherCodesDeleted implements Event {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37549,7 +37549,7 @@ type VoucherMetadataUpdated implements Event @doc(category: "Discounts") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37570,7 +37570,7 @@ type WarehouseCreated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37588,7 +37588,7 @@ type WarehouseUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37606,7 +37606,7 @@ type WarehouseDeleted implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37624,7 +37624,7 @@ type WarehouseMetadataUpdated implements Event @doc(category: "Products") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37642,7 +37642,7 @@ type ThumbnailCreated implements Event @doc(category: "Miscellaneous") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37673,7 +37673,7 @@ type PaymentAuthorize implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37695,7 +37695,7 @@ type PaymentCaptureEvent implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37717,7 +37717,7 @@ type PaymentRefundEvent implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37739,7 +37739,7 @@ type PaymentVoidEvent implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37761,7 +37761,7 @@ type PaymentConfirmEvent implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37783,7 +37783,7 @@ type PaymentProcessEvent implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37805,7 +37805,7 @@ type PaymentListGateways implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37823,7 +37823,7 @@ type TransactionCancelationRequested implements Event @doc(category: "Payments")
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37855,7 +37855,7 @@ type TransactionChargeRequested implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37876,7 +37876,7 @@ type TransactionRefundRequested implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37904,7 +37904,7 @@ type OrderFilterShippingMethods implements Event @doc(category: "Orders") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37925,7 +37925,7 @@ type CheckoutFilterShippingMethods implements Event @doc(category: "Checkout") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37946,7 +37946,7 @@ type ShippingListMethodsForCheckout implements Event @doc(category: "Checkout") 
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -37967,7 +37967,7 @@ type CalculateTaxes implements Event @doc(category: "Taxes") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38064,7 +38064,7 @@ type PaymentGatewayInitializeSession implements Event @doc(category: "Payments")
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38090,7 +38090,7 @@ type TransactionInitializeSession implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38112,7 +38112,7 @@ type TransactionInitializeSession implements Event @doc(category: "Payments") {
   merchantReference: String!
 
   """
-  The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own.
+  The customer's IP address. If not provided as a parameter in the mutation, FSCommerce will try to determine the customer's IP address on its own.
   """
   customerIpAddress: String
 
@@ -38137,7 +38137,7 @@ type TransactionProcessSession implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38159,7 +38159,7 @@ type TransactionProcessSession implements Event @doc(category: "Payments") {
   merchantReference: String!
 
   """
-  The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own.
+  The customer's IP address. If not provided as a parameter in the mutation, FSCommerce will try to determine the customer's IP address on its own.
   """
   customerIpAddress: String
 
@@ -38176,7 +38176,7 @@ type ListStoredPaymentMethods implements Event @doc(category: "Payments") {
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38199,7 +38199,7 @@ type StoredPaymentMethodDeleteRequested implements Event @doc(category: "Payment
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38229,7 +38229,7 @@ type PaymentGatewayInitializeTokenizationSession implements Event @doc(category:
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38253,7 +38253,7 @@ type PaymentMethodInitializeTokenizationSession implements Event @doc(category: 
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38280,7 +38280,7 @@ type PaymentMethodProcessTokenizationSession implements Event @doc(category: "Pa
   """Time of the event."""
   issuedAt: DateTime
 
-  """Saleor version that triggered the event."""
+  """FSCommerce version that triggered the event."""
   version: String
 
   """The user or application that triggered the event."""
@@ -38307,7 +38307,7 @@ type PaymentMethodProcessTokenizationSession implements Event @doc(category: "Pa
 """
 Represents a card payment method used for a transaction.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type CardPaymentMethodDetails implements PaymentMethodDetails {
   """Name of the payment method."""
@@ -38332,7 +38332,7 @@ type CardPaymentMethodDetails implements PaymentMethodDetails {
 """
 Represents a gift card payment method used for a transaction.
 
-Added in Saleor 3.23.
+Added in FSCommerce 3.23.
 """
 type GiftCardPaymentMethodDetails implements PaymentMethodDetails {
   """Name of the gift card."""
@@ -38341,29 +38341,29 @@ type GiftCardPaymentMethodDetails implements PaymentMethodDetails {
   """
   Brand of the gift card.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   brand: String
 
   """
   Last characters of the gift card code. Max 4 characters.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
   lastChars: String
 
   """
-  Indicates whether the gift card is a built-in Saleor gift card.
+  Indicates whether the gift card is a built-in FSCommerce gift card.
   
-  Added in Saleor 3.23.
+  Added in FSCommerce 3.23.
   """
-  isSaleorGiftcard: Boolean!
+  isFSCommerceGiftcard: Boolean!
 }
 
 """
 Represents a payment method used for a transaction.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type OtherPaymentMethodDetails implements PaymentMethodDetails {
   """Name of the payment method."""
@@ -38373,7 +38373,7 @@ type OtherPaymentMethodDetails implements PaymentMethodDetails {
 """
 Represents a numeric value of an attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedNumericAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38386,7 +38386,7 @@ type AssignedNumericAttribute implements AssignedAttribute @doc(category: "Attri
 """
 Represents text attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedTextAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38402,7 +38402,7 @@ type AssignedTextAttribute implements AssignedAttribute @doc(category: "Attribut
 """
 Represents plain text attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedPlainTextAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38418,7 +38418,7 @@ type AssignedPlainTextAttribute implements AssignedAttribute @doc(category: "Att
 """
 Represents file attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedFileAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38431,7 +38431,7 @@ type AssignedFileAttribute implements AssignedAttribute @doc(category: "Attribut
 """
 Represents a single choice attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSingleChoiceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38444,7 +38444,7 @@ type AssignedSingleChoiceAttribute implements AssignedAttribute @doc(category: "
 """
 Represents a single choice value of the attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedChoiceAttributeValue @doc(category: "Attributes") {
   """Name of a value displayed in the interface."""
@@ -38460,7 +38460,7 @@ type AssignedChoiceAttributeValue @doc(category: "Attributes") {
 """
 Represents a multi choice attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedMultiChoiceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38476,7 +38476,7 @@ type AssignedMultiChoiceAttribute implements AssignedAttribute @doc(category: "A
 """
 Represents a swatch attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSwatchAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38489,7 +38489,7 @@ type AssignedSwatchAttribute implements AssignedAttribute @doc(category: "Attrib
 """
 Represents a single swatch value.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSwatchAttributeValue @doc(category: "Attributes") {
   """Name of the selected swatch value."""
@@ -38507,7 +38507,7 @@ type AssignedSwatchAttributeValue @doc(category: "Attributes") {
   """
   Translation of the name.
   
-  Added in Saleor 3.22.
+  Added in FSCommerce 3.22.
   """
   translation(languageCode: LanguageCodeEnum!): String
 }
@@ -38515,7 +38515,7 @@ type AssignedSwatchAttributeValue @doc(category: "Attributes") {
 """
 Represents a boolean attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedBooleanAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38528,7 +38528,7 @@ type AssignedBooleanAttribute implements AssignedAttribute @doc(category: "Attri
 """
 Represents a date attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedDateAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38541,7 +38541,7 @@ type AssignedDateAttribute implements AssignedAttribute @doc(category: "Attribut
 """
 Represents a date time attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedDateTimeAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38554,7 +38554,7 @@ type AssignedDateTimeAttribute implements AssignedAttribute @doc(category: "Attr
 """
 Represents single page reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSinglePageReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38567,7 +38567,7 @@ type AssignedSinglePageReferenceAttribute implements AssignedAttribute @doc(cate
 """
 Represents single product reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSingleProductReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38580,7 +38580,7 @@ type AssignedSingleProductReferenceAttribute implements AssignedAttribute @doc(c
 """
 Represents single product variant reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSingleProductVariantReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38593,7 +38593,7 @@ type AssignedSingleProductVariantReferenceAttribute implements AssignedAttribute
 """
 Represents single category reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSingleCategoryReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38606,7 +38606,7 @@ type AssignedSingleCategoryReferenceAttribute implements AssignedAttribute @doc(
 """
 Represents single collection reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedSingleCollectionReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38619,7 +38619,7 @@ type AssignedSingleCollectionReferenceAttribute implements AssignedAttribute @do
 """
 Represents multi page reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedMultiPageReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38635,7 +38635,7 @@ type AssignedMultiPageReferenceAttribute implements AssignedAttribute @doc(categ
 """
 Represents multi product reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedMultiProductReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38651,7 +38651,7 @@ type AssignedMultiProductReferenceAttribute implements AssignedAttribute @doc(ca
 """
 Represents multi product variant reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedMultiProductVariantReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38669,7 +38669,7 @@ type AssignedMultiProductVariantReferenceAttribute implements AssignedAttribute 
 """
 Represents multi category reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedMultiCategoryReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""
@@ -38685,7 +38685,7 @@ type AssignedMultiCategoryReferenceAttribute implements AssignedAttribute @doc(c
 """
 Represents multi collection reference attribute.
 
-Added in Saleor 3.22.
+Added in FSCommerce 3.22.
 """
 type AssignedMultiCollectionReferenceAttribute implements AssignedAttribute @doc(category: "Attributes") {
   """Attribute assigned to an object."""

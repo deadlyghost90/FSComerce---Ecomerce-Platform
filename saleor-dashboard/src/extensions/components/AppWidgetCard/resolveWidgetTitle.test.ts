@@ -4,7 +4,7 @@ const extensionFixture = {
   label: "Product Insights",
   app: {
     id: "app-1",
-    name: "Saleor Pulse",
+    name: "FSCommerce Pulse",
     brand: null,
   },
 };
@@ -27,7 +27,7 @@ describe("resolveWidgetTitle", () => {
     const title = resolveWidgetTitle(extension, "App");
 
     // Assert
-    expect(title).toBe("Saleor Pulse");
+    expect(title).toBe("FSCommerce Pulse");
   });
 
   it("falls back to app name when extension label is whitespace", () => {
@@ -38,7 +38,7 @@ describe("resolveWidgetTitle", () => {
     const title = resolveWidgetTitle(extension, "App");
 
     // Assert
-    expect(title).toBe("Saleor Pulse");
+    expect(title).toBe("FSCommerce Pulse");
   });
 
   it("falls back to provided title when label and app name are missing", () => {

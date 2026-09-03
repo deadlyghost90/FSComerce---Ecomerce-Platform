@@ -9,7 +9,7 @@ describe("findInstalledAppByIdentifier", () => {
       id: "app-1",
       identifier: "saleor.pulse",
       manifestUrl: "https://pulse.saleor.app/api/manifest",
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
     },
     {
       id: "app-2",
@@ -42,7 +42,7 @@ describe("findAlreadyInstalledApp", () => {
       id: "app-1",
       identifier: "saleor.pulse",
       manifestUrl: "https://pulse.saleor.app/api/manifest",
-      name: "Saleor Pulse",
+      name: "FSCommerce Pulse",
     },
     {
       id: "app-2",
@@ -63,13 +63,13 @@ describe("findAlreadyInstalledApp", () => {
     expect(app?.id).toBe("app-1");
   });
 
-  it("resolves the app from Saleor's UNIQUE error message", () => {
+  it("resolves the app from FSCommerce's UNIQUE error message", () => {
     // Arrange & Act
     const app = findAlreadyInstalledApp(installedApps, {
       manifestUrl: "https://staging.pulse.saleor.app/api/manifest",
       uniqueError: {
         field: "identifier",
-        message: "App with the same identifier is already installed: Saleor Pulse",
+        message: "App with the same identifier is already installed: FSCommerce Pulse",
       },
     });
 

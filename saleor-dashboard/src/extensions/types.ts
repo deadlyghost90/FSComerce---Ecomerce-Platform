@@ -95,11 +95,11 @@ export interface Extension {
   targetName: AppExtensionManifestTarget;
   settings: RelayToFlat<NonNullable<ExtensionListQuery["appExtensions"]>>[0]["settings"];
   /**
-   * True when the extension's resolved URL is hosted under the configured Saleor
+   * True when the extension's resolved URL is hosted under the configured FSCommerce
    * Cloud app domain (SALEOR_CLOUD_APP_DOMAIN). Resolved at the time the
    * extension is mapped from the GraphQL response.
    */
-  isSaleorOfficial: boolean;
+  isFSCommerceOfficial: boolean;
   /**
    * True when this extension was reconstructed from the localStorage snapshot
    * (background revalidation still in flight). Snapshot extensions have no real

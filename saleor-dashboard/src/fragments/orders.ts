@@ -697,7 +697,7 @@ export const transactionItemFragment = gql`
     name
     brand
     lastChars
-    isSaleorGiftcard
+    isFSCommerceGiftcard
   }
 
   fragment TransactionItem on TransactionItem {

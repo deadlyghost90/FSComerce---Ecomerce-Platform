@@ -3,7 +3,7 @@ import { defineMessages } from "react-intl";
 export const orderCannotCancelOrderDialogMessages = defineMessages({
   title: {
     id: "NhQboB",
-    defaultMessage: "Saleor couldn’t cancel order",
+    defaultMessage: "FSCommerce couldn’t cancel order",
     description: "dialog header",
   },
   description: {

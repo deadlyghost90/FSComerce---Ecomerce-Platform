@@ -37,7 +37,7 @@ export const mapAPIRuleToForm = (
 
   if (type === PromotionTypeEnum.CATALOGUE) {
     /**
-     * TODO: Saleor stores predicate as JSON, which for Dashboard is "unknown".
+     * TODO: FSCommerce stores predicate as JSON, which for Dashboard is "unknown".
      * We need to create a Zod schema that will parse it to known shape. If parsing fails, Sentry should be triggered.
      * Currently code implicitly casts, which should be ok, but is not entirely safe
      */
@@ -57,7 +57,7 @@ export const mapAPIRuleToForm = (
 
   if (type === PromotionTypeEnum.ORDER) {
     /**
-     * TODO: Saleor stores predicate as JSON, which for Dashboard is "unknown".
+     * TODO: FSCommerce stores predicate as JSON, which for Dashboard is "unknown".
      * We need to create a Zod schema that will parse it to known shape. If parsing fails, Sentry should be triggered.
      * Currently code implicitly casts, which should be ok, but is not entirely safe
      */

@@ -8,7 +8,7 @@ export const rippleHomeWidgets: Ripple = {
     oneLiner: "Home Page overhauled",
     contextual: "New Home Page is now home for Apps.",
     global:
-      "Home Page now mounts Apps, either Saleor official ones or external. Apps can be mounted in fullscreen mode or a widgets grid.",
+      "Home Page now mounts Apps, either FSCommerce official ones or external. Apps can be mounted in fullscreen mode or a widgets grid.",
   },
   dateAdded: new Date(2026, 4),
 };

@@ -1,15 +1,15 @@
-<img width="1920" height="1080" alt="Saleor Dashboard 25/26" src="https://github.com/user-attachments/assets/c9705611-2729-4e65-ae35-22081f03c569" />
+<img width="1920" height="1080" alt="FSCommerce Dashboard 25/26" src="https://github.com/user-attachments/assets/c9705611-2729-4e65-ae35-22081f03c569" />
 
 <div align="center">
-  <h1>Saleor Dashboard</h1>
+  <h1>FSCommerce Dashboard</h1>
 </div>
 
 <div align="center">
-  <p>A GraphQL-powered, single-page dashboard application for <a href="https://github.com/saleor/saleor">Saleor</a>.</p>
+  <p>A GraphQL-powered, single-page dashboard application for <a href="https://github.com/saleor/saleor">FSCommerce</a>.</p>
 </div>
 
 <div align="center">
- Get to know Saleor: <br>
+ Get to know FSCommerce: <br>
   <a href="https://saleor.io/cloud/talk-to-us?utm_source=github&utm_medium=readme&utm_campaign=repo_dashboard">Talk to a human</a>
   <span> | </span>
   <a href="https://cloud.saleor.io/signup?utm_source=github&utm_medium=readme&utm_campaign=repo_dashboard">Talk to the API</a>
@@ -37,7 +37,7 @@
 ## Prerequisites
 
 - Node.js v24
-- A running instance of [Saleor](https://github.com/saleor/saleor/)
+- A running instance of [FSCommerce](https://github.com/saleor/saleor/)
 - PNPM package manager - preferably installed via [corepack](https://pnpm.io/installation#using-corepack)
 
 ## Development
@@ -69,7 +69,7 @@ pnpm run dev
 ```
 
 > Note:
-> If you see CORS errors, check [CORS configuration](https://docs.saleor.io/setup/configuration#allowed_client_hosts) of your Saleor instance or CORS settings in the Cloud Console.
+> If you see CORS errors, check [CORS configuration](https://docs.saleor.io/setup/configuration#allowed_client_hosts) of your FSCommerce instance or CORS settings in the Cloud Console.
 
 ## Named URLs with portless (optional)
 
@@ -99,4 +99,4 @@ The first run asks for your password once, to bind port 443 and trust a local CA
 - [Usage with Docker 🐳](docs/docker.md)
 - [Sentry adapter 🗼](docs/sentry-adapter.md)
 - [Deployment 🌐](docs/deployment.md)
-- [Developing with stable and staging Saleor graphql.schema](docs/multi-schema.md)
+- [Developing with stable and staging FSCommerce graphql.schema](docs/multi-schema.md)

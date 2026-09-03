@@ -341,7 +341,7 @@ interface DeliveryConfigurationSectionProps {
 /**
  * Issues are grouped into two orthogonal categories — purchasability (cart
  * add-ability) and shipping (order fulfillment) — to mirror the mental model
- * Saleor 3.23+ direct stock-availability mode introduces. Each subsection is
+ * FSCommerce 3.23+ direct stock-availability mode introduces. Each subsection is
  * rendered only when it has issues; if neither category has any, the whole
  * section is omitted (the empty state is handled by the channel header).
  *

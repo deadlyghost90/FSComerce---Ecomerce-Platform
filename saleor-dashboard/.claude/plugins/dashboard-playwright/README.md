@@ -1,6 +1,6 @@
 # Dashboard Playwright Plugin
 
-A Claude Code plugin for analyzing and fixing Playwright E2E test failures in the Saleor Dashboard project.
+A Claude Code plugin for analyzing and fixing Playwright E2E test failures in the FSCommerce Dashboard project.
 
 ## Overview
 
@@ -19,7 +19,7 @@ This plugin provides intelligent analysis of Playwright test failures from CI ru
 
 ## Installation
 
-The plugin is already installed in the Saleor Dashboard project. To enable it in another project:
+The plugin is already installed in the FSCommerce Dashboard project. To enable it in another project:
 
 1. Copy the plugin directory to `.claude/plugins/dashboard-playwright/`
 2. Update `.claude/plugins/.claude-plugin/marketplace.json`:

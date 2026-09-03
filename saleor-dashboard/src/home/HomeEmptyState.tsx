@@ -12,7 +12,7 @@ import styles from "./HomeEmptyState.module.css";
 const messages = defineMessages({
   eyebrow: {
     id: "7UOtno",
-    defaultMessage: "Saleor Pulse",
+    defaultMessage: "FSCommerce Pulse",
     description: "eyebrow label for Pulse homepage promotion",
   },
   headline: {
@@ -28,16 +28,16 @@ const messages = defineMessages({
   installCta: {
     id: "Fbkcn2",
     defaultMessage: "Install Pulse",
-    description: "CTA to install Saleor Pulse from homepage empty state",
+    description: "CTA to install FSCommerce Pulse from homepage empty state",
   },
   exploreCta: {
     id: "y9464e",
     defaultMessage: "Explore Pulse",
-    description: "CTA to learn about Saleor Pulse for open-source users",
+    description: "CTA to learn about FSCommerce Pulse for open-source users",
   },
   videoLabel: {
     id: "3zQ8xn",
-    defaultMessage: "Preview of Saleor Pulse analytics",
+    defaultMessage: "Preview of FSCommerce Pulse analytics",
     description: "accessible label for Pulse promo video",
   },
   createOwnHomepage: {
