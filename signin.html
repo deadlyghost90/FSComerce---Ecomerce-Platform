@@ -4,24 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="icon" type="image/png" href="icon.png" />
-    <title>Sign In | FSCommerce by Fatah Shaheen OS</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='8' fill='%2300ff88'/><text x='20' y='28' font-size='20' font-weight='bold' text-anchor='middle' fill='%23050505'>FS</text></svg>" />
+    <title>Sign In | FSCommerce by ShadowMotion</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Tailwind & Alpine.js -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -29,15 +25,22 @@
                 50: '#e3f6ea',
                 100: '#c9ebd5',
                 300: '#6bc27e',
-                500: '#118B50', // Pakistan Green Core
-                600: '#0d7040',
+                500: '#00ff88',
+                600: '#00cc6a',
                 800: '#084729',
                 900: '#063922',
                 950: '#032013'
+              },
+              dark: {
+                100: '#0a0a0a',
+                200: '#111111',
+                300: '#1a1a1a',
+                400: '#222222',
+                500: '#2a2a2a'
               }
             },
             fontFamily: {
-              outfit: ['Outfit', 'sans-serif'],
+              inter: ['Inter', 'sans-serif'],
             }
           }
         }
@@ -45,27 +48,19 @@
     </script>
     <style>
       ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #118B50; border-radius: 4px; }
+      ::-webkit-scrollbar-track { background: #0a0a0a; }
+      ::-webkit-scrollbar-thumb { background: #00ff88; border-radius: 4px; }
     </style>
   </head>
-  <body
-    x-data="{ loaded: true, darkMode: false }"
-    x-init="
-         darkMode = JSON.parse(localStorage.getItem('darkMode'));
-         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
-    :class="{'dark bg-gray-900': darkMode === true}"
-    class="font-outfit antialiased text-gray-800 transition-colors duration-300 selection:bg-brand-500 selection:text-white"
-  >
+  <body class="font-inter antialiased text-gray-300 bg-dark-100 transition-colors duration-300 selection:bg-brand-500 selection:text-black">
 
-    <div class="flex h-screen w-full overflow-hidden bg-white dark:bg-gray-900">
+    <div class="flex h-screen w-full overflow-hidden bg-dark-100">
       
-      <!-- ================= LEFT SIDE: LOGIN FORM ================= -->
-      <div class="flex flex-col flex-1 w-full lg:w-1/2 overflow-y-auto relative z-10 shadow-[20px_0_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-none border-r border-gray-100 dark:border-gray-800">
+      <!-- LEFT: LOGIN FORM -->
+      <div class="flex flex-col flex-1 w-full lg:w-1/2 overflow-y-auto relative z-10 shadow-[20px_0_40px_-15px_rgba(0,0,0,0.3)] border-r border-white/5">
         
-        <!-- Back Button -->
         <div class="w-full max-w-md pt-10 mx-auto px-6 lg:px-0" data-aos="fade-down" data-aos-duration="800">
-          <a href="index.html" class="inline-flex items-center gap-2 text-sm font-bold text-gray-400 transition-colors hover:text-brand-600 dark:text-gray-500 dark:hover:text-brand-400 group">
+          <a href="index.html" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-brand-500 group">
             <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             Back to Home
           </a>
@@ -73,18 +68,16 @@
         
         <div class="flex flex-col justify-center flex-1 w-full max-w-md mx-auto px-6 lg:px-0 py-10" data-aos="fade-right" data-aos-duration="1000">
           
-          <!-- Heading -->
           <div class="mb-8">
-            <h1 class="mb-2 text-4xl font-black text-gray-900 dark:text-white tracking-tight">
-              Welcome Back
+            <h1 class="mb-2 text-4xl font-black text-white tracking-tight">
+              Welcome <span class="text-brand-500">Back</span>
             </h1>
-            <p class="text-gray-500 font-medium dark:text-gray-400">
-              Enter your credentials to access your FSCommerce Admin Dashboard.
+            <p class="text-gray-500">
+              Access your FSCommerce Admin Dashboard.
             </p>
           </div>
           
-          <!-- 🌐 Google Auth Button (Connected to index.js) -->
-          <button id="googleAuthBtn" type="button" class="w-full flex items-center justify-center gap-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-brand-500 dark:hover:border-brand-500 text-gray-700 dark:text-white font-bold py-3.5 px-4 rounded-xl transition-all shadow-sm mb-6 group">
+          <button id="googleAuthBtn" type="button" class="w-full flex items-center justify-center gap-3 bg-dark-300 border border-white/10 hover:border-brand-500/50 text-white font-medium py-3.5 px-4 rounded-xl transition-all shadow-sm mb-6 group">
             <svg class="w-5 h-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -94,158 +87,119 @@
             Sign in with Google
           </button>
 
-          <!-- Divider -->
           <div class="relative py-4 mb-4">
             <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+              <div class="w-full border-t border-white/10"></div>
             </div>
             <div class="relative flex justify-center">
-              <span class="px-4 text-xs font-bold tracking-wider text-gray-400 uppercase bg-white dark:bg-gray-900">Or sign in with email</span>
+              <span class="px-4 text-xs font-medium tracking-wider text-gray-500 uppercase bg-dark-100">Or sign in with email</span>
             </div>
           </div>
 
-          <!-- 📝 Email Login Form -->
           <form id="loginForm">
             <div class="space-y-5">
               
-              <!-- Email -->
               <div>
-                <label class="mb-1.5 block text-xs font-bold text-gray-500 uppercase tracking-wide dark:text-gray-400">
+                <label class="mb-1.5 block text-xs font-medium text-gray-400 uppercase tracking-wide">
                   Email Address
                 </label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
                   </div>
                   <input type="email" id="loginEmail" required placeholder="admin@store.com"
-                    class="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all dark:text-white"
+                    class="w-full pl-11 pr-4 py-3 bg-dark-300 border border-white/10 rounded-xl focus:bg-dark-400 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all text-white"
                   />
                 </div>
               </div>
               
-              <!-- Password -->
               <div>
-                <label class="mb-1.5 block text-xs font-bold text-gray-500 uppercase tracking-wide dark:text-gray-400">
+                <label class="mb-1.5 block text-xs font-medium text-gray-400 uppercase tracking-wide">
                   Password
                 </label>
                 <div x-data="{ showPassword: false }" class="relative">
                   <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                   </div>
                   <input :type="showPassword ? 'text' : 'password'" id="loginPassword" required placeholder="••••••••"
-                    class="w-full pl-11 pr-12 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all dark:text-white"
+                    class="w-full pl-11 pr-12 py-3 bg-dark-300 border border-white/10 rounded-xl focus:bg-dark-400 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all text-white"
                   />
-                  <!-- Eye Icon (Alpine.js Toggle) -->
-                  <span @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer text-gray-400 hover:text-brand-500 transition-colors">
+                  <span @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer text-gray-500 hover:text-brand-500 transition-colors">
                     <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                    <svg x-show="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
                   </span>
                 </div>
               </div>
               
-              <!-- Checkbox & Forgot Password -->
               <div class="flex items-center justify-between mt-2">
-                <div x-data="{ checkboxToggle: true }">
-                  <label class="flex items-center text-sm font-medium text-gray-700 cursor-pointer dark:text-gray-300">
-                    <input type="checkbox" class="sr-only" @change="checkboxToggle = !checkboxToggle" checked />
-                    <div :class="checkboxToggle ? 'bg-brand-500 border-brand-500' : 'bg-transparent border-gray-300 dark:border-gray-600'" class="mr-2 flex h-5 w-5 items-center justify-center rounded border transition-colors">
-                      <span :class="checkboxToggle ? 'opacity-100' : 'opacity-0'" class="transition-opacity">
-                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M11.6666 3.5L5.24992 9.91667L2.33325 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                    </div>
-                    Keep me signed in
-                  </label>
-                </div>
-                <a href="reset-password.html" class="text-sm font-bold text-brand-600 hover:text-brand-700 dark:text-brand-400">Forgot password?</a>
+                <label class="flex items-center text-sm font-medium text-gray-400 cursor-pointer">
+                  <input type="checkbox" checked class="mr-2 h-4 w-4 rounded border-gray-600 bg-dark-300 text-brand-500 focus:ring-brand-500" />
+                  Keep me signed in
+                </label>
+                <a href="reset-password.html" class="text-sm font-medium text-brand-500 hover:text-brand-400">Forgot password?</a>
               </div>
 
-              <!-- Error Message Placeholder -->
               <p id="loginErrorMsg" class="text-red-500 text-sm hidden font-medium text-center"></p>
 
-              <!-- Submit Button -->
               <div class="pt-2">
-                <button id="signInBtn" type="submit" class="flex items-center justify-center gap-2 w-full px-4 py-4 text-base font-bold text-white transition-all rounded-xl bg-brand-500 shadow-lg shadow-brand-500/30 hover:bg-brand-600 hover:-translate-y-1 group">
+                <button id="signInBtn" type="submit" class="flex items-center justify-center gap-2 w-full px-4 py-4 text-base font-bold text-black transition-all rounded-xl bg-brand-500 shadow-lg shadow-brand-500/20 hover:bg-brand-600 hover:-translate-y-1 group">
                   <span id="signInBtnText">Access Dashboard</span>
                   <svg id="signInBtnIcon" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                  <!-- Loader SVG -->
-                  <svg id="signInBtnLoader" class="animate-spin hidden w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                  <svg id="signInBtnLoader" class="animate-spin hidden w-5 h-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                 </button>
               </div>
             </div>
           </form>
           
-          <!-- Bottom Link -->
           <div class="mt-8 text-center">
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Don't have an account yet?
-              <a href="signup.html" class="text-brand-600 hover:text-brand-700 font-bold dark:text-brand-400 ml-1 underline decoration-brand-500/30 underline-offset-4">Create a Store</a>
+            <p class="text-sm text-gray-500">
+              Don't have an account?
+              <a href="signup.html" class="text-brand-500 hover:text-brand-400 font-medium ml-1">Create a Store</a>
             </p>
           </div>
         </div>
       </div>
 
-      <!-- ================= RIGHT SIDE: HIGH-QUALITY IMAGE & BRANDING ================= -->
-      <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-brand-900" data-aos="fade-left" data-aos-duration="1200">
+      <!-- RIGHT: IMAGE & BRANDING -->
+      <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-dark-200" data-aos="fade-left" data-aos-duration="1200">
         
-        <!-- Premium Analytics/Dashboard Image -->
         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
              alt="Data Analytics and E-commerce" 
-             class="absolute inset-0 w-full h-full object-cover opacity-70 mix-blend-overlay" />
+             class="absolute inset-0 w-full h-full object-cover opacity-30" />
              
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-900/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 via-dark-100/70 to-transparent"></div>
 
-        <!-- Glassmorphism Branding Card -->
         <div class="relative z-10 flex flex-col justify-end p-16 w-full h-full pb-20">
-          <div class="bg-white/10 backdrop-blur-md border border-white/10 p-10 rounded-[2rem] shadow-2xl transform hover:-translate-y-2 transition-transform duration-500">
+          <div class="bg-dark-300/80 backdrop-blur-md border border-white/10 p-10 rounded-[2rem] shadow-2xl transform hover:-translate-y-2 transition-transform duration-500">
             
             <div class="flex items-center gap-4 mb-6">
-              <!-- FS SVG Icon -->
-              <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                <svg class="w-8 h-8 text-brand-600" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="w-14 h-14 bg-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/30">
+                <svg class="w-8 h-8 text-black" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10 10H30V15H15V20H25V25H15V30H10V10Z" fill="currentColor"/>
                 </svg>
               </div>
               <div>
                 <h2 class="text-3xl font-black text-white leading-none tracking-tight">Admin Console</h2>
-                <p class="text-brand-300 font-bold tracking-widest uppercase text-xs mt-1">FSCommerce OS</p>
+                <p class="text-brand-500 font-medium tracking-widest uppercase text-xs mt-1">FSCommerce OS</p>
               </div>
             </div>
             
-            <p class="text-gray-200 text-lg leading-relaxed font-medium">
+            <p class="text-gray-400 text-lg leading-relaxed">
               Securely manage your inventory, process local orders, and analyze your growth. Powered by Pakistan's most advanced e-commerce infrastructure.
             </p>
             
-            <!-- Live Status Indicator -->
-            <div class="mt-8 pt-8 border-t border-white/20 inline-flex items-center gap-3">
+            <div class="mt-8 pt-8 border-t border-white/10 inline-flex items-center gap-3">
               <span class="relative flex h-3 w-3">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
               </span>
-              <span class="text-white font-bold text-sm tracking-wide">Secure Connection Established</span>
+              <span class="text-white text-sm font-medium tracking-wide">Secure Connection Established</span>
             </div>
 
           </div>
         </div>
       </div>
-
-      <!-- Theme Toggle Button (Floating) -->
-      <div class="fixed z-50 hidden bottom-6 right-6 sm:block">
-        <button
-          class="inline-flex items-center justify-center text-gray-500 dark:text-gray-400 transition-all rounded-full w-12 h-12 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:text-brand-500 dark:hover:text-brand-400 shadow-xl hover:scale-110"
-          @click.prevent="darkMode = !darkMode"
-          title="Toggle Dark Mode"
-        >
-          <!-- Moon Icon (for Light Mode) -->
-          <svg x-show="!darkMode" class="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-          <!-- Sun Icon (for Dark Mode) -->
-          <svg x-show="darkMode" class="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="display: none;"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
-        </button>
-      </div>
-
     </div>
 
-    <!-- AOS Animation Initialization -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -253,8 +207,6 @@
       });
     </script>
 
-    <!-- 🔥 FIREBASE CONNECTION -->
-    <!-- Make sure your index.js is set up to handle 'loginForm' -->
     <script type="module" src="index.js"></script>
     
   </body>
