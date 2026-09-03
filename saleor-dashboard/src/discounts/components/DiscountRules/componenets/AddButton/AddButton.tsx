@@ -1,0 +1,29 @@
+import { Button } from "@saleor/macaw-ui-next";
+import { Plus } from "lucide-react";
+import { useIntl } from "react-intl";
+
+import { useDiscountRulesContext } from "../../context/consumer";
+import { messages } from "../../messages";
+
+interface AddButtonProps {
+  onClick: () => void;
+}
+
+export const AddButton = ({ onClick }: AddButtonProps) => {
+  const intl = useIntl();
+  const { disabled = false } = useDiscountRulesContext();
+
+  return (
+    <Button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      variant="primary"
+      size="small"
+      data-test-id="add-rule"
+    >
+      <Plus />
+      {intl.formatMessage(messages.addRule)}
+    </Button>
+  );
+};

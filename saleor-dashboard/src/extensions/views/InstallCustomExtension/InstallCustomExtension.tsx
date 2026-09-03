@@ -1,0 +1,46 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import { type ExtensionInstallQueryParams, MANIFEST_ATTR } from "../../urls";
+import { InstallCustomExtensionFromForm } from "./components/InstallCustomExtensionFromForm/InstallCustomExtensionFromForm";
+import { InstallCustomExtensionFromUrl } from "./components/InstallCustomExtensionFromUrl/InstallCustomExtensionFromUrl";
+import { manifestFormSchema } from "./schema";
+import { type ExtensionInstallFormData } from "./types";
+
+export const InstallCustomExtension = ({ params }: { params: ExtensionInstallQueryParams }) => {
+  const manifestUrlFromQueryParams = params[MANIFEST_ATTR];
+
+  const { control, trigger, watch, handleSubmit, setError, clearErrors, getValues } =
+    useForm<ExtensionInstallFormData>({
+      resolver: zodResolver(manifestFormSchema),
+      values: {
+        manifestUrl: manifestUrlFromQueryParams || "",
+      },
+      mode: "onBlur",
+    });
+
+  return (
+    <>
+      {manifestUrlFromQueryParams ? (
+        <InstallCustomExtensionFromUrl
+          control={control}
+          trigger={trigger}
+          handleSubmit={handleSubmit}
+          setError={setError}
+          clearErrors={clearErrors}
+          getValues={getValues}
+          params={params}
+        />
+      ) : (
+        <InstallCustomExtensionFromForm
+          control={control}
+          handleSubmit={handleSubmit}
+          getValues={getValues}
+          setError={setError}
+          clearErrors={clearErrors}
+          watch={watch}
+        />
+      )}
+    </>
+  );
+};

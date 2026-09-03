@@ -1,0 +1,105 @@
+import { useLastLoginMethod } from "@dashboard/auth/hooks/useLastLoginMethod";
+import { TopNavDestinationIcon } from "@dashboard/components/AppLayout/TopNav/destinationIcons";
+import { topNavDestinationMessages } from "@dashboard/components/AppLayout/TopNav/destinationMessages";
+import Form from "@dashboard/components/Form/Form";
+import FormSpacer from "@dashboard/components/FormSpacer";
+import { getAppMountUri } from "@dashboard/config";
+import { type AccountErrorCode } from "@dashboard/graphql";
+import { type SubmitPromise } from "@dashboard/hooks/useForm";
+import { commonMessages } from "@dashboard/intl";
+import { Box, Button, Input, Paragraph, Text } from "@saleor/macaw-ui-next";
+import { FormattedMessage, useIntl } from "react-intl";
+
+import { ChangingPasswordWarning } from "../ChangingPasswordWarning";
+
+export interface ResetPasswordPageFormData {
+  email: string;
+}
+interface ResetPasswordPageProps {
+  disabled: boolean;
+  error: string;
+  onSubmit: (data: ResetPasswordPageFormData) => SubmitPromise<AccountErrorCode[]>;
+}
+
+const ResetPasswordPage = (props: ResetPasswordPageProps) => {
+  const { disabled, error, onSubmit } = props;
+  const intl = useIntl();
+  const { hasUserLoggedViaExternalMethod } = useLastLoginMethod();
+
+  return (
+    <Form initial={{ email: "" }} onSubmit={onSubmit}>
+      {({ change: handleChange, data, submit: handleSubmit }) => (
+        <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Button
+            as="a"
+            icon={<TopNavDestinationIcon.home />}
+            href={getAppMountUri()}
+            variant="secondary"
+            marginBottom={4}
+            title={intl.formatMessage(topNavDestinationMessages.home)}
+            aria-label={intl.formatMessage(topNavDestinationMessages.home)}
+          />
+
+          <Text size={6} fontWeight="bold" lineHeight={3} marginBottom={2}>
+            <FormattedMessage id="Yy/yDL" defaultMessage="Reset password" />
+          </Text>
+          {!!error && (
+            <Box
+              borderRadius={4}
+              padding={4}
+              backgroundColor="critical1"
+              width="100%"
+              marginBottom={2}
+            >
+              <Text>{error}</Text>
+            </Box>
+          )}
+          <Paragraph size={2} color="default2" fontWeight="bold">
+            <FormattedMessage
+              id="xnrSs5"
+              defaultMessage="Enter your email. If it matches an account, we’ll send you a reset link shortly."
+            />
+          </Paragraph>
+
+          {hasUserLoggedViaExternalMethod && (
+            <>
+              <FormSpacer />
+              <ChangingPasswordWarning />
+            </>
+          )}
+          <FormSpacer />
+          <Input
+            autoFocus
+            width="100%"
+            disabled={disabled}
+            autoComplete="username"
+            label={intl.formatMessage(commonMessages.email)}
+            name="email"
+            onChange={handleChange}
+            value={data.email}
+            data-test-id="email"
+            spellCheck={false}
+          />
+          <FormSpacer />
+          <Button
+            data-test-id="submit"
+            disabled={disabled}
+            variant="primary"
+            onClick={handleSubmit}
+            type="submit"
+            width="100%"
+          >
+            <FormattedMessage
+              id="lm9NSK"
+              defaultMessage="Send an email with reset link"
+              description="password reset, button"
+            />
+          </Button>
+        </Box>
+      )}
+    </Form>
+  );
+};
+
+ResetPasswordPage.displayName = "ResetPasswordPage";
+export default ResetPasswordPage;

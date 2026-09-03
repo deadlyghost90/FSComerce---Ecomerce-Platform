@@ -1,0 +1,23 @@
+.grid {
+  display: grid;
+  gap: var(--mu-spacing-6);
+  grid-template-columns: 1fr;
+}
+
+.gridSplit {
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+}
+
+.addressBlock {
+  position: relative;
+}
+
+.copyButton {
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.addressBlock:hover .copyButton,
+.addressBlock:focus-within .copyButton {
+  opacity: 1;
+}

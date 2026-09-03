@@ -1,0 +1,55 @@
+import { useClipboard } from "@dashboard/hooks/useClipboard";
+import { buttonMessages } from "@dashboard/intl";
+import { Box, Button, sprinkles, Text } from "@saleor/macaw-ui-next";
+import { CheckIcon, CopyIcon } from "lucide-react";
+import { type ReactNode, useState } from "react";
+import { useIntl } from "react-intl";
+
+interface CopyableTextProps {
+  text: string;
+  /** When set, render instead of the default text label (copy still uses `text`). */
+  children?: ReactNode;
+}
+
+export const CopyableText = ({ text, children }: CopyableTextProps): JSX.Element => {
+  const intl = useIntl();
+  const [copied, copy] = useClipboard();
+  const [showCopyButton, setShowCopyButton] = useState(false);
+  const iconClassName = sprinkles({ color: "default2" });
+
+  return (
+    <Box
+      display="flex"
+      alignItems="center"
+      gap={1}
+      onMouseEnter={() => setShowCopyButton(true)}
+      onMouseLeave={() => setShowCopyButton(false)}
+      onFocus={() => setShowCopyButton(true)}
+      onBlur={() => setShowCopyButton(false)}
+    >
+      {children ?? <Text size={2}>{text}</Text>}
+      <Box
+        style={{
+          opacity: showCopyButton ? 1 : 0,
+          transition: "opacity 0.15s ease-in-out",
+        }}
+        pointerEvents={showCopyButton ? "auto" : "none"}
+      >
+        <Button
+          variant="tertiary"
+          size="small"
+          icon={
+            copied ? (
+              <CheckIcon size={14} className={iconClassName} />
+            ) : (
+              <CopyIcon size={14} className={iconClassName} />
+            )
+          }
+          onClick={() => copy(text)}
+          title={intl.formatMessage(buttonMessages.copyToClipboard)}
+          aria-label={intl.formatMessage(buttonMessages.copyToClipboard)}
+        />
+      </Box>
+    </Box>
+  );
+};

@@ -1,0 +1,447 @@
+import { gql } from "@apollo/client";
+
+export const stockFragment = gql`
+  fragment Stock on Stock {
+    id
+    quantity
+    quantityAllocated
+    warehouse {
+      ...Warehouse
+    }
+  }
+`;
+
+export const fragmentMoney = gql`
+  fragment Money on Money {
+    amount
+    currency
+  }
+`;
+
+export const fragmentMoneyWithFractionDigits = gql`
+  fragment MoneyWithFractionDigits on Money {
+    amount
+    currency
+    fractionDigits
+  }
+`;
+
+export const priceRangeFragment = gql`
+  fragment PriceRange on TaxedMoneyRange {
+    start {
+      net {
+        ...Money
+      }
+    }
+    stop {
+      net {
+        ...Money
+      }
+    }
+  }
+`;
+
+export const fragmentProductMedia = gql`
+  fragment ProductMedia on ProductMedia {
+    id
+    alt
+    sortOrder
+    url(size: 1024)
+    type
+    oembedData
+  }
+`;
+
+export const channelListingProductWithoutPricingFragment = gql`
+  fragment ChannelListingProductWithoutPricing on ProductChannelListing {
+    id
+    isPublished
+    publishedAt
+    isAvailableForPurchase
+    availableForPurchaseAt
+    visibleInListings
+    channel {
+      id
+      name
+      slug
+      currencyCode
+      isActive
+    }
+  }
+`;
+
+export const channelListingProductVariantFragment = gql`
+  fragment ChannelListingProductVariant on ProductVariantChannelListing {
+    id
+    channel {
+      id
+      name
+      currencyCode
+    }
+    price {
+      ...Money
+    }
+    costPrice {
+      ...Money
+    }
+  }
+`;
+
+export const productFragment = gql`
+  fragment ProductWithChannelListings on Product {
+    id
+    name
+    thumbnail(size: 1024) {
+      url
+    }
+    productType {
+      id
+      name
+      hasVariants
+    }
+    category @include(if: $includeCategories) {
+      id
+      name
+    }
+    collections @include(if: $includeCollections) {
+      id
+      name
+    }
+    channelListings {
+      ...ChannelListingProductWithoutPricing
+      pricing @include(if: $hasChannel) {
+        priceRange {
+          ...PriceRange
+        }
+      }
+    }
+  }
+`;
+
+export const productVariantAttributesFragment = gql`
+  fragment ProductVariantAttributes on Product {
+    id
+    attributes {
+      attribute {
+        ...AttributeDetails
+      }
+      values {
+        ...AttributeValueDetails
+      }
+    }
+    productType {
+      id
+      variantAttributes {
+        ...VariantAttribute
+      }
+      selectionVariantAttributes: variantAttributes(variantSelection: VARIANT_SELECTION) {
+        ...VariantAttribute
+      }
+      nonSelectionVariantAttributes: variantAttributes(variantSelection: NOT_VARIANT_SELECTION) {
+        ...VariantAttribute
+      }
+    }
+    channelListings {
+      channel {
+        id
+        name
+        currencyCode
+      }
+    }
+  }
+`;
+
+export const productDetailsVariant = gql`
+  fragment ProductDetailsVariant on ProductVariant {
+    id
+    sku
+    name
+    attributes {
+      attribute {
+        id
+        name
+      }
+      values {
+        ...AttributeValueDetails
+      }
+    }
+    media {
+      url(size: 200)
+    }
+    stocks {
+      ...Stock
+    }
+    trackInventory
+    channelListings {
+      ...ChannelListingProductVariant
+    }
+    quantityLimitPerCustomer
+  }
+`;
+
+/** Slim variant row for the detail/create sibling navigator. */
+export const productVariantSibling = gql`
+  fragment ProductVariantSibling on ProductVariant {
+    id
+    name
+    sku
+    media {
+      id
+      url(size: 200)
+      type
+      oembedData
+    }
+  }
+`;
+
+/** Minimal variant shape for Generate Variants duplicate detection (all pages). */
+export const productVariantGeneratorExisting = gql`
+  fragment ProductVariantGeneratorExisting on ProductVariant {
+    id
+    sku
+    attributes {
+      attribute {
+        id
+      }
+      values {
+        id
+        slug
+      }
+    }
+  }
+`;
+
+export const productFragmentDetails = gql`
+  fragment Product on Product {
+    ...ProductVariantAttributes
+    ...Metadata
+    name
+    slug
+    description
+    seoTitle
+    seoDescription
+    rating
+    defaultVariant {
+      id
+      sku
+      trackInventory
+    }
+    category {
+      id
+      name
+    }
+    collections {
+      id
+      name
+    }
+    channelListings {
+      ...ChannelListingProductWithoutPricing
+    }
+    media {
+      ...ProductMedia
+    }
+    isAvailable
+    productType {
+      id
+      name
+      slug
+      hasVariants
+      isShippingRequired
+    }
+    weight {
+      ...Weight
+    }
+    taxClass {
+      id
+      name
+    }
+  }
+`;
+
+export const variantAttributeFragment = gql`
+  fragment VariantAttribute on Attribute {
+    id
+    name
+    slug
+    inputType
+    entityType
+    valueRequired
+    unit
+    referenceTypes {
+      ... on ProductType {
+        id
+        name
+      }
+      ... on PageType {
+        id
+        name
+      }
+    }
+    choices(first: $firstValues, after: $afterValues, last: $lastValues, before: $beforeValues) {
+      ...AttributeValueList
+    }
+  }
+`;
+
+export const selectedVariantAttributeFragment = gql`
+  fragment SelectedVariantAttribute on SelectedAttribute {
+    attribute {
+      ...VariantAttribute
+    }
+    values {
+      ...AttributeValueDetails
+    }
+  }
+`;
+
+export const fragmentVariant = gql`
+  fragment ProductVariant on ProductVariant {
+    id
+    ...Metadata
+    selectionAttributes: attributes(variantSelection: VARIANT_SELECTION) {
+      ...SelectedVariantAttribute
+    }
+    nonSelectionAttributes: attributes(variantSelection: NOT_VARIANT_SELECTION) {
+      ...SelectedVariantAttribute
+    }
+    media {
+      id
+      url
+      type
+      oembedData
+    }
+    name
+    product {
+      id
+      defaultVariant {
+        id
+      }
+      media {
+        ...ProductMedia
+      }
+      name
+      thumbnail {
+        url
+      }
+      productType {
+        id
+        name
+        hasVariants
+      }
+      channelListings {
+        id
+        publishedAt
+        isPublished
+        channel {
+          id
+          name
+          currencyCode
+          isActive
+        }
+      }
+    }
+    channelListings {
+      ...ChannelListingProductVariant
+    }
+    sku
+    stocks {
+      ...Stock
+    }
+    trackInventory
+    weight {
+      ...Weight
+    }
+    quantityLimitPerCustomer
+  }
+`;
+
+export const searchProduct = gql`
+  fragment SearchProduct on Product {
+    id
+    name
+    productType {
+      id
+      name
+    }
+    thumbnail {
+      url
+    }
+    # Product.channelListings needs MANAGE_PRODUCTS. Staff who only manage discounts use the
+    # assign pickers too, so gate it rather than making the whole search fail for them.
+    channelListings @include(if: $PERMISSION_MANAGE_PRODUCTS) {
+      ...ChannelListingProductWithoutPricing
+    }
+    collections {
+      id
+    }
+    category {
+      id
+    }
+  }
+`;
+
+/**
+ * Cap for variants embedded in SearchProducts when includeVariants is true.
+ * Keep in sync with SearchProducts `productVariants(first: …)` — codegen
+ * cannot interpolate this constant.
+ *
+ * Stay conservative: cost ≈ products.first × this × SearchProductVariant.
+ * Cloud rejects the query (HTTP 400) when this is too high (e.g. 50).
+ * Load-more uses ASSIGN_VARIANT_LOAD_MORE_PAGE_SIZE (single product).
+ */
+export const SEARCH_PRODUCT_VARIANTS_PAGE_SIZE = 20;
+
+/** Page size for AssignVariant Load more (one product — safe at 50). */
+export const ASSIGN_VARIANT_LOAD_MORE_PAGE_SIZE = 50;
+
+export const searchProductVariant = gql`
+  fragment SearchProductVariant on ProductVariant {
+    id
+    name
+    sku
+    product {
+      id
+      name
+      thumbnail {
+        url
+        __typename
+      }
+      productType {
+        id
+        name
+        __typename
+      }
+    }
+    channelListings {
+      channel {
+        id
+        isActive
+        name
+        currencyCode
+      }
+      price {
+        amount
+        currency
+      }
+    }
+  }
+`;
+
+export const exportFileFragment = gql`
+  fragment ExportFile on ExportFile {
+    id
+    status
+    url
+  }
+`;
+
+export const productListAttribute = gql`
+  fragment ProductListAttribute on SelectedAttribute {
+    attribute {
+      id
+    }
+    values {
+      ...AttributeValue
+    }
+  }
+`;

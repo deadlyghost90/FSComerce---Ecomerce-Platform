@@ -1,0 +1,43 @@
+import { VOUCHER_CODES_PAGINATE_BY } from "@dashboard/config";
+import useListSettings, { type UseListSettings } from "@dashboard/hooks/useListSettings";
+import useLocalPageInfo from "@dashboard/hooks/useLocalPageInfo";
+import { type LocalPagination } from "@dashboard/hooks/useLocalPaginator";
+import { ListViews } from "@dashboard/types";
+
+import { type VoucherCode } from "../../VoucherCodesDatagrid/types";
+
+interface UseVoucherCodesPagination {
+  pagination: LocalPagination;
+  paginatedCodes: VoucherCode[];
+  onSettingsChange: UseListSettings["updateListSettings"];
+  settings: UseListSettings["settings"];
+  resetPage: () => void;
+}
+
+export const useVoucherCodesPagination = (
+  voucherCodes: VoucherCode[],
+): UseVoucherCodesPagination => {
+  const { settings, updateListSettings } = useListSettings(ListViews.VOUCHER_CODES);
+  const pageSize = settings.rowNumber || VOUCHER_CODES_PAGINATE_BY;
+  const { loadNextPage, loadPreviousPage, pageInfo, pageValues, resetPage } = useLocalPageInfo(
+    voucherCodes,
+    pageSize,
+  );
+
+  return {
+    paginatedCodes: pageValues,
+    settings,
+    onSettingsChange: updateListSettings,
+    resetPage,
+    pagination: {
+      loadNextPage,
+      loadPreviousPage,
+      paginatorType: "click",
+      pageInfo: {
+        ...pageInfo,
+        endCursor: pageInfo.endCursor.toString(),
+        startCursor: pageInfo.startCursor.toString(),
+      },
+    },
+  };
+};

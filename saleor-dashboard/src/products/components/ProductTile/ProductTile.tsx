@@ -1,0 +1,91 @@
+// @ts-strict-ignore
+import { iconSize, iconStrokeWidthBySize } from "@dashboard/components/icons";
+import { StatusDot } from "@dashboard/components/StatusDot/StatusDot";
+import { type ProductListQuery } from "@dashboard/graphql";
+import { type RelayToFlat } from "@dashboard/types";
+import { Box, sprinkles, Text, vars } from "@saleor/macaw-ui-next";
+import { Image } from "lucide-react";
+
+import { getTileStatus } from "./utils";
+
+interface ProductTileProps {
+  product: RelayToFlat<ProductListQuery["products"]>[0];
+  onClick: () => void;
+}
+
+const commonThumbnailProps = {
+  marginBottom: 1.5,
+  borderRadius: 3,
+  aspectRatio: "1 / 1",
+} as const;
+
+export const ProductTile = ({ product, onClick }: ProductTileProps) => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    onClick={onClick}
+    cursor="pointer"
+    borderRadius={3}
+    position="relative"
+    data-test-id={`product-tile-${product.id}`}
+  >
+    {product.thumbnail ? (
+      <Box
+        {...commonThumbnailProps}
+        as="img"
+        alt={product.name}
+        objectFit="cover"
+        src={product.thumbnail.url}
+      />
+    ) : (
+      <Box
+        {...commonThumbnailProps}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        borderWidth={1}
+        borderStyle="solid"
+        borderColor="default1"
+        color="defaultDisabled"
+      >
+        <Image
+          size={iconSize.large}
+          strokeWidth={iconStrokeWidthBySize.large}
+          data-test-id={`placeholder-svg-${product.id}`}
+        />
+      </Box>
+    )}
+    <Box display="flex" alignItems="center">
+      <Box paddingRight={1}>
+        <StatusDot status={getTileStatus(product.channelListings)} />
+      </Box>
+      <Text
+        ellipsis
+        color="default2"
+        size={1}
+        alignItems="center"
+        className={sprinkles({ paddingY: 0.5 })}
+      >
+        {product.productType.name}
+      </Text>
+    </Box>
+    <Box display="flex" justifyContent="space-between" marginTop={0.5}>
+      <Text ellipsis color="default1" size={3} fontWeight="medium">
+        {product.name}
+      </Text>
+    </Box>
+    <Box
+      position={"absolute"}
+      margin="auto"
+      __right={`calc(${vars.spacing[5]} / -2)`}
+      __top={`calc(${vars.spacing[5]} / -2)`}
+      __width={`calc(100% + ${vars.spacing[5]})`}
+      __height={`calc(100% + ${vars.spacing[5]})`}
+      __opacity={0.1}
+      borderRadius={5}
+      backgroundColor={{
+        hover: "default1Hovered",
+      }}
+    ></Box>
+  </Box>
+);

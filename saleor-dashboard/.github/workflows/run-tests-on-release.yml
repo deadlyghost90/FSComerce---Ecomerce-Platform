@@ -1,0 +1,268 @@
+name: Run automation tests on release
+on:
+  workflow_call:
+    inputs:
+      VERSION:
+        type: string
+        required: true
+        description: Version of run eg. "3.19"
+      CUSTOM_VERSION:
+        type: string
+        required: true
+        description: Version of run eg. "3.19.4-5a41d18"
+      ADDITIONAL_TITLE:
+        type: string
+        required: false
+        default: "Dashboard Automation test run "
+
+    secrets:
+      STAGING_TOKEN:
+        required: true
+      E2E_USER_NAME:
+        required: true
+      E2E_USER_PASSWORD:
+        required: true
+      E2E_PERMISSIONS_USERS_PASSWORD:
+        required: true
+      MAILPITURL:
+        required: true
+      SLACK_QA_STATUSES_WEBHOOK_URL:
+        required: true
+
+    outputs:
+      TESTS_CONCLUSION:
+        value: ${{ jobs.tests-complete.outputs.TESTS_CONCLUSION }}
+        description: conclusion of tests
+      RUN_URL:
+        value: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        description: Url to job run
+      PR_COMMENT:
+        value: ${{ jobs.tests-complete.outputs.PR_COMMENT }}
+        description: Comment for release PR
+
+permissions: {}
+
+jobs:
+  add-check-and-prepare-instance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+
+    env:
+      VERSION: ${{inputs.VERSION}}
+      CUSTOM_VERSION: ${{inputs.CUSTOM_VERSION}}
+
+    outputs:
+      VERSION: ${{ env.VERSION }}
+      POOL_NAME: ${{ steps.pool_variables.outputs.POOL_NAME }}
+      POOL_INSTANCE: ${{ steps.pool_variables.outputs.POOL_INSTANCE }}
+      BASE_URL: ${{ steps.cloud_variables.outputs.BASE_URL }}
+      API_URL: ${{ steps.cloud_variables.outputs.API_URL }}
+      BACKUP_ID: ${{ steps.cloud_variables.outputs.BACKUP_ID }}
+      BACKUP_VER: ${{ steps.cloud_variables.outputs.BACKUP_VER }}
+      BACKUP_NAME: ${{ steps.cloud_variables.outputs.BACKUP_NAME }}
+      CHECK_ID: ${{ steps.create-check.outputs.CHECK_ID }}
+      IS_OLD_VERSION: ${{ steps.get-environment-variables.outputs.IS_OLD_VERSION }}
+      ACCOUNTS: ${{ steps.accounts.outputs.ACCOUNTS }}
+      SALEOR_CLOUD_SERVICE: ${{ steps.cloud_variables.outputs.SALEOR_CLOUD_SERVICE }}
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Create check if release PR exists
+        id: create-check
+        uses: ./.github/actions/checks/create-pull-request-check
+        with:
+          PR_HEAD: "changeset-release/${{env.VERSION}}"
+          CHECK_NAME: "Automation_tests_run"
+          STATUS: "in_progress"
+          TITLE: "Automation tests run"
+          DETAILS_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Load secrets for initialize-cloud
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0
+        id: load-secrets
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          STAGING_TOKEN: "op://Continuous Integration/CLOUD_STAGING_TOKEN/password"
+
+      - name: Generate variables
+        id: cloud_variables
+        uses: ./.github/actions/prepare-tests-variables
+        with:
+          CLI_TOKEN: ${{ steps.load-secrets.outputs.STAGING_TOKEN }}
+          MODE: "from-version"
+          VERSION: ${{ env.VERSION }}
+
+      - name: Prepare instances
+        id: pool_variables
+        uses: ./.github/actions/prepare-instance
+        with:
+          STRATEGY: reload
+          CLI_TOKEN: ${{ steps.load-secrets.outputs.STAGING_TOKEN }}
+          BASE_URL: ${{ steps.cloud_variables.outputs.BASE_URL }}
+          API_URL: ${{ steps.cloud_variables.outputs.API_URL }}
+          POOL_NAME: ${{ steps.cloud_variables.outputs.POOL_NAME }}
+          POOL_INSTANCE: ${{ steps.cloud_variables.outputs.POOL_INSTANCE }}
+          BACKUP_ID: ${{ steps.cloud_variables.outputs.BACKUP_ID }}
+          SALEOR_CLOUD_SERVICE: ${{ steps.cloud_variables.outputs.SALEOR_CLOUD_SERVICE }}
+
+      - name: Get environment variables
+        uses: ./.github/actions/get-env-vars
+        id: get-environment-variables
+        with:
+          version: ${{ env.CUSTOM_VERSION }}
+          token: ${{ secrets.CLOUD_ACCESS_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          project: ${{ env.PROJECT }}
+
+      - name: Prepare accounts
+        id: accounts
+        uses: ./.github/actions/prepare-accounts
+        with:
+          BASE_URL: ${{ steps.cloud_variables.outputs.BASE_URL }}
+          API_URL: ${{ steps.cloud_variables.outputs.API_URL }}
+          E2E_USER_NAME: ${{ secrets.E2E_USER_NAME }}
+          E2E_USER_PASSWORD: ${{ secrets.E2E_USER_PASSWORD }}
+          E2E_ENCODE_PASS: ${{ secrets.E2E_ENCODE_PASS }}
+          E2E_PERMISSIONS_USERS_PASSWORD: ${{ secrets.E2E_PERMISSIONS_USERS_PASSWORD }}
+
+  run-pw-tests:
+    runs-on: ubuntu-22.04
+    needs: "add-check-and-prepare-instance"
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1/2, 2/2]
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: refs/tags/${{ needs.add-check-and-prepare-instance.outputs.VERSION }}
+          fetch-tags: true
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Run playwright tests
+        uses: ./.github/actions/run-pw-tests
+        with:
+          SHARD: ${{ matrix.shard }}
+          BASE_URL: ${{ needs.add-check-and-prepare-instance.outputs.BASE_URL }}
+          API_URL: ${{ needs.add-check-and-prepare-instance.outputs.API_URL }}
+          E2E_USER_NAME: ${{ secrets.E2E_USER_NAME }}
+          E2E_USER_PASSWORD: ${{ secrets.E2E_USER_PASSWORD }}
+          E2E_PERMISSIONS_USERS_PASSWORD: ${{ secrets.E2E_PERMISSIONS_USERS_PASSWORD }}
+          E2E_ENCODE_PASS: ${{ secrets.E2E_ENCODE_PASS }}
+          ACCOUNTS: ${{ needs.add-check-and-prepare-instance.outputs.ACCOUNTS }}
+          MAILPITURL: ${{ secrets.MAILPITURL }}
+          URL_TO_RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PW_WORKERS: ${{ vars.PW_WORKERS }}
+          PW_RETRIES: ${{ vars.PW_RETRIES }}
+          PROJECT: "e2e apps-e2e app-smoke"
+          DASHBOARD_VERSION: ${{inputs.CUSTOM_VERSION}}
+          BRANCH_NAME: ${{ github.ref}}
+          SALEOR_CLOUD_SERVICE: ${{ needs.initialize-cloud.outputs.SALEOR_CLOUD_SERVICE }}
+          BUILD_NUMBER: ${{ github.run_id }}
+          BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  tests-complete:
+    if: ${{ !cancelled() && always() }}
+    needs: ["add-check-and-prepare-instance", "run-pw-tests"]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+
+    outputs:
+      TESTS_CONCLUSION: "${{ steps.send-slack-message.outputs.status }}"
+      PR_COMMENT: "${{ steps.send-slack-message.outputs.status }} - run details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Merge playwright reports
+        uses: ./.github/actions/merge-pw-reports
+        with:
+          PASSWORD_FOR_DECODING_ARTIFACT: ${{ secrets.TESTS_RESULT_PASSWORD }}
+
+      - id: update-check
+        if: ${{ always() && needs.add-check-and-prepare-instance.outputs.CHECK_ID }}
+        uses: ./.github/actions/checks/update-pull-request-check
+        with:
+          CHECK_ID: ${{ needs.add-check-and-prepare-instance.outputs.CHECK_ID }}
+          CHECK_NAME: "Automation_tests_run"
+          STATUS: "completed"
+          CONCLUSION: "${{ steps.send-slack-message.outputs.status }}"
+          TITLE: "Automation tests run"
+          SUMMARY: "${{ steps.send-slack-message.outputs.message }}. Run details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          DETAILS_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  update-check-status-if-previous-job-fails:
+    runs-on: ubuntu-latest
+    needs: [tests-complete, add-check-and-prepare-instance]
+
+    permissions:
+      contents: read
+
+    if: |
+      always() &&
+      (needs.tests-complete != 'success' && cancelled())
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Change job status if cancelled
+        if: cancelled()
+        uses: ./.github/actions/checks/update-pull-request-check
+        with:
+          CHECK_ID: ${{ needs.add-check-and-prepare-instance.outputs.CHECK_ID }}
+          CHECK_NAME: "Automation_tests_run"
+          STATUS: "cancelled"
+          TITLE: "Automation tests run"
+          DETAILS_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Change job status if previous job failed or skipped
+        if: needs.tests-complete != 'success' && !cancelled()
+        uses: ./.github/actions/checks/update-pull-request-check
+        with:
+          CHECK_ID: ${{ needs.add-check-and-prepare-instance.outputs.CHECK_ID }}
+          CHECK_NAME: "Automation_tests_run"
+          STATUS: "completed"
+          CONCLUSION: "failure"
+          TITLE: "Automation tests run"
+          SUMMARY: "Run failed"
+          DETAILS_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

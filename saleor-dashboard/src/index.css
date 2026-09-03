@@ -1,0 +1,185 @@
+@import "./components/Skeleton/skeleton.css";
+
+#portal {
+  position: fixed;
+  top: 0;
+}
+
+/*
+ * Kill UA link chrome. Color and decoration belong to Link / macaw, not the
+ * browser. :where() keeps this at zero specificity so sprinkle/module classes win.
+ * currentColor keeps any remaining underline on the text, not :link / :visited blue.
+ */
+:where(a, a:visited) {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-color: currentColor;
+}
+
+html {
+  /* set base font size to 13px */
+  font-size: 50.782% !important;
+}
+
+body {
+  color: var(--mu-colors-foreground-text-neutral-plain) !important;
+  overscroll-behavior-y: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+.animate-copy {
+  animation: pulse 0.2s;
+  transition: all 0.2s;
+}
+
+.remove-icon-background svg {
+  background: none !important;
+}
+
+.remove-content-padding-top .MuiCardContent-root {
+  padding-top: 0 !important;
+}
+
+[id*="ScrollableDialog"] .infinite-scroll-component {
+  overflow: hidden !important;
+}
+
+/* 
+  TODO: Remove it when macaw will handle media queries in custom properties
+  https://github.com/saleor/macaw-ui/issues/498
+*/
+@media screen and (max-width: 1024px) {
+  .mobile-full-height {
+    height: auto !important;
+  }
+}
+
+[data-portal-for="category-list"] > ul > li {
+  display: block;
+}
+
+[data-portal-for="category-list"] & li > span {
+  display: inline;
+}
+
+.noBorder {
+  border: none;
+}
+
+.conditional-metadata label {
+  border: none;
+}
+
+.scrollArea {
+  max-height: calc(100vh - 400px);
+}
+
+@media (min-height: 900px) {
+  .scrollArea {
+    max-height: 600px;
+  }
+}
+
+.simple-radio-group > *:first-child {
+  margin-top: 4px !important;
+}
+
+.multiline-toggle-wrapper > * > button {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.simple-radio-group > button {
+  min-width: 12px;
+}
+
+.sidebar-item-group-trigger {
+  button,
+  button:hover {
+    background-color: transparent;
+  }
+
+  button[data-state="open"] {
+    background-color: transparent !important;
+  }
+}
+
+a.command-menu-item {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+button.command-menu-item {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.command-menu-item:hover .command-menu-item-content,
+.command-menu-item[data-focus="true"] .command-menu-item-content {
+  background-color: var(--mu-colors-background-default1-hovered) !important;
+}
+
+.command-menu tr[data-focus="true"] {
+  background-color: var(--mu-colors-background-default1-hovered) !important;
+}
+
+/* Fix PaginationRowNumberSelect styling from old macaw-ui */
+.MuiSelect-select.MuiSelect-select {
+  padding: 4px 24px 4px 8px !important;
+  border-radius: 4px !important;
+  background-color: transparent !important;
+}
+
+.MuiSelect-select.MuiSelect-select:hover,
+.MuiSelect-select.MuiSelect-select:focus {
+  background-color: var(--mu-colors-background-default1-hovered) !important;
+}
+
+/* Ensure toast notifications appear above modals */
+#toast-portal {
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+#toast-portal > * {
+  pointer-events: auto;
+}
+
+/*
+ * Macaw button recipes can still apply hover/active styles to disabled buttons.
+ * Suppress pointer interaction so disabled CTAs keep their resting appearance.
+ * Loading buttons use aria-busy (not disabled) and ConfirmButton handles those.
+ */
+button:disabled {
+  pointer-events: none;
+}

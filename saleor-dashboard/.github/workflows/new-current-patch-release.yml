@@ -1,0 +1,96 @@
+name: New Current Patch Release
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  # Patching current stable version is basically merging commits from main to release branch
+  # Since we ensure main is compatible with 3.23, instead of cherry-picking and porting, we
+  # just branch from main to current stable and create a release candidate. On this branch we run tests
+  # and release changelogs and tags.
+  # This workflow is automating this and ensuring branch protection is omitted for authorized actor.
+  recreate-release-branch:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Get Token
+        id: get-token
+        uses: saleor/saleor-internal-actions/request-vault-token@6a0fa7c073b3857a11d414f25a149065fe5a0fcf # v1.4.0
+        with:
+          vault-url: ${{ secrets.VAULT_URL }}
+          vault-jwt: ${{ secrets.VAULT_JWT }}
+
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          token: ${{ steps.get-token.outputs.token }}
+          persist-credentials: true # We need to be able to perform 'git push'
+
+      - name: Configure Git
+        run: |
+          git config user.name "Saleor Deployments"
+
+      - name: Recreate current release branch
+        run: |
+          CURRENT_RELEASE='3.23'
+
+          echo "Recreating release branch: $CURRENT_RELEASE"
+
+          # Fetch all branches
+          git fetch origin
+
+          # Switch to main branch
+          git checkout main
+          git pull origin main
+
+          # Delete the old release branch locally if it exists
+          if git show-ref --verify --quiet refs/heads/$CURRENT_RELEASE; then
+            echo "Deleting local branch $CURRENT_RELEASE"
+            git branch -D "$CURRENT_RELEASE"
+          fi
+
+          # Delete the remote release branch if it exists
+          if git ls-remote --heads origin $CURRENT_RELEASE | grep -q $CURRENT_RELEASE; then
+            echo "Deleting remote branch $CURRENT_RELEASE"
+            git push origin --delete "refs/heads/$CURRENT_RELEASE"
+          fi
+
+          # Create new branch from main
+          echo "Creating new branch $CURRENT_RELEASE from main"
+          git checkout -b "$CURRENT_RELEASE"
+
+          # Push the new branch
+          echo "Pushing new branch $CURRENT_RELEASE to remote"
+          git push origin "refs/heads/$CURRENT_RELEASE:refs/heads/$CURRENT_RELEASE"
+
+          echo "✅ Successfully recreated release branch $CURRENT_RELEASE from main"
+
+  load-failure-secrets:
+    if: failure()
+    needs: recreate-release-branch
+    runs-on: ubuntu-22.04
+    outputs:
+      slack-webhook-url: ${{ steps.load-secrets.outputs.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Load secrets
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0
+        id: load-secrets
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          SLACK_WEBHOOK_URL: "op://Continuous Integration/DASHBOARD_BUILD_FAILURE_SLACK_WEBHOOK/password"
+
+  notify-failure:
+    if: failure()
+    needs: [recreate-release-branch, load-failure-secrets]
+    permissions: {}
+    uses: saleor/saleor-internal-actions/.github/workflows/notify-slack.yaml@eb0c692da7bf13f5e1a82c17488b24c514dd10a1 # v1.10.0
+    with:
+      custom_title: "🚨 Patch Release Branch Recreation Failed"
+      status: failure
+    secrets:
+      slack-webhook-url: ${{ needs.load-failure-secrets.outputs.slack-webhook-url }}
+      mention_group_id: ${{ secrets.SLACK_DASHBOARD_GROUP_ID }}

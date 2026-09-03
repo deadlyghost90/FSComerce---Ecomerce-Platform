@@ -1,0 +1,361 @@
+// @ts-strict-ignore
+import placeholderImg from "@assets/images/placeholder255x255.png";
+import {
+  getAttributesAfterFileAttributesUpdate,
+  mergeFileUploadErrors,
+} from "@dashboard/attributes/utils/data";
+import {
+  handleUploadMultipleFiles,
+  prepareAttributesInput,
+} from "@dashboard/attributes/utils/handlers";
+import { createVariantChannels } from "@dashboard/channels/utils";
+import { getReferenceTypeConstraints } from "@dashboard/components/AssignAttributeValueDialog/getReferenceTypeConstraints";
+import { getReferenceWhereConstraints } from "@dashboard/components/AssignAttributeValueDialog/mergeReferenceTypeWhereConstraints";
+import { type AttributeInput } from "@dashboard/components/Attributes/Attributes";
+import NotFoundPage from "@dashboard/components/NotFoundPage/NotFoundPage";
+import { WindowTitle } from "@dashboard/components/WindowTitle";
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@dashboard/config";
+import {
+  type ProductErrorWithAttributesFragment,
+  useFileUploadMutation,
+  useProductVariantDetailsQuery,
+  useProductVariantReorderMutation,
+  useVariantDeleteMutation,
+  useVariantMediaAssignMutation,
+  useVariantMediaUnassignMutation,
+  useVariantUpdateMutation,
+} from "@dashboard/graphql";
+import useNavigator from "@dashboard/hooks/useNavigator";
+import { useNotifier } from "@dashboard/hooks/useNotifier/useNotifier";
+import useOnSetDefaultVariant from "@dashboard/hooks/useOnSetDefaultVariant";
+import useShop from "@dashboard/hooks/useShop";
+import { weight } from "@dashboard/misc";
+import {
+  getAttributeInputFromVariant,
+  mapFormsetStockToStockInput,
+} from "@dashboard/products/utils/data";
+import { handleAssignMedia } from "@dashboard/products/utils/handlers";
+import {
+  useReferenceCategorySearch,
+  useReferenceCollectionSearch,
+  useReferencePageSearch,
+  useReferenceProductSearch,
+} from "@dashboard/searches/useReferenceSearch";
+import useWarehouseSearch from "@dashboard/searches/useWarehouseSearch";
+import useAttributeValueSearchHandler from "@dashboard/utils/handlers/attributeValueSearchHandler";
+import createDialogActionHandlers from "@dashboard/utils/handlers/dialogActionHandlers";
+import { mapEdgesToItems } from "@dashboard/utils/maps";
+import { warehouseAddPath } from "@dashboard/warehouses/urls";
+import { useEffect, useMemo, useState } from "react";
+import { useIntl } from "react-intl";
+
+import { useAssignAttributeValueDialogFilterChangeHandlers } from "../../../components/AssignAttributeValueDialog/useAssignAttributeValueDialogFilterChangeHandlers";
+import { ProductVariantDeleteDialog } from "../../components/ProductVariantDeleteDialog/ProductVariantDeleteDialog";
+import { ProductVariantMetadataDialog } from "../../components/ProductVariantMetadataDialog/ProductVariantMetadataDialog";
+import { type ProductVariantUpdateSubmitData } from "../../components/ProductVariantPage/form";
+import { ProductVariantPage } from "../../components/ProductVariantPage/ProductVariantPage";
+import {
+  productUrl,
+  productVariantEditUrl,
+  type ProductVariantEditUrlDialog,
+  type ProductVariantEditUrlQueryParams,
+} from "../../urls";
+import { createVariantReorderHandler } from "./../ProductUpdate/handlers";
+import { useSubmitChannels } from "./useSubmitChannels";
+
+interface ProductUpdateProps {
+  variantId: string;
+  params: ProductVariantEditUrlQueryParams;
+}
+
+const ProductVariant = ({ variantId, params }: ProductUpdateProps) => {
+  const shop = useShop();
+  const navigate = useNavigator();
+  const notify = useNotifier();
+  const intl = useIntl();
+  const [errors, setErrors] = useState<ProductErrorWithAttributesFragment[]>([]);
+
+  useEffect(() => {
+    setErrors([]);
+  }, [variantId]);
+
+  const { data, previousData, loading } = useProductVariantDetailsQuery({
+    // Avoid a full-page loader flash on every sibling click; the form already
+    // uses `loading` for disabled/skeleton state.
+    displayLoader: false,
+    variables: {
+      id: variantId,
+      firstValues: 10,
+    },
+  });
+  // Keep productId stable while the next variant details load (cache-and-network
+  // briefly clears `data` for uncached ids). Otherwise the siblings list skips
+  // and appears to remount on every click.
+  const productId = data?.productVariant?.product.id ?? previousData?.productVariant?.product.id;
+
+  const [openModal, closeModal] = createDialogActionHandlers<
+    ProductVariantEditUrlDialog,
+    ProductVariantEditUrlQueryParams
+  >(navigate, params => productVariantEditUrl(variantId, params), params);
+  const [uploadFile, uploadFileOpts] = useFileUploadMutation({});
+  const [assignMedia, assignMediaOpts] = useVariantMediaAssignMutation({});
+  const [unassignMedia, unassignMediaOpts] = useVariantMediaUnassignMutation({});
+  const [deleteVariant, deleteVariantOpts] = useVariantDeleteMutation({
+    onCompleted: () => {
+      notify({
+        status: "success",
+        text: intl.formatMessage({
+          id: "BUKMzM",
+          defaultMessage: "Variant removed",
+        }),
+      });
+      navigate(productUrl(productId));
+    },
+  });
+  const [updateVariant, updateVariantOpts] = useVariantUpdateMutation({
+    onCompleted: data => {
+      if (data.productVariantUpdate.errors.length === 0) {
+        notify({
+          status: "success",
+          text: intl.formatMessage({
+            id: "9uqfGj",
+            defaultMessage: "Variant updated",
+          }),
+        });
+      }
+
+      setErrors(data.productVariantUpdate.errors);
+    },
+  });
+  const { handleSubmitChannels, updateChannelsOpts } = useSubmitChannels();
+
+  const variant = data?.productVariant;
+  // Selection follows the URL immediately; pending until details for that id exist.
+  const selectionPending = data?.productVariant?.id !== variantId;
+  const channels = createVariantChannels(variant);
+
+  const {
+    loadMore: fetchMoreWarehouses,
+    result: searchWarehousesResult,
+    search: searchWarehouses,
+  } = useWarehouseSearch({
+    variables: {
+      first: 100,
+      channnelsId: [],
+      query: "",
+    },
+    skip: !channels.length,
+  });
+
+  const [reorderProductVariants, reorderProductVariantsOpts] = useProductVariantReorderMutation({});
+  const onSetDefaultVariant = useOnSetDefaultVariant(productId, variant);
+  const handleVariantReorder = createVariantReorderHandler(productId, reorderProductVariants);
+  const disableFormSave =
+    loading ||
+    uploadFileOpts.loading ||
+    deleteVariantOpts.loading ||
+    updateVariantOpts.loading ||
+    assignMediaOpts.loading ||
+    unassignMediaOpts.loading ||
+    reorderProductVariantsOpts.loading;
+  const handleUpdate = async (data: ProductVariantUpdateSubmitData) => {
+    const uploadFilesResult = await handleUploadMultipleFiles(
+      data.attributesWithNewFileValue,
+      variables => uploadFile({ variables }),
+    );
+    const updatedFileAttributes = getAttributesAfterFileAttributesUpdate(
+      data.attributesWithNewFileValue,
+      uploadFilesResult,
+    );
+    const assignMediaErrors = await handleAssignMedia(
+      data.media,
+      variant,
+      variables => assignMedia({ variables }),
+      variables => unassignMedia({ variables }),
+    );
+    const result = await updateVariant({
+      variables: {
+        addStocks: data.addStocks.map(mapFormsetStockToStockInput),
+        attributes: prepareAttributesInput({
+          attributes: data.attributes,
+          prevAttributes: getAttributeInputFromVariant(variant),
+          updatedFileAttributes,
+        }),
+        id: variantId,
+        removeStocks: data.removeStocks,
+        sku: data.sku,
+        quantityLimitPerCustomer: Number(data.quantityLimitPerCustomer) || null,
+        stocks: data.updateStocks.map(mapFormsetStockToStockInput),
+        trackInventory: data.trackInventory,
+        weight: weight(data.weight),
+        firstValues: 10,
+        name: data.variantName,
+      },
+    });
+    const channelErrors = await handleSubmitChannels(data, variant);
+
+    return [
+      ...mergeFileUploadErrors(uploadFilesResult),
+      ...(result.data?.productVariantStocksCreate.errors ?? []),
+      ...(result.data?.productVariantStocksDelete.errors ?? []),
+      ...(result.data?.productVariantStocksUpdate.errors ?? []),
+      ...(result.data?.productVariantUpdate.errors ?? []),
+      ...assignMediaErrors,
+      ...channelErrors,
+    ];
+  };
+  const handleSubmit = handleUpdate;
+  const handleAssignAttributeReferenceClick = (attribute: AttributeInput) =>
+    navigate(
+      productVariantEditUrl(variantId, {
+        ...params,
+        action: "assign-attribute-value",
+        id: attribute.id,
+      }),
+    );
+  const refAttr =
+    params.action === "assign-attribute-value" && params.id
+      ? variant?.nonSelectionAttributes?.find(a => a.attribute.id === params.id)?.attribute
+      : undefined;
+
+  // Extract productType and pageType constraints from reference attribute for modal filter
+  const initialConstraints = useMemo(
+    () => getReferenceTypeConstraints(refAttr?.referenceTypes),
+    [refAttr?.referenceTypes],
+  );
+  const {
+    loadMore: loadMoreProducts,
+    search: searchProducts,
+    result: searchProductsOpts,
+  } = useReferenceProductSearch(refAttr);
+
+  const {
+    loadMore: loadMorePages,
+    search: searchPages,
+    result: searchPagesOpts,
+  } = useReferencePageSearch(refAttr);
+  const {
+    loadMore: loadMoreCategories,
+    search: searchCategories,
+    result: searchCategoriesOpts,
+  } = useReferenceCategorySearch(refAttr);
+  const {
+    loadMore: loadMoreCollections,
+    search: searchCollections,
+    result: searchCollectionsOpts,
+  } = useReferenceCollectionSearch(refAttr);
+  const {
+    getChoices: getAttributeValues,
+    getFetchMore: getFetchMoreAttributeValues,
+    search: searchAttributeValues,
+    reset: searchAttributeReset,
+  } = useAttributeValueSearchHandler(DEFAULT_INITIAL_SEARCH_DATA);
+  const onFilterChange = useAssignAttributeValueDialogFilterChangeHandlers({
+    refetchProducts: searchProductsOpts.refetch,
+    refetchPages: searchPagesOpts.refetch,
+    refetchCategories: searchCategoriesOpts.refetch,
+    refetchCollections: searchCollectionsOpts.refetch,
+    referenceWhereConstraints: getReferenceWhereConstraints(initialConstraints),
+  });
+  const fetchMoreReferencePages = {
+    hasMore: searchPagesOpts.data?.search?.pageInfo?.hasNextPage,
+    loading: searchPagesOpts.loading,
+    onFetchMore: loadMorePages,
+  };
+  const fetchMoreReferenceProducts = {
+    hasMore: searchProductsOpts.data?.search?.pageInfo?.hasNextPage,
+    loading: searchProductsOpts.loading,
+    onFetchMore: loadMoreProducts,
+  };
+  const fetchMoreReferenceCategories = {
+    hasMore: searchCategoriesOpts.data?.search?.pageInfo?.hasNextPage,
+    loading: searchCategoriesOpts.loading,
+    onFetchMore: loadMoreCategories,
+  };
+  const fetchMoreReferenceCollections = {
+    hasMore: searchCollectionsOpts.data?.search?.pageInfo?.hasNextPage,
+    loading: searchCollectionsOpts.loading,
+    onFetchMore: loadMoreCollections,
+  };
+  const fetchMoreAttributeValues = getFetchMoreAttributeValues;
+  const attributeValues = getAttributeValues;
+
+  if (variant === null) {
+    return <NotFoundPage backHref={productUrl(productId)} />;
+  }
+
+  return (
+    <>
+      <WindowTitle title={data?.productVariant?.name} />
+      <ProductVariantPage
+        productId={productId}
+        defaultWeightUnit={shop?.defaultWeightUnit}
+        defaultVariantId={
+          data?.productVariant?.product.defaultVariant?.id ??
+          previousData?.productVariant?.product.defaultVariant?.id
+        }
+        errors={errors}
+        hasVariants={variant?.product?.productType?.hasVariants ?? true}
+        attributeValues={attributeValues}
+        channels={channels}
+        channelErrors={updateChannelsOpts?.data?.productVariantChannelListingUpdate?.errors || []}
+        onSetDefaultVariant={onSetDefaultVariant}
+        saveButtonBarState={updateVariantOpts.status}
+        loading={disableFormSave}
+        currentVariantId={variantId}
+        selectionPending={selectionPending}
+        placeholderImage={placeholderImg}
+        variant={variant}
+        header={variant?.name || variant?.sku}
+        onDelete={() => openModal("remove")}
+        onShowMetadata={() => openModal("view-metadata")}
+        onSubmit={handleSubmit}
+        fetchMoreWarehouses={fetchMoreWarehouses}
+        searchWarehousesResult={searchWarehousesResult}
+        searchWarehouses={searchWarehouses}
+        onWarehouseConfigure={() => navigate(warehouseAddPath)}
+        onVariantReorder={handleVariantReorder}
+        assignReferencesAttributeId={params.action === "assign-attribute-value" && params.id}
+        onAssignReferencesClick={handleAssignAttributeReferenceClick}
+        referencePages={mapEdgesToItems(searchPagesOpts?.data?.search) || []}
+        referenceProducts={mapEdgesToItems(searchProductsOpts?.data?.search) || []}
+        referenceCategories={mapEdgesToItems(searchCategoriesOpts?.data?.search) || []}
+        referenceCollections={mapEdgesToItems(searchCollectionsOpts?.data?.search) || []}
+        fetchReferencePages={searchPages}
+        fetchMoreReferencePages={fetchMoreReferencePages}
+        fetchReferenceProducts={searchProducts}
+        fetchMoreReferenceProducts={fetchMoreReferenceProducts}
+        fetchReferenceCategories={searchCategories}
+        fetchMoreReferenceCategories={fetchMoreReferenceCategories}
+        fetchReferenceCollections={searchCollections}
+        fetchMoreReferenceCollections={fetchMoreReferenceCollections}
+        fetchAttributeValues={searchAttributeValues}
+        fetchMoreAttributeValues={fetchMoreAttributeValues}
+        onCloseDialog={() => navigate(productVariantEditUrl(variantId))}
+        onAttributeSelectBlur={searchAttributeReset}
+        onFilterChange={onFilterChange}
+        initialConstraints={initialConstraints}
+      />
+      <ProductVariantMetadataDialog
+        open={params.action === "view-metadata" && !!variant}
+        onClose={closeModal}
+        variant={variant}
+      />
+      <ProductVariantDeleteDialog
+        confirmButtonState={deleteVariantOpts.status}
+        onClose={() => navigate(productVariantEditUrl(variantId))}
+        onConfirm={() =>
+          deleteVariant({
+            variables: {
+              id: variantId,
+            },
+          })
+        }
+        open={params.action === "remove"}
+        name={data?.productVariant?.name}
+      />
+    </>
+  );
+};
+
+export default ProductVariant;

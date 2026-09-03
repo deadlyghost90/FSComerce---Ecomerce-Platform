@@ -1,0 +1,11 @@
+import { ExportScope, FileTypesEnum } from "@dashboard/graphql";
+
+export interface ExportSettingsInput {
+  scope: ExportScope;
+  fileType: FileTypesEnum;
+}
+
+export const exportSettingsInitialFormData = {
+  fileType: FileTypesEnum.CSV,
+  scope: ExportScope.ALL,
+};

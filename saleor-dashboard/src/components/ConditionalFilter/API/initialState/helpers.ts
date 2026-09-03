@@ -1,0 +1,464 @@
+import { type ApolloQueryResult } from "@apollo/client";
+import {
+  type _GetChannelOperandsQuery,
+  type _GetLegacyChannelOperandsQuery,
+  type _SearchAttributeOperandsQuery,
+  type _SearchCategoriesOperandsQuery,
+  type _SearchCollectionsOperandsQuery,
+  type _SearchCustomersOperandsQuery,
+  type _SearchCustomerTypesOperandsQuery,
+  type _SearchPageTypesOperandsQuery,
+  type _SearchProductOperandsQuery,
+  type _SearchProductTypesOperandsQuery,
+  type _SearchWarehouseOperandsQuery,
+  type ChannelCurrenciesQuery,
+} from "@dashboard/graphql";
+
+import { createBooleanOptions } from "../../constants";
+import { type AttributeInputType } from "../../FilterElement/ConditionOptions";
+import { type ItemOption } from "../../FilterElement/ConditionValue";
+import {
+  createCustomerOptionsFromAPI,
+  createOptionsFromAPI,
+  createProductOptionsFromAPI,
+} from "../Handler";
+import { createAttributeChoiceOptionsFromAPI } from "../swatchAttributeOption";
+import { type InitialAttributesState } from "./attributes/InitialAttributesState";
+import { type InitialCollectionState } from "./collections/InitialCollectionState";
+import { type InitialCustomerState } from "./customers/InitialCustomerState";
+import { type InitialGiftCardsState } from "./giftCards/InitialGiftCardsState";
+import { type InitialOrderState } from "./orders/InitialOrderState";
+import { type InitialPageState } from "./page/InitialPageState";
+import { type AttributeDTO, type InitialProductState } from "./product/InitialProductStateResponse";
+import {
+  type InitialAttributesAPIResponse,
+  type InitialCollectionAPIResponse,
+  type InitialCustomerAPIResponse,
+  type InitialGiftCardsAPIResponse,
+  type InitialOrderAPIResponse,
+  type InitialPageAPIResponse,
+  type InitialProductAPIResponse,
+  type InitialVoucherAPIResponse,
+} from "./types";
+import { type InitialVouchersState } from "./vouchers/InitialVouchersState";
+
+// Helper function to convert ItemOption[] to AttributeDTO choices format
+const convertItemOptionsToAttributeChoices = (
+  itemOptions: ItemOption[],
+): AttributeDTO["choices"] => {
+  return itemOptions.map(option => {
+    const choice: any = {
+      label: option.label,
+      value: option.value,
+      slug: option.slug,
+    };
+
+    // Only include originalSlug if it exists and is not null
+    if (option.originalSlug != null) {
+      choice.originalSlug = option.originalSlug;
+    }
+
+    if (option.productName != null) {
+      choice.productName = option.productName;
+    }
+
+    if (option.variantName != null) {
+      choice.variantName = option.variantName;
+    }
+
+    if (option.productId != null) {
+      choice.productId = option.productId;
+    }
+
+    if (option.productThumbnailUrl != null) {
+      choice.productThumbnailUrl = option.productThumbnailUrl;
+    }
+
+    if (option.swatchColor != null) {
+      choice.swatchColor = option.swatchColor;
+    }
+
+    if (option.swatchFileUrl != null) {
+      choice.swatchFileUrl = option.swatchFileUrl;
+    }
+
+    return choice;
+  });
+};
+
+const isChannelQuery = (
+  query: InitialProductAPIResponse,
+): query is ApolloQueryResult<_GetChannelOperandsQuery> => "channels" in query.data;
+
+const isChannelsQuery = (
+  query: InitialOrderAPIResponse,
+): query is ApolloQueryResult<_GetLegacyChannelOperandsQuery> => "channels" in query.data;
+
+const isCollectionQuery = (
+  query: InitialProductAPIResponse,
+): query is ApolloQueryResult<_SearchCollectionsOperandsQuery> => "collections" in query.data;
+
+const isCategoryQuery = (
+  query: InitialProductAPIResponse,
+): query is ApolloQueryResult<_SearchCategoriesOperandsQuery> => "categories" in query.data;
+
+const isProductTypeQuery = (
+  query: InitialProductAPIResponse,
+): query is ApolloQueryResult<_SearchProductTypesOperandsQuery> => "productTypes" in query.data;
+
+const isAttributeQuery = (
+  query: ApolloQueryResult<unknown>,
+): query is ApolloQueryResult<_SearchAttributeOperandsQuery> =>
+  !!query.data &&
+  typeof query.data === "object" &&
+  query.data !== null &&
+  "attributes" in query.data;
+
+export const createAttributeMapFromQuery = (
+  query: ApolloQueryResult<_SearchAttributeOperandsQuery>,
+  existing: Record<string, AttributeDTO> = {},
+): Record<string, AttributeDTO> =>
+  query.data?.attributes?.edges.reduce((accAttr, { node }) => {
+    if (!node.slug || !node.inputType) return accAttr;
+
+    const attributeChoices =
+      node.inputType === "BOOLEAN"
+        ? convertItemOptionsToAttributeChoices(createBooleanOptions())
+        : convertItemOptionsToAttributeChoices(
+            createAttributeChoiceOptionsFromAPI(node.choices?.edges ?? [], node.inputType),
+          );
+
+    return {
+      ...accAttr,
+      [node.slug]: {
+        choices: attributeChoices,
+        slug: node.slug,
+        value: node.id,
+        label: node.name ?? "",
+        inputType: node.inputType as AttributeInputType,
+        entityType: node.entityType ?? undefined,
+      },
+    };
+  }, existing) ?? existing;
+
+const isPageTypesQuery = (
+  query: InitialPageAPIResponse,
+): query is ApolloQueryResult<_SearchPageTypesOperandsQuery> => "pageTypes" in query.data;
+
+const isCustomerTypesQuery = (
+  query: InitialCustomerAPIResponse,
+): query is ApolloQueryResult<_SearchCustomerTypesOperandsQuery> => "customerTypes" in query.data;
+
+const isCustomerQuery = (
+  query: InitialGiftCardsAPIResponse,
+): query is ApolloQueryResult<_SearchCustomersOperandsQuery> => "customers" in query.data;
+
+const isProductQuery = (
+  query: InitialGiftCardsAPIResponse,
+): query is ApolloQueryResult<_SearchProductOperandsQuery> => "products" in query.data;
+
+const isCurrencyQuery = (
+  query: InitialGiftCardsAPIResponse,
+): query is ApolloQueryResult<ChannelCurrenciesQuery> => "shop" in query.data;
+
+const isWarehouseQuery = (
+  query: InitialOrderAPIResponse,
+): query is ApolloQueryResult<_SearchWarehouseOperandsQuery> => "warehouses" in query.data;
+
+export const createInitialProductStateFromData = (
+  data: InitialProductAPIResponse[],
+  channel: string[],
+): InitialProductState => {
+  return data.reduce<InitialProductState>(
+    (acc, query) => {
+      if (isChannelQuery(query)) {
+        // Coerce to an array: a bare string would use String.includes and keep both
+        // "default-channel" and "default-channel-copy" when the URL asks for the copy.
+        const channelSlugs = Array.isArray(channel) ? channel : [channel];
+
+        return {
+          ...acc,
+          channel: (query.data?.channels ?? [])
+            .filter(({ slug }) => channelSlugs.includes(slug))
+            .map(({ id, name, slug }) => ({ label: name, value: id, slug })),
+        };
+      }
+
+      if (isCollectionQuery(query)) {
+        return {
+          ...acc,
+          collection: createOptionsFromAPI(query.data?.collections?.edges ?? []),
+        };
+      }
+
+      if (isCategoryQuery(query)) {
+        return {
+          ...acc,
+          category: createOptionsFromAPI(query.data?.categories?.edges ?? []),
+        };
+      }
+
+      if (isProductTypeQuery(query)) {
+        return {
+          ...acc,
+          productType: createOptionsFromAPI(query.data?.productTypes?.edges ?? []),
+        };
+      }
+
+      if (isAttributeQuery(query)) {
+        return {
+          ...acc,
+          attribute: createAttributeMapFromQuery(query, acc.attribute || {}),
+        };
+      }
+
+      return acc;
+    },
+    {
+      channel: [],
+      collection: [],
+      category: [],
+      productType: [],
+      isAvailable: createBooleanOptions(),
+      isPublished: createBooleanOptions(),
+      isVisibleInListing: createBooleanOptions(),
+      hasCategory: createBooleanOptions(),
+      giftCard: createBooleanOptions(),
+      attribute: {},
+    },
+  );
+};
+
+export type ReferenceAttributeChoices = { slug: string; itemOptions: ItemOption[] };
+export const mergeInitialProductsStateReferenceAttributes = <
+  T extends { attribute: Record<string, AttributeDTO> },
+>(
+  initialState: T,
+  referenceChoices: ReferenceAttributeChoices[],
+): T => {
+  return referenceChoices.reduce((acc, { slug, itemOptions }) => {
+    if (acc.attribute[slug]) {
+      // Convert choices to ensure type compatibility
+      acc.attribute[slug].choices = convertItemOptionsToAttributeChoices(itemOptions);
+    }
+
+    return acc;
+  }, initialState);
+};
+
+export const createInitialOrderState = (data: InitialOrderAPIResponse[]) =>
+  data.reduce<InitialOrderState>(
+    (acc, query) => {
+      if (isChannelsQuery(query)) {
+        const channelOptions = (query.data?.channels ?? []).map(({ id, name, slug }) => ({
+          label: name,
+          value: id,
+          slug,
+        }));
+
+        return {
+          ...acc,
+          channelId: channelOptions,
+        };
+      }
+
+      if (isWarehouseQuery(query)) {
+        return {
+          ...acc,
+          fulfillmentWarehouse: createOptionsFromAPI(query.data?.warehouses?.edges ?? []),
+        };
+      }
+
+      return acc;
+    },
+    {
+      status: [],
+      fulfillmentStatus: [],
+      authorizeStatus: [],
+      chargeStatus: [],
+      isClickAndCollect: createBooleanOptions(),
+      isGiftCardBought: createBooleanOptions(),
+      isGiftCardUsed: createBooleanOptions(),
+      hasInvoices: createBooleanOptions(),
+      hasFulfillments: createBooleanOptions(),
+      createdAt: "",
+      updatedAt: "",
+      invoicesCreatedAt: "",
+      totalGross: "",
+      totalNet: "",
+      user: [],
+      channelId: [],
+      ids: [],
+      metadata: "",
+      number: [],
+      userEmail: [],
+      voucherCode: [],
+      linesCount: [],
+      checkoutId: [],
+      linesMetadata: "",
+      transactionsMetadata: "",
+      transactionsPaymentType: [],
+      transactionsCardBrand: [],
+      fulfillmentsMetadata: "",
+      billingPhoneNumber: [],
+      billingCountry: [],
+      shippingPhoneNumber: [],
+      shippingCountry: [],
+      fulfillmentWarehouse: [],
+    },
+  );
+
+export const createInitialVoucherState = (data: InitialVoucherAPIResponse[]) =>
+  data.reduce<InitialVouchersState>(
+    (acc, query) => {
+      if (isChannelsQuery(query)) {
+        return {
+          ...acc,
+          channels: (query.data?.channels ?? []).map(({ id, name, slug }) => ({
+            label: name,
+            value: id,
+            slug,
+          })),
+        };
+      }
+
+      return acc;
+    },
+    {
+      channels: [],
+      discountType: [],
+      voucherStatus: [],
+    },
+  );
+
+export const createInitialPageState = (data: InitialPageAPIResponse[]) =>
+  data.reduce<InitialPageState>(
+    (acc, query) => {
+      if (isPageTypesQuery(query)) {
+        return {
+          ...acc,
+          pageTypes: createOptionsFromAPI(query.data?.pageTypes?.edges ?? []),
+        };
+      }
+
+      return acc;
+    },
+    {
+      pageTypes: [],
+    },
+  );
+
+export const createInitialCustomerState = (data: InitialCustomerAPIResponse[]) =>
+  data.reduce<InitialCustomerState>(
+    (acc, query) => {
+      if (isCustomerTypesQuery(query)) {
+        return {
+          ...acc,
+          customerType: createOptionsFromAPI(query.data?.customerTypes?.edges ?? []),
+        };
+      }
+
+      return acc;
+    },
+    {
+      customerType: [],
+      attribute: {},
+    },
+  );
+
+export const createInitialGiftCardsState = (
+  data: InitialGiftCardsAPIResponse[],
+  tags: string[],
+  code: string[],
+): InitialGiftCardsState => {
+  return data.reduce(
+    (acc, query) => {
+      if (isCustomerQuery(query)) {
+        return {
+          ...acc,
+          usedBy: createCustomerOptionsFromAPI(query.data?.customers?.edges ?? []),
+        };
+      }
+
+      if (isProductQuery(query)) {
+        return {
+          ...acc,
+          products: createProductOptionsFromAPI(query.data?.products?.edges ?? []),
+        };
+      }
+
+      if (isCurrencyQuery(query)) {
+        return {
+          ...acc,
+          currency: query.data.shop.channelCurrencies.map(currency => ({
+            label: currency,
+            value: currency,
+            slug: currency,
+          })),
+        };
+      }
+
+      return acc;
+    },
+    {
+      currency: [],
+      isActive: createBooleanOptions(),
+      products: [],
+      tags: tags?.map(tag => ({ label: tag, value: tag, slug: tag })) ?? [],
+      usedBy: [],
+      code: code?.map(c => ({ label: c, value: c, slug: c })) ?? [],
+    } as InitialGiftCardsState,
+  );
+};
+
+export const createInitialCollectionState = (
+  data: InitialCollectionAPIResponse[],
+  channel: string[],
+) =>
+  data.reduce<InitialCollectionState>(
+    (acc, query) => {
+      if (isChannelQuery(query)) {
+        const channelSlugs = Array.isArray(channel) ? channel : [channel];
+
+        return {
+          ...acc,
+          channel: (query.data?.channels ?? [])
+            .filter(({ slug }) => channelSlugs.includes(slug))
+            .map(({ id, name, slug }) => ({ label: name, value: id, slug })),
+        };
+      }
+
+      return acc;
+    },
+    {
+      channel: [],
+      published: createBooleanOptions(),
+      metadata: [],
+    },
+  );
+
+export const createInitialAttributeState = (data: InitialAttributesAPIResponse[]) =>
+  data.reduce<InitialAttributesState>(
+    (acc, query) => {
+      if (isChannelsQuery(query)) {
+        return {
+          ...acc,
+          channels: (query.data?.channels ?? []).map(({ id, name, slug }) => ({
+            label: name,
+            value: id,
+            slug,
+          })),
+        };
+      }
+
+      return acc;
+    },
+    {
+      channels: [],
+      attributeTypes: [],
+      filterableInStorefront: createBooleanOptions(),
+      isVariantOnly: createBooleanOptions(),
+      valueRequired: createBooleanOptions(),
+      visibleInStorefront: createBooleanOptions(),
+    },
+  );

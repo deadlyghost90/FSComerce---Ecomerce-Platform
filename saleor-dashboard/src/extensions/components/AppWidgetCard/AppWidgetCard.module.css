@@ -1,0 +1,36 @@
+.headerWrapper {
+  display: inline-flex;
+  width: fit-content;
+}
+
+.headerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: fit-content;
+  text-decoration: none;
+  color: inherit;
+}
+
+.label {
+  min-width: 0;
+  color: var(--mu-colors-text-default2);
+  transition: color 0.15s ease-in-out;
+}
+
+.headerLink:hover .label,
+.headerLink:focus-visible .label {
+  color: var(--mu-colors-text-default1);
+}
+
+/* Header actions stay out of the way until the card is hovered/focused. */
+.card .headerActions {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.card:hover .headerActions,
+.card:focus-within .headerActions {
+  opacity: 1;
+}

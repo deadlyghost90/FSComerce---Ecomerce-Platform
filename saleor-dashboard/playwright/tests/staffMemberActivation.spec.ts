@@ -1,0 +1,50 @@
+import { BasicApiService } from "@api/basics";
+import { USERS } from "@data/e2eTestData";
+import { StaffMembersPage } from "@pages/staffMembersPage";
+import { expect } from "@playwright/test";
+import { test } from "utils/testWithPermission";
+
+test.use({ permissionName: "admin" });
+
+test.describe.configure({ mode: "serial" });
+
+let staffMembersPage: StaffMembersPage;
+let basicApiService: BasicApiService;
+
+test.beforeEach(async ({ page, request }) => {
+  staffMembersPage = new StaffMembersPage(page, request);
+  basicApiService = new BasicApiService(request);
+});
+
+test("TC: SALEOR_137 Admin User should be able to deactivate other user #e2e #staff-members", async () => {
+  await staffMembersPage.goToStaffDetailsPage(USERS.userToBeDeactivated.id);
+  await expect(staffMembersPage.staffStatusButton).toHaveText("Deactivate");
+  await staffMembersPage.clickStaffStatusButton();
+  await staffMembersPage.confirmStaffStatusDialog();
+  await staffMembersPage.basePage.expectSuccessBanner();
+  await expect(staffMembersPage.staffStatusButton).toHaveText("Activate");
+  await expect(staffMembersPage.staffMemberStatus).toContainText("Not active");
+
+  const loginViaApiDeactivatedUserResponse = await basicApiService.logInUserViaApi({
+    email: USERS.userToBeDeactivated.email,
+    password: process.env.E2E_PERMISSIONS_USERS_PASSWORD!,
+  });
+
+  expect(loginViaApiDeactivatedUserResponse.data.tokenCreate.errors[0].code).toEqual("INACTIVE");
+});
+test("TC: SALEOR_38 Admin User should be able to activate other user #e2e #staff-members", async () => {
+  await staffMembersPage.goToStaffDetailsPage(USERS.userToBeActivated.id);
+  await expect(staffMembersPage.staffStatusButton).toHaveText("Activate");
+  await staffMembersPage.clickStaffStatusButton();
+  await staffMembersPage.confirmStaffStatusDialog();
+  await staffMembersPage.basePage.expectSuccessBanner();
+  await expect(staffMembersPage.staffStatusButton).toHaveText("Deactivate");
+
+  const loginViaApiDeactivatedUserResponse = await basicApiService.logInUserViaApi({
+    email: USERS.userToBeActivated.email,
+    password: process.env.E2E_PERMISSIONS_USERS_PASSWORD!,
+  });
+
+  expect(loginViaApiDeactivatedUserResponse.data.tokenCreate.errors).toEqual([]);
+  expect(loginViaApiDeactivatedUserResponse.data.tokenCreate.token).not.toEqual(null);
+});

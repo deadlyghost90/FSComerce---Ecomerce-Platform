@@ -1,0 +1,440 @@
+import { gql } from "@apollo/client";
+
+export const productListQuery = gql`
+  query ProductList(
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $filter: ProductFilterInput
+    $search: String
+    $where: ProductWhereInput
+    $channel: String
+    $sort: ProductOrder
+    $hasChannel: Boolean!
+    $includeCategories: Boolean!
+    $includeCollections: Boolean!
+  ) {
+    products(
+      before: $before
+      after: $after
+      first: $first
+      last: $last
+      filter: $filter
+      search: $search
+      where: $where
+      sortBy: $sort
+      channel: $channel
+    ) {
+      edges {
+        node {
+          ...ProductWithChannelListings
+          updatedAt
+          created
+          description
+          attributes {
+            ...ProductListAttribute
+          }
+        }
+      }
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+      totalCount
+    }
+  }
+`;
+export const productCountQuery = gql`
+  query ProductCount($filter: ProductFilterInput, $channel: String) {
+    products(filter: $filter, channel: $channel) {
+      totalCount
+    }
+  }
+`;
+
+export const productDetailsQuery = gql`
+  query ProductDetails(
+    $id: ID!
+    $channel: String
+    $firstValues: Int
+    $afterValues: String
+    $lastValues: Int
+    $beforeValues: String
+    $searchValues: String
+  ) {
+    product(id: $id, channel: $channel) {
+      ...Product
+      category {
+        ...CategoryWithAncestors
+      }
+    }
+  }
+`;
+
+export const productTypeQuery = gql`
+  query ProductType(
+    $id: ID!
+    $firstValues: Int
+    $afterValues: String
+    $lastValues: Int
+    $beforeValues: String
+    $searchValues: String
+  ) {
+    productType(id: $id) {
+      id
+      name
+      hasVariants
+      productAttributes {
+        ...AttributeDetails
+      }
+      taxClass {
+        id
+        name
+      }
+    }
+  }
+`;
+export const productVariantQuery = gql`
+  query ProductVariantDetails(
+    $id: ID!
+    $firstValues: Int
+    $afterValues: String
+    $lastValues: Int
+    $beforeValues: String
+  ) {
+    productVariant(id: $id) {
+      ...ProductVariant
+    }
+  }
+`;
+
+export const productVariantCreateQuery = gql`
+  query ProductVariantCreateData(
+    $id: ID!
+    $firstValues: Int
+    $afterValues: String
+    $lastValues: Int
+    $beforeValues: String
+  ) {
+    product(id: $id) {
+      id
+      media {
+        id
+        sortOrder
+        url
+      }
+      channelListings {
+        isPublished
+        publishedAt
+        channel {
+          id
+          name
+          currencyCode
+          isActive
+        }
+      }
+      name
+      productType {
+        id
+        name
+        hasVariants
+        selectionVariantAttributes: variantAttributes(variantSelection: VARIANT_SELECTION) {
+          ...VariantAttribute
+        }
+        nonSelectionVariantAttributes: variantAttributes(variantSelection: NOT_VARIANT_SELECTION) {
+          ...VariantAttribute
+        }
+      }
+      thumbnail {
+        url
+      }
+      defaultVariant {
+        id
+      }
+    }
+  }
+`;
+
+export const productMediaQuery = gql`
+  query ProductMediaById($productId: ID!, $mediaId: ID!) {
+    product(id: $productId) {
+      id
+      name
+      mainImage: mediaById(id: $mediaId) {
+        id
+        ...Metadata
+        alt
+        url
+        type
+        oembedData
+      }
+      media {
+        id
+        url(size: 128, format: WEBP)
+        alt
+        type
+        oembedData
+      }
+    }
+  }
+`;
+
+export const gridAttributes = gql`
+  query GridAttributes($ids: [ID!]!, $hasAttributes: Boolean!, $type: AttributeTypeEnum!) {
+    availableAttributes: attributes(first: 10, filter: { type: $type }) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+    selectedAttributes: attributes(first: 25, filter: { ids: $ids }) @include(if: $hasAttributes) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const availableColumnAttribues = gql`
+  query AvailableColumnAttributes(
+    $search: String!
+    $type: AttributeTypeEnum!
+    $before: String
+    $after: String
+    $first: Int
+    $last: Int
+  ) {
+    attributes(
+      filter: { search: $search, type: $type }
+      before: $before
+      after: $after
+      first: $first
+      last: $last
+    ) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+  }
+`;
+
+export const defaultGraphiQLQuery = `query ProductDetails($id: ID!) {
+  product(id: $id) {
+    id
+    name
+    slug
+    description
+  }
+}`;
+
+/**
+ * Tiny per-page query for the active stock-availability mode flag.
+ *
+ * Used by surfaces that need to render mode-aware copy near stock UI
+ * (e.g. `StockVisibilityHint` on the product/variant detail pages).
+ *
+ * Why this isn't on `useShop`/`ShopInfoQuery`: the global `ShopInfo` fragment
+ * is widely consumed and we don't want to bloat it for a flag only a couple
+ * of surfaces care about. Apollo dedupes identical queries, so concurrent
+ * usages of this query collapse to a single request.
+ */
+export const stockVisibilityModeQuery = gql`
+  query StockVisibilityMode {
+    shop {
+      id
+      useLegacyShippingZoneStockAvailability
+    }
+  }
+`;
+
+/**
+ * Query for product availability diagnostics.
+ * Fetches channel and shipping zone data needed to determine
+ * if a product can be purchased in each channel.
+ *
+ * Also reads `Shop.useLegacyShippingZoneStockAvailability` (Saleor 3.23+) so
+ * the doctor can adapt severity/copy based on whether the shop uses legacy
+ * shipping-zone-based stock filtering or the direct warehouse-channel link.
+ * The field is scoped to this query (rather than the global ShopInfo) to
+ * avoid loading it on every authenticated session.
+ */
+export const channelDiagnosticsQuery = gql`
+  query ChannelDiagnostics {
+    shop {
+      id
+      useLegacyShippingZoneStockAvailability
+    }
+    channels {
+      id
+      name
+      slug
+      currencyCode
+      isActive
+      warehouses {
+        id
+        name
+      }
+    }
+    shippingZones(first: 100) {
+      edges {
+        node {
+          id
+          name
+          channels {
+            id
+          }
+          warehouses {
+            id
+            name
+          }
+          countries {
+            code
+            country
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const productVariantsGridQuery = gql`
+  query ProductVariantsGrid(
+    $id: ID!
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $search: String
+  ) {
+    product(id: $id) {
+      id
+      productVariants(
+        first: $first
+        after: $after
+        last: $last
+        before: $before
+        filter: { search: $search }
+      ) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+        edges {
+          node {
+            ...ProductDetailsVariant
+          }
+        }
+      }
+    }
+  }
+`;
+
+/** Slim catalog walk for Product Doctor (uncoupled from the variants grid). */
+export const productDoctorVariantsQuery = gql`
+  query ProductDoctorVariants($id: ID!, $first: Int!, $after: String) {
+    product(id: $id) {
+      id
+      productVariants(first: $first, after: $after) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          node {
+            id
+            name
+            channelListings {
+              channel {
+                id
+              }
+              price {
+                amount
+              }
+            }
+            stocks {
+              warehouse {
+                id
+              }
+              quantity
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const productVariantSiblingsQuery = gql`
+  query ProductVariantSiblings($id: ID!, $first: Int!, $after: String, $search: String) {
+    product(id: $id) {
+      id
+      productVariants(first: $first, after: $after, filter: { search: $search }) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          endCursor
+        }
+        edges {
+          node {
+            ...ProductVariantSibling
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const productVariantSkusExistQuery = gql`
+  query ProductVariantSkusExist($skus: [String!]!, $first: Int!) {
+    productVariants(first: $first, where: { sku: { oneOf: $skus } }) {
+      edges {
+        node {
+          id
+          sku
+        }
+      }
+    }
+  }
+`;
+
+/** All variant attribute combinations for the generator (paginated; caller walks pages). */
+export const productVariantGeneratorExistingQuery = gql`
+  query ProductVariantGeneratorExistingVariants($id: ID!, $first: Int!, $after: String) {
+    product(id: $id) {
+      id
+      productVariants(first: $first, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          node {
+            ...ProductVariantGeneratorExisting
+          }
+        }
+      }
+    }
+  }
+`;

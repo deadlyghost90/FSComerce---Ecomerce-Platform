@@ -1,0 +1,177 @@
+import {
+  ConditionalDraftOrderFilterProvider,
+  ConditionalOrderFilterProvider,
+} from "@dashboard/components/ConditionalFilter/context/provider";
+import { Route } from "@dashboard/components/Router";
+import { sectionNames } from "@dashboard/intl";
+import { parseQs } from "@dashboard/url-utils";
+import { asSortParams } from "@dashboard/utils/sort";
+import { useIntl } from "react-intl";
+import { type RouteComponentProps, Switch } from "react-router-dom";
+
+import { WindowTitle } from "../components/WindowTitle";
+import {
+  orderDraftListPath,
+  type OrderDraftListUrlQueryParams,
+  OrderDraftListUrlSortField,
+  orderDraftPath,
+  orderFulfillPath,
+  type OrderFulfillUrlQueryParams,
+  orderGrantRefundEditPath,
+  orderGrantRefundPath,
+  orderListPath,
+  type OrderListUrlQueryParams,
+  OrderListUrlSortField,
+  orderManualTransactionRefundPath,
+  orderPath,
+  orderPaymentRefundPath,
+  orderReturnPath,
+  type OrderReturnUrlQueryParams,
+  orderSendRefundPath,
+  orderTransactionRefundEditPath,
+  orderTransactionRefundPath,
+  type OrderTransactionRefundUrlQueryParams,
+  type OrderUrlQueryParams,
+} from "./urls";
+import OrderDetailsComponent from "./views/OrderDetails/OrderDetails";
+import OrderDraftListComponent from "./views/OrderDraftList/OrderDraftList";
+import OrderGrantRefundEditComponent from "./views/OrderEditGrantRefund/OrderEditGrantRefund";
+import OrderFulfillComponent from "./views/OrderFulfill/OrderFulfill";
+import OrderGrantRefundComponent from "./views/OrderGrantRefund/OrderGrantRefund";
+import OrderListComponent from "./views/OrderList/OrderList";
+import OrderManualTransactionRefundComponent from "./views/OrderManualTransactionRefund/OrderManualTransactionRefund";
+import OrderRefundComponent from "./views/OrderRefund/OrderRefund";
+import OrderReturnComponent from "./views/OrderReturn/OrderReturn";
+import OrderSendRefundComponent from "./views/OrderSendRefund/OrderSendRefund";
+import OrderTransactionRefundCreateComponent from "./views/OrderTransactionRefundCreate/OrderTransactionRefundCreate";
+import OrderTransactionRefundEditComponent from "./views/OrderTransactionRefundEdit/OrderTransactionRefundEdit";
+
+interface MatchParams {
+  id?: string;
+}
+
+const OrderList = ({ location }: RouteComponentProps<any>) => {
+  const qs = parseQs(location.search.substr(1)) as any;
+  const params: OrderListUrlQueryParams = asSortParams(
+    qs,
+    OrderListUrlSortField,
+    OrderListUrlSortField.number,
+    false,
+  );
+
+  return (
+    <ConditionalOrderFilterProvider locationSearch={location.search}>
+      <OrderListComponent params={params} />
+    </ConditionalOrderFilterProvider>
+  );
+};
+const OrderDraftList = ({ location }: RouteComponentProps<any>) => {
+  const qs = parseQs(location.search.substr(1)) as any;
+  const params: OrderDraftListUrlQueryParams = asSortParams(
+    qs,
+    OrderDraftListUrlSortField,
+    OrderDraftListUrlSortField.number,
+    false,
+  );
+
+  return (
+    <ConditionalDraftOrderFilterProvider locationSearch={location.search}>
+      <OrderDraftListComponent params={params} />
+    </ConditionalDraftOrderFilterProvider>
+  );
+};
+const OrderDetails = ({ location, match }: RouteComponentProps<MatchParams>) => {
+  const qs = parseQs(location.search.substr(1)) as any;
+  const params: OrderUrlQueryParams = qs;
+  const id = match.params.id!;
+
+  return <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />;
+};
+const OrderFulfill = ({ location, match }: RouteComponentProps<MatchParams>) => {
+  const qs = parseQs(location.search.substr(1)) as any;
+  const params: OrderFulfillUrlQueryParams = qs;
+
+  return <OrderFulfillComponent orderId={decodeURIComponent(match.params.id!)} params={params} />;
+};
+const OrderPaymentRefund = ({ match }: RouteComponentProps<MatchParams>) => (
+  <OrderRefundComponent orderId={decodeURIComponent(match.params.id ?? "")} />
+);
+const OrderSendRefund = ({ match }: RouteComponentProps<MatchParams>) => (
+  <OrderSendRefundComponent orderId={decodeURIComponent(match.params.id ?? "")} />
+);
+const OrderReturn = ({ location, match }: RouteComponentProps<MatchParams>) => {
+  const qs = parseQs(location.search.substr(1)) as OrderReturnUrlQueryParams;
+
+  return <OrderReturnComponent orderId={decodeURIComponent(match.params.id ?? "")} params={qs} />;
+};
+const OrderGrantRefund = ({ match }: RouteComponentProps<MatchParams>) => (
+  <OrderGrantRefundComponent orderId={decodeURIComponent(match.params.id ?? "")} />
+);
+const OrderGrantRefundEdit = ({
+  match,
+}: RouteComponentProps<{ orderId: string; refundId: string }>) => (
+  <OrderGrantRefundEditComponent
+    orderId={decodeURIComponent(match.params.orderId)}
+    grantRefundId={decodeURIComponent(match.params.refundId)}
+  />
+);
+
+const OrderTransactionRefund = ({ location, match }: RouteComponentProps<MatchParams>) => {
+  const qs = parseQs(location.search.substr(1)) as OrderTransactionRefundUrlQueryParams;
+
+  return (
+    <OrderTransactionRefundCreateComponent
+      orderId={decodeURIComponent(match.params.id ?? "")}
+      params={qs}
+    />
+  );
+};
+
+const OrderTransactionRefundEdit = ({
+  match,
+}: RouteComponentProps<{ orderId: string; refundId: string }>) => (
+  <OrderTransactionRefundEditComponent
+    orderId={decodeURIComponent(match.params.orderId)}
+    refundId={decodeURIComponent(match.params.refundId)}
+  />
+);
+const OrderManualTransactionRefund = ({ match }: RouteComponentProps<MatchParams>) => {
+  return (
+    <OrderManualTransactionRefundComponent orderId={decodeURIComponent(match.params.id ?? "")} />
+  );
+};
+const Component = () => {
+  const intl = useIntl();
+
+  return (
+    <>
+      <WindowTitle title={intl.formatMessage(sectionNames.orders)} />
+      <Switch>
+        <Route exact path={orderDraftListPath} component={OrderDraftList} />
+        <Route exact path={orderListPath} component={OrderList} />
+        <Route path={orderFulfillPath(":id")} component={OrderFulfill} />
+        <Route path={orderReturnPath(":id")} component={OrderReturn} />
+        <Route path={orderPaymentRefundPath(":id")} component={OrderPaymentRefund} />
+        <Route path={orderSendRefundPath(":id")} component={OrderSendRefund} />
+        <Route
+          path={orderGrantRefundEditPath(":orderId", ":refundId")}
+          component={OrderGrantRefundEdit}
+        />
+        <Route path={orderGrantRefundPath(":id")} component={OrderGrantRefund} />
+        <Route
+          path={orderTransactionRefundEditPath(":orderId", ":refundId")}
+          component={OrderTransactionRefundEdit}
+        />
+        <Route path={orderTransactionRefundPath(":id")} component={OrderTransactionRefund} />
+        <Route
+          path={orderManualTransactionRefundPath(":id")}
+          component={OrderManualTransactionRefund}
+        />
+        <Route path={orderDraftPath(":id")} component={OrderDetails} />
+        <Route path={orderPath(":id")} component={OrderDetails} />
+      </Switch>
+    </>
+  );
+};
+
+export default Component;

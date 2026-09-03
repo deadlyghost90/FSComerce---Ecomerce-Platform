@@ -1,0 +1,402 @@
+import "@saleor/macaw-ui-next/style";
+import "./index.css";
+
+import { ApolloProvider } from "@apollo/client";
+import { history, Route, Router } from "@dashboard/components/Router";
+import { customerTypesPath } from "@dashboard/customerTypes/urls";
+import { AppExtensionPopupProvider } from "@dashboard/extensions/components/AppExtensionContext/AppExtensionContextProvider";
+import { ExtensionsPaths, extensionsSection } from "@dashboard/extensions/urls";
+import { PermissionEnum } from "@dashboard/graphql";
+import useAppState from "@dashboard/hooks/useAppState";
+import { pageListPath } from "@dashboard/modeling/urls";
+import { modelTypesPath } from "@dashboard/modelTypes/urls";
+import { notificationsSettingsPath } from "@dashboard/notificationsSettings/urls";
+import { orderSettingsPath } from "@dashboard/orders/urls";
+import { refundsSettingsPath } from "@dashboard/refundsSettings/urls";
+import { StaffInviteProvider } from "@dashboard/staff/components/StaffInviteProvider/StaffInviteProvider";
+import { structuresListPath } from "@dashboard/structures/urls";
+import { ThemeProvider } from "@dashboard/theme/provider";
+import { ThemeProvider as LegacyThemeProvider } from "@saleor/macaw-ui";
+import { lazy, StrictMode, Suspense } from "react";
+import { createRoot } from "react-dom/client";
+import { ErrorBoundary } from "react-error-boundary";
+import TagManager from "react-gtm-module";
+import { useIntl } from "react-intl";
+import { Redirect, Switch } from "react-router-dom";
+
+import { attributeSection } from "./attributes/urls";
+import AuthProvider from "./auth/AuthProvider";
+import LoginLoading from "./auth/components/LoginLoading/LoginLoading";
+import { RootRoutes } from "./auth/components/RootRoutes";
+import SectionRoute from "./auth/components/SectionRoute";
+import { useAuthRedirection } from "./auth/hooks/useAuthRedirection";
+import { channelsSection } from "./channels/urls";
+import useAppChannel, { AppChannelProvider } from "./components/AppLayout/AppChannelContext";
+import AppLayout from "./components/AppLayout/AppLayout";
+import { DevModeProvider } from "./components/DevModePanel/DevModeProvider";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
+import ExitFormDialogProvider from "./components/Form/ExitFormDialogProvider";
+import { legacyRedirects } from "./components/LegacyRedirects";
+import { LocaleProvider } from "./components/Locale/Locale";
+import { NavigatorSearchProvider } from "./components/NavigatorSearch/NavigatorSearchProvider";
+import {
+  NotificationProvider,
+  NotificationsToaster,
+} from "./components/notifications/NotificationProvider";
+import { ProductAnalytics } from "./components/ProductAnalytics";
+import { SavebarRefProvider } from "./components/Savebar/SavebarRefContext";
+import { ShopProvider } from "./components/Shop";
+import { WindowTitle } from "./components/WindowTitle";
+import { GTM_ID } from "./config";
+import { getConfigMenuItemsPermissions } from "./configuration/utils";
+import AppStateProvider from "./containers/AppState/AppState";
+import BackgroundTasksProvider from "./containers/BackgroundTasks/BackgroundTasksProvider";
+import { FeatureFlagsProviderWithUser } from "./featureFlags/FeatureFlagsProvider";
+import { giftCardsSectionUrlName } from "./giftCards/urls";
+import { apolloClient } from "./graphql/client";
+import { useLocationState } from "./hooks/useLocationState";
+import { commonMessages } from "./intl";
+import { NotFound } from "./NotFound";
+import { errorTracker } from "./services/errorTracking";
+import { paletteOverrides, themeOverrides } from "./themeOverrides";
+import { warehouseSection } from "./warehouses/urls";
+import { OnboardingProvider } from "./welcomePage/WelcomePageOnboarding/onboardingContext/OnboardingContext";
+
+// Lazy-loaded page sections for code splitting
+const AttributeSection = lazy(() => import("./attributes"));
+const Auth = lazy(() => import("./auth"));
+const CategorySection = lazy(() => import("./categories"));
+const ChannelsSection = lazy(() => import("./channels"));
+const CollectionSection = lazy(() => import("./collections"));
+const CustomerSection = lazy(() =>
+  import("./customers").then(m => ({ default: m.CustomerSection })),
+);
+const DiscountSection = lazy(() => import("./discounts"));
+const ExtensionsSection = lazy(() =>
+  import("./extensions").then(m => ({ default: m.ExtensionsSection })),
+);
+const GiftCardSection = lazy(() => import("./giftCards"));
+const PageSection = lazy(() => import("./modeling"));
+const PageTypesSection = lazy(() => import("./modelTypes"));
+const CustomerTypesSection = lazy(() => import("./customerTypes"));
+const OrdersSection = lazy(() => import("./orders"));
+const OrderSettingsSection = lazy(() => import("./orders/views/OrderSettings"));
+const PermissionGroupSection = lazy(() => import("./permissionGroups"));
+const ProductSection = lazy(() => import("./products"));
+const ProductTypesSection = lazy(() => import("./productTypes"));
+const SearchSection = lazy(() => import("./search"));
+const ShippingSection = lazy(() => import("./shipping"));
+const SiteSettingsSection = lazy(() => import("./siteSettings"));
+const StaffSection = lazy(() => import("./staff"));
+const NavigationSection = lazy(() => import("./structures"));
+const TaxesSection = lazy(() => import("./taxes"));
+const TranslationsSection = lazy(() => import("./translations"));
+const WarehouseSection = lazy(() => import("./warehouses"));
+const ConfigurationSection = lazy(() => import("./configuration"));
+const HomePage = lazy(() => import("./home/HomePage").then(m => ({ default: m.HomePage })));
+const RefundsSettingsRoute = lazy(() =>
+  import("./refundsSettings/route").then(m => ({ default: m.RefundsSettingsRoute })),
+);
+const NotificationsSettingsRoute = lazy(() =>
+  import("./notificationsSettings/route").then(m => ({
+    default: m.NotificationsSettingsRoute,
+  })),
+);
+
+if (GTM_ID) {
+  TagManager.initialize({ gtmId: GTM_ID });
+}
+
+errorTracker.init(history);
+
+/*
+  Handle legacy theming toggle. Since we use new and old macaw,
+  we need to handle both theme swticher for a while.
+*/
+const handleLegacyTheming = (): void => {
+  const activeTheme = localStorage.getItem("activeMacawUITheme");
+
+  if (activeTheme === "defaultDark") {
+    localStorage.setItem("macaw-ui-theme", "dark");
+
+    return;
+  }
+
+  localStorage.setItem("macaw-ui-theme", "light");
+};
+
+handleLegacyTheming();
+
+const App = (): JSX.Element => (
+  <ApolloProvider client={apolloClient}>
+    <Router>
+      {/* @ts-expect-error legacy types */}
+      <LegacyThemeProvider overrides={themeOverrides} palettes={paletteOverrides}>
+        <ThemeProvider>
+          <LocaleProvider>
+            <NotificationProvider>
+              <BackgroundTasksProvider>
+                <AppStateProvider>
+                  <AuthProvider>
+                    <ProductAnalytics>
+                      <ShopProvider>
+                        <AppChannelProvider>
+                          <ExitFormDialogProvider>
+                            <DevModeProvider>
+                              <NavigatorSearchProvider>
+                                <SavebarRefProvider>
+                                  <FeatureFlagsProviderWithUser>
+                                    <OnboardingProvider>
+                                      <Routes />
+                                    </OnboardingProvider>
+                                  </FeatureFlagsProviderWithUser>
+                                  <NotificationsToaster />
+                                </SavebarRefProvider>
+                              </NavigatorSearchProvider>
+                            </DevModeProvider>
+                          </ExitFormDialogProvider>
+                        </AppChannelProvider>
+                      </ShopProvider>
+                    </ProductAnalytics>
+                  </AuthProvider>
+                </AppStateProvider>
+              </BackgroundTasksProvider>
+            </NotificationProvider>
+          </LocaleProvider>
+        </ThemeProvider>
+      </LegacyThemeProvider>
+    </Router>
+  </ApolloProvider>
+);
+const Routes = () => {
+  const intl = useIntl();
+  const [, dispatchAppState] = useAppState();
+  const { authenticated, authenticating } = useAuthRedirection();
+  const { channel } = useAppChannel(false);
+  const channelLoaded = typeof channel !== "undefined";
+  const homePageLoaded = channelLoaded && authenticated;
+  const homePageLoading = (authenticated && !channelLoaded) || authenticating;
+  const { isAppPath } = useLocationState();
+
+  return (
+    <>
+      <WindowTitle title={intl.formatMessage(commonMessages.dashboard)} />
+      <RootRoutes>
+        {homePageLoaded ? (
+          <AppExtensionPopupProvider>
+            <StaffInviteProvider>
+              <AppLayout fullSize={isAppPath}>
+                <ErrorBoundary
+                  onError={e => {
+                    const errorId = errorTracker.captureException(e);
+
+                    dispatchAppState({
+                      payload: {
+                        error: "unhandled",
+                        errorId,
+                      },
+                      type: "displayError",
+                    });
+                  }}
+                  fallbackRender={({ resetErrorBoundary }) => (
+                    <ErrorPage
+                      onBack={resetErrorBoundary}
+                      onRefresh={() => window.location.reload()}
+                    />
+                  )}
+                >
+                  <Suspense fallback={<LoginLoading />}>
+                    <Switch>
+                      {legacyRedirects}
+                      <Redirect exact from="/" to="/home" />
+                      {/* One Route so HomePage stays mounted across tab changes;
+                        separate paths would remount and reboot keep-alive iframes. */}
+                      <SectionRoute
+                        exact
+                        path={["/home", "/home/widget/:extensionId", "/home/widgets"]}
+                        component={HomePage}
+                      />
+                      <SectionRoute
+                        permissions={[
+                          PermissionEnum.MANAGE_PRODUCTS,
+                          PermissionEnum.MANAGE_ORDERS,
+                          PermissionEnum.MANAGE_PAGES,
+                          PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+                        ]}
+                        matchPermission="any"
+                        path="/search"
+                        component={SearchSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                        path="/categories"
+                        component={CategorySection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                        path="/collections"
+                        component={CollectionSection}
+                      />
+                      <SectionRoute
+                        permissions={[
+                          PermissionEnum.MANAGE_USERS,
+                          PermissionEnum.MANAGE_ORDERS,
+                          PermissionEnum.MANAGE_STAFF,
+                        ]}
+                        matchPermission="any"
+                        path="/customers"
+                        component={CustomerSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_GIFT_CARD]}
+                        path={giftCardsSectionUrlName}
+                        component={GiftCardSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_DISCOUNTS]}
+                        path="/discounts"
+                        component={DiscountSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PAGES]}
+                        path={pageListPath}
+                        component={PageSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES]}
+                        path={modelTypesPath}
+                        component={PageTypesSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES]}
+                        path={customerTypesPath}
+                        component={CustomerTypesSection}
+                      />
+                      <SectionRoute
+                        exact
+                        permissions={[PermissionEnum.MANAGE_ORDERS, PermissionEnum.MANAGE_SETTINGS]}
+                        matchPermission="any"
+                        path={orderSettingsPath}
+                        component={OrderSettingsSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_ORDERS]}
+                        path="/orders"
+                        component={OrdersSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                        path="/products"
+                        component={ProductSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES]}
+                        path="/product-types"
+                        component={ProductTypesSection}
+                      />
+                      <SectionRoute path="/staff" component={StaffSection} />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_STAFF]}
+                        path="/permission-groups"
+                        component={PermissionGroupSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_SETTINGS]}
+                        path="/site-settings"
+                        component={SiteSettingsSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_SETTINGS]}
+                        path={refundsSettingsPath}
+                        component={RefundsSettingsRoute}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PLUGINS]}
+                        path={notificationsSettingsPath}
+                        component={NotificationsSettingsRoute}
+                      />
+                      <SectionRoute path="/taxes" component={TaxesSection} />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_SHIPPING]}
+                        path="/shipping"
+                        component={ShippingSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}
+                        path="/translations"
+                        component={TranslationsSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_MENUS]}
+                        path={structuresListPath}
+                        component={NavigationSection}
+                      />
+                      <SectionRoute
+                        permissions={[
+                          PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+                          PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES,
+                          PermissionEnum.MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES,
+                        ]}
+                        path={attributeSection}
+                        component={AttributeSection}
+                        matchPermission="any"
+                      />
+                      <SectionRoute
+                        permissions={[]}
+                        path={extensionsSection}
+                        component={ExtensionsSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                        path={warehouseSection}
+                        component={WarehouseSection}
+                      />
+                      <SectionRoute
+                        permissions={[PermissionEnum.MANAGE_CHANNELS]}
+                        path={channelsSection}
+                        component={ChannelsSection}
+                      />
+                      <SectionRoute
+                        matchPermission="any"
+                        permissions={getConfigMenuItemsPermissions(intl)}
+                        exact
+                        path="/configuration"
+                        component={ConfigurationSection}
+                      />
+                      <Redirect to={ExtensionsPaths.installedExtensions} path={"/apps"} />
+                      <Redirect to={ExtensionsPaths.installedExtensions} path="/custom-apps/" />
+                      <Redirect to={ExtensionsPaths.installedExtensions} path="/plugins" />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </Suspense>
+                </ErrorBoundary>
+              </AppLayout>
+            </StaffInviteProvider>
+          </AppExtensionPopupProvider>
+        ) : homePageLoading ? (
+          <LoginLoading />
+        ) : (
+          <Suspense fallback={<LoginLoading />}>
+            <Auth />
+          </Suspense>
+        )}
+      </RootRoutes>
+    </>
+  );
+};
+
+const root = createRoot(document.querySelector("#dashboard-app")!);
+
+// StrictMode is development-only (no effect in production)
+// Set VITE_DISABLE_STRICT_MODE=true to disable for testing
+const enableStrictMode = import.meta.env.DEV && import.meta.env.VITE_DISABLE_STRICT_MODE !== "true";
+
+root.render(
+  enableStrictMode ? (
+    <StrictMode>
+      <App />
+    </StrictMode>
+  ) : (
+    <App />
+  ),
+);

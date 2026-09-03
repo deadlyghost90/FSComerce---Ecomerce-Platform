@@ -1,0 +1,55 @@
+import {
+  ConfirmButton,
+  type ConfirmButtonTransitionState,
+} from "@dashboard/components/ConfirmButton/ConfirmButton";
+import { buttonMessages } from "@dashboard/intl";
+import { makeStyles } from "@saleor/macaw-ui";
+import { Button } from "@saleor/macaw-ui-next";
+import { FormattedMessage } from "react-intl";
+
+interface TranslationFieldsSaveProps {
+  saveButtonState: ConfirmButtonTransitionState;
+  saveDisabled?: boolean;
+  onDiscard: () => void;
+  onSave: () => void;
+}
+
+const useStyles = makeStyles(
+  theme => ({
+    confirmButton: {
+      marginLeft: theme.spacing(1),
+    },
+    root: {
+      display: "flex",
+      flexDirection: "row-reverse",
+      marginTop: theme.spacing(1),
+    },
+  }),
+  {
+    name: "TranslationFieldsSave",
+  },
+);
+const TranslationFieldsSave = (props: TranslationFieldsSaveProps) => {
+  const { saveButtonState, saveDisabled = false, onDiscard, onSave } = props;
+  const classes = useStyles(props);
+
+  return (
+    <div className={classes.root}>
+      <ConfirmButton
+        data-test-id="button-bar-confirm"
+        className={classes.confirmButton}
+        transitionState={saveButtonState}
+        disabled={saveDisabled}
+        onClick={onSave}
+      >
+        <FormattedMessage {...buttonMessages.save} />
+      </ConfirmButton>
+      <Button variant="secondary" onClick={onDiscard} type="submit">
+        <FormattedMessage id="vTN5DZ" defaultMessage="Discard" description="button" />
+      </Button>
+    </div>
+  );
+};
+
+TranslationFieldsSave.displayName = "TranslationFieldsSave";
+export default TranslationFieldsSave;

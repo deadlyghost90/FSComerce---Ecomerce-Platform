@@ -1,0 +1,31 @@
+// @ts-strict-ignore
+import { gql } from "@apollo/client";
+import {
+  SearchPageTypesDocument,
+  type SearchPageTypesQuery,
+  type SearchPageTypesQueryVariables,
+} from "@dashboard/graphql";
+import makeTopLevelSearch from "@dashboard/hooks/makeTopLevelSearch/makeTopLevelSearch";
+
+export const searchPageTypes = gql`
+  query SearchPageTypes($after: String, $first: Int!, $query: String!) {
+    search: pageTypes(after: $after, first: $first, filter: { search: $query }) {
+      edges {
+        node {
+          id
+          name
+          metadata {
+            ...MetadataItem
+          }
+        }
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+  }
+`;
+
+export default makeTopLevelSearch<SearchPageTypesQuery, SearchPageTypesQueryVariables>(
+  SearchPageTypesDocument,
+);

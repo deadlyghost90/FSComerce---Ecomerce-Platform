@@ -1,0 +1,241 @@
+import {
+  type ChannelDetailsFragment,
+  type ChannelFragment,
+  type CollectionDetailsFragment,
+  DiscountValueTypeEnum,
+  type ProductVariantDetailsQuery,
+  type ShippingMethodTypeFragment,
+  type ShippingZoneQuery,
+  type VoucherDetailsFragment,
+  VoucherTypeEnum,
+} from "@dashboard/graphql";
+import { type RequireOnlyOne } from "@dashboard/misc";
+import { mapNodeToChoice } from "@dashboard/utils/maps";
+import uniqBy from "lodash/uniqBy";
+
+export interface Channel {
+  id: string;
+  name: string;
+}
+
+export interface ChannelData {
+  id: string;
+  name: string;
+  isPublished?: boolean;
+  publishedAt?: string | null;
+  isActive?: boolean;
+  currency?: string;
+  variantsIds?: string[];
+  price?: string;
+  costPrice?: string;
+  availableForPurchaseAt?: string;
+  isAvailableForPurchase?: boolean;
+  visibleInListings?: boolean;
+}
+
+export interface ChannelPriceData {
+  id: string;
+  name: string;
+  currency: string;
+  price: string;
+  costPrice?: string;
+}
+
+export interface IChannelPriceArgs {
+  price: string;
+  costPrice: string;
+}
+export type ChannelPriceArgs = RequireOnlyOne<IChannelPriceArgs, "price" | "costPrice">;
+
+export interface VariantChannelPriceData {
+  id: string;
+  name: string;
+  currency: string;
+  price: string;
+  costPrice?: string;
+  isActive?: boolean;
+  isPublished?: boolean;
+}
+
+export interface ChannelVoucherData {
+  id: string;
+  name: string;
+  /** Fixed-amount draft for this channel (currency units). */
+  discountValue: string;
+  /** Percentage draft for this channel — independent from `discountValue` while editing. */
+  percentageDiscountValue: string;
+  currency: string;
+  minSpent: string;
+}
+
+export interface ChannelCollectionData {
+  id: string;
+  isPublished: boolean;
+  name: string;
+  publishedAt: string | null;
+}
+
+export const createCollectionChannels = (data?: ChannelFragment[]) =>
+  data?.map(channel => ({
+    id: channel.id,
+    isPublished: false,
+    name: channel.name,
+    publishedAt: null,
+  }));
+
+const createVoucherChannels = (data?: ChannelFragment[]) =>
+  data?.map(channel => ({
+    currency: channel.currencyCode,
+    discountValue: "",
+    percentageDiscountValue: "",
+    id: channel.id,
+    minSpent: "",
+    name: channel.name,
+  }));
+
+export const createVariantChannels = (
+  data?: ProductVariantDetailsQuery["productVariant"],
+): VariantChannelPriceData[] => {
+  if (data) {
+    return (
+      data?.channelListings?.map(listing => {
+        const productChannelListing = data.product?.channelListings?.find(
+          productListing => productListing.channel.id === listing.channel.id,
+        );
+
+        return {
+          costPrice: listing.costPrice?.amount.toString() || "",
+          currency: listing.channel.currencyCode,
+          id: listing.channel.id,
+          isActive: productChannelListing?.channel.isActive ?? true,
+          isPublished: productChannelListing?.isPublished,
+          name: listing.channel.name,
+          price: listing.price?.amount?.toString() ?? "",
+        };
+      }) ?? []
+    );
+  }
+
+  return [];
+};
+
+export const createChannelsDataWithDiscountPrice = (
+  voucherData?: VoucherDetailsFragment,
+  data?: ChannelFragment[],
+): ChannelVoucherData[] => {
+  if (data && voucherData?.channelListings) {
+    const dataArr = createVoucherChannels(data);
+    const voucherDataArr = createChannelsDataFromVoucher(voucherData);
+
+    return uniqBy([...voucherDataArr, ...dataArr!], obj => obj.id);
+  }
+
+  return [];
+};
+
+const createShippingChannels = (
+  data?: NonNullable<ShippingZoneQuery["shippingZone"]>["channels"],
+): ChannelShippingData[] =>
+  data?.map(channel => ({
+    currency: channel.currencyCode,
+    id: channel.id,
+    maxValue: "",
+    minValue: "",
+    name: channel.name,
+    price: "",
+  })) || [];
+
+export const createShippingChannelsFromRate = (
+  data?: ShippingMethodTypeFragment["channelListings"],
+): ChannelShippingData[] =>
+  sortChannelShippingDataByName(
+    data?.map(channelData => ({
+      currency: channelData.channel.currencyCode,
+      id: channelData.channel.id,
+      maxValue: channelData.maximumOrderPrice
+        ? channelData.maximumOrderPrice.amount.toString()
+        : "",
+      minValue: channelData.minimumOrderPrice
+        ? channelData.minimumOrderPrice.amount.toString()
+        : "",
+      name: channelData.channel.name,
+      price: channelData.price ? channelData.price.amount.toString() : "",
+    })) || [],
+  );
+
+export const createCollectionChannelsData = (collectionData?: CollectionDetailsFragment) => {
+  if (!collectionData?.channelListings) {
+    return [];
+  }
+
+  return collectionData.channelListings.map(listing => ({
+    id: listing.channel.id,
+    isPublished: listing.isPublished,
+    name: listing.channel.name,
+    publishedAt: listing.publishedAt,
+  }));
+};
+
+export interface ChannelShippingData {
+  currency: string;
+  id: string;
+  minValue: string;
+  name: string;
+  maxValue: string;
+  price: string;
+}
+
+export const sortChannelShippingDataByName = <T extends { name: string }>(channels: T[]): T[] =>
+  [...channels].sort((leftChannel, rightChannel) =>
+    leftChannel.name.localeCompare(rightChannel.name),
+  );
+
+const createChannelsDataFromVoucher = (voucherData?: VoucherDetailsFragment) => {
+  const isShipping = voucherData?.type === VoucherTypeEnum.SHIPPING;
+  const isPercentage =
+    !isShipping && voucherData?.discountValueType === DiscountValueTypeEnum.PERCENTAGE;
+
+  return (
+    voucherData?.channelListings?.map(option => {
+      const apiValue = option.discountValue.toString() || "";
+
+      return {
+        currency: option.channel.currencyCode || option?.minSpent?.currency || "",
+        // Keep % and fixed drafts independent — seed only the active type from the API.
+        discountValue: isPercentage || isShipping ? "" : apiValue,
+        percentageDiscountValue: isPercentage ? apiValue : "",
+        id: option.channel.id,
+        minSpent: option?.minSpent?.amount.toString() || "",
+        name: option.channel.name,
+      };
+    }) || []
+  );
+};
+
+export const createSortedShippingChannels = (
+  data?: NonNullable<ShippingZoneQuery["shippingZone"]>["channels"],
+) =>
+  createShippingChannels(data)?.sort((channel, nextChannel) =>
+    channel.name.localeCompare(nextChannel.name),
+  );
+
+export const createSortedVoucherData = (data?: ChannelFragment[]) =>
+  createVoucherChannels(data)?.sort((channel, nextChannel) =>
+    channel.name.localeCompare(nextChannel.name),
+  );
+export const createSortedChannelsDataFromVoucher = (data?: VoucherDetailsFragment) =>
+  createChannelsDataFromVoucher(data)?.sort((channel, nextChannel) =>
+    channel.name.localeCompare(nextChannel.name),
+  );
+export const getChannelsCurrencyChoices = (
+  id: string,
+  selectedChannel: ChannelDetailsFragment,
+  channelsList: ChannelDetailsFragment[],
+) =>
+  id
+    ? mapNodeToChoice(
+        channelsList?.filter(
+          channel => channel.id !== id && channel.currencyCode === selectedChannel?.currencyCode,
+        ),
+      )
+    : [];

@@ -1,0 +1,75 @@
+// @ts-strict-ignore
+import { type IChannelPriceArgs, type VariantChannelPriceData } from "@dashboard/channels/utils";
+import ChannelsAvailabilityDialog from "@dashboard/components/ChannelsAvailabilityDialog/ChannelsAvailabilityDialog";
+import { areSelectedChannelIdsEqual } from "@dashboard/components/ChannelsAvailabilityDialog/utils";
+import { type FormsetData } from "@dashboard/hooks/useFormset";
+import useModalDialogOpen from "@dashboard/hooks/useModalDialogOpen/useModalDialogOpen";
+import { toggle } from "@dashboard/utils/lists/lists";
+import { useMemo, useState } from "react";
+
+import { type ProductChannelListing } from "../types";
+
+interface VariantChannelsDialogProps {
+  channelListings: ProductChannelListing;
+  selectedChannelListings?: FormsetData<VariantChannelPriceData, IChannelPriceArgs>;
+  open: boolean;
+  onClose: () => void;
+  onConfirm: (selectedIds: string[]) => void;
+}
+
+export const VariantChannelsDialog = ({
+  channelListings,
+  selectedChannelListings,
+  open,
+  onClose,
+  onConfirm,
+}: VariantChannelsDialogProps) => {
+  const selectedOrDefaults = selectedChannelListings ?? channelListings;
+  const allChannelsIds = channelListings.map(c => c.channel.id);
+  const allChannels = channelListings.map(c => c.channel);
+  const preSelectedIds = selectedOrDefaults.map(c => c.id);
+  const [selected, setSelected] = useState(preSelectedIds);
+  const [baselineIds, setBaselineIds] = useState(preSelectedIds);
+  const hasSelectionChanged = useMemo(
+    () => !areSelectedChannelIdsEqual(selected, baselineIds),
+    [selected, baselineIds],
+  );
+  const isSelected = currentItem => selected.includes(currentItem.id);
+  const handleToggleAll = () => {
+    setSelected(prev => (prev.length > 0 ? [] : allChannelsIds));
+  };
+  const handleClose = () => {
+    setSelected(baselineIds);
+    onClose();
+  };
+  const handleConfirm = () => {
+    onConfirm(selected);
+    onClose();
+  };
+  const handleChange = ({ id }) => {
+    setSelected(state => toggle(id, state, (aId, bId) => aId === bId));
+  };
+
+  useModalDialogOpen(open, {
+    onOpen: () => {
+      setSelected(preSelectedIds);
+      setBaselineIds(preSelectedIds);
+    },
+  });
+
+  return (
+    <ChannelsAvailabilityDialog
+      isSelected={isSelected}
+      channels={allChannels}
+      onChange={handleChange}
+      onClose={handleClose}
+      open={open}
+      title="Manage Products Channel Availability"
+      confirmButtonState="default"
+      selected={selected.length}
+      hasSelectionChanged={hasSelectionChanged}
+      onConfirm={handleConfirm}
+      toggleAll={handleToggleAll}
+    />
+  );
+};

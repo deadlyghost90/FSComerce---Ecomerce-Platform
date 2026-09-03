@@ -1,0 +1,15 @@
+import { type TypeDeleteMessages } from "@dashboard/components/TypeDeleteWarningDialog/TypeDeleteWarningDialog";
+import { type Ids } from "@dashboard/types";
+
+export interface UseTypeDeleteData extends TypeDeleteMessages {
+  isOpen: boolean;
+  assignedItemsCount: number | undefined;
+  viewAssignedItemsUrl: string | null;
+  typesToDelete: Ids;
+}
+
+export interface UseTypeDeleteProps<T> {
+  params: T;
+  selectedTypes?: Ids;
+  singleId?: string;
+}

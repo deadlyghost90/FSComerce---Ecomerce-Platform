@@ -1,0 +1,220 @@
+import { SCHEDULED_BACKGROUND_COLOR, SCHEDULED_COLOR, SUCCESS_ICON_COLOR } from "@dashboard/colors";
+import { Box, Text } from "@saleor/macaw-ui-next";
+import { AlertTriangle, CircleAlert } from "lucide-react";
+import type * as React from "react";
+import { useIntl } from "react-intl";
+
+import { messages } from "./messages";
+
+export { SCHEDULED_BACKGROUND_COLOR, SCHEDULED_COLOR };
+
+type AvailabilityStatus = "live" | "scheduled" | "hidden";
+
+interface StatusDotProps {
+  status: AvailabilityStatus;
+  size?: "small" | "default";
+  hasIssues?: boolean;
+  issueType?: "error" | "warning";
+}
+
+export const StatusDot = ({
+  status,
+  size = "default",
+  hasIssues = false,
+  issueType = "warning",
+}: StatusDotProps) => {
+  const dotSize = size === "small" ? 8 : 10;
+
+  const getStatusColor = () => {
+    if (hasIssues) {
+      return issueType === "error"
+        ? "var(--mu-colors-background-critical1)"
+        : "var(--mu-colors-background-warning1)";
+    }
+
+    switch (status) {
+      case "live":
+        return SUCCESS_ICON_COLOR;
+      case "scheduled":
+        return SCHEDULED_COLOR;
+      case "hidden":
+        return "var(--mu-colors-text-default2)";
+    }
+  };
+
+  return (
+    <Box
+      borderRadius="100%"
+      __width={`${dotSize}px`}
+      __height={`${dotSize}px`}
+      __backgroundColor={getStatusColor()}
+      flexShrink="0"
+    />
+  );
+};
+
+interface CurrencyBadgeProps {
+  currency: string;
+}
+
+export const CurrencyBadge = ({ currency }: CurrencyBadgeProps) => (
+  <Box backgroundColor="default1" paddingX={2} paddingY={1} borderRadius={2}>
+    <Text size={1} color="default2" fontWeight="medium">
+      {currency}
+    </Text>
+  </Box>
+);
+
+export const DirtyBadge = () => {
+  const intl = useIntl();
+
+  return (
+    <Box
+      backgroundColor="warning1"
+      paddingX={2}
+      paddingY={0}
+      borderRadius={8}
+      borderWidth={1}
+      borderStyle="solid"
+      borderColor="warning1"
+    >
+      <Text size={1} color="warning1" fontWeight="medium" __fontSize="10px" __lineHeight="16px">
+        {intl.formatMessage(messages.editedBadge)}
+      </Text>
+    </Box>
+  );
+};
+
+export const ToRemoveBadge = () => {
+  const intl = useIntl();
+
+  return (
+    <Box
+      backgroundColor="default1"
+      paddingX={2}
+      paddingY={0}
+      borderRadius={8}
+      borderWidth={1}
+      borderStyle="solid"
+      borderColor="default1"
+    >
+      <Text size={1} color="default2" fontWeight="medium" __fontSize="10px" __lineHeight="16px">
+        {intl.formatMessage(messages.toRemoveBadge)}
+      </Text>
+    </Box>
+  );
+};
+
+export const NewBadge = () => {
+  const intl = useIntl();
+
+  return (
+    <Box
+      paddingX={2}
+      paddingY={0}
+      borderRadius={8}
+      borderWidth={1}
+      borderStyle="solid"
+      borderColor="success1"
+    >
+      <Text size={1} color="success1" fontWeight="medium" __fontSize="10px" __lineHeight="16px">
+        {intl.formatMessage(messages.newBadge)}
+      </Text>
+    </Box>
+  );
+};
+
+export const ErrorBadge = () => {
+  const intl = useIntl();
+
+  return (
+    <Box
+      backgroundColor="critical1"
+      paddingX={2}
+      paddingY={0.5}
+      borderRadius={2}
+      borderWidth={1}
+      borderStyle="solid"
+      borderColor="critical1"
+    >
+      <Text size={1} color="critical1" fontWeight="medium">
+        {intl.formatMessage(messages.errorBadge)}
+      </Text>
+    </Box>
+  );
+};
+
+interface IssueBadgeProps {
+  count: number;
+  type: "error" | "warning";
+}
+
+export const IssueBadge = ({ count, type }: IssueBadgeProps) => {
+  const intl = useIntl();
+  const iconColor =
+    type === "error" ? "var(--mu-colors-text-critical1)" : "var(--mu-colors-text-warning1)";
+  const accessibleName = intl.formatMessage(messages.channelHasIssues, { count });
+  const iconLabel = intl.formatMessage(
+    type === "error" ? messages.issueBadgeIconError : messages.issueBadgeIconWarning,
+  );
+
+  return (
+    <Box
+      display="flex"
+      alignItems="center"
+      title={accessibleName}
+      aria-label={accessibleName}
+      position="relative"
+      data-test-id="channel-issue-badge"
+    >
+      {type === "error" ? (
+        <AlertTriangle
+          size={16}
+          color={iconColor}
+          role="img"
+          aria-label={iconLabel}
+          data-test-id="product-doctor-issue-badge-icon-error"
+        />
+      ) : (
+        <CircleAlert
+          size={16}
+          color={iconColor}
+          role="img"
+          aria-label={iconLabel}
+          data-test-id="product-doctor-issue-badge-icon-warning"
+        />
+      )}
+      {count > 1 && (
+        <Text
+          size={1}
+          color={type === "error" ? "critical1" : "warning1"}
+          fontWeight="medium"
+          __position="absolute"
+          __top="-4px"
+          __right="-6px"
+          __fontSize="10px"
+          data-test-id="product-doctor-issue-badge-count"
+        >
+          {count}
+        </Text>
+      )}
+    </Box>
+  );
+};
+
+interface InfoCalloutProps {
+  children: React.ReactNode;
+}
+
+export const InfoCallout = ({ children }: InfoCalloutProps) => (
+  <Box
+    __backgroundColor="var(--mu-colors-background-default2)"
+    borderRadius={3}
+    paddingX={3}
+    paddingY={2}
+  >
+    <Text size={2} color="default2">
+      {children}
+    </Text>
+  </Box>
+);

@@ -1,0 +1,147 @@
+// @ts-strict-ignore
+import { DashboardCard } from "@dashboard/components/Card";
+import Checkbox from "@dashboard/components/Checkbox/Checkbox";
+import { iconSize, iconStrokeWidthBySize } from "@dashboard/components/icons";
+import { Placeholder } from "@dashboard/components/Placeholder/Placeholder";
+import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/ResponsiveTable";
+import { TableBody, TableCell } from "@dashboard/components/Table/Table";
+import TableCellAvatar from "@dashboard/components/TableCellAvatar/TableCellAvatar";
+import TableHead from "@dashboard/components/TableHead/TableHead";
+import { TablePaginationWithContext } from "@dashboard/components/TablePagination/TablePaginationWithContext";
+import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
+import { type ShippingZoneQuery } from "@dashboard/graphql";
+import { buttonMessages } from "@dashboard/intl";
+import { renderCollection } from "@dashboard/misc";
+import { type ListActions, type ListProps, type RelayToFlat } from "@dashboard/types";
+import { Box, Button, Skeleton, Text } from "@saleor/macaw-ui-next";
+import { Trash2 } from "lucide-react";
+import { FormattedMessage, useIntl } from "react-intl";
+
+import styles from "./ShippingMethodProducts.module.css";
+
+interface ShippingMethodProductsProps
+  extends Pick<ListProps, Exclude<keyof ListProps, "getRowHref">>,
+    ListActions {
+  products: RelayToFlat<
+    ShippingZoneQuery["shippingZone"]["shippingMethods"][0]["excludedProducts"]
+  >;
+  onProductAssign: () => void;
+  onProductUnassign: (ids: string[]) => void;
+}
+
+const numberOfColumns = 3;
+const ShippingMethodProducts = (props: ShippingMethodProductsProps) => {
+  const {
+    disabled,
+    products,
+    onProductAssign,
+    onProductUnassign,
+    isChecked,
+    selected,
+    toggle,
+    toggleAll,
+    toolbar,
+  } = props;
+  const intl = useIntl();
+
+  return (
+    <DashboardCard>
+      <DashboardCard.Header>
+        <DashboardCard.Title>
+          {intl.formatMessage({
+            id: "t3aiWF",
+            defaultMessage: "Excluded Products",
+            description: "section header",
+          })}
+        </DashboardCard.Title>
+        <DashboardCard.Toolbar>
+          <Button
+            data-test-id="assign-product-button"
+            variant="secondary"
+            onClick={onProductAssign}
+          >
+            <FormattedMessage id="U8eeLW" defaultMessage="Assign products" description="button" />
+          </Button>
+        </DashboardCard.Toolbar>
+      </DashboardCard.Header>
+      <DashboardCard.Content>
+        {products === undefined ? (
+          <Skeleton />
+        ) : products.length === 0 ? (
+          <Placeholder>
+            <FormattedMessage id="Gg4+K7" defaultMessage="No Products" />
+          </Placeholder>
+        ) : (
+          <>
+            <ResponsiveTable className={styles.excludedProductsTable}>
+              <TableHead
+                colSpan={numberOfColumns}
+                selected={selected}
+                disabled={disabled}
+                items={products}
+                toggleAll={toggleAll}
+                toolbar={toolbar}
+              >
+                <TableCell className={styles.productCell}>
+                  <Text size={2} color="default2">
+                    <FormattedMessage id="ZIc5lM" defaultMessage="Product Name" />
+                  </Text>
+                </TableCell>
+                <TableCell />
+              </TableHead>
+              <TableBody>
+                {renderCollection(products, product => {
+                  const isSelected = product ? isChecked(product.id) : false;
+
+                  return (
+                    <TableRowLink
+                      data-test-id="excluded-products-rows"
+                      key={product ? product.id : "skeleton"}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isSelected}
+                          disabled={disabled}
+                          disableClickPropagation
+                          onChange={() => toggle(product.id)}
+                        />
+                      </TableCell>
+                      <TableCellAvatar
+                        className={styles.productCell}
+                        thumbnail={product?.thumbnail?.url}
+                      >
+                        {product?.name ? <Text size={2}>{product.name}</Text> : <Skeleton />}
+                      </TableCellAvatar>
+                      <TableCell>
+                        <Box display="flex" justifyContent="flex-end">
+                          <Button
+                            disabled={disabled}
+                            variant="tertiary"
+                            icon={
+                              <Trash2
+                                size={iconSize.small}
+                                strokeWidth={iconStrokeWidthBySize.small}
+                              />
+                            }
+                            onClick={() => onProductUnassign([product.id])}
+                            title={intl.formatMessage(buttonMessages.delete)}
+                          />
+                        </Box>
+                      </TableCell>
+                    </TableRowLink>
+                  );
+                })}
+              </TableBody>
+            </ResponsiveTable>
+            <Box display="flex" justifyContent="flex-end" paddingTop={2}>
+              <TablePaginationWithContext disabled={disabled} />
+            </Box>
+          </>
+        )}
+      </DashboardCard.Content>
+    </DashboardCard>
+  );
+};
+
+ShippingMethodProducts.displayName = "ShippingMethodProducts";
+export default ShippingMethodProducts;

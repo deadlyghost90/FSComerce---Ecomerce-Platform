@@ -1,0 +1,42 @@
+.container {
+  border: 1px solid var(--mu-colors-border-default1);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background-color: var(--mu-colors-background-default1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item > span:last-child,
+.item > p:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.newBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  color: var(--mu-colors-text-success1);
+  font-size: 10px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.badge {
+  flex-shrink: 0;
+  min-width: 40px;
+}

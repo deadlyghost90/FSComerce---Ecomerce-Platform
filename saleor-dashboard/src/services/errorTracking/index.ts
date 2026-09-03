@@ -1,0 +1,14 @@
+import { getAbsoluteApiUrl } from "@dashboard/config";
+
+import { SentryAdapter } from "./adapters/Sentry";
+import { ErrorTrackerFactory } from "./trackerFactory";
+
+export const errorTracker = ErrorTrackerFactory(
+  SentryAdapter({
+    // todo install t3/env
+    dsn: process.env.SENTRY_DSN as string,
+    environment: process.env.ENVIRONMENT,
+    release: process.env.RELEASE_NAME,
+    apiUrl: getAbsoluteApiUrl(),
+  }),
+);

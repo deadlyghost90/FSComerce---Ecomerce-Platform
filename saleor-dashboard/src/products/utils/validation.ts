@@ -1,0 +1,161 @@
+import { type AttributeInput } from "@dashboard/components/Attributes/Attributes";
+import { ProductErrorCode, type ProductErrorWithAttributesFragment } from "@dashboard/graphql";
+import { type IntlShape } from "react-intl";
+import { z } from "zod";
+
+import { type ProductCreateData } from "../components/ProductCreatePage/form";
+import { type ProductVariantCreateData } from "../components/ProductVariantCreatePage/form";
+import { type ProductVariantUpdateSubmitData } from "../components/ProductVariantPage/form";
+
+export const validatePrice = (price: string) => price === "" || parseInt(price, 10) < 0;
+
+export const isMissingPriceValue = (price: string | number | null | undefined) =>
+  price == null || price === "" || parseInt(String(price), 10) < 0;
+
+export const validateCostPrice = (price: string) => price !== "" && parseInt(price, 10) < 0;
+
+const toChannelPriceField = (id: string) => `${id}-channelListing-price`;
+const createRequiredError = (
+  field: string,
+  message: string | null = null,
+  attributes: string[] = [],
+): ProductErrorWithAttributesFragment => ({
+  __typename: "ProductError",
+  code: ProductErrorCode.REQUIRED,
+  field,
+  message,
+  attributes,
+});
+
+const isAttributeValueEmpty = (attribute: AttributeInput): boolean => {
+  const values = attribute.value ?? [];
+
+  if (values.length === 0) {
+    return true;
+  }
+
+  return values.every(value => value == null || value === "" || value === "unset");
+};
+
+const getEmptyRequiredAttributeIds = (attributes: AttributeInput[] | undefined): string[] =>
+  (attributes ?? [])
+    .filter(attribute => attribute.data?.isRequired && isAttributeValueEmpty(attribute))
+    .map(attribute => attribute.id);
+
+/**
+ * Attribute rows match `error.attributes` (not `error.field`). API REQUIRED
+ * errors sometimes omit that list — fill it from empty required values so
+ * each field can show an inline error.
+ */
+export const expandRequiredAttributeErrors = (
+  errors: ProductErrorWithAttributesFragment[],
+  attributes: AttributeInput[] | undefined,
+): ProductErrorWithAttributesFragment[] =>
+  errors.flatMap(error => {
+    if (
+      error.code !== ProductErrorCode.REQUIRED ||
+      error.field !== "attributes" ||
+      (error.attributes?.length ?? 0) > 0
+    ) {
+      return [error];
+    }
+
+    const missingIds = getEmptyRequiredAttributeIds(attributes);
+
+    if (missingIds.length === 0) {
+      return [error];
+    }
+
+    return missingIds.map(attributeId => ({ ...error, attributes: [attributeId] }));
+  });
+
+export const validateProductCreateData = (data?: ProductCreateData) => {
+  let errors: ProductErrorWithAttributesFragment[] = [];
+
+  if (!data) {
+    return errors;
+  }
+
+  if (!data.productType) {
+    errors = [...errors, createRequiredError("productType")];
+  }
+
+  if (!data.name) {
+    errors = [...errors, createRequiredError("name")];
+  }
+
+  const { productType, channelListings } = data;
+
+  if (!productType.hasVariants && channelListings) {
+    const emptyPrices = data.channelListings
+      .filter(channel => channel.price?.length === 0)
+      .map(({ id }) => createRequiredError(toChannelPriceField(id)));
+
+    errors = [...errors, ...emptyPrices];
+  }
+
+  return errors;
+};
+
+const channelListingValueSchema = z.object({
+  price: z.number().or(z.string().min(1)),
+});
+
+const channelListingSchema = z
+  .object({
+    channelListings: z.array(
+      z.object({
+        value: channelListingValueSchema,
+      }),
+    ),
+    variantName: z.string().min(1),
+  })
+  .partial();
+
+export type ProductVariantType = ProductVariantCreateData | ProductVariantUpdateSubmitData;
+
+const handleValidationError = (
+  error: z.ZodIssue,
+  data: ProductVariantType,
+  defaultMessage: string,
+) => {
+  const defaultError = createRequiredError(error.path.join("-"), defaultMessage);
+
+  switch (error.code) {
+    case "too_small":
+    case "invalid_union":
+    case "invalid_type":
+      if (error.path.includes("price") && error.path.includes("channelListings")) {
+        // Due to the way the form was written
+        // The path is in format "channelListing => {index} => price"
+        const index = error.path[1] as number;
+        const listing = data.channelListings[index];
+
+        return createRequiredError(toChannelPriceField(listing.id), defaultMessage);
+      }
+
+      return defaultError;
+    default:
+      return defaultError;
+  }
+};
+
+export const validateProductVariant = (data: ProductVariantType, intl: IntlShape) => {
+  const result = channelListingSchema.safeParse(data);
+
+  const defaultMessage = intl.formatMessage({
+    defaultMessage: "This field cannot be blank",
+    id: "8pVWve",
+  });
+
+  const listingErrors =
+    result.success === true
+      ? []
+      : result.error.issues.map(error => handleValidationError(error, data, defaultMessage));
+
+  const attributeErrors = getEmptyRequiredAttributeIds(data.attributes).map(attributeId =>
+    createRequiredError("attributes", defaultMessage, [attributeId]),
+  );
+
+  return [...listingErrors, ...attributeErrors];
+};

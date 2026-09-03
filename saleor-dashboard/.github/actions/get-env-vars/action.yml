@@ -1,0 +1,49 @@
+name: "Get Environment Variables"
+description: "Retrieves environment variables for end-to-end tests"
+
+inputs:
+  version:
+    description: "Custom version to use"
+    required: true
+  token:
+    description: "Cloud access token"
+    required: true
+  repo_token:
+    description: "GitHub repository token"
+    required: true
+  project:
+    description: "Project name"
+    required: true
+
+outputs:
+  IS_OLD_VERSION:
+    description: "Whether the version is old"
+    value: ${{ steps.get-environment-variables.outputs.IS_OLD_VERSION }}
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      with:
+        node-version-file: "package.json"
+        cache: pnpm
+        cache-dependency-path: .github/scripts/pnpm-lock.yaml
+    - name: install dependencies
+      working-directory: .github/scripts
+      shell: bash
+      run: pnpm install
+    - name: Get environment variables
+      id: get-environment-variables
+      shell: bash
+      env:
+        REPO_TOKEN: ${{ inputs.repo_token }}
+        TOKEN: ${{ inputs.token }}
+        VERSION: ${{ inputs.version }}
+        PROJECT: ${{ inputs.project }}
+      run: |
+        node .github/scripts/get-release-env-vars.js \
+          --version="$VERSION" \
+          --token="$TOKEN" \
+          --repo_token="$REPO_TOKEN" \
+          --project="$PROJECT"

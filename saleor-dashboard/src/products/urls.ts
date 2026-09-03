@@ -1,0 +1,243 @@
+import { type ChannelsAction } from "@dashboard/channels/urls";
+import { Condition } from "@dashboard/components/ConditionalFilter/FilterElement/Condition";
+import {
+  type ConditionItem,
+  ConditionOptions,
+} from "@dashboard/components/ConditionalFilter/FilterElement/ConditionOptions";
+import { ConditionSelected } from "@dashboard/components/ConditionalFilter/FilterElement/ConditionSelected";
+import {
+  ExpressionValue,
+  FilterElement,
+} from "@dashboard/components/ConditionalFilter/FilterElement/FilterElement";
+import { prepareStructure } from "@dashboard/components/ConditionalFilter/ValueProvider/utils";
+import { stringify } from "qs";
+import urlJoin from "url-join";
+
+import {
+  type ActiveTab,
+  type BulkAction,
+  type Dialog,
+  type Filters,
+  type FiltersAsDictWithMultipleValues,
+  type FiltersWithKeyValueValues,
+  type FiltersWithMultipleValues,
+  type Pagination,
+  type SingleAction,
+  type Sort,
+  type TabActionDialog,
+} from "../types";
+import { stringifyQs } from "../utils/urls";
+
+const productSection = "/products/";
+
+export const productAddPath = urlJoin(productSection, "add");
+
+export const productListPath = productSection;
+export type ProductListUrlDialog =
+  | "delete"
+  | "export"
+  | "create-product"
+  | "create-product-type"
+  | TabActionDialog;
+export enum ProductListUrlFiltersEnum {
+  priceFrom = "priceFrom",
+  priceTo = "priceTo",
+  status = "status",
+  stockStatus = "stockStatus",
+  query = "query",
+  channel = "channel",
+  productKind = "productKind",
+}
+export enum ProductListUrlFiltersWithMultipleValues {
+  categories = "categories",
+  collections = "collections",
+  productTypes = "productTypes",
+}
+export const ProductListUrlFiltersAsDictWithMultipleValues = {
+  booleanAttributes: "boolean-attributes",
+  dateAttributes: "date-attributes",
+  dateTimeAttributes: "datetime-attributes",
+  numericAttributes: "numeric-attributes",
+  stringAttributes: "string-attributes",
+} as const;
+export type ProductListUrlFiltersAsDictWithMultipleValues =
+  (typeof ProductListUrlFiltersAsDictWithMultipleValues)[keyof typeof ProductListUrlFiltersAsDictWithMultipleValues];
+export enum ProductListUrlFiltersWithKeyValueValues {
+  metadata = "metadata",
+}
+export type ProductListUrlFilters = Filters<ProductListUrlFiltersEnum> &
+  FiltersWithMultipleValues<ProductListUrlFiltersWithMultipleValues> &
+  FiltersWithKeyValueValues<ProductListUrlFiltersWithKeyValueValues> &
+  FiltersAsDictWithMultipleValues<ProductListUrlFiltersAsDictWithMultipleValues>;
+export enum ProductListUrlSortField {
+  attribute = "attribute",
+  name = "name",
+  productType = "productType",
+  availability = "availability",
+  price = "price",
+  rank = "rank",
+  date = "date",
+  created = "created",
+}
+type ProductListUrlSort = Sort<ProductListUrlSortField>;
+export interface ProductListUrlQueryParams
+  extends BulkAction,
+    Dialog<ProductListUrlDialog>,
+    ProductListUrlFilters,
+    ProductListUrlSort,
+    Pagination,
+    ActiveTab {
+  attributeId?: string;
+  presestesChanged?: string;
+  "product-type-id"?: string;
+}
+export const productListUrl = (params?: ProductListUrlQueryParams): string =>
+  productListPath + "?" + stringifyQs(params);
+
+/**
+ * Creates a product type filter element using the conditional filter system.
+ * The product list encodes filters as URL tokens (field slug + product type slug), not legacy query params.
+ */
+const createProductTypeFilterElement = (productType: {
+  id: string;
+  name: string;
+  slug: string;
+}): FilterElement => {
+  const expressionValue = new ExpressionValue("productType", "ProductType", "productType");
+  const conditionOptions = ConditionOptions.fromStaticElementName("productType");
+  const conditionItem: ConditionItem = { type: "combobox", label: "is", value: "input-1" };
+  const conditionSelected = ConditionSelected.fromConditionItemAndValue(conditionItem, {
+    label: productType.name,
+    value: productType.id,
+    slug: productType.slug,
+  });
+  const condition = new Condition(conditionOptions, conditionSelected, false);
+
+  return new FilterElement(expressionValue, condition, false);
+};
+
+/**
+ * Builds the product list URL pre-filtered by a single product type.
+ */
+export const productListUrlWithProductType = (productType?: {
+  id: string;
+  name: string;
+  slug: string;
+}) => {
+  if (!productType?.id || !productType.slug) {
+    return productListPath;
+  }
+
+  const filterContainer = [createProductTypeFilterElement(productType)];
+  const queryParams = prepareStructure(filterContainer);
+
+  return urlJoin(productListPath, "?" + stringify(queryParams));
+};
+
+/**
+ * Builds the product list URL pre-filtered by one or more product types.
+ */
+export const productListUrlWithProductTypes = (
+  productTypes?: Array<{
+    id: string;
+    name: string;
+    slug?: string | null;
+  }>,
+): string | null => {
+  if (!productTypes?.length) {
+    return null;
+  }
+
+  if (productTypes.length === 1) {
+    const [productType] = productTypes;
+
+    if (!productType.slug) {
+      return null;
+    }
+
+    return productListUrlWithProductType({
+      id: productType.id,
+      name: productType.name,
+      slug: productType.slug,
+    });
+  }
+
+  const productTypesWithSlug = productTypes.filter(
+    (productType): productType is typeof productType & { slug: string } => !!productType.slug,
+  );
+
+  if (!productTypesWithSlug.length) {
+    return null;
+  }
+
+  const productFilterElement = FilterElement.createStaticBySlug("productType");
+  const condition = productFilterElement.condition.options[1];
+
+  productFilterElement.updateCondition(condition);
+  productFilterElement.updateRightOperator(
+    productTypesWithSlug.map(productType => ({
+      label: productType.name,
+      slug: productType.slug,
+      value: productType.id,
+    })),
+  );
+
+  const queryParams = prepareStructure([productFilterElement]);
+
+  return urlJoin(productListPath, "?" + stringify(queryParams));
+};
+
+export const productPath = (id: string) => urlJoin(productSection + id);
+export type ProductUrlDialog =
+  | "remove"
+  | "remove-media"
+  | "assign-attribute-value"
+  | "view-metadata"
+  | "setup"
+  | ChannelsAction;
+export type ProductUrlQueryParams = BulkAction & Dialog<ProductUrlDialog> & SingleAction;
+export type ProductCreateUrlDialog = "assign-attribute-value" | ChannelsAction;
+interface ProductCreateUrlProductType {
+  "product-type-id"?: string;
+}
+export type ProductCreateUrlQueryParams = Dialog<ProductCreateUrlDialog> &
+  SingleAction &
+  ProductCreateUrlProductType;
+export const productUrl = (id: string, params?: ProductUrlQueryParams) =>
+  productPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
+
+export const productVariantEditPath = (variantId: string) =>
+  urlJoin(productSection, "variant", variantId);
+
+/** @deprecated TODO: Remove in Saleor Dashboard 3.23 */
+export const productVariantLegacyEditPath = (productId: string, variantId: string) =>
+  urlJoin(productSection, productId, "variant", variantId);
+
+export type ProductVariantEditUrlDialog = "remove" | "assign-attribute-value" | "view-metadata";
+export type ProductVariantEditUrlQueryParams = Dialog<ProductVariantEditUrlDialog> & SingleAction;
+export const productVariantEditUrl = (
+  variantId: string,
+  params?: ProductVariantEditUrlQueryParams,
+) => productVariantEditPath(encodeURIComponent(variantId)) + "?" + stringifyQs(params);
+
+type ProductVariantAddUrlDialog = "assign-attribute-value";
+export type ProductVariantAddUrlQueryParams = Dialog<ProductVariantAddUrlDialog> & SingleAction;
+export const productVariantAddPath = (productId: string) =>
+  urlJoin(productSection, productId, "variant/add");
+export const productVariantAddUrl = (
+  productId: string,
+  params?: ProductVariantAddUrlQueryParams,
+): string => productVariantAddPath(encodeURIComponent(productId)) + "?" + stringifyQs(params);
+
+export const productImagePath = (productId: string, imageId: string) =>
+  urlJoin(productSection, productId, "image", imageId);
+export type ProductImageUrlDialog = "remove" | "view-metadata";
+export type ProductImageUrlQueryParams = Dialog<ProductImageUrlDialog>;
+export const productImageUrl = (
+  productId: string,
+  imageId: string,
+  params?: ProductImageUrlQueryParams,
+) =>
+  productImagePath(encodeURIComponent(productId), encodeURIComponent(imageId)) +
+  "?" +
+  stringifyQs(params);

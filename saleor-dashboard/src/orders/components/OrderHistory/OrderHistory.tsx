@@ -1,0 +1,343 @@
+// @ts-strict-ignore
+import { type FetchResult } from "@apollo/client";
+import { DashboardCard } from "@dashboard/components/Card";
+import { CopyableText } from "@dashboard/components/CopyableText/CopyableText";
+import Form from "@dashboard/components/Form/Form";
+import { Pill } from "@dashboard/components/Pill/Pill";
+import { groupEventsByDate } from "@dashboard/components/Timeline/groupEventsByDate";
+import { Timeline, TimelineAddNote } from "@dashboard/components/Timeline/Timeline";
+import { TimelineDateGroupHeader } from "@dashboard/components/Timeline/TimelineDateGroupHeader";
+import { TimelineEvent } from "@dashboard/components/Timeline/TimelineEvent";
+import { TimelineLink } from "@dashboard/components/Timeline/TimelineLink";
+import { TimelineNote } from "@dashboard/components/Timeline/TimelineNote";
+import { toActor } from "@dashboard/components/Timeline/utils";
+import {
+  type OrderEventFragment,
+  OrderEventsEnum,
+  type OrderNoteUpdateMutation,
+} from "@dashboard/graphql";
+import { type SubmitPromise } from "@dashboard/hooks/useForm";
+import { ORDER_EVENTS_DOCS_URL } from "@dashboard/links";
+import { orderUrl } from "@dashboard/orders/urls";
+import { Box, Text, vars } from "@saleor/macaw-ui-next";
+import { FormattedMessage, useIntl } from "react-intl";
+
+import { ExtendedTimelineEvent } from "./ExtendedTimelineEvent";
+import { HistoryComponentLoader } from "./HistoryComponentLoader";
+import { getEventMessage } from "./messages";
+import { OrderHistoryDate } from "./OrderHistoryDate";
+import { OrderLineItem } from "./OrderLineItem";
+import { isTimelineEventOfType } from "./utils";
+
+export interface FormData {
+  message: string;
+}
+
+interface OrderHistoryProps {
+  history: OrderEventFragment[];
+  orderCurrency: string;
+  onNoteAdd: (data: FormData) => SubmitPromise;
+  onNoteUpdate: (id: string, message: string) => Promise<FetchResult<OrderNoteUpdateMutation>>;
+  onNoteUpdateLoading: boolean;
+}
+
+const OrderHistory = ({
+  history,
+  orderCurrency,
+  onNoteAdd,
+  onNoteUpdate,
+  onNoteUpdateLoading,
+}: OrderHistoryProps) => {
+  const intl = useIntl();
+
+  return (
+    <DashboardCard>
+      <DashboardCard.Header flexDirection="column" alignItems="start" paddingTop={0}>
+        <DashboardCard.Title>
+          <FormattedMessage id="XBfvKN" defaultMessage="Order History" />
+        </DashboardCard.Title>
+        <DashboardCard.Subtitle fontSize={3} color="default2">
+          <FormattedMessage
+            id="6oxTyq"
+            defaultMessage="All events related to this order. For more information regarding order events visit our docs {link}."
+            values={{
+              link: (
+                <Box
+                  as="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  textDecoration="underline"
+                  style={{
+                    textUnderlineOffset: vars.spacing[1],
+                  }}
+                  href={ORDER_EVENTS_DOCS_URL}
+                >
+                  <FormattedMessage defaultMessage="here" id="hniz8Z" />
+                </Box>
+              ),
+            }}
+          />
+        </DashboardCard.Subtitle>
+      </DashboardCard.Header>
+
+      <DashboardCard.Content>
+        {history ? (
+          <Timeline>
+            <Form confirmLeave initial={{ message: "" }} onSubmit={onNoteAdd} resetOnSubmit>
+              {({ change, data, reset, submit, triggerChange }) => (
+                <TimelineAddNote
+                  message={data.message}
+                  reset={reset}
+                  onChange={e => {
+                    change(e);
+
+                    // Reset dirty state if message is empty (back to initial state)
+                    if (e.target.value === "") {
+                      triggerChange(false);
+                    }
+                  }}
+                  onSubmit={submit}
+                  showTimelineConnector={history.length > 0}
+                  label={intl.formatMessage({
+                    id: "LgbKvU",
+                    defaultMessage: "Comment",
+                  })}
+                  buttonLabel={
+                    <FormattedMessage
+                      id="H5jL5+"
+                      defaultMessage="Add Comment"
+                      description="button"
+                    />
+                  }
+                />
+              )}
+            </Form>
+            {(() => {
+              const reversedHistory = history.slice().reverse();
+              const groupedEvents = groupEventsByDate(reversedHistory);
+
+              const renderEvent = (
+                event: OrderEventFragment,
+                index: number,
+                groupEvents: OrderEventFragment[],
+              ) => {
+                const { id, user, date, message, type, app, related, lines } = event;
+                const isLastInGroup = index === groupEvents.length - 1;
+
+                if (isTimelineEventOfType("note", type)) {
+                  return (
+                    <TimelineNote
+                      onNoteUpdate={onNoteUpdate}
+                      onNoteUpdateLoading={onNoteUpdateLoading!}
+                      id={id}
+                      date={<OrderHistoryDate date={date} />}
+                      actor={toActor(user, app)}
+                      message={message}
+                      key={id}
+                      eventData={event}
+                      isLastInGroup={isLastInGroup}
+                    />
+                  );
+                }
+
+                if (isTimelineEventOfType("note_updated", type)) {
+                  return (
+                    <TimelineNote
+                      onNoteUpdate={onNoteUpdate}
+                      onNoteUpdateLoading={onNoteUpdateLoading!}
+                      relatedId={related.id}
+                      id={id}
+                      date={<OrderHistoryDate date={date} />}
+                      actor={toActor(user, app)}
+                      message={message}
+                      key={id}
+                      eventData={event}
+                      isLastInGroup={isLastInGroup}
+                    />
+                  );
+                }
+
+                if (
+                  type === OrderEventsEnum.ORDER_MARKED_AS_PAID ||
+                  type === OrderEventsEnum.ORDER_FULLY_PAID
+                ) {
+                  const hasTransactionRef = !!event.transactionReference;
+                  const hasContent = hasTransactionRef || message;
+
+                  return (
+                    <TimelineEvent
+                      date={<OrderHistoryDate date={date} />}
+                      eventData={event}
+                      actor={toActor(user, app)}
+                      eventType={type}
+                      isLastInGroup={isLastInGroup}
+                      title={
+                        <Box display="flex" gap={1} alignItems="center" flexWrap="wrap">
+                          <FormattedMessage id="KpP/aW" defaultMessage="Order was marked as" />
+                          <Pill
+                            color="success"
+                            size="small"
+                            label={intl.formatMessage({
+                              id: "u/vOPu",
+                              defaultMessage: "Paid",
+                            })}
+                            style={{ paddingLeft: 4, paddingRight: 4 }}
+                          />
+                        </Box>
+                      }
+                      key={id}
+                    >
+                      {hasContent && (
+                        <Box display="flex" flexDirection="column" gap={1}>
+                          {message && (
+                            <Text size={2} style={{ whiteSpace: "pre-wrap" }}>
+                              {message}
+                            </Text>
+                          )}
+                          {hasTransactionRef && (
+                            <Box display="flex" justifyContent="space-between" alignItems="center">
+                              <Text size={2} color="default2">
+                                <FormattedMessage
+                                  id="jGvclB"
+                                  defaultMessage="Transaction Reference"
+                                />
+                              </Text>
+                              <CopyableText text={event.transactionReference} />
+                            </Box>
+                          )}
+                        </Box>
+                      )}
+                    </TimelineEvent>
+                  );
+                }
+
+                if (type === OrderEventsEnum.ORDER_LINE_DISCOUNT_REMOVED && lines?.length > 0) {
+                  const productLine = lines[0];
+                  const productName =
+                    productLine.orderLine?.productName || productLine.itemName || "Product";
+                  const variantName = productLine.orderLine?.variantName;
+                  const displayName = variantName ? `${productName} (${variantName})` : productName;
+
+                  return (
+                    <TimelineEvent
+                      date={<OrderHistoryDate date={date} />}
+                      title={
+                        <FormattedMessage
+                          id="OErjoA"
+                          defaultMessage="{productName} discount was removed"
+                          values={{
+                            productName: (
+                              <Text size={3} fontWeight="medium" as="span">
+                                {displayName}
+                              </Text>
+                            ),
+                          }}
+                        />
+                      }
+                      key={id}
+                      eventData={event}
+                      actor={toActor(user, app)}
+                      eventType={type}
+                      isLastInGroup={isLastInGroup}
+                    />
+                  );
+                }
+
+                if (isTimelineEventOfType("extendable", type)) {
+                  return (
+                    <ExtendedTimelineEvent
+                      key={event.id}
+                      event={event}
+                      orderCurrency={orderCurrency}
+                      hasPlainDate={false}
+                      date={<OrderHistoryDate date={date} />}
+                      isLastInGroup={isLastInGroup}
+                    />
+                  );
+                }
+
+                const hasRelatedOrder = !!event.relatedOrder;
+                const hasLines = lines && lines.length > 0;
+                const isFoldable = message || hasRelatedOrder || hasLines;
+
+                if (isFoldable) {
+                  return (
+                    <TimelineEvent
+                      title={getEventMessage(event, intl)}
+                      hasPlainDate={false}
+                      key={id}
+                      date={<OrderHistoryDate date={date} />}
+                      eventData={event}
+                      actor={toActor(user, app)}
+                      eventType={type}
+                      isLastInGroup={isLastInGroup}
+                    >
+                      <Box display="flex" flexDirection="column" gap={1}>
+                        {message && (
+                          <Text size={2} style={{ whiteSpace: "pre-wrap" }}>
+                            {message}
+                          </Text>
+                        )}
+                        {hasLines &&
+                          lines.map((line, i) => (
+                            <OrderLineItem
+                              key={`${id}-line-${line.orderLine?.id || `${line.itemName}-${line.quantity}-${i}`}`}
+                              orderLine={line.orderLine}
+                              quantity={line.quantity ?? 0}
+                              fallbackItemName={line.itemName ?? "Product"}
+                            />
+                          ))}
+                        {hasRelatedOrder && (
+                          <Box display="flex" justifyContent="space-between" alignItems="center">
+                            <Text size={2} color="default2">
+                              <FormattedMessage id="pSqXo6" defaultMessage="Related Order" />
+                            </Text>
+                            <TimelineLink
+                              href={orderUrl(event.relatedOrder.id)}
+                              entity="order"
+                              color="default2"
+                              size={2}
+                            >
+                              #{event.relatedOrder.number}
+                            </TimelineLink>
+                          </Box>
+                        )}
+                      </Box>
+                    </TimelineEvent>
+                  );
+                }
+
+                return (
+                  <TimelineEvent
+                    title={getEventMessage(event, intl)}
+                    hasPlainDate={false}
+                    key={id}
+                    date={<OrderHistoryDate date={date} />}
+                    eventData={event}
+                    actor={toActor(user, app)}
+                    eventType={type}
+                    isLastInGroup={isLastInGroup}
+                  />
+                );
+              };
+
+              const isSoleGroup = groupedEvents.length === 1;
+
+              return groupedEvents.map(([dateKey, events]) => (
+                <Box key={dateKey}>
+                  <TimelineDateGroupHeader groupKey={dateKey} isSoleGroup={isSoleGroup} />
+                  {events.map((event, index) => renderEvent(event, index, events))}
+                </Box>
+              ));
+            })()}
+          </Timeline>
+        ) : (
+          <HistoryComponentLoader />
+        )}
+      </DashboardCard.Content>
+    </DashboardCard>
+  );
+};
+
+OrderHistory.displayName = "OrderHistory";
+export { OrderHistory };

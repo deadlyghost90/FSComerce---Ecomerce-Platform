@@ -1,0 +1,41 @@
+name: Prepare Sandbox release pull request
+on:
+  push:
+    tags:
+      # Matches stable and pre-releases
+      - "[0-9]+.[0-9]+.[0-9]+*"
+  workflow_dispatch:
+    inputs:
+      git_ref:
+        description: Git ref (tag, branch or commit hash) to deploy
+        required: true
+
+permissions: {}
+
+jobs:
+  prepare-sandbox-PR:
+    runs-on: ubuntu-22.04
+
+    env:
+      VERSION: ${{ github.event.inputs.git_ref || github.ref_name }}
+
+    steps:
+      - name: Prepare Sandbox release pull request
+        env:
+          VAULT_URL: ${{ secrets.VAULT_URL }}
+          VAULT_JWT: ${{ secrets.VAULT_JWT }}
+        run: |
+          export GITHUB_TOKEN=$( \
+            curl --request GET --url "$VAULT_URL" --header "Authorization: JWT $VAULT_JWT" | jq -r .token \
+          )
+          payload=$(
+            jq --arg version "$VERSION" -n '{
+              "event_type": "open-release-pull-request",
+              "client_payload": {
+                "project": "DASHBOARD",
+                "environment": "SANDBOX",
+                "version": $version
+              }
+            }'
+          )
+          gh api /repos/saleor/saleor-cloud-deployments/dispatches --input <(echo "$payload")

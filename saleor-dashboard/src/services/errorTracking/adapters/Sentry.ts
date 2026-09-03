@@ -1,0 +1,57 @@
+import * as Sentry from "@sentry/react";
+import { type History } from "history";
+
+import { type TrackerMethods } from "../types";
+
+interface Config {
+  dsn: string;
+  environment?: string;
+  release?: string;
+  apiUrl?: string;
+}
+
+const extractTenant = (apiUrl: string): string => {
+  try {
+    const url = new URL(apiUrl);
+
+    return url.hostname;
+  } catch {
+    return apiUrl;
+  }
+};
+
+export const SentryAdapter = (config: Config): TrackerMethods => {
+  const init: TrackerMethods["init"] = (history: History) => {
+    if (config?.dsn) {
+      Sentry.init({
+        dsn: config.dsn,
+        environment: config.environment,
+        release: config.release,
+        ignoreErrors: [
+          "Editor's content can not be saved in read-only mode",
+          "ResizeObserver loop completed with undelivered notifications",
+          "Cannot read properties of undefined (reading 'holder')",
+        ],
+        integrations: [Sentry.reactRouterV5BrowserTracingIntegration({ history })],
+        tracesSampleRate: 0.1,
+      });
+
+      if (config.apiUrl) {
+        Sentry.setUser({ username: extractTenant(config.apiUrl) });
+      }
+
+      return true;
+    }
+
+    return false;
+  };
+  const setUserData: TrackerMethods["setUserData"] = userData => Sentry.setUser(userData);
+  const captureException: TrackerMethods["captureException"] = (e: Error) =>
+    Sentry.captureException(e);
+
+  return {
+    captureException,
+    init,
+    setUserData,
+  };
+};

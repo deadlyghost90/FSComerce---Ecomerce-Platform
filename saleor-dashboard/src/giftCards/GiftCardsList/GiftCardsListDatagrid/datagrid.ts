@@ -1,0 +1,131 @@
+import {
+  moneyCell,
+  readonlyTextCell,
+  tagsCell,
+} from "@dashboard/components/Datagrid/customCells/cells";
+import { type AvailableColumn } from "@dashboard/components/Datagrid/types";
+import { type ExtendedGiftCard } from "@dashboard/giftCards/GiftCardUpdate/providers/GiftCardDetailsProvider/types";
+import { PLACEHOLDER } from "@dashboard/giftCards/GiftCardUpdate/types";
+import { type GiftCardDataFragment, type GiftCardListQuery } from "@dashboard/graphql";
+import { getStatusColor } from "@dashboard/misc";
+import { type Sort } from "@dashboard/types";
+import { getColumnSortDirectionIcon } from "@dashboard/utils/columns/getColumnSortDirectionIcon";
+import { type GridCell, type Item } from "@glideapps/glide-data-grid";
+import { type DefaultTheme } from "@saleor/macaw-ui-next";
+import { type IntlShape } from "react-intl";
+
+import { getGiftCardStatusPresentation } from "../../components/GiftCardStatusChip/getGiftCardStatusPresentation";
+import { type GiftCardUrlSortField } from "../types";
+import { columnsMessages, messages } from "./messages";
+
+export const getColumns = (intl: IntlShape, sort?: Sort<GiftCardUrlSortField>): AvailableColumn[] =>
+  [
+    {
+      id: "giftCardCode",
+      title: intl.formatMessage(columnsMessages.name),
+      width: 350,
+    },
+    {
+      id: "status",
+      title: intl.formatMessage(columnsMessages.status),
+      width: 150,
+    },
+    {
+      id: "tag",
+      title: intl.formatMessage(columnsMessages.tag),
+      width: 200,
+    },
+    {
+      id: "product",
+      title: intl.formatMessage(columnsMessages.productTitle),
+      width: 200,
+    },
+    {
+      id: "assignedTo",
+      title: intl.formatMessage(columnsMessages.assignedTo),
+      width: 200,
+    },
+    {
+      id: "balance",
+      title: intl.formatMessage(columnsMessages.balance),
+      width: 200,
+    },
+  ].map(column => ({
+    ...column,
+    icon: sort ? getColumnSortDirectionIcon(sort, column.id) : undefined,
+  }));
+
+const COMMON_CELL_PROPS: Partial<GridCell> = { cursor: "pointer" };
+
+export const createGetCellContent =
+  (
+    categories: Array<
+      ExtendedGiftCard<NonNullable<GiftCardListQuery["giftCards"]>["edges"][0]["node"]>
+    >,
+    columns: AvailableColumn[],
+    intl: IntlShape,
+    currentTheme: DefaultTheme,
+  ) =>
+  ([column, row]: Item): GridCell => {
+    const columnId = columns[column]?.id;
+
+    if (!columnId) {
+      return readonlyTextCell("");
+    }
+
+    const rowData = categories[row];
+
+    switch (columnId) {
+      case "giftCardCode":
+        return readonlyTextCell(
+          intl.formatMessage(messages.codeEndingWithLabel, {
+            last4CodeChars: rowData?.last4CodeChars ?? "",
+          }),
+        );
+      case "status": {
+        if (!rowData) {
+          return readonlyTextCell("");
+        }
+
+        const status = getGiftCardStatusPresentation(rowData);
+        const color = getStatusColor({
+          status: status.color,
+          currentTheme,
+        });
+        const statusLabel = intl.formatMessage(status.label);
+
+        return tagsCell(
+          [
+            {
+              tag: statusLabel,
+              color: color.base,
+            },
+          ],
+          [statusLabel],
+          COMMON_CELL_PROPS,
+        );
+      }
+      case "tag":
+        return readonlyTextCell(getTagCellText(rowData?.tags ?? []));
+      case "product":
+        return readonlyTextCell(rowData?.product?.name ?? PLACEHOLDER);
+      case "assignedTo":
+        return readonlyTextCell(rowData?.assignedToEmail ?? PLACEHOLDER);
+      case "balance":
+        return moneyCell(
+          rowData.currentBalance.amount,
+          rowData.currentBalance.currency,
+          COMMON_CELL_PROPS,
+        );
+      default:
+        return readonlyTextCell("", false);
+    }
+  };
+
+const getTagCellText = (tags: GiftCardDataFragment["tags"]) => {
+  if (tags.length) {
+    return tags.map(({ name }) => name).join(", ");
+  }
+
+  return PLACEHOLDER;
+};

@@ -1,0 +1,332 @@
+import {
+  type NumberCell,
+  numberCellEmptyValue,
+  type NumberCellProps,
+} from "@dashboard/components/Datagrid/customCells/NumberCell";
+import { type Locale } from "@dashboard/components/Locale/Locale";
+import { type DotStatus } from "@dashboard/components/StatusDot/StatusDot";
+import {
+  type CustomCell,
+  type GridCell,
+  GridCellKind,
+  type TextCell,
+  type Theme,
+} from "@glideapps/glide-data-grid";
+import { type Option } from "@saleor/macaw-ui-next";
+
+import { type DropdownCell, type DropdownCellProps } from "./DropdownCell";
+import { type MoneyCell } from "./Money/MoneyCell";
+import { type MoneyDiscuntedCell } from "./Money/MoneyDiscountedCell";
+import { hueToPillColorLight, type PillCell, type PillColor, stringToHue } from "./PillCell";
+import { type PrimarySecondaryTextCell } from "./PrimarySecondaryTextCell";
+import { type StatusCell } from "./StatusCell";
+import { type ThumbnailCell } from "./ThumbnailCell";
+
+const common = {
+  allowOverlay: true,
+  readonly: false,
+};
+
+export function textCell(value: string, opts?: Partial<TextCell>): GridCell {
+  return {
+    ...common,
+    data: value,
+    displayData: value,
+    kind: GridCellKind.Text,
+    ...opts,
+  };
+}
+
+export function readonlyTextCell(
+  value: string,
+  hasCursorPointer = true,
+  style: TextCell["style"] = "normal",
+  themeOverride?: Partial<Theme>,
+): TextCell {
+  return {
+    cursor: hasCursorPointer ? "pointer" : "default",
+    allowOverlay: false,
+    readonly: true,
+    data: value,
+    displayData: value,
+    kind: GridCellKind.Text,
+    style,
+    themeOverride,
+  };
+}
+
+/** Primary label in default text color; optional secondary suffix in muted (default2). */
+export function primarySecondaryTextCell(
+  primary: string,
+  secondary?: string,
+  opts?: Partial<GridCell>,
+): PrimarySecondaryTextCell {
+  const copyData = `${primary}${secondary ?? ""}`;
+
+  return {
+    ...common,
+    ...opts,
+    allowOverlay: false,
+    readonly: true,
+    kind: GridCellKind.Custom,
+    copyData,
+    data: {
+      kind: "primary-secondary-text-cell",
+      primary,
+      secondary,
+    },
+  };
+}
+
+export function loadMoreTextCell(
+  value: string,
+  themeOverride?: Partial<Theme>,
+  options?: { loading?: boolean },
+): TextCell {
+  return {
+    cursor: options?.loading ? "default" : "pointer",
+    allowOverlay: false,
+    readonly: true,
+    data: value,
+    displayData: value,
+    kind: GridCellKind.Text,
+    style: options?.loading ? "faded" : "normal",
+    themeOverride,
+  };
+}
+
+interface ThrobberCellData {
+  kind: "throbber-cell";
+}
+
+export type ThrobberCell = CustomCell<ThrobberCellData>;
+
+interface ChevronCellData {
+  kind: "chevron-cell";
+  direction: "down" | "right";
+}
+
+export type ChevronCell = CustomCell<ChevronCellData>;
+
+export function chevronCell(expanded: boolean, hasCursorPointer = true): ChevronCell {
+  return {
+    cursor: hasCursorPointer ? "pointer" : "default",
+    allowOverlay: false,
+    readonly: true,
+    kind: GridCellKind.Custom,
+    copyData: "",
+    data: {
+      kind: "chevron-cell",
+      direction: expanded ? "down" : "right",
+    },
+  };
+}
+
+export function tagsCell(
+  tags: Array<{ tag: string; color: string }>,
+  selectedTags: string[],
+  opts?: Partial<GridCell>,
+): GridCell {
+  return {
+    allowOverlay: true,
+    ...opts,
+    kind: GridCellKind.Custom,
+    copyData: selectedTags.join(", "),
+    data: {
+      kind: "tags-cell",
+      possibleTags: tags,
+      tags: selectedTags,
+    },
+  };
+}
+
+export function booleanCell(value: boolean, options: Partial<GridCell> = {}): GridCell {
+  return {
+    ...common,
+    ...options,
+    allowOverlay: false,
+    kind: GridCellKind.Boolean,
+    data: value,
+  };
+}
+
+export function loadingCell(): ThrobberCell {
+  return {
+    kind: GridCellKind.Custom,
+    allowOverlay: false,
+    readonly: true,
+    copyData: "",
+    data: {
+      kind: "throbber-cell",
+    },
+  };
+}
+
+export function numberCell(
+  value: number | typeof numberCellEmptyValue,
+  options?: NumberCellProps["options"],
+): NumberCell {
+  return {
+    ...common,
+    cursor: options?.cursor,
+    data: {
+      kind: "number-cell",
+      value,
+      options,
+    },
+    kind: GridCellKind.Custom,
+    copyData: value !== numberCellEmptyValue ? value.toString() : "",
+  };
+}
+
+export function buttonCell(title: string, cb: () => void): CustomCell {
+  return {
+    kind: GridCellKind.Custom,
+    cursor: "pointer",
+    allowOverlay: true,
+    copyData: "4",
+    readonly: true,
+    data: {
+      kind: "button-cell",
+      color: "accentColor",
+      borderColor: ["accentLight", "accentColor"],
+      borderRadius: 9,
+      title,
+      onClick: cb,
+    },
+  };
+}
+
+export function moneyCell(
+  value: number | number[] | null,
+  currency: string,
+  opts?: Partial<GridCell>,
+  dataOpts?: { hasBreakdown?: boolean },
+): MoneyCell {
+  return {
+    ...common,
+    ...opts,
+    kind: GridCellKind.Custom,
+    data: {
+      kind: "money-cell",
+      value,
+      currency,
+      hasBreakdown: dataOpts?.hasBreakdown,
+    },
+    copyData: value?.toString() ?? "",
+  };
+}
+
+interface MoneyDiscountedCellData {
+  value: number | string | null;
+  discount?: string | number;
+  undiscounted?: string | number;
+  currency: string;
+  locale: Locale;
+  hasBreakdown?: boolean;
+}
+
+export function moneyDiscountedCell(
+  { value, undiscounted, currency, locale, hasBreakdown }: MoneyDiscountedCellData,
+  opts?: Partial<GridCell>,
+): MoneyDiscuntedCell {
+  return {
+    ...common,
+    ...opts,
+    kind: GridCellKind.Custom,
+    data: {
+      kind: "money-discounted-cell",
+      value,
+      currency,
+      undiscounted,
+      locale,
+      hasBreakdown,
+    },
+    copyData: value?.toString() ?? "",
+  };
+}
+
+export function dropdownCell(
+  value: Option,
+  dataOpts: Pick<DropdownCellProps, "allowCustomValues" | "emptyOption" | "swatch"> &
+    ({ choices: Option[] } | { update: (text: string) => Promise<Option[]> }),
+  opts?: Partial<GridCell>,
+): DropdownCell {
+  return {
+    ...common,
+    ...opts,
+    data: {
+      ...dataOpts,
+      kind: "dropdown-cell",
+      value,
+    },
+    kind: GridCellKind.Custom,
+    copyData: value.label,
+  };
+}
+
+export function thumbnailCell(
+  name: string,
+  image: string,
+  opts?: Partial<GridCell>,
+): ThumbnailCell {
+  return {
+    ...common,
+    ...opts,
+    kind: GridCellKind.Custom,
+    copyData: name ?? "",
+    data: {
+      kind: "thumbnail-cell",
+      image,
+      name,
+    },
+  };
+}
+
+export function statusCell(status: DotStatus, value: string, opts?: Partial<GridCell>): StatusCell {
+  return {
+    ...common,
+    ...opts,
+    kind: GridCellKind.Custom,
+    copyData: value ?? "",
+    data: {
+      kind: "status-cell",
+      value,
+      status,
+    },
+  };
+}
+
+export function pillCell(
+  value: string,
+  color: PillColor | null,
+  opts?: Partial<GridCell>,
+): PillCell {
+  const pillColor = color;
+  const fallbackColor = hueToPillColorLight(stringToHue(value));
+
+  return {
+    ...common,
+    ...opts,
+    copyData: value ?? "",
+    data: {
+      kind: "auto-tags-cell",
+      value,
+      color: pillColor ?? fallbackColor,
+    },
+    kind: GridCellKind.Custom,
+  };
+}
+
+export function dateCell(value: string, opts?: Partial<GridCell>): GridCell {
+  return {
+    ...common,
+    ...opts,
+    copyData: value ?? "",
+    data: {
+      kind: "date-cell",
+      value,
+    },
+    kind: GridCellKind.Custom,
+  };
+}

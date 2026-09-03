@@ -1,0 +1,808 @@
+import { DashboardCard } from "@dashboard/components/Card";
+import {
+  channelAvailabilityEntityMessages,
+  channelAvailabilityMessages,
+} from "@dashboard/components/ChannelAvailability/messages";
+import { type ChannelOpts } from "@dashboard/components/ChannelsAvailabilityCard/types";
+import { iconSize, iconStrokeWidth } from "@dashboard/components/icons";
+import { Placeholder } from "@dashboard/components/Placeholder/Placeholder";
+import {
+  type ChannelFragment,
+  type ProductChannelListingAddInput,
+  type ProductChannelListingErrorFragment,
+} from "@dashboard/graphql";
+import { Accordion, Box, Button, Skeleton, Spinner, Text, Tooltip } from "@saleor/macaw-ui-next";
+import {
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Info,
+  Layers,
+  Search,
+  X,
+  XCircle,
+} from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useIntl } from "react-intl";
+
+import { AvailabilityChannelItem } from "./AvailabilityChannelItem";
+import {
+  type ChannelVerificationResult,
+  usePublicApiVerification,
+} from "./hooks/usePublicApiVerification";
+import { messages } from "./messages";
+import {
+  countIssuesBySeverity,
+  filterChannelsBySearch,
+  getDirtyChannelIds,
+  groupIssuesByChannel,
+  paginateItems,
+} from "./utils/channelUtils";
+import { mergeFormDataWithChannelSummaries } from "./utils/mergeChannelSummaries";
+import { type DiagnosticsPermissions, type DiagnosticsResult } from "./utils/types";
+
+interface AvailabilityCardProps {
+  diagnostics: DiagnosticsResult;
+  totalChannelsCount: number;
+  onManageClick?: () => void;
+  onChannelChange?: (channelId: string, data: ChannelOpts) => void;
+  disabled?: boolean;
+  /** Form's current channel data - used to display pending (unsaved) changes */
+  formChannelData?: ProductChannelListingAddInput[];
+  /** Channel IDs marked for removal */
+  removeChannels?: string[];
+  /** All available channels - needed to create summaries for newly added channels */
+  channels?: ChannelFragment[];
+  /** Validation errors for channel listings */
+  errors?: ProductChannelListingErrorFragment[];
+  /** Product ID - needed for public API verification */
+  productId?: string;
+  /** When set, variant catalog walk failed — show instead of a false “healthy” state */
+  variantsCatalogError?: boolean;
+}
+
+export const AvailabilityCard = ({
+  diagnostics,
+  totalChannelsCount,
+  onManageClick,
+  onChannelChange,
+  disabled = false,
+  formChannelData,
+  removeChannels = [],
+  channels = [],
+  errors = [],
+  productId,
+  variantsCatalogError = false,
+}: AvailabilityCardProps) => {
+  const intl = useIntl();
+  const [expandedChannel, setExpandedChannel] = useState<string | undefined>(undefined);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const PAGE_SIZE = 10;
+
+  const {
+    channelSummaries,
+    issues,
+    hasErrors,
+    hasWarnings,
+    isLoading,
+    permissions,
+    useLegacyShippingZoneStockAvailability,
+    isShippingRequired,
+  } = diagnostics;
+
+  const verification = usePublicApiVerification(productId || "");
+
+  const { verifyChannel } = verification;
+
+  const expandedChannelSummary = useMemo(() => {
+    if (!expandedChannel) {
+      return null;
+    }
+
+    return channelSummaries.find(s => s.id === expandedChannel) ?? null;
+  }, [expandedChannel, channelSummaries]);
+
+  const expandedChannelAvailabilityKey = expandedChannelSummary
+    ? `${expandedChannelSummary.isPublished}-${expandedChannelSummary.publishedAt}-${expandedChannelSummary.isAvailableForPurchase}-${expandedChannelSummary.availableForPurchaseAt}-${expandedChannelSummary.visibleInListings}`
+    : "";
+
+  // Debounce public API verification to avoid rapid calls when user is changing settings
+  const VERIFICATION_DEBOUNCE_MS = 800;
+
+  useEffect(() => {
+    if (!expandedChannelSummary || !productId) {
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      verifyChannel(expandedChannelSummary.id, expandedChannelSummary.slug);
+    }, VERIFICATION_DEBOUNCE_MS);
+
+    return () => clearTimeout(timeoutId);
+  }, [expandedChannelSummary, productId, verifyChannel, expandedChannelAvailabilityKey]);
+
+  const { errorCount, warningCount, infoCount } = useMemo(
+    () => countIssuesBySeverity(issues),
+    [issues],
+  );
+
+  const issuesByChannel = useMemo(() => groupIssuesByChannel(issues), [issues]);
+
+  // Merge form data with diagnostic summaries and include newly added channels
+  const mergedSummaries = useMemo(
+    () => mergeFormDataWithChannelSummaries(channelSummaries, formChannelData, channels),
+    [channelSummaries, formChannelData, channels],
+  );
+
+  const dirtyChannels = useMemo(
+    () => getDirtyChannelIds(channelSummaries, formChannelData),
+    [channelSummaries, formChannelData],
+  );
+
+  // Filter channels by search query
+  const filteredSummaries = useMemo(
+    () => filterChannelsBySearch(mergedSummaries, searchQuery),
+    [mergedSummaries, searchQuery],
+  );
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredSummaries.length / PAGE_SIZE);
+  const paginatedSummaries = paginateItems(filteredSummaries, currentPage, PAGE_SIZE);
+  const showPagination = filteredSummaries.length > PAGE_SIZE;
+
+  // Reset to page 1 when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
+  // Reset expanded channel if it's no longer in the visible list
+  useEffect(() => {
+    if (expandedChannel && !paginatedSummaries.find(s => s.id === expandedChannel)) {
+      setExpandedChannel(undefined);
+    }
+  }, [paginatedSummaries, expandedChannel]);
+
+  const listedChannelsCount = mergedSummaries.length;
+
+  return (
+    <DashboardCard data-test-id="availability-card">
+      <DashboardCard.Header>
+        <Box display="flex" flexDirection="column" gap={1}>
+          <DashboardCard.Title>
+            {intl.formatMessage(messages.availabilityTitle)}
+          </DashboardCard.Title>
+          {!isLoading && (
+            <DashboardCard.Subtitle fontSize={3} color="default2">
+              {intl.formatMessage(channelAvailabilityMessages.availabilitySubtitle, {
+                entityType: intl.formatMessage(channelAvailabilityEntityMessages.product),
+                listed: listedChannelsCount,
+                total: totalChannelsCount,
+              })}
+              {dirtyChannels.length > 0 && (
+                <>
+                  {" · "}
+                  {intl.formatMessage(messages.unsavedChannelChanges, {
+                    count: dirtyChannels.length,
+                  })}
+                </>
+              )}
+            </DashboardCard.Subtitle>
+          )}
+        </Box>
+        {onManageClick && (
+          <Button
+            variant="secondary"
+            onClick={onManageClick}
+            data-test-id="channels-availability-manage-button"
+          >
+            {intl.formatMessage(messages.manageButton)}
+          </Button>
+        )}
+      </DashboardCard.Header>
+
+      <DashboardCard.Content>
+        {isLoading ? (
+          <Box padding={4}>
+            <Skeleton height={4} marginBottom={2} />
+            <Skeleton height={4} __width="60%" />
+          </Box>
+        ) : variantsCatalogError ? (
+          <Box padding={4}>
+            <Text size={2} color="critical1">
+              {intl.formatMessage(messages.variantsCatalogUnavailable)}
+            </Text>
+          </Box>
+        ) : mergedSummaries.length === 0 ? (
+          <Box paddingBottom={6} data-test-id="channel-availability-empty">
+            <Placeholder>{intl.formatMessage(messages.noChannelsListed)}</Placeholder>
+          </Box>
+        ) : (
+          <Box display="flex" flexDirection="column" gap={4}>
+            <DiagnosticSummaryBanner
+              hasErrors={hasErrors}
+              hasWarnings={hasWarnings}
+              errorCount={errorCount}
+              warningCount={warningCount}
+              infoCount={infoCount}
+              permissions={permissions}
+            />
+
+            <StockAvailabilityModeIndicator
+              useLegacyShippingZoneStockAvailability={useLegacyShippingZoneStockAvailability}
+            />
+
+            {/* Search input - always visible when there are channels */}
+            <ChannelSearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder={intl.formatMessage(messages.searchChannelsPlaceholder)}
+            />
+
+            {/* No results message */}
+            {filteredSummaries.length === 0 ? (
+              <Placeholder>{intl.formatMessage(messages.noChannelsMatchSearch)}</Placeholder>
+            ) : (
+              <>
+                <Box
+                  borderWidth={1}
+                  borderStyle="solid"
+                  borderColor="default1"
+                  borderRadius={4}
+                  overflow="hidden"
+                >
+                  <Accordion
+                    value={expandedChannel ?? ""}
+                    onValueChange={(value: string) => setExpandedChannel(value || undefined)}
+                  >
+                    {paginatedSummaries.map((summary, index) => {
+                      const channelErrors = errors.filter(error =>
+                        error.channels?.includes(summary.id),
+                      );
+                      const channelIssues = issuesByChannel.get(summary.id) || [];
+
+                      return (
+                        <AvailabilityChannelItem
+                          key={summary.id}
+                          summary={summary}
+                          originalSummary={channelSummaries.find(s => s.id === summary.id)}
+                          rowIndex={index}
+                          isLast={index === paginatedSummaries.length - 1}
+                          isDirty={dirtyChannels.includes(summary.id)}
+                          isMarkedForRemoval={removeChannels.includes(summary.id)}
+                          isNew={!channelSummaries.find(s => s.id === summary.id)}
+                          onChange={onChannelChange}
+                          disabled={disabled}
+                          errors={channelErrors}
+                          issues={channelIssues}
+                          isOpen={expandedChannel === summary.id}
+                          onClose={() => setExpandedChannel(undefined)}
+                          verificationResult={verification.getChannelResult(summary.id)}
+                          onVerify={
+                            productId
+                              ? () => verification.verifyChannel(summary.id, summary.slug)
+                              : undefined
+                          }
+                          useLegacyShippingZoneStockAvailability={
+                            useLegacyShippingZoneStockAvailability
+                          }
+                          isShippingRequired={isShippingRequired}
+                        />
+                      );
+                    })}
+                  </Accordion>
+                </Box>
+
+                {/* Pagination controls - only when needed */}
+                {showPagination && (
+                  <ChannelPagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    totalItems={filteredSummaries.length}
+                    pageSize={PAGE_SIZE}
+                    onPageChange={setCurrentPage}
+                  />
+                )}
+              </>
+            )}
+          </Box>
+        )}
+      </DashboardCard.Content>
+    </DashboardCard>
+  );
+};
+
+// Re-export utilities for external consumers
+export { getAvailabilityStatus, isPurchasable } from "./utils/availabilityStatus";
+
+interface DiagnosticSummaryBannerProps {
+  hasErrors: boolean;
+  hasWarnings: boolean;
+  errorCount: number;
+  warningCount: number;
+  /** Number of info-level advisories. Used to suffix the "all healthy" banner
+   *  so users notice unresolved advisories that don't promote the channel
+   *  into a header-issue state but still merit attention. */
+  infoCount: number;
+  permissions: DiagnosticsPermissions;
+}
+
+const DiagnosticSummaryBanner = ({
+  hasErrors,
+  hasWarnings,
+  errorCount,
+  warningCount,
+  infoCount,
+  permissions,
+}: DiagnosticSummaryBannerProps) => {
+  const intl = useIntl();
+
+  const hasMissingPermissions = permissions.missingPermissions.length > 0;
+  const hasIssues = hasErrors || hasWarnings;
+
+  const getStatusColor = () => {
+    if (hasErrors) {
+      return "var(--mu-colors-background-critical1)";
+    }
+
+    if (hasWarnings) {
+      return "var(--mu-colors-background-warning1)";
+    }
+
+    return "var(--mu-colors-background-success1)";
+  };
+
+  const getTextColor = (): "critical1" | "warning1" | "default2" => {
+    if (hasErrors) {
+      return "critical1";
+    }
+
+    if (hasWarnings) {
+      return "warning1";
+    }
+
+    return "default2";
+  };
+
+  // When no issues but missing permissions, show "Limited" with tooltip
+  if (!hasIssues && hasMissingPermissions) {
+    return (
+      <Tooltip>
+        <Tooltip.Trigger>
+          <Box display="flex" alignItems="center" gap={2} __cursor="help">
+            <Info size={14} color="var(--mu-colors-text-default2)" />
+            <Text size={2} color="default2">
+              {intl.formatMessage(messages.limitedDiagnostics)}
+            </Text>
+          </Box>
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          <Tooltip.Arrow />
+          <Box padding={2} __maxWidth="350px">
+            <Text size={2}>
+              {intl.formatMessage(messages.limitedDiagnosticsDescription, {
+                permissions: permissions.missingPermissions.join(", "),
+              })}
+            </Text>
+          </Box>
+        </Tooltip.Content>
+      </Tooltip>
+    );
+  }
+
+  // When no errors/warnings and full permissions, show success — but suffix
+  // the message with an advisory count when info-level issues are present so
+  // we don't claim "all configured correctly" while an unresolved advisory
+  // (e.g. missing shipping zones in direct mode) sits below.
+  if (!hasIssues) {
+    return (
+      <Box display="flex" alignItems="center" gap={2}>
+        <Box
+          borderRadius="100%"
+          __width="8px"
+          __height="8px"
+          __backgroundColor={getStatusColor()}
+          flexShrink="0"
+        />
+        <Text size={2} color={getTextColor()} data-test-id="diagnostic-summary-banner">
+          {infoCount === 0 && intl.formatMessage(messages.allChannelsHealthy)}
+          {infoCount === 1 && intl.formatMessage(messages.allChannelsHealthyWithAdvisory)}
+          {infoCount > 1 &&
+            intl.formatMessage(messages.allChannelsHealthyWithAdvisories, { count: infoCount })}
+        </Text>
+      </Box>
+    );
+  }
+
+  // When there are issues, show the summary (with limited permissions indicator if applicable)
+  return (
+    <Box display="flex" alignItems="center" gap={2}>
+      <Box
+        borderRadius="100%"
+        __width="8px"
+        __height="8px"
+        __backgroundColor={getStatusColor()}
+        flexShrink="0"
+      />
+      <Text size={2} color={getTextColor()}>
+        {intl.formatMessage(messages.issuesSummary, {
+          errorCount,
+          warningCount,
+          hasErrors: hasErrors ? "true" : "false",
+          hasWarnings: hasWarnings ? "true" : "false",
+        })}
+      </Text>
+      {hasMissingPermissions && (
+        <Tooltip>
+          <Tooltip.Trigger>
+            <Box display="flex" alignItems="center" __cursor="help">
+              <Info size={14} color="var(--mu-colors-text-default2)" />
+            </Box>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            <Tooltip.Arrow />
+            <Box padding={2} __maxWidth="350px">
+              <Text size={2}>
+                {intl.formatMessage(messages.limitedDiagnosticsDescription, {
+                  permissions: permissions.missingPermissions.join(", "),
+                })}
+              </Text>
+            </Box>
+          </Tooltip.Content>
+        </Tooltip>
+      )}
+    </Box>
+  );
+};
+
+interface StockAvailabilityModeIndicatorProps {
+  useLegacyShippingZoneStockAvailability: boolean;
+}
+
+/**
+ * Renders a small one-line indicator informing the user which Saleor 3.23+
+ * stock-availability mode is currently active. The mode determines how the
+ * doctor and the public API resolve product availability, so surfacing it
+ * upfront prevents confusion when warnings differ between the two modes.
+ */
+const StockAvailabilityModeIndicator = ({
+  useLegacyShippingZoneStockAvailability,
+}: StockAvailabilityModeIndicatorProps) => {
+  const intl = useIntl();
+  const labelMessage = useLegacyShippingZoneStockAvailability
+    ? messages.stockAvailabilityModeLegacy
+    : messages.stockAvailabilityModeDirect;
+  const tooltipMessage = useLegacyShippingZoneStockAvailability
+    ? messages.stockAvailabilityModeLegacyTooltip
+    : messages.stockAvailabilityModeDirectTooltip;
+
+  return (
+    <Tooltip>
+      <Tooltip.Trigger>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          __cursor="help"
+          data-test-id="stock-availability-mode-indicator"
+        >
+          <Layers size={14} color="var(--mu-colors-text-default2)" />
+          <Text size={2} color="default2">
+            {intl.formatMessage(labelMessage)}
+          </Text>
+        </Box>
+      </Tooltip.Trigger>
+      <Tooltip.Content>
+        <Tooltip.Arrow />
+        <Box padding={2} __maxWidth="350px">
+          <Text size={2}>{intl.formatMessage(tooltipMessage)}</Text>
+        </Box>
+      </Tooltip.Content>
+    </Tooltip>
+  );
+};
+
+interface PublicApiVerificationBadgeProps {
+  result: ChannelVerificationResult;
+  /** Active stock-availability mode. Drives the reassurance line so users know
+   *  what was just verified given the shop's mode. Defaults to legacy. */
+  useLegacyShippingZoneStockAvailability?: boolean;
+  /** Number of shipping zones configured for the channel. A channel with zero
+   *  shipping zones cannot deliver any order, so a "purchasable" verdict from
+   *  the public API is misleading for shippable products — we override it with
+   *  a coverage-aware warning. Optional for backwards compatibility; when
+   *  undefined we fall back to the API-reported verdict. */
+  shippingZoneCount?: number;
+  /** Whether the product requires shipping. The coverage-aware override only
+   *  applies to shippable products — non-shippable products (digital goods,
+   *  activation codes, license keys) can be purchased without any shipping
+   *  zones, so their "Purchasable" verdict is genuinely correct. Defaults to
+   *  true (the conservative legacy assumption). */
+  isShippingRequired?: boolean;
+}
+
+export const PublicApiVerificationBadge = ({
+  result,
+  useLegacyShippingZoneStockAvailability = true,
+  shippingZoneCount,
+  isShippingRequired = true,
+}: PublicApiVerificationBadgeProps) => {
+  const intl = useIntl();
+
+  if (result.status === "loading") {
+    return (
+      <Box display="flex" alignItems="center" gap={1}>
+        <Box __width="14px" __height="14px" display="flex" alignItems="center">
+          <Spinner />
+        </Box>
+        <Text size={1} color="default2">
+          {intl.formatMessage(messages.verifyingPublicApi)}
+        </Text>
+      </Box>
+    );
+  }
+
+  if (result.status === "error") {
+    return (
+      <Box display="flex" alignItems="center" gap={1}>
+        <XCircle size={14} color="var(--mu-colors-text-critical1)" />
+        <Text size={1} color="critical1">
+          {intl.formatMessage(messages.publicApiVerificationError)}
+        </Text>
+      </Box>
+    );
+  }
+
+  if (!result.result) {
+    return null;
+  }
+
+  const { productFound, isAvailable, variantsWithStock } = result.result;
+
+  if (!productFound) {
+    return (
+      <PublicApiVerificationBadgeShell
+        icon={<XCircle size={14} color="var(--mu-colors-text-default2)" />}
+        statusColor="default2"
+        status={intl.formatMessage(messages.publicApiNotVisible)}
+        reassurance={intl.formatMessage(messages.verificationReassurance_notVisible)}
+        reassuranceTestId="not-visible"
+      />
+    );
+  }
+
+  if (isAvailable && variantsWithStock > 0) {
+    // The public API verifies what the storefront resolver returns, not what
+    // an end-to-end checkout requires. For shippable products in both
+    // stock-availability modes, a channel without shipping zones cannot
+    // deliver any order, so the green "Purchasable" badge would be
+    // misleading in isolation — override it with a coverage-aware variant.
+    // The two modes get distinct copy:
+    //   - Legacy: API result is unexpected (stock should have been gated by
+    //     shipping zones; surface as "no coverage").
+    //   - Direct: API result is expected (stock is decoupled from shipping
+    //     zones by design), but checkout still fails — surface as
+    //     "browseable, can't ship".
+    // Non-shippable products (digital goods, activation codes, license keys)
+    // are excluded from the override because they can be purchased without
+    // any shipping configuration — for them, "Purchasable" is correct.
+    if (shippingZoneCount === 0 && isShippingRequired) {
+      const isLegacy = useLegacyShippingZoneStockAvailability;
+
+      return (
+        <PublicApiVerificationBadgeShell
+          icon={<XCircle size={14} color="var(--mu-colors-text-warning1)" />}
+          statusColor="warning1"
+          status={intl.formatMessage(
+            isLegacy
+              ? messages.publicApiReportsStockNoCoverage
+              : messages.publicApiBrowseableNoShipping,
+          )}
+          statusSuffix={intl.formatMessage(messages.publicApiVariantsInStock, {
+            count: variantsWithStock,
+          })}
+          reassurance={intl.formatMessage(
+            isLegacy
+              ? messages.verificationReassurance_notReachableLegacy
+              : messages.verificationReassurance_notDeliverableDirect,
+          )}
+          reassuranceTestId={isLegacy ? "not-reachable-legacy" : "not-deliverable-direct"}
+        />
+      );
+    }
+
+    return (
+      <PublicApiVerificationBadgeShell
+        icon={<CheckCircle size={14} color="var(--mu-colors-text-success1)" />}
+        statusColor="success1"
+        status={intl.formatMessage(messages.publicApiPurchasable)}
+        statusSuffix={intl.formatMessage(messages.publicApiVariantsInStock, {
+          count: variantsWithStock,
+        })}
+        reassurance={intl.formatMessage(
+          useLegacyShippingZoneStockAvailability
+            ? messages.verificationReassurance_purchasableLegacy
+            : messages.verificationReassurance_purchasableDirect,
+        )}
+        reassuranceTestId={
+          useLegacyShippingZoneStockAvailability ? "purchasable-legacy" : "purchasable-direct"
+        }
+      />
+    );
+  }
+
+  return (
+    <PublicApiVerificationBadgeShell
+      icon={<XCircle size={14} color="var(--mu-colors-text-warning1)" />}
+      statusColor="warning1"
+      status={intl.formatMessage(messages.publicApiNotPurchasable)}
+      statusSuffix={
+        variantsWithStock === 0
+          ? intl.formatMessage(messages.publicApiNoVariantsInStock)
+          : undefined
+      }
+      reassurance={intl.formatMessage(messages.verificationReassurance_notPurchasable)}
+      reassuranceTestId="not-purchasable"
+    />
+  );
+};
+
+interface PublicApiVerificationBadgeShellProps {
+  icon: React.ReactNode;
+  statusColor: "success1" | "warning1" | "default2";
+  status: string;
+  /** Optional secondary status fragment (e.g. variants-in-stock count). */
+  statusSuffix?: string;
+  /** Mode-aware explanatory line that reassures the user about what was just
+   *  verified given the active stock-availability mode. */
+  reassurance: string;
+  reassuranceTestId: string;
+}
+
+const PublicApiVerificationBadgeShell = ({
+  icon,
+  statusColor,
+  status,
+  statusSuffix,
+  reassurance,
+  reassuranceTestId,
+}: PublicApiVerificationBadgeShellProps) => (
+  <Box display="flex" flexDirection="column" gap={0.5}>
+    <Box display="flex" alignItems="center" gap={1}>
+      {icon}
+      <Text size={1} color={statusColor}>
+        {status}
+      </Text>
+      {statusSuffix && (
+        <Text size={1} color="default2">
+          · {statusSuffix}
+        </Text>
+      )}
+    </Box>
+    <Text
+      size={1}
+      color="default2"
+      data-test-id="verification-reassurance"
+      data-test-reassurance={reassuranceTestId}
+    >
+      {reassurance}
+    </Text>
+  </Box>
+);
+
+interface ChannelSearchInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+}
+
+const ChannelSearchInput = ({ value, onChange, placeholder }: ChannelSearchInputProps) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  return (
+    <Box
+      display="flex"
+      alignItems="center"
+      gap={2}
+      paddingX={3}
+      paddingY={2}
+      borderWidth={1}
+      borderStyle="solid"
+      borderColor="default1"
+      borderRadius={3}
+      backgroundColor="default1"
+    >
+      <Box display="flex" alignItems="center" flexShrink="0">
+        <Search size={16} color="var(--mu-colors-text-default2)" />
+      </Box>
+      <input
+        ref={inputRef}
+        type="text"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onKeyDown={e => {
+          if (e.key === "Escape") {
+            onChange("");
+            inputRef.current?.blur();
+          }
+        }}
+        placeholder={placeholder}
+        data-test-id="channel-search-input"
+        style={{
+          flex: 1,
+          border: "none",
+          outline: "none",
+          backgroundColor: "transparent",
+          fontSize: "14px",
+          color: "var(--mu-colors-text-default1)",
+          minWidth: 0,
+        }}
+      />
+      {value && (
+        <Box
+          as="button"
+          type="button"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          padding={0}
+          borderWidth={0}
+          backgroundColor="transparent"
+          cursor="pointer"
+          onClick={() => {
+            onChange("");
+            inputRef.current?.focus();
+          }}
+          data-test-id="channel-search-clear"
+        >
+          <X size={16} color="var(--mu-colors-text-default2)" />
+        </Box>
+      )}
+    </Box>
+  );
+};
+
+interface ChannelPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+}
+
+const ChannelPagination = ({
+  currentPage,
+  totalPages,
+  totalItems,
+  pageSize,
+  onPageChange,
+}: ChannelPaginationProps) => {
+  const intl = useIntl();
+  const start = (currentPage - 1) * pageSize + 1;
+  const end = Math.min(currentPage * pageSize, totalItems);
+
+  return (
+    <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Text size={2} color="default2">
+        {intl.formatMessage(messages.paginationShowing, { start, end, total: totalItems })}
+      </Text>
+      <Box display="flex" alignItems="center" gap={2}>
+        <Button
+          variant="secondary"
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          icon={<ChevronLeft size={iconSize.medium} strokeWidth={iconStrokeWidth} />}
+          data-test-id="pagination-prev"
+        />
+        <Button
+          variant="secondary"
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          icon={<ChevronRight size={iconSize.medium} strokeWidth={iconStrokeWidth} />}
+          data-test-id="pagination-next"
+        />
+      </Box>
+    </Box>
+  );
+};

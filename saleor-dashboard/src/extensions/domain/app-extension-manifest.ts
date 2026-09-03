@@ -1,0 +1,130 @@
+import {
+  ALL_APP_EXTENSION_MOUNTS,
+  WIDGET_AVAILABLE_MOUNTS,
+} from "@dashboard/extensions/domain/app-extension-manifest-available-mounts";
+import { appExtensionManifestOptionsSchema } from "@dashboard/extensions/domain/app-extension-manifest-options";
+import { AppExtensionManifestTarget } from "@dashboard/extensions/domain/app-extension-manifest-target";
+import { permissionSchema } from "@dashboard/extensions/domain/permission";
+import { z } from "zod";
+
+export const appExtensionManifest = z
+  .object({
+    label: z.string().min(1),
+    url: z.string().min(1),
+    mountName: ALL_APP_EXTENSION_MOUNTS,
+    targetName: AppExtensionManifestTarget.default("POPUP"),
+    permissions: z.array(permissionSchema).optional().default([]),
+    options: appExtensionManifestOptionsSchema.optional(),
+  })
+  .refine(
+    data => {
+      // Validate that WIDGET target only uses widget-compatible mounts
+      if (data.targetName === "WIDGET") {
+        return WIDGET_AVAILABLE_MOUNTS.includes(data.mountName as any);
+      }
+
+      return true;
+    },
+    {
+      message: "Mount is not available for WIDGET target.",
+    },
+  )
+  .refine(
+    data => {
+      // Validate widgetTarget options only on WIDGET target
+      if (data.options?.widgetTarget && data.targetName !== "WIDGET") {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "widgetTarget options must be set only on WIDGET target",
+    },
+  )
+  .refine(
+    data => {
+      // Validate newTabTarget options only on NEW_TAB target
+      if (data.options?.newTabTarget && data.targetName !== "NEW_TAB") {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "newTabTarget options must be set only on NEW_TAB target",
+    },
+  )
+  .refine(
+    data => {
+      // URL validation based on target
+      const url = data.url;
+      const target = data.targetName;
+
+      const isAppPage = target === "APP_PAGE";
+      const isRelativeUrl = url.startsWith("/");
+
+      if (isAppPage && !isRelativeUrl) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: `APP_PAGE type of extension must start with "/"`,
+    },
+  )
+  .refine(
+    data => {
+      // homeWidgetTarget options can only be set when mount is HOMEPAGE_WIDGETS
+      if (data.options?.homeWidgetTarget && data.mountName !== "HOMEPAGE_WIDGETS") {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "homeWidgetTarget options can only be set on HOMEPAGE_WIDGETS mount",
+    },
+  )
+  .refine(
+    data => {
+      // homeWidgetTarget options can only be set when target is WIDGET
+      if (data.options?.homeWidgetTarget && data.targetName !== "WIDGET") {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "homeWidgetTarget options can only be set on WIDGET target",
+    },
+  )
+  .refine(
+    data => {
+      // views option is specific to the SEARCH_ACTION mount
+      if (data.options?.views && data.mountName !== "SEARCH_ACTION") {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "views option can only be set on SEARCH_ACTION mount",
+    },
+  )
+  .refine(
+    data => {
+      // aliases option is specific to the SEARCH_ACTION mount
+      if (data.options?.aliases && data.mountName !== "SEARCH_ACTION") {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "aliases option can only be set on SEARCH_ACTION mount",
+    },
+  );
+
+export type AppExtensionManifest = z.infer<typeof appExtensionManifest>;

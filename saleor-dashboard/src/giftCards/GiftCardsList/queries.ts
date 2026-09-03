@@ -1,0 +1,53 @@
+import { gql } from "@apollo/client";
+import { getOperationAST } from "graphql";
+
+export const giftCardList = gql`
+  query GiftCardList(
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $filter: GiftCardFilterInput
+    $sort: GiftCardSortingInput
+    $search: String
+  ) {
+    giftCards(
+      first: $first
+      after: $after
+      before: $before
+      last: $last
+      filter: $filter
+      sortBy: $sort
+      search: $search
+    ) {
+      edges {
+        node {
+          id
+          assignedToEmail
+          last4CodeChars
+          isActive
+          expiryDate
+          product {
+            id
+            name
+          }
+          tags {
+            name
+          }
+          currentBalance {
+            ...Money
+          }
+        }
+      }
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;
+
+export const GIFT_CARD_LIST_QUERY = getOperationAST(giftCardList)!.name!.value;

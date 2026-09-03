@@ -1,0 +1,48 @@
+import { defineMessages } from "react-intl";
+
+export const messages = defineMessages({
+  title: {
+    id: "lDdj6f",
+    defaultMessage: "Create model",
+    description: "page header",
+  },
+  seoOptionsDescription: {
+    id: "r7uSVR",
+    defaultMessage: "Add search engine title and description to make this model easier to find",
+    description: "model seo options description",
+  },
+  hiddenLabel: {
+    id: "5MtM5w",
+    defaultMessage: "Hidden",
+    description: "model label",
+  },
+  hiddenSecondLabel: {
+    id: "7X0w8O",
+    defaultMessage: "will be visible from {date}",
+    description: "model",
+  },
+  visibleLabel: {
+    id: "GLsIie",
+    defaultMessage: "Visible",
+    description: "model label",
+  },
+  setAvailabilityDate: {
+    id: "nK68Sg",
+    defaultMessage: "Set availability date",
+    description: "model availability date label",
+  },
+  editPageMetadata: {
+    id: "bWGTLR",
+    defaultMessage: "Edit model metadata",
+    description: "model detail page, top-bar metadata button tooltip",
+  },
+  openModelTypeSettings: {
+    id: "iMZEfi",
+    defaultMessage: "Model type settings",
+    description: "model detail page menu, opens model type configuration",
+  },
+  openGraphiQL: {
+    id: "xEef/i",
+    defaultMessage: "Open this model in GraphiQL",
+  },
+});

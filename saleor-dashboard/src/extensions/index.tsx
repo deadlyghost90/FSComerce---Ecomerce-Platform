@@ -1,0 +1,228 @@
+import SectionRoute from "@dashboard/auth/components/SectionRoute";
+import { Route } from "@dashboard/components/Router";
+import { WindowTitle } from "@dashboard/components/WindowTitle";
+import {
+  type AppDetailsUrlQueryParams,
+  type CustomAppDetailsUrlQueryParams,
+  type ExtensionInstallQueryParams,
+  ExtensionsPaths,
+  type PluginUrlQueryParams,
+} from "@dashboard/extensions/urls";
+import { ExploreExtensions } from "@dashboard/extensions/views/ExploreExtensions/ExploreExtensions";
+import { InstallCustomExtension } from "@dashboard/extensions/views/InstallCustomExtension/InstallCustomExtension";
+import { InstalledExtensions } from "@dashboard/extensions/views/InstalledExtensions/InstalledExtensions";
+import { PermissionEnum } from "@dashboard/graphql";
+import { sectionNames } from "@dashboard/intl";
+import NotFound from "@dashboard/NotFound";
+import {
+  ADMIN_EMAIL_PLUGIN_ID,
+  USER_EMAIL_PLUGIN_ID,
+} from "@dashboard/notificationsSettings/constants";
+import {
+  notificationsCustomerEmailsPath,
+  notificationsStaffEmailsPath,
+} from "@dashboard/notificationsSettings/urls";
+import { parseQs } from "@dashboard/url-utils";
+import { useIntl } from "react-intl";
+import { Redirect, type RouteComponentProps, Switch } from "react-router-dom";
+
+import { ResolveAppId } from "./components/ResolveAppId/ResolveAppId";
+import { useCustomAppToken } from "./hooks/useCustomAppToken";
+import { AddCustomExtension } from "./views/AddCustomExtension/AddCustomExtension";
+import { AddCustomExtensionWebhook } from "./views/AddCustomExtensionWebhook/AddCustomExtensionWebhook";
+import { EditCustomExtension } from "./views/EditCustomExtension/EditCustomApp";
+import { EditCustomExtensionWebhook } from "./views/EditCustomExtensionWebhook/EditCustomExtensionWebhook";
+import { EditManifestExtension } from "./views/EditManifestExtension/AppManageView";
+import { EditManifestExtensionPermissions } from "./views/EditManifestExtensionPermissions/EditManifestExtensionPermissions";
+import { EditPluginExtension } from "./views/EditPluginExtension/EditPluginExtension";
+import { ViewManifestExtensionIframe } from "./views/ViewManifestExtension/ViewManifestExtensionIframe";
+
+const ExploreExtensionsView = () => {
+  return <ExploreExtensions />;
+};
+
+const InstalledExtensionsView = () => {
+  const qs = parseQs(location.search.substr(1));
+  const params = qs;
+
+  return <InstalledExtensions params={params} />;
+};
+const InstallCustomExtensionView = () => {
+  const qs = parseQs(location.search.substr(1));
+  const params: ExtensionInstallQueryParams = qs;
+
+  return <InstallCustomExtension params={params} />;
+};
+
+const EditCustomExtensionView = ({
+  match,
+  token,
+  onTokenClose,
+}: RouteComponentProps<{ id?: string }> & { token: string; onTokenClose: () => void }) => {
+  const qs = parseQs(location.search.substr(1));
+  const params: CustomAppDetailsUrlQueryParams = qs;
+  const id = match.params.id;
+
+  if (!id) {
+    throw new Error("No ID provided");
+  }
+
+  return (
+    <EditCustomExtension
+      id={decodeURIComponent(id)}
+      params={params}
+      token={token}
+      onTokenClose={onTokenClose}
+    />
+  );
+};
+
+const EditManifestExtensionView = ({ match }: RouteComponentProps<{ id: string }>) => {
+  const qs = parseQs(location.search.substr(1));
+  const params: AppDetailsUrlQueryParams = qs;
+
+  return (
+    <ResolveAppId segment={decodeURIComponent(match.params.id)}>
+      {id => <EditManifestExtension id={id} params={params} />}
+    </ResolveAppId>
+  );
+};
+
+const ViewManifestExtensionIframeView = ({ match }: RouteComponentProps<{ id: string }>) => {
+  return (
+    <ResolveAppId segment={decodeURIComponent(match.params.id)}>
+      {id => <ViewManifestExtensionIframe id={id} />}
+    </ResolveAppId>
+  );
+};
+
+const EditManifestExtensionPermissionsView = ({ match }: RouteComponentProps<{ id: string }>) => {
+  return (
+    <ResolveAppId segment={decodeURIComponent(match.params.id)}>
+      {id => <EditManifestExtensionPermissions id={id} />}
+    </ResolveAppId>
+  );
+};
+
+const EditPluginExtensionView = ({ match }: RouteComponentProps<{ id: string }>) => {
+  const qs = parseQs(location.search.substr(1));
+  const params: PluginUrlQueryParams = qs;
+  const id = decodeURIComponent(match.params.id);
+
+  if (!id) {
+    throw new Error("No ID provided");
+  }
+
+  if (id === ADMIN_EMAIL_PLUGIN_ID) {
+    return <Redirect to={notificationsStaffEmailsPath} />;
+  }
+
+  if (id === USER_EMAIL_PLUGIN_ID) {
+    // Customer transactional email is owned by the SMTP app — same resolver as Configuration.
+    return <Redirect to={notificationsCustomerEmailsPath} />;
+  }
+
+  return <EditPluginExtension id={id} params={params} />;
+};
+
+const AddCustomExtensionWebhookView = ({ match }: RouteComponentProps<{ appId?: string }>) => {
+  const appId = match.params.appId;
+
+  if (!appId) {
+    throw new Error("No App ID provided");
+  }
+
+  return <AddCustomExtensionWebhook appId={decodeURIComponent(appId)} />;
+};
+
+const EditCustomExtensionWebhookView = ({ match }: RouteComponentProps<{ id?: string }>) => {
+  const id = match.params.id;
+
+  if (!id) {
+    throw new Error("No ID provided");
+  }
+
+  return <EditCustomExtensionWebhook id={decodeURIComponent(id)} />;
+};
+
+export const ExtensionsSection = () => {
+  const intl = useIntl();
+
+  const { customAppToken, setCustomAppToken } = useCustomAppToken();
+
+  return (
+    <>
+      <WindowTitle title={intl.formatMessage(sectionNames.extensions)} />
+      <Switch>
+        <Route exact path={ExtensionsPaths.exploreExtensions} component={ExploreExtensionsView} />
+        <Route
+          exact
+          path={ExtensionsPaths.installedExtensions}
+          component={InstalledExtensionsView}
+        />
+        <SectionRoute
+          exact
+          permissions={[PermissionEnum.MANAGE_APPS]}
+          path={ExtensionsPaths.installCustomExtension}
+          component={InstallCustomExtensionView}
+        />
+
+        {/* -- Manifest app routes -- */}
+        <Route
+          exact
+          path={ExtensionsPaths.resolveEditManifestExtension(":id")}
+          component={EditManifestExtensionView}
+        />
+        <Route
+          exact
+          path={ExtensionsPaths.resolveAppRequestPermissionsPath(":id")}
+          component={EditManifestExtensionPermissionsView}
+        />
+        <Route
+          path={ExtensionsPaths.resolveViewManifestExtension(":id")}
+          component={ViewManifestExtensionIframeView}
+        />
+
+        {/* -- Plugin routes -- */}
+
+        <Route
+          exact
+          path={ExtensionsPaths.resolveEditPluginExtension(":id")}
+          component={EditPluginExtensionView}
+        />
+
+        {/* -- Custom apps routes -- */}
+        <Route
+          exact
+          path={ExtensionsPaths.addCustomExtension}
+          render={() => <AddCustomExtension setToken={setCustomAppToken} />}
+        />
+        <Route
+          exact
+          path={ExtensionsPaths.resolveEditCustomExtension(":id")}
+          render={props => (
+            <EditCustomExtensionView
+              {...props}
+              token={customAppToken || ""}
+              onTokenClose={() => setCustomAppToken(null)}
+            />
+          )}
+        />
+
+        <SectionRoute
+          exact
+          path={ExtensionsPaths.resolveAddCustomExtensionWebhook(":appId")}
+          component={AddCustomExtensionWebhookView}
+          permissions={[PermissionEnum.MANAGE_APPS]}
+        />
+        <SectionRoute
+          exact
+          path={ExtensionsPaths.resolveEditCustomExtensionWebhook(":appId", ":id")}
+          component={EditCustomExtensionWebhookView}
+          permissions={[PermissionEnum.MANAGE_APPS]}
+        />
+        <Route component={NotFound} />
+      </Switch>
+    </>
+  );
+};

@@ -1,0 +1,148 @@
+import { AttributeListUrlSortField, attributeUrl } from "@dashboard/attributes/urls";
+import { ColumnPicker } from "@dashboard/components/Datagrid/ColumnPicker/ColumnPicker";
+import { useColumns } from "@dashboard/components/Datagrid/ColumnPicker/useColumns";
+import { LIST_INSET_ROW_MARKER_WIDTH } from "@dashboard/components/Datagrid/const";
+import { Datagrid } from "@dashboard/components/Datagrid/Datagrid";
+import {
+  DatagridChangeStateContext,
+  useDatagridChangeState,
+} from "@dashboard/components/Datagrid/hooks/useDatagridChange";
+import { DatagridPagination } from "@dashboard/components/TablePagination/DatagridPagination";
+import { type AttributeFragment } from "@dashboard/graphql";
+import { getPrevLocationState } from "@dashboard/hooks/useBackLinkWithState";
+import useNavigator from "@dashboard/hooks/useNavigator";
+import { type ListProps, type SortPage } from "@dashboard/types";
+import { type Item } from "@glideapps/glide-data-grid";
+import { useCallback, useMemo } from "react";
+import { useIntl } from "react-intl";
+import { useLocation } from "react-router";
+
+import { attributesListStaticColumnsAdapter, createGetCellContent } from "./datagrid";
+import { messages } from "./messages";
+
+interface AttributeListDatagridProps extends ListProps, SortPage<AttributeListUrlSortField> {
+  attributes: AttributeFragment[];
+  hidePagination?: boolean;
+  showTopBorder?: boolean;
+  onSelectAttributesIds: (rowsIndex: number[], clearSelection: () => void) => void;
+}
+
+export const AttributeListDatagrid = ({
+  attributes,
+  settings,
+  sort,
+  disabled,
+  hidePagination = false,
+  showTopBorder = true,
+  onSort,
+  onSelectAttributesIds,
+  onUpdateListSettings,
+}: AttributeListDatagridProps) => {
+  const datagridState = useDatagridChangeState();
+  const location = useLocation();
+  const navigate = useNavigator();
+  const intl = useIntl();
+  const attributesListStaticColumns = useMemo(
+    () => attributesListStaticColumnsAdapter(intl, sort),
+    [intl, sort],
+  );
+  const onColumnChange = useCallback(
+    (picked: string[]) => {
+      if (onUpdateListSettings) {
+        onUpdateListSettings("columns", picked.filter(Boolean));
+      }
+    },
+    [onUpdateListSettings],
+  );
+  const { handlers, visibleColumns, recentlyAddedColumn, staticColumns, selectedColumns } =
+    useColumns({
+      gridName: "attribute_list",
+      selectedColumns: settings?.columns ?? [],
+      staticColumns: attributesListStaticColumns,
+      onSave: onColumnChange,
+    });
+  const getCellContent = useCallback(
+    createGetCellContent({
+      attributes,
+      columns: visibleColumns,
+      intl,
+    }),
+    [attributes, intl, visibleColumns],
+  );
+  const handleRowClick = useCallback(
+    ([_, row]: Item) => {
+      const rowData: AttributeFragment = attributes[row];
+
+      if (rowData) {
+        navigate(attributeUrl(rowData.id), {
+          state: getPrevLocationState(location),
+        });
+      }
+    },
+    [attributes],
+  );
+  const handleRowAnchor = useCallback(
+    ([, row]: Item) => attributeUrl(attributes[row].id),
+    [attributes],
+  );
+  const handleHeaderClick = useCallback(
+    (col: number) => {
+      const columnName = visibleColumns[col].id;
+
+      if (
+        !Object.values(AttributeListUrlSortField).includes(columnName as AttributeListUrlSortField)
+      ) {
+        return;
+      }
+
+      onSort(columnName as AttributeListUrlSortField);
+    },
+    [visibleColumns, onSort],
+  );
+
+  return (
+    <DatagridChangeStateContext.Provider value={datagridState}>
+      <Datagrid
+        readonly
+        loading={disabled}
+        showTopBorder={showTopBorder}
+        rowMarkers="checkbox-visible"
+        rowMarkerWidth={LIST_INSET_ROW_MARKER_WIDTH}
+        columnSelect="single"
+        hasRowHover={true}
+        onColumnMoved={handlers.onMove}
+        onColumnResize={handlers.onResize}
+        verticalBorder={false}
+        rows={attributes?.length ?? 0}
+        availableColumns={visibleColumns}
+        emptyText={intl.formatMessage(messages.empty)}
+        onRowSelectionChange={onSelectAttributesIds}
+        getCellContent={getCellContent}
+        getCellError={() => false}
+        selectionActions={() => null}
+        menuItems={() => []}
+        onRowClick={handleRowClick}
+        onHeaderClicked={handleHeaderClick}
+        rowAnchor={handleRowAnchor}
+        recentlyAddedColumn={recentlyAddedColumn}
+        renderColumnPicker={() => (
+          <ColumnPicker
+            staticColumns={staticColumns}
+            selectedColumns={selectedColumns}
+            onToggle={handlers.onToggle}
+          />
+        )}
+        navigatorOpts={{ state: getPrevLocationState(location) }}
+      />
+
+      {!hidePagination && (
+        <DatagridPagination
+          component="div"
+          settings={settings}
+          disabled={disabled}
+          onUpdateListSettings={onUpdateListSettings}
+        />
+      )}
+    </DatagridChangeStateContext.Provider>
+  );
+};

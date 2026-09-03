@@ -1,0 +1,104 @@
+import {
+  TopNav,
+  TopNavDestinationIcon,
+  topNavDestinationMessages,
+} from "@dashboard/components/AppLayout/TopNav";
+import { type ConfirmButtonTransitionState } from "@dashboard/components/ConfirmButton/ConfirmButton";
+import { DetailPageContent } from "@dashboard/components/DetailPageContent/DetailPageContent";
+import { DetailPageLayout } from "@dashboard/components/Layouts/Detail";
+import { Savebar } from "@dashboard/components/Savebar";
+import { discountListUrl } from "@dashboard/discounts/discountsUrls";
+import { type DiscoutFormData } from "@dashboard/discounts/types";
+import {
+  type ChannelFragment,
+  type PromotionCreateErrorCode,
+  type PromotionCreateErrorFragment,
+} from "@dashboard/graphql";
+import { getFormErrors } from "@dashboard/utils/errors";
+import { getCommonFormFieldErrorMessage } from "@dashboard/utils/errors/common";
+import { Box } from "@saleor/macaw-ui-next";
+import { useIntl } from "react-intl";
+
+import { DiscountCreateForm } from "../DiscountCreateForm/DiscountCreateForm";
+import { DiscountDatesWithController } from "../DiscountDates/DiscountDatesWithController";
+import { DiscountGeneralInfo } from "../DiscountGeneralInfo/DiscountGeneralInfo";
+import { DiscountRules, type DiscountRulesErrors } from "../DiscountRules/DiscountRules";
+
+interface DiscountCreatePageProps {
+  channels: ChannelFragment[];
+  disabled: boolean;
+  errors: PromotionCreateErrorFragment[];
+  submitButtonState: ConfirmButtonTransitionState;
+  onBack: () => void;
+  onSubmit: (data: DiscoutFormData) => void;
+}
+
+export const DiscountCreatePage = ({
+  channels,
+  disabled,
+  errors,
+  submitButtonState,
+  onBack,
+  onSubmit,
+}: DiscountCreatePageProps) => {
+  const intl = useIntl();
+  const formErrors = getFormErrors(["name"], errors);
+
+  return (
+    <DiscountCreateForm onSubmit={onSubmit}>
+      {({ rules, discountType, onDeleteRule, onRuleSubmit, submitHandler, hasUnsavedChanges }) => (
+        <DetailPageLayout testId="discount-form">
+          <TopNav
+            href={discountListUrl()}
+            hrefIcon={<TopNavDestinationIcon.discounts />}
+            hrefTitle={intl.formatMessage(topNavDestinationMessages.allDiscounts)}
+            title={intl.formatMessage({
+              id: "FWbv/u",
+              defaultMessage: "Create Discount",
+              description: "page header",
+            })}
+          />
+
+          <DetailPageLayout.Content>
+            <DetailPageContent>
+              <DiscountGeneralInfo
+                error={getCommonFormFieldErrorMessage(formErrors.name, intl)}
+                disabled={disabled}
+                typeDisabled={false}
+              />
+
+              <DiscountRules
+                promotionId={null}
+                discountType={discountType}
+                errors={errors as DiscountRulesErrors<PromotionCreateErrorCode>}
+                channels={channels}
+                disabled={disabled}
+                rules={rules}
+                onRuleDelete={onDeleteRule}
+                onRuleSubmit={onRuleSubmit}
+                getRuleConfirmButtonState={() => "default"}
+                deleteButtonState="default"
+              />
+            </DetailPageContent>
+          </DetailPageLayout.Content>
+
+          <DetailPageLayout.RightSidebar paddingTop={6}>
+            <Box display="flex" flexDirection="column" gap={4}>
+              <DiscountDatesWithController errors={errors} disabled={disabled} />
+            </Box>
+          </DetailPageLayout.RightSidebar>
+
+          <Savebar>
+            <Savebar.Spacer />
+            <Savebar.CancelButton onClick={onBack} />
+            <Savebar.ConfirmButton
+              transitionState={submitButtonState}
+              onClick={submitHandler}
+              disabled={disabled || !hasUnsavedChanges}
+            />
+          </Savebar>
+        </DetailPageLayout>
+      )}
+    </DiscountCreateForm>
+  );
+};

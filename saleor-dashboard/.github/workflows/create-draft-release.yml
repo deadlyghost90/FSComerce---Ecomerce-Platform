@@ -1,0 +1,142 @@
+name: Create Draft Release
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+permissions: {}
+
+jobs:
+  prepare-draft-release:
+    runs-on: ubuntu-latest
+
+    outputs:
+      b64-release-body: ${{ steps.release_body.outputs.b64_release_body }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0 # Fetch all history for all tags
+          persist-credentials: false
+
+      - name: Extract changelog for version
+        id: changelog
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          echo "Creating release for version: $VERSION"
+
+          # Extract changelog section for this version
+          # This awk script extracts content between ## VERSION and the next ## line
+          CHANGELOG=$(awk -v version="$VERSION" '
+            /^## / {
+              if (found) exit;
+              if ($2 == version) found=1;
+              next;
+            }
+            found { print }
+          ' CHANGELOG.md)
+
+          if [ -z "$CHANGELOG" ]; then
+            echo "No changelog entry found for version $VERSION"
+            exit 1
+          fi
+
+          # Save changelog to file (multiline output)
+          echo "$CHANGELOG" > /tmp/changelog.txt
+          echo "changelog_file=/tmp/changelog.txt" >> $GITHUB_OUTPUT
+
+      - name: Get previous tag
+        id: prev_tag
+        run: |
+          CURRENT_TAG="${GITHUB_REF#refs/tags/}"
+
+          # Get all tags sorted by version, find the one before current
+          PREV_TAG=$(git tag --sort=-version:refname | grep -A1 "^${CURRENT_TAG}$" | tail -n1)
+
+          if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "$CURRENT_TAG" ]; then
+            echo "No previous tag found"
+            echo "has_prev_tag=false" >> $GITHUB_OUTPUT
+          else
+            echo "Previous tag: $PREV_TAG"
+            echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+            echo "has_prev_tag=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create release body
+        id: release_body
+        env:
+          HAS_PREV_TAG: ${{ steps.prev_tag.outputs.has_prev_tag }}
+          PREV_TAG: ${{ steps.prev_tag.outputs.prev_tag }}
+          REPO: ${{ github.repository }}
+        run: |
+          CURRENT_TAG="${GITHUB_REF#refs/tags/}"
+          CHANGELOG=$(cat /tmp/changelog.txt)
+
+          # Start building the release body
+          {
+            echo "$CHANGELOG"
+            echo ""
+
+            # Add diff link if we have a previous tag
+            if [[ "${HAS_PREV_TAG}" == "true" ]]; then
+              echo "**Full Changelog**: https://github.com/$REPO/compare/${PREV_TAG}...${CURRENT_TAG}"
+            fi
+          } > /tmp/release_body.txt
+
+          # Base64 encoded to avoid errors "Unable to process file command 'output'"
+          echo "b64_release_body=$(base64 -w0 /tmp/release_body.txt)" >> "$GITHUB_OUTPUT"
+
+  create-draft-release:
+    needs: [prepare-draft-release]
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Create draft release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          B64_RELEASE_BODY: ${{ needs.prepare-draft-release.outputs.b64-release-body }}
+        run: |
+          CURRENT_TAG="${GITHUB_REF#refs/tags/}"
+          body=$(base64 -d <<< "$B64_RELEASE_BODY")
+
+          gh release create "$CURRENT_TAG" \
+            --draft \
+            --title="$CURRENT_TAG" \
+            --notes="$body"
+
+          echo "✅ Draft release created for $CURRENT_TAG"
+
+  load-failure-secrets:
+    if: failure()
+    needs: create-draft-release
+    runs-on: ubuntu-latest
+    outputs:
+      slack-webhook-url: ${{ steps.load-secrets.outputs.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Load secrets
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0
+        id: load-secrets
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          SLACK_WEBHOOK_URL: "op://Continuous Integration/DASHBOARD_BUILD_FAILURE_SLACK_WEBHOOK/password"
+
+  notify-failure:
+    if: failure()
+    needs: [create-draft-release, load-failure-secrets]
+    uses: saleor/saleor-internal-actions/.github/workflows/notify-slack.yaml@eb0c692da7bf13f5e1a82c17488b24c514dd10a1 # v1.10.0
+    with:
+      custom_title: "🚨 Draft Release Creation Failed for *${{ github.ref_name }}*"
+      status: failure
+    secrets:
+      mention_group_id: ${{ secrets.SLACK_DASHBOARD_GROUP_ID }}
+      slack-webhook-url: ${{ needs.load-failure-secrets.outputs.slack-webhook-url }}

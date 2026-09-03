@@ -1,0 +1,50 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.attributesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.requiredAttributesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.noAttributes {
+  color: var(--macaw-color-text-default2);
+  text-align: center;
+  padding: 40px;
+}
+
+.controlsRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.viewToggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background-color: var(--macaw-color-bg-default2);
+  border-radius: 8px;
+}
+
+.previewSection {
+  min-width: 0;
+}
+
+.callouts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

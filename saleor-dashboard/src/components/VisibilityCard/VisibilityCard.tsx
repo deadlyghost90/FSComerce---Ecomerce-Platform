@@ -1,0 +1,368 @@
+// @ts-strict-ignore
+import ControlledCheckbox from "@dashboard/components/ControlledCheckbox";
+import RadioSwitchField from "@dashboard/components/RadioSwitchField/RadioSwitchField";
+import { useCurrentDate } from "@dashboard/hooks/useCurrentDate";
+import useDateLocalize from "@dashboard/hooks/useDateLocalize";
+import { type ChangeEvent } from "@dashboard/hooks/useForm";
+import { type UserError } from "@dashboard/types";
+import { getFieldError } from "@dashboard/utils/errors";
+import { makeStyles } from "@saleor/macaw-ui";
+import { Box, Checkbox, Divider, RadioGroup, Text } from "@saleor/macaw-ui-next";
+import clsx from "clsx";
+import type * as React from "react";
+import { useState } from "react";
+import { useIntl } from "react-intl";
+
+import { DashboardCard } from "../Card";
+import { DateTimeTimezoneField } from "../DateTimeTimezoneField";
+import FormSpacer from "../FormSpacer";
+import DateVisibilitySelector from "./DateVisibilitySelector";
+import { visibilityCardMessages } from "./messages";
+import { isAvailableOrPublished } from "./utils";
+
+const useStyles = makeStyles(
+  theme => ({
+    checkbox: {
+      alignItems: "flex-start",
+      marginTop: 10,
+    },
+    children: {
+      "& button": {
+        margin: "0 9px",
+      },
+      "& label": {
+        marginTop: theme.spacing(2.5),
+      },
+    },
+    date: {
+      "& svg": {
+        fill: theme.palette.primary.main,
+      },
+      marginTop: theme.spacing(1),
+    },
+    label: {
+      lineHeight: 1.2,
+      marginBottom: 5,
+      marginTop: 0,
+    },
+    listingLabel: {
+      marginTop: 9,
+    },
+    secondLabel: {
+      color: theme.palette.text.hint,
+      fontSize: 12,
+      marginBottom: theme.spacing(2),
+    },
+    switchField: {
+      marginTop: theme.spacing(1),
+    },
+  }),
+  { name: "VisibilityCard" },
+);
+
+interface Message {
+  visibleLabel: string;
+  hiddenLabel: string;
+  visibleSecondLabel?: string;
+  hiddenSecondLabel: string;
+  availableLabel?: string;
+  unavailableLabel?: string;
+  availableSecondLabel?: string;
+  setAvailabilityDateLabel?: string;
+}
+
+interface DateFields {
+  publishedAt: string;
+  availableForPurchaseAt?: string;
+}
+
+interface VisibilityCardProps {
+  children?: React.ReactNode;
+  data: DateFields & {
+    availableForPurchaseAt?: string;
+    isAvailableForPurchase?: boolean;
+    isPublished: boolean;
+    visibleInListings?: boolean;
+  };
+  errors: UserError[];
+  disabled?: boolean;
+  messages: Message;
+  onChange: (event: ChangeEvent) => void;
+}
+
+const VisibilityCard = (props: VisibilityCardProps) => {
+  const {
+    children,
+    data: {
+      isAvailableForPurchase,
+      availableForPurchaseAt,
+      isPublished,
+      publishedAt,
+      visibleInListings,
+    },
+    errors,
+    disabled,
+    messages,
+    onChange,
+  } = props;
+  const classes = useStyles(props);
+  const intl = useIntl();
+  const localizeDate = useDateLocalize();
+  const dateNow = useCurrentDate();
+
+  const [isPublishedAt, setPublishedAt] = useState(!!publishedAt);
+
+  // A page scheduled for future publication is stored in Saleor Core as
+  // `isPublished: true` together with a future `publishedAt`. Core only exposes
+  // it to storefront visitors once that date passes. Such a page is therefore
+  // "published" but not yet visible, so we present it under the "Hidden" option
+  // with a "will be visible from {date}" hint rather than as "Visible".
+  const isPublishedInFuture = !!publishedAt && Date.parse(publishedAt) > dateNow;
+  const isVisibleNow = isPublished && !isPublishedInFuture;
+
+  const hasAvailableProps =
+    isAvailableForPurchase !== undefined && availableForPurchaseAt !== undefined;
+  const visibleMessage = (date: string) =>
+    intl.formatMessage(visibilityCardMessages.sinceDate, {
+      date: localizeDate(date),
+    });
+  const handleRadioFieldChange = (type: keyof DateFields) => (e: ChangeEvent) => {
+    const { value } = e.target;
+
+    if (!value) {
+      onChange({
+        target: {
+          name: type,
+          value: null,
+        },
+      });
+    }
+
+    return onChange(e);
+  };
+
+  return (
+    <DashboardCard>
+      <DashboardCard.Header>
+        <DashboardCard.Title>
+          {intl.formatMessage(visibilityCardMessages.title)}
+        </DashboardCard.Title>
+      </DashboardCard.Header>
+      <DashboardCard.Content>
+        <RadioGroup
+          disabled={disabled}
+          name="isPublished"
+          value={String(isVisibleNow)}
+          onValueChange={value => {
+            // Selecting "Visible" publishes immediately, "Hidden" clears any
+            // scheduled date. Future-date scheduling is handled by the
+            // "Set availability date" controls below.
+            onChange({
+              target: {
+                name: "publishedAt",
+                value: null,
+              },
+            });
+            onChange({
+              target: {
+                name: "isPublished",
+                value: value === "true",
+              },
+            });
+          }}
+          display="flex"
+          flexDirection="column"
+          gap={3}
+        >
+          <RadioGroup.Item id={`isPublished-true`} value="true">
+            <Box display="flex" __alignItems="baseline" gap={2}>
+              <Text>{messages.visibleLabel}</Text>
+              {isAvailableOrPublished({
+                condition: isPublished,
+                date: publishedAt,
+                now: dateNow,
+              }) && (
+                <Text size={2} color="default2">
+                  {visibleMessage(publishedAt)}
+                </Text>
+              )}
+            </Box>
+          </RadioGroup.Item>
+          <RadioGroup.Item id={`isPublished-false`} value="false">
+            <Box display="flex" __alignItems="baseline" gap={2}>
+              <Text>{messages.hiddenLabel}</Text>
+              {publishedAt && !isVisibleNow && (
+                <Text size={2} color="default2">
+                  {messages.hiddenSecondLabel}
+                </Text>
+              )}
+            </Box>
+          </RadioGroup.Item>
+        </RadioGroup>
+
+        {!isVisibleNow && (
+          <Box display="flex" gap={1} flexDirection="column" alignItems="start" marginTop={2}>
+            <Checkbox
+              onCheckedChange={(checked: boolean) => {
+                setPublishedAt(checked);
+
+                // Clearing the schedule returns the page to a plainly hidden
+                // state (isPublished=false, no publication date).
+                if (!checked) {
+                  onChange({ target: { name: "publishedAt", value: null } });
+                  onChange({ target: { name: "isPublished", value: false } });
+                }
+              }}
+              checked={isPublishedAt}
+            >
+              {messages.setAvailabilityDateLabel}
+            </Checkbox>
+
+            {isPublishedAt && (
+              <DateTimeTimezoneField
+                label={intl.formatMessage(visibilityCardMessages.publishOn)}
+                disabled={disabled}
+                name="publishedAt"
+                value={publishedAt || ""}
+                onChange={value => {
+                  onChange({
+                    target: {
+                      name: "publishedAt",
+                      value: value,
+                    },
+                  });
+                  // A scheduled publication date requires isPublished=true so
+                  // Saleor Core makes the page visible once the date passes.
+                  // Clearing the date reverts to a plainly hidden page.
+                  onChange({
+                    target: {
+                      name: "isPublished",
+                      value: Boolean(value),
+                    },
+                  });
+                }}
+                //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore todo
+                error={getFieldError(errors, "isPublishedAt")}
+                fullWidth
+              />
+            )}
+          </Box>
+        )}
+
+        {getFieldError(errors, "isPublished") && (
+          <>
+            <FormSpacer />
+            <Text color="critical1">{getFieldError(errors, "isPublished")?.message}</Text>
+          </>
+        )}
+        {hasAvailableProps && (
+          <>
+            <Divider />
+            <RadioSwitchField
+              className={classes.switchField}
+              disabled={disabled}
+              error={!!getFieldError(errors, "isAvailableForPurchase")}
+              firstOptionLabel={
+                <>
+                  <p className={classes.label}>{messages.availableLabel}</p>
+                  {isAvailableOrPublished({
+                    condition: isAvailableForPurchase,
+                    date: availableForPurchaseAt,
+                    now: dateNow,
+                  }) && (
+                    <span className={classes.secondLabel}>
+                      {visibleMessage(availableForPurchaseAt)}
+                    </span>
+                  )}
+                </>
+              }
+              name={"isAvailableForPurchase" as keyof FormData}
+              secondOptionLabel={
+                <>
+                  <p className={classes.label}>{messages.unavailableLabel}</p>
+                  {availableForPurchaseAt && !isAvailableForPurchase && (
+                    <span className={classes.secondLabel}>{messages.availableSecondLabel}</span>
+                  )}
+                </>
+              }
+              value={isAvailableForPurchase}
+              onChange={handleRadioFieldChange("availableForPurchaseAt")}
+            />
+            {!isAvailableForPurchase && (
+              <DateVisibilitySelector
+                buttonText={messages.setAvailabilityDateLabel}
+                onInputClose={() =>
+                  onChange({
+                    target: { name: "availableForPurchase", value: null },
+                  })
+                }
+              >
+                <DateTimeTimezoneField
+                  error={!!getFieldError(errors, "startDate")}
+                  disabled={disabled}
+                  label={intl.formatMessage(visibilityCardMessages.setAvailableOn)}
+                  name="availableForPurchaseAt"
+                  fullWidth
+                  helperText={getFieldError(errors, "startDate")?.message}
+                  value={availableForPurchaseAt || ""}
+                  onChange={value =>
+                    onChange({
+                      target: {
+                        name: "availableForPurchaseAt",
+                        value,
+                      },
+                    })
+                  }
+                />
+              </DateVisibilitySelector>
+            )}
+            {getFieldError(errors, "isAvailableForPurchase") && (
+              <>
+                <FormSpacer />
+                <Text color="critical1">
+                  {getFieldError(errors, "isAvailableForPurchase")?.message}
+                </Text>
+              </>
+            )}
+          </>
+        )}
+        {visibleInListings !== undefined && (
+          <>
+            <Divider />
+            <ControlledCheckbox
+              className={classes.checkbox}
+              name="visibleInListings"
+              checked={!visibleInListings}
+              disabled={disabled}
+              label={
+                <>
+                  <p className={clsx(classes.label, classes.listingLabel)}>
+                    {intl.formatMessage(visibilityCardMessages.hideInListings)}
+                  </p>
+
+                  <span className={classes.secondLabel}>
+                    {intl.formatMessage(visibilityCardMessages.hideInListingsDescription)}
+                  </span>
+                </>
+              }
+              onChange={event =>
+                onChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    value: !event.target.value,
+                  },
+                })
+              }
+            />
+          </>
+        )}
+        <div className={classes.children}>{children}</div>
+      </DashboardCard.Content>
+    </DashboardCard>
+  );
+};
+
+VisibilityCard.displayName = "VisibilityCard";
+export default VisibilityCard;

@@ -1,0 +1,67 @@
+import { useDevModeContext } from "@dashboard/components/DevModePanel/hooks";
+import { useNavigatorSearchContext } from "@dashboard/components/NavigatorSearch/useNavigatorSearchContext";
+import { GiftIcon } from "@dashboard/icons/GiftIcon";
+import { GraphqlIcon } from "@dashboard/icons/GraphqlIcon";
+import { TerminalIcon } from "@dashboard/icons/TerminalIcon";
+import { useAllRipplesModalState } from "@dashboard/ripples/state";
+import { useCallback, useMemo } from "react";
+import { useIntl } from "react-intl";
+
+import { shortcutsMessages } from "./messages";
+import { getShortcutLeadingKey } from "./utils";
+
+export interface Shortcut {
+  id: string;
+  name: string | React.ReactNode;
+  icon: React.ReactNode;
+  shortcut?: string;
+  action: () => void;
+}
+
+export const useShortcuts = (): Shortcut[] => {
+  const intl = useIntl();
+  const { setNavigatorVisibility } = useNavigatorSearchContext();
+  const devContext = useDevModeContext();
+  const controlKey = getShortcutLeadingKey();
+  const handleOpenPlayground = useCallback(() => {
+    devContext.setDevModeContent("");
+    devContext.setVariables("");
+    devContext.setDevModeVisibility(true);
+  }, []);
+
+  const handleOpenSearch = useCallback(() => {
+    setNavigatorVisibility(true);
+  }, []);
+
+  const { setModalState } = useAllRipplesModalState();
+
+  const shortcuts = useMemo(
+    () => [
+      {
+        id: "search",
+        name: intl.formatMessage(shortcutsMessages.search),
+        icon: <TerminalIcon />,
+        shortcut: `${controlKey} + K`,
+        action: handleOpenSearch,
+      },
+      {
+        id: "playground",
+        name: intl.formatMessage(shortcutsMessages.playground),
+        icon: <GraphqlIcon />,
+        shortcut: `${controlKey} + '`,
+        action: handleOpenPlayground,
+      },
+      {
+        id: "recent-changes-ripples",
+        name: intl.formatMessage(shortcutsMessages.recentChanges),
+        icon: <GiftIcon />,
+        action: () => {
+          setModalState(true);
+        },
+      },
+    ],
+    [intl],
+  );
+
+  return shortcuts;
+};

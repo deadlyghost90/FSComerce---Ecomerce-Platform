@@ -1,0 +1,42 @@
+name: Changesets
+
+on:
+  pull_request:
+    branches-ignore:
+      - changeset-release/main
+    types:
+      - opened
+      - labeled
+      - edited
+      - synchronize
+
+permissions: {}
+
+jobs:
+  changeset_present:
+    # Adding 'skip changesets' label to the PR will skip this job
+    if: ${{ !contains( github.event.pull_request.labels.*.name, 'skip changeset') && !startsWith(github.head_ref, 'changeset-release/') }}
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          sparse-checkout: ./.changeset
+          persist-credentials: false
+
+      - name: Changeset file lookup
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_ID: ${{ github.event.number }}
+        run: |
+          files=$(gh pr diff "$PR_ID" --name-only)
+          if [[ $files =~ \.changeset\/.*.md ]]; then
+            echo "Changesets found!"
+          else
+            echo "There is no changeset file in your pull request."
+            exit 1
+          fi

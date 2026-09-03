@@ -1,0 +1,209 @@
+import { ProductMediaType } from "@dashboard/graphql";
+
+import { areMediaSelectionsEqual, createMediaChangeHandler, handleAssignMedia } from "./handlers";
+
+type HandleAssignMediaParams = Parameters<typeof handleAssignMedia>;
+
+describe("Product handlers", () => {
+  it("should not alter product variant media when the same selected media ids as previously passed", async () => {
+    // Arrange
+    const media: HandleAssignMediaParams[0] = ["1", "2"];
+    const variant: HandleAssignMediaParams[1] = {
+      id: "1",
+      media: [
+        {
+          id: "1",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+        {
+          id: "2",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+      ],
+    };
+    const assignMedia = jest.fn(() => Promise.resolve({}));
+    const unassignMedia = jest.fn(() => Promise.resolve({}));
+
+    // Act
+    await handleAssignMedia(media, variant, assignMedia, unassignMedia);
+    // Assert
+    expect(assignMedia).not.toHaveBeenCalled();
+    expect(unassignMedia).not.toHaveBeenCalled();
+  });
+  it("should assign media to product variant when more then all previous selected media ids passed", async () => {
+    // Arrange
+    const media: HandleAssignMediaParams[0] = ["1", "2", "3"];
+    const variant: HandleAssignMediaParams[1] = {
+      id: "1",
+      media: [
+        {
+          id: "3",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+      ],
+    };
+    const assignMedia = jest.fn(() => Promise.resolve({}));
+    const unassignMedia = jest.fn(() => Promise.resolve({}));
+
+    // Act
+    await handleAssignMedia(media, variant, assignMedia, unassignMedia);
+    // Assert
+    expect(assignMedia).toHaveBeenCalledTimes(2);
+    expect(assignMedia).toHaveBeenCalledWith({
+      variantId: "1",
+      mediaId: "1",
+    });
+    expect(assignMedia).toHaveBeenCalledWith({
+      variantId: "1",
+      mediaId: "2",
+    });
+    expect(unassignMedia).not.toHaveBeenCalled();
+  });
+  it("should unassign media from product variant when not all previous selected media ids passed", async () => {
+    // Arrange
+    const media: HandleAssignMediaParams[0] = ["3"];
+    const variant: HandleAssignMediaParams[1] = {
+      id: "1",
+      media: [
+        {
+          id: "1",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+        {
+          id: "2",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+        {
+          id: "3",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+      ],
+    };
+    const assignMedia = jest.fn(() => Promise.resolve({}));
+    const unassignMedia = jest.fn(() => Promise.resolve({}));
+
+    // Act
+    await handleAssignMedia(media, variant, assignMedia, unassignMedia);
+    // Assert
+    expect(assignMedia).not.toHaveBeenCalled();
+    expect(unassignMedia).toHaveBeenCalledTimes(2);
+    expect(unassignMedia).toHaveBeenCalledWith({
+      variantId: "1",
+      mediaId: "1",
+    });
+    expect(unassignMedia).toHaveBeenCalledWith({
+      variantId: "1",
+      mediaId: "2",
+    });
+  });
+  it("should assign and unassign media from product variant when not all but more selected media ids from previously selected passed", async () => {
+    // Arrange
+    const media: HandleAssignMediaParams[0] = ["1", "3"];
+    const variant: HandleAssignMediaParams[1] = {
+      id: "1",
+      media: [
+        {
+          id: "1",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+        {
+          id: "2",
+          url: "",
+          type: ProductMediaType.IMAGE,
+          oembedData: "",
+          __typename: "ProductMedia",
+        },
+      ],
+    };
+    const assignMedia = jest.fn(() => Promise.resolve({}));
+    const unassignMedia = jest.fn(() => Promise.resolve({}));
+
+    // Act
+    await handleAssignMedia(media, variant, assignMedia, unassignMedia);
+    // Assert
+    expect(assignMedia).toHaveBeenCalledTimes(1);
+    expect(assignMedia).toHaveBeenCalledWith({
+      variantId: "1",
+      mediaId: "3",
+    });
+    expect(unassignMedia).toHaveBeenCalledTimes(1);
+    expect(unassignMedia).toHaveBeenCalledWith({
+      variantId: "1",
+      mediaId: "2",
+    });
+  });
+});
+
+describe("areMediaSelectionsEqual", () => {
+  it("returns true when selections contain the same ids regardless of order", () => {
+    // Arrange // Act // Assert
+    expect(areMediaSelectionsEqual(["1", "2"], ["2", "1"])).toBe(true);
+  });
+
+  it("returns false when selections differ", () => {
+    // Arrange // Act // Assert
+    expect(areMediaSelectionsEqual(["1", "2"], ["1"])).toBe(false);
+  });
+});
+
+describe("createMediaChangeHandler", () => {
+  const createMockForm = (media: string[] = []) =>
+    ({
+      data: { media },
+      change: jest.fn(),
+    }) as unknown as Parameters<typeof createMediaChangeHandler>[0];
+
+  it("does not update form state when selection is unchanged", () => {
+    // Arrange
+    const form = createMockForm(["1", "2"]);
+    const triggerChange = jest.fn();
+    const handler = createMediaChangeHandler(form, triggerChange);
+
+    // Act
+    handler(["2", "1"]);
+
+    // Assert
+    expect(form.change).not.toHaveBeenCalled();
+    expect(triggerChange).not.toHaveBeenCalled();
+  });
+
+  it("updates form state when selection changes", () => {
+    // Arrange
+    const form = createMockForm(["1"]);
+    const triggerChange = jest.fn();
+    const handler = createMediaChangeHandler(form, triggerChange);
+
+    // Act
+    handler(["1", "2"]);
+
+    // Assert
+    expect(form.change).toHaveBeenCalledWith({
+      target: {
+        name: "media",
+        value: ["1", "2"],
+      },
+    });
+    expect(triggerChange).toHaveBeenCalledTimes(1);
+  });
+});

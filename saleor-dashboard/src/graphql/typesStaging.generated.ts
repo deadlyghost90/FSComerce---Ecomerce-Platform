@@ -1,0 +1,10278 @@
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  /**
+   * The `Date` scalar type represents a Date
+   * value as specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
+  Date: { input: any; output: any; }
+  /**
+   * The `DateTime` scalar type represents a DateTime
+   * value as specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
+  DateTime: { input: any; output: any; }
+  /** The `Day` scalar type represents number of days by integer value. */
+  Day: { input: any; output: any; }
+  /**
+   * Custom Decimal implementation.
+   *
+   * Returns Decimal as a float in the API,
+   * parses float to the Decimal on the way back.
+   */
+  Decimal: { input: any; output: any; }
+  /**
+   * The `GenericScalar` scalar type represents a generic
+   * GraphQL scalar value that could be:
+   * String, Boolean, Int, Float, List or Object.
+   */
+  GenericScalar: { input: any; output: any; }
+  /** The `Hour` scalar type represents number of hours by integer value. */
+  Hour: { input: any; output: any; }
+  JSON: { input: any; output: any; }
+  JSONString: { input: any; output: any; }
+  /**
+   * Metadata is a map of key-value pairs, both keys and values are `String`.
+   *
+   * Example:
+   * ```
+   * {
+   *     "key1": "value1",
+   *     "key2": "value2"
+   * }
+   * ```
+   */
+  Metadata: { input: any; output: any; }
+  /** The `Minute` scalar type represents number of minutes by integer value. */
+  Minute: { input: any; output: any; }
+  /**
+   * Nonnegative Decimal scalar implementation.
+   *
+   * Should be used in places where value must be nonnegative (0 or greater).
+   */
+  PositiveDecimal: { input: any; output: any; }
+  /**
+   * Positive Integer scalar implementation.
+   *
+   * Should be used in places where value must be positive (greater than 0).
+   */
+  PositiveInt: { input: any; output: any; }
+  UUID: { input: any; output: any; }
+  /** Variables of this type must be set to null in mutations. They will be replaced with a filename from a following multipart part containing a binary file. See: https://github.com/jaydenseric/graphql-multipart-request-spec. */
+  Upload: { input: any; output: any; }
+  WeightScalar: { input: any; output: any; }
+  /** _Any value scalar as defined by Federation spec. */
+  _Any: { input: any; output: any; }
+};
+
+/**
+ * AccountConfirmMode set the account merging mode for anonymous objects.
+ *
+ *     This dictates the behavior of the `confirmAccount()` mutation for
+ *     password-based authentication when attempting to merge orders & giftcard
+ *     that aren't associated to a user account.
+ *
+ *     Modes:
+ *
+ *     - MERGE_DISABLED disables merging only when the authentication method
+ *       is password (i.e., when not using OIDC)
+ *     - REQUIRE_PASSWORD enables account merging who accounts that use password
+ *       authentication but it requires the user to enter their password
+ */
+export enum AccountConfirmModeEnum {
+  MERGE_DISABLED = 'MERGE_DISABLED',
+  REQUIRE_PASSWORD = 'REQUIRE_PASSWORD'
+}
+
+export enum AccountErrorCode {
+  ACCOUNT_NOT_CONFIRMED = 'ACCOUNT_NOT_CONFIRMED',
+  ACTIVATE_OWN_ACCOUNT = 'ACTIVATE_OWN_ACCOUNT',
+  ACTIVATE_SUPERUSER_ACCOUNT = 'ACTIVATE_SUPERUSER_ACCOUNT',
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  DEACTIVATE_OWN_ACCOUNT = 'DEACTIVATE_OWN_ACCOUNT',
+  DEACTIVATE_SUPERUSER_ACCOUNT = 'DEACTIVATE_SUPERUSER_ACCOUNT',
+  DELETE_NON_STAFF_USER = 'DELETE_NON_STAFF_USER',
+  DELETE_OWN_ACCOUNT = 'DELETE_OWN_ACCOUNT',
+  DELETE_STAFF_ACCOUNT = 'DELETE_STAFF_ACCOUNT',
+  DELETE_SUPERUSER_ACCOUNT = 'DELETE_SUPERUSER_ACCOUNT',
+  DISABLED_AUTHENTICATION_METHOD = 'DISABLED_AUTHENTICATION_METHOD',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  FILE_SIZE_LIMIT_EXCEEDED = 'FILE_SIZE_LIMIT_EXCEEDED',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INACTIVE = 'INACTIVE',
+  INVALID = 'INVALID',
+  INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
+  INVALID_PASSWORD = 'INVALID_PASSWORD',
+  JWT_DECODE_ERROR = 'JWT_DECODE_ERROR',
+  JWT_INVALID_CSRF_TOKEN = 'JWT_INVALID_CSRF_TOKEN',
+  JWT_INVALID_TOKEN = 'JWT_INVALID_TOKEN',
+  JWT_MISSING_TOKEN = 'JWT_MISSING_TOKEN',
+  JWT_SIGNATURE_EXPIRED = 'JWT_SIGNATURE_EXPIRED',
+  LEFT_NOT_MANAGEABLE_PERMISSION = 'LEFT_NOT_MANAGEABLE_PERMISSION',
+  LOGIN_ATTEMPT_DELAYED = 'LOGIN_ATTEMPT_DELAYED',
+  MISSING_CHANNEL_SLUG = 'MISSING_CHANNEL_SLUG',
+  NOT_FOUND = 'NOT_FOUND',
+  OUT_OF_SCOPE_GROUP = 'OUT_OF_SCOPE_GROUP',
+  OUT_OF_SCOPE_PERMISSION = 'OUT_OF_SCOPE_PERMISSION',
+  OUT_OF_SCOPE_USER = 'OUT_OF_SCOPE_USER',
+  PASSWORD_ENTIRELY_NUMERIC = 'PASSWORD_ENTIRELY_NUMERIC',
+  PASSWORD_RESET_ALREADY_REQUESTED = 'PASSWORD_RESET_ALREADY_REQUESTED',
+  PASSWORD_TOO_COMMON = 'PASSWORD_TOO_COMMON',
+  PASSWORD_TOO_SHORT = 'PASSWORD_TOO_SHORT',
+  PASSWORD_TOO_SIMILAR = 'PASSWORD_TOO_SIMILAR',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE',
+  UNKNOWN_IP_ADDRESS = 'UNKNOWN_IP_ADDRESS'
+}
+
+/** Fields required to update the user. */
+export type AccountInput = {
+  /** Billing address of the customer. */
+  defaultBillingAddress?: InputMaybe<AddressInput>;
+  /** Shipping address of the customer. */
+  defaultShippingAddress?: InputMaybe<AddressInput>;
+  /** Given name. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** User language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /** Family name. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+};
+
+/** Fields required to create a user. */
+export type AccountRegisterInput = {
+  /** Slug of a channel which will be used to notify users. Optional when only one channel exists. */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /** The email address of the user. */
+  email: Scalars['String']['input'];
+  /** Given name. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** User language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /** Family name. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * User public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Password. */
+  password: Scalars['String']['input'];
+  /** Base of frontend URL that will be needed to create confirmation URL. Required when account confirmation is enabled. */
+  redirectUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Filtering options for addresses. */
+export type AddressFilterInput = {
+  country?: InputMaybe<CountryCodeEnumFilterInput>;
+  phoneNumber?: InputMaybe<StringFilterInput>;
+};
+
+export type AddressInput = {
+  /** City. */
+  city?: InputMaybe<Scalars['String']['input']>;
+  /** District. */
+  cityArea?: InputMaybe<Scalars['String']['input']>;
+  /** Company or organization. */
+  companyName?: InputMaybe<Scalars['String']['input']>;
+  /** Country. */
+  country?: InputMaybe<CountryCode>;
+  /** State or province. */
+  countryArea?: InputMaybe<Scalars['String']['input']>;
+  /** Given name. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** Family name. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Address public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Phone number.
+   *
+   * Phone numbers are validated with Google's [libphonenumber](https://github.com/google/libphonenumber) library.
+   */
+  phone?: InputMaybe<Scalars['String']['input']>;
+  /** Postal code. */
+  postalCode?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Determine if the address should be validated. By default, Saleor accepts only address inputs matching ruleset from [Google Address Data]{https://chromium-i18n.appspot.com/ssl-address), using [i18naddress](https://github.com/mirumee/google-i18n-address) library. Some mutations may require additional permissions to use the the field. More info about permissions can be found in relevant mutation.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  skipValidation?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Address. */
+  streetAddress1?: InputMaybe<Scalars['String']['input']>;
+  /** Address. */
+  streetAddress2?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum AddressTypeEnum {
+  BILLING = 'BILLING',
+  SHIPPING = 'SHIPPING'
+}
+
+/**
+ * Determine the allocation strategy for the channel.
+ *
+ *     PRIORITIZE_SORTING_ORDER - allocate stocks according to the warehouses' order
+ *     within the channel
+ *
+ *     PRIORITIZE_HIGH_STOCK - allocate stock in a warehouse with the most stock
+ */
+export enum AllocationStrategyEnum {
+  PRIORITIZE_HIGH_STOCK = 'PRIORITIZE_HIGH_STOCK',
+  PRIORITIZE_SORTING_ORDER = 'PRIORITIZE_SORTING_ORDER'
+}
+
+/** Defines a shop-level announcement's level/severity. */
+export enum AnnouncementImportanceEnum {
+  CRITICAL = 'CRITICAL',
+  HIGH = 'HIGH',
+  LOW = 'LOW',
+  MODERATE = 'MODERATE',
+  UNSET = 'UNSET'
+}
+
+export enum AppErrorCode {
+  DUPLICATED_EXTENSION_IDENTIFIER = 'DUPLICATED_EXTENSION_IDENTIFIER',
+  DUPLICATED_WEBHOOK_IDENTIFIER = 'DUPLICATED_WEBHOOK_IDENTIFIER',
+  FORBIDDEN = 'FORBIDDEN',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_CUSTOM_HEADERS = 'INVALID_CUSTOM_HEADERS',
+  INVALID_MANIFEST_FORMAT = 'INVALID_MANIFEST_FORMAT',
+  INVALID_PERMISSION = 'INVALID_PERMISSION',
+  INVALID_STATUS = 'INVALID_STATUS',
+  INVALID_URL_FORMAT = 'INVALID_URL_FORMAT',
+  MANIFEST_URL_CANT_CONNECT = 'MANIFEST_URL_CANT_CONNECT',
+  NOT_FOUND = 'NOT_FOUND',
+  OUT_OF_SCOPE_APP = 'OUT_OF_SCOPE_APP',
+  OUT_OF_SCOPE_PERMISSION = 'OUT_OF_SCOPE_PERMISSION',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE',
+  UNSUPPORTED_SALEOR_VERSION = 'UNSUPPORTED_SALEOR_VERSION'
+}
+
+export type AppExtensionFilterInput = {
+  /**
+   * Plain-text mount name (case insensitive)
+   *
+   * Added in Saleor 3.22.
+   */
+  mountName?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Plain-text target name (case insensitive)
+   *
+   * Added in Saleor 3.22.
+   */
+  targetName?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AppFilterInput = {
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<AppTypeEnum>;
+};
+
+export type AppInput = {
+  /** Canonical app ID. If not provided, the identifier will be generated based on app.id. */
+  identifier?: InputMaybe<Scalars['String']['input']>;
+  /** Name of the app. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** List of permission code names to assign to this app. */
+  permissions?: InputMaybe<Array<PermissionEnum>>;
+};
+
+export type AppInstallInput = {
+  /** Determine if app will be set active or not. */
+  activateAfterInstallation?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Name of the app to install. */
+  appName: Scalars['String']['input'];
+  /** URL to app's manifest in JSON format. */
+  manifestUrl: Scalars['String']['input'];
+  /** List of permission code names to assign to this app. */
+  permissions?: InputMaybe<Array<PermissionEnum>>;
+};
+
+export enum AppProblemCreateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type AppProblemCreateInput = {
+  /** Time window in minutes for aggregating problems with the same key. Defaults to 60. If 0, a new problem is always created. */
+  aggregationPeriod?: InputMaybe<Scalars['Minute']['input']>;
+  /** If set, the problem becomes critical when count reaches this value. If sent again with higher value than already counted, problem can be de-escalated. */
+  criticalThreshold?: InputMaybe<Scalars['PositiveInt']['input']>;
+  /** Key identifying the type of problem. App can add multiple problems under the same key, to merge them together or delete them in batch. Must be between 3 and 128 characters. */
+  key: Scalars['String']['input'];
+  /** The problem message to display. Must be at least 3 characters. Messages longer than 2048 characters will be truncated to 2048 characters with '...' suffix. */
+  message: Scalars['String']['input'];
+};
+
+/** Input for app callers to dismiss their own problems. */
+export type AppProblemDismissByAppInput = {
+  /** List of problem IDs to dismiss. Cannot be combined with keys. Max 100. */
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of problem keys to dismiss. Cannot be combined with ids. Max 100. */
+  keys?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** Input for staff callers to dismiss problems by IDs. */
+export type AppProblemDismissByStaffWithIdsInput = {
+  /** List of problem IDs to dismiss. Max 100. */
+  ids: Array<Scalars['ID']['input']>;
+};
+
+/** Input for staff callers to dismiss problems by keys. */
+export type AppProblemDismissByStaffWithKeysInput = {
+  /** ID of the app whose problems to dismiss. */
+  app: Scalars['ID']['input'];
+  /** List of problem keys to dismiss. Max 100. */
+  keys: Array<Scalars['String']['input']>;
+};
+
+export enum AppProblemDismissErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  OUT_OF_SCOPE_APP = 'OUT_OF_SCOPE_APP',
+  REQUIRED = 'REQUIRED'
+}
+
+/** Input for dismissing app problems. Only one can be specified. */
+export type AppProblemDismissInput = {
+  /** For app callers only - dismiss own problems. */
+  byApp?: InputMaybe<AppProblemDismissByAppInput>;
+  /** For staff callers - dismiss problems by IDs. */
+  byStaffWithIds?: InputMaybe<AppProblemDismissByStaffWithIdsInput>;
+  /** For staff callers - dismiss problems by keys for specified app. */
+  byStaffWithKeys?: InputMaybe<AppProblemDismissByStaffWithKeysInput>;
+};
+
+export enum AppProblemDismissedByEnum {
+  APP = 'APP',
+  USER = 'USER'
+}
+
+export enum AppSortField {
+  /** Sort apps by creation date. */
+  CREATION_DATE = 'CREATION_DATE',
+  /** Sort apps by name. */
+  NAME = 'NAME'
+}
+
+export type AppSortingInput = {
+  /** Specifies the direction in which to sort apps. */
+  direction: OrderDirection;
+  /** Sort apps by the selected field. */
+  field: AppSortField;
+};
+
+export type AppTokenInput = {
+  /** ID of app. */
+  app: Scalars['ID']['input'];
+  /** Name of the token. */
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Enum determining type of your App. */
+export enum AppTypeEnum {
+  /** Local Saleor App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
+  LOCAL = 'LOCAL',
+  /** Third party external App. Installation is fully automated. Saleor uses a defined App manifest to gather all required information. */
+  THIRDPARTY = 'THIRDPARTY'
+}
+
+export enum AreaUnitsEnum {
+  SQ_CM = 'SQ_CM',
+  SQ_DM = 'SQ_DM',
+  SQ_FT = 'SQ_FT',
+  SQ_INCH = 'SQ_INCH',
+  SQ_KM = 'SQ_KM',
+  SQ_M = 'SQ_M',
+  SQ_MM = 'SQ_MM',
+  SQ_YD = 'SQ_YD'
+}
+
+export type AssignedAttributeReferenceInput = {
+  /** Returns objects with a reference pointing to a category identified by the given slug. */
+  categorySlugs?: InputMaybe<ContainsFilterInput>;
+  /** Returns objects with a reference pointing to a collection identified by the given slug. */
+  collectionSlugs?: InputMaybe<ContainsFilterInput>;
+  /** Returns objects with a reference pointing to a page identified by the given slug. */
+  pageSlugs?: InputMaybe<ContainsFilterInput>;
+  /** Returns objects with a reference pointing to a product identified by the given slug. */
+  productSlugs?: InputMaybe<ContainsFilterInput>;
+  /** Returns objects with a reference pointing to a product variant identified by the given sku. */
+  productVariantSkus?: InputMaybe<ContainsFilterInput>;
+  /** Returns objects with a reference pointing to an object identified by the given ID. */
+  referencedIds?: InputMaybe<ContainsFilterInput>;
+};
+
+export type AssignedAttributeValueInput = {
+  /** Filter by boolean value for attributes of boolean type. */
+  boolean?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by date value for attributes of date type. */
+  date?: InputMaybe<DateRangeInput>;
+  /** Filter by date time value for attributes of date time type. */
+  dateTime?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by name assigned to AttributeValue. */
+  name?: InputMaybe<StringFilterInput>;
+  /** Filter by numeric value for attributes of numeric type. */
+  numeric?: InputMaybe<DecimalFilterInput>;
+  /** Filter by reference attribute value. */
+  reference?: InputMaybe<AssignedAttributeReferenceInput>;
+  /** Filter by slug assigned to AttributeValue. */
+  slug?: InputMaybe<StringFilterInput>;
+};
+
+export type AssignedAttributeWhereInput = {
+  /** Filter by attribute slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** Filter by value of the attribute. Only one value input field is allowed. If provided more than one, the error will be raised. */
+  value?: InputMaybe<AssignedAttributeValueInput>;
+};
+
+export enum AttributeBulkCreateErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  BLANK = 'BLANK',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MAX_LENGTH = 'MAX_LENGTH',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type AttributeBulkTranslateInput = {
+  /** External reference of an attribute. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Attribute ID. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** Translation language code. */
+  languageCode: LanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: NameTranslationInput;
+};
+
+export enum AttributeBulkUpdateErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  BLANK = 'BLANK',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MAX_LENGTH = 'MAX_LENGTH',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type AttributeBulkUpdateInput = {
+  /** External ID of this attribute. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Fields to update. */
+  fields: AttributeUpdateInput;
+  /** ID of an attribute to update. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export enum AttributeChoicesSortField {
+  /** Sort attribute choice by name. */
+  NAME = 'NAME',
+  /** Sort attribute choice by slug. */
+  SLUG = 'SLUG'
+}
+
+export type AttributeChoicesSortingInput = {
+  /** Specifies the direction in which to sort attribute choices. */
+  direction: OrderDirection;
+  /** Sort attribute choices by the selected field. */
+  field: AttributeChoicesSortField;
+};
+
+/** Represents an input for create of attribute. */
+export type AttributeCreateInput = {
+  /** The entity type which can be used as a reference. */
+  entityType?: InputMaybe<AttributeEntityTypeEnum>;
+  /** External ID of this attribute. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** The input type to use for entering attribute values in the dashboard. */
+  inputType?: InputMaybe<AttributeInputTypeEnum>;
+  /** Whether the attribute is for variants only. */
+  isVariantOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Name of an attribute displayed in the interface. */
+  name: Scalars['String']['input'];
+  /**
+   * Specifies reference types to narrow down the choices of reference objects. Applicable only for `REFERENCE` and `SINGLE_REFERENCE` attributes with `PRODUCT`, `PRODUCT_VARIANT` and `PAGE` entity types. Accepts `ProductType` IDs for `PRODUCT` and `PRODUCT_VARIANT` entity types, and `PageType` IDs for `PAGE` entity type. If omitted, all objects of the selected entity type are available as attribute values.
+   *
+   * A maximum of 100 reference types can be specified.
+   *
+   * Added in Saleor 3.22.
+   */
+  referenceTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Internal representation of an attribute name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The attribute type. */
+  type: AttributeTypeEnum;
+  /** The unit of attribute values. */
+  unit?: InputMaybe<MeasurementUnitsEnum>;
+  /** Whether the attribute requires values to be passed or not. */
+  valueRequired?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of attribute's values. */
+  values?: InputMaybe<Array<AttributeValueCreateInput>>;
+  /** Whether the attribute should be visible or not in storefront. */
+  visibleInStorefront?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum AttributeEntityTypeEnum {
+  CATEGORY = 'CATEGORY',
+  COLLECTION = 'COLLECTION',
+  PAGE = 'PAGE',
+  PRODUCT = 'PRODUCT',
+  PRODUCT_VARIANT = 'PRODUCT_VARIANT'
+}
+
+export type AttributeEntityTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<AttributeEntityTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<AttributeEntityTypeEnum>>;
+};
+
+export enum AttributeErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type AttributeFilterInput = {
+  /**
+   * Specifies the channel by which the data should be filtered.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  inCategory?: InputMaybe<Scalars['ID']['input']>;
+  inCollection?: InputMaybe<Scalars['ID']['input']>;
+  isVariantOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  type?: InputMaybe<AttributeTypeEnum>;
+  valueRequired?: InputMaybe<Scalars['Boolean']['input']>;
+  visibleInStorefront?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type AttributeInput = {
+  /**
+   * The boolean value of the attribute. Requires `slug` to be provided.
+   * @deprecated Use `value` instead.
+   */
+  boolean?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * The date range that the returned values should be in. In case of date/time attributes, the UTC midnight of the given date is used. Requires `slug` to be provided.
+   * @deprecated Use `value` instead.
+   */
+  date?: InputMaybe<DateRangeInput>;
+  /**
+   * The date/time range that the returned values should be in. Requires `slug` to be provided.
+   * @deprecated Use `value` instead.
+   */
+  dateTime?: InputMaybe<DateTimeRangeInput>;
+  /** Internal representation of an attribute name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** Filter by value of the attribute. Only one value input field is allowed. If provided more than one, the error will be raised. Cannot be combined with deprecated fields of `AttributeInput`. */
+  value?: InputMaybe<AssignedAttributeValueInput>;
+  /**
+   * Slugs identifying the attributeValues associated with the Attribute. When specified, it filters the results to include only records with one of the matching values. Requires `slug` to be provided.
+   * @deprecated Use `value` instead.
+   */
+  values?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * The range that the returned values should be in. Requires `slug` to be provided.
+   * @deprecated Use `value` instead.
+   */
+  valuesRange?: InputMaybe<IntRangeInput>;
+};
+
+export enum AttributeInputTypeEnum {
+  BOOLEAN = 'BOOLEAN',
+  DATE = 'DATE',
+  DATE_TIME = 'DATE_TIME',
+  DROPDOWN = 'DROPDOWN',
+  FILE = 'FILE',
+  MULTISELECT = 'MULTISELECT',
+  NUMERIC = 'NUMERIC',
+  PLAIN_TEXT = 'PLAIN_TEXT',
+  REFERENCE = 'REFERENCE',
+  RICH_TEXT = 'RICH_TEXT',
+  SINGLE_REFERENCE = 'SINGLE_REFERENCE',
+  SWATCH = 'SWATCH'
+}
+
+export type AttributeInputTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<AttributeInputTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<AttributeInputTypeEnum>>;
+};
+
+export enum AttributeSortField {
+  /** Sort attributes by the variant only flag */
+  IS_VARIANT_ONLY = 'IS_VARIANT_ONLY',
+  /** Sort attributes by name */
+  NAME = 'NAME',
+  /** Sort attributes by slug */
+  SLUG = 'SLUG',
+  /** Sort attributes by the value required flag */
+  VALUE_REQUIRED = 'VALUE_REQUIRED',
+  /** Sort attributes by visibility in the storefront */
+  VISIBLE_IN_STOREFRONT = 'VISIBLE_IN_STOREFRONT'
+}
+
+export type AttributeSortingInput = {
+  /** Specifies the direction in which to sort attributes. */
+  direction: OrderDirection;
+  /** Sort attributes by the selected field. */
+  field: AttributeSortField;
+};
+
+export enum AttributeTranslateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export enum AttributeTypeEnum {
+  CUSTOMER_TYPE = 'CUSTOMER_TYPE',
+  PAGE_TYPE = 'PAGE_TYPE',
+  PRODUCT_TYPE = 'PRODUCT_TYPE'
+}
+
+export type AttributeTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<AttributeTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<AttributeTypeEnum>>;
+};
+
+/** Represents an input for update of attribute. */
+export type AttributeUpdateInput = {
+  /** New values to be created for this attribute. */
+  addValues?: InputMaybe<Array<AttributeValueUpdateInput>>;
+  /** External ID of this product. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the attribute is for variants only. */
+  isVariantOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Name of an attribute displayed in the interface. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Specifies reference types to narrow down the choices of reference objects. Applicable only for `REFERENCE` and `SINGLE_REFERENCE` attributes with `PRODUCT`, `PRODUCT_VARIANT` and `PAGE` entity types. Accepts `ProductType` IDs for `PRODUCT` and `PRODUCT_VARIANT` entity types, and `PageType` IDs for `PAGE` entity type. If omitted, all objects of the selected entity type are available as attribute values.
+   *
+   * A maximum of 100 reference types can be specified.
+   *
+   * Added in Saleor 3.22.
+   */
+  referenceTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** IDs of values to be removed from this attribute. */
+  removeValues?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Internal representation of an attribute name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The unit of attribute values. */
+  unit?: InputMaybe<MeasurementUnitsEnum>;
+  /** Whether the attribute requires values to be passed or not. */
+  valueRequired?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether the attribute should be visible or not in storefront. */
+  visibleInStorefront?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type AttributeValueBulkTranslateInput = {
+  /** External reference of an attribute value. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Attribute value ID. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** Translation language code. */
+  languageCode: LanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: AttributeValueTranslationInput;
+};
+
+export type AttributeValueCreateInput = {
+  /** File content type. */
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  /** External ID of this attribute value. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** URL of the file attribute. Every time, a new value is created. */
+  fileUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Name of a value displayed in the interface. */
+  name: Scalars['String']['input'];
+  /**
+   * Represents the text of the attribute value, plain text without formatting.
+   * @deprecated The plain text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+   */
+  plainText?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Represents the text of the attribute value, includes formatting.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   * @deprecated The rich text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+   */
+  richText?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Represent value of the attribute value (e.g. color values for swatch attributes). */
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AttributeValueFilterInput = {
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type AttributeValueInput = {
+  /** Represents the boolean value of the attribute value. */
+  boolean?: InputMaybe<Scalars['Boolean']['input']>;
+  /** File content type. */
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  /** Represents the date value of the attribute value. */
+  date?: InputMaybe<Scalars['Date']['input']>;
+  /** Represents the date/time value of the attribute value. */
+  dateTime?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Attribute value ID or external reference. */
+  dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
+  /** External ID of this attribute. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** URL of the file attribute. Every time, a new value is created. */
+  file?: InputMaybe<Scalars['String']['input']>;
+  /** ID of the selected attribute. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** List of attribute value IDs or external references. */
+  multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
+  /** Numeric value of an attribute. */
+  numeric?: InputMaybe<Scalars['String']['input']>;
+  /** Plain text content. */
+  plainText?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of the referenced entity for single reference attribute.
+   *
+   * Added in Saleor 3.22.
+   */
+  reference?: InputMaybe<Scalars['ID']['input']>;
+  /** List of entity IDs that will be used as references. */
+  references?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Text content in JSON format. */
+  richText?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Attribute value ID or external reference. */
+  swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
+  /**
+   * The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.
+   * @deprecated Field no longer supported
+   */
+  values?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/**
+ * Represents attribute value.
+ * 1. If ID is provided, then attribute value will be resolved by ID.
+ * 2. If externalReference is provided, then attribute value will be resolved by external reference.
+ * 3. If value is provided, then attribute value will be resolved by value. If this attribute value doesn't exist, then it will be created.
+ * 4. If externalReference and value is provided then new attribute value will be created.
+ */
+export type AttributeValueSelectableTypeInput = {
+  /** External reference of an attribute value. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** ID of an attribute value. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. */
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum AttributeValueTranslateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type AttributeValueTranslationInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Translated text. */
+  plainText?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Translated text.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  richText?: InputMaybe<Scalars['JSONString']['input']>;
+};
+
+export type AttributeValueUpdateInput = {
+  /** File content type. */
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  /** External ID of this attribute value. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** URL of the file attribute. Every time, a new value is created. */
+  fileUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Name of a value displayed in the interface. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Represents the text of the attribute value, plain text without formatting.
+   * @deprecated The plain text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+   */
+  plainText?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Represents the text of the attribute value, includes formatting.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   * @deprecated The rich text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+   */
+  richText?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Represent value of the attribute value (e.g. color values for swatch attributes). */
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Where filtering options for attribute values. */
+export type AttributeValueWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<AttributeValueWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<AttributeValueWhereInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  name?: InputMaybe<StringFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+};
+
+/** Where filtering options. */
+export type AttributeWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<AttributeWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<AttributeWhereInput>>;
+  entityType?: InputMaybe<AttributeEntityTypeEnumFilterInput>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  inCategory?: InputMaybe<Scalars['ID']['input']>;
+  inCollection?: InputMaybe<Scalars['ID']['input']>;
+  inputType?: InputMaybe<AttributeInputTypeEnumFilterInput>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  name?: InputMaybe<StringFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<AttributeTypeEnumFilterInput>;
+  unit?: InputMaybe<MeasurementUnitsEnumFilterInput>;
+  valueRequired?: InputMaybe<Scalars['Boolean']['input']>;
+  visibleInStorefront?: InputMaybe<Scalars['Boolean']['input']>;
+  withChoices?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type BulkAttributeValueInput = {
+  /** The boolean value of an attribute to resolve. If the passed value is non-existent, it will be created. */
+  boolean?: InputMaybe<Scalars['Boolean']['input']>;
+  /** File content type. */
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  /** Represents the date value of the attribute value. */
+  date?: InputMaybe<Scalars['Date']['input']>;
+  /** Represents the date/time value of the attribute value. */
+  dateTime?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Attribute value ID. */
+  dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
+  /** External ID of this attribute. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** URL of the file attribute. Every time, a new value is created. */
+  file?: InputMaybe<Scalars['String']['input']>;
+  /** ID of the selected attribute. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** List of attribute value IDs. */
+  multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
+  /** Numeric value of an attribute. */
+  numeric?: InputMaybe<Scalars['String']['input']>;
+  /** Plain text content. */
+  plainText?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of the referenced entity for single reference attribute.
+   *
+   * Added in Saleor 3.22.
+   */
+  reference?: InputMaybe<Scalars['ID']['input']>;
+  /** List of entity IDs that will be used as references. */
+  references?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Text content in JSON format. */
+  richText?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Attribute value ID. */
+  swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
+  /**
+   * The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.
+   * @deprecated Field no longer supported
+   */
+  values?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/**
+ * Card data used to check a payment balance.
+ *
+ * The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+ */
+export type CardInput = {
+  /** Payment method nonce, a token returned by the appropriate provider's SDK. */
+  code: Scalars['String']['input'];
+  /** Card security code. */
+  cvc?: InputMaybe<Scalars['String']['input']>;
+  /** Information about currency and amount. */
+  money: MoneyInput;
+};
+
+export type CardPaymentMethodDetailsInput = {
+  /** Brand of the payment method used for the transaction. Max length is 40 characters. */
+  brand?: InputMaybe<Scalars['String']['input']>;
+  /** Expiration month of the card used for the transaction. Value must be between 1 and 12. */
+  expMonth?: InputMaybe<Scalars['Int']['input']>;
+  /** Expiration year of the card used for the transaction. Value must be between 2000 and 9999. */
+  expYear?: InputMaybe<Scalars['Int']['input']>;
+  /** First digits of the card used for the transaction. Max length is 4 characters. */
+  firstDigits?: InputMaybe<Scalars['String']['input']>;
+  /** Last digits of the card used for the transaction. Max length is 4 characters. */
+  lastDigits?: InputMaybe<Scalars['String']['input']>;
+  /** Name of the payment method used for the transaction. Max length is 256 characters. */
+  name: Scalars['String']['input'];
+};
+
+export type CatalogueInput = {
+  /** Categories related to the discount. */
+  categories?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Collections related to the discount. */
+  collections?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Products related to the discount. */
+  products?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Product variant related to the discount. */
+  variants?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export type CataloguePredicateInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CataloguePredicateInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CataloguePredicateInput>>;
+  /** Defines the category conditions to be met. */
+  categoryPredicate?: InputMaybe<CategoryWhereInput>;
+  /** Defines the collection conditions to be met. */
+  collectionPredicate?: InputMaybe<CollectionWhereInput>;
+  /** Defines the product conditions to be met. */
+  productPredicate?: InputMaybe<ProductWhereInput>;
+  /** Defines the product variant conditions to be met. */
+  variantPredicate?: InputMaybe<ProductVariantWhereInput>;
+};
+
+export type CategoryFilterInput = {
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Filter by when was the most recent update. */
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type CategoryInput = {
+  /** Background image file. */
+  backgroundImage?: InputMaybe<Scalars['Upload']['input']>;
+  /** Alt text for a product media. */
+  backgroundImageAlt?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Category description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  /**
+   * Fields required to update the category metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Category name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the category private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Category slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum CategorySortField {
+  /** Sort categories by name. */
+  NAME = 'NAME',
+  /** Sort categories by product count. */
+  PRODUCT_COUNT = 'PRODUCT_COUNT',
+  /** Sort categories by subcategory count. */
+  SUBCATEGORY_COUNT = 'SUBCATEGORY_COUNT'
+}
+
+export type CategorySortingInput = {
+  /**
+   * Specifies the channel in which to sort the data.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /** Specifies the direction in which to sort categories. */
+  direction: OrderDirection;
+  /** Sort categories by the selected field. */
+  field: CategorySortField;
+};
+
+export type CategoryWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CategoryWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CategoryWhereInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+};
+
+export type ChannelCreateInput = {
+  /** List of shipping zones to assign to the channel. */
+  addShippingZones?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of warehouses to assign to the channel. */
+  addWarehouses?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** The channel checkout settings */
+  checkoutSettings?: InputMaybe<CheckoutSettingsInput>;
+  /** Currency of the channel. */
+  currencyCode: Scalars['String']['input'];
+  /** Default country for the channel. Default country can be used in checkout to determine the stock quantities or calculate taxes when the country was not explicitly provided. */
+  defaultCountry: CountryCode;
+  /** Determine if channel will be set active or not. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Channel public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Name of the channel. */
+  name: Scalars['String']['input'];
+  /** The channel order settings */
+  orderSettings?: InputMaybe<OrderSettingsInput>;
+  /** The channel payment settings */
+  paymentSettings?: InputMaybe<PaymentSettingsInput>;
+  /**
+   * Channel private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Slug of the channel. */
+  slug: Scalars['String']['input'];
+  /** The channel stock settings. */
+  stockSettings?: InputMaybe<StockSettingsInput>;
+};
+
+export type ChannelDeleteInput = {
+  /** ID of a channel to migrate orders from the origin channel. Target channel has to have the same currency as the origin. */
+  channelId: Scalars['ID']['input'];
+};
+
+export enum ChannelErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  CHANNELS_CURRENCY_MUST_BE_THE_SAME = 'CHANNELS_CURRENCY_MUST_BE_THE_SAME',
+  CHANNEL_WITH_ORDERS = 'CHANNEL_WITH_ORDERS',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type ChannelListingUpdateInput = {
+  /** ID of a channel listing. */
+  channelListing: Scalars['ID']['input'];
+  /** Cost price of the variant in channel. */
+  costPrice?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Price of the particular variant in channel. */
+  price?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Price of the variant before discount. */
+  priorPrice?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+};
+
+export type ChannelUpdateInput = {
+  /** List of shipping zones to assign to the channel. */
+  addShippingZones?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of warehouses to assign to the channel. */
+  addWarehouses?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** The channel checkout settings */
+  checkoutSettings?: InputMaybe<CheckoutSettingsInput>;
+  /** Default country for the channel. Default country can be used in checkout to determine the stock quantities or calculate taxes when the country was not explicitly provided. */
+  defaultCountry?: InputMaybe<CountryCode>;
+  /** Determine if channel will be set active or not. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Channel public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Name of the channel. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The channel order settings */
+  orderSettings?: InputMaybe<OrderSettingsInput>;
+  /** The channel payment settings */
+  paymentSettings?: InputMaybe<PaymentSettingsInput>;
+  /**
+   * Channel private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** List of shipping zones to unassign from the channel. */
+  removeShippingZones?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of warehouses to unassign from the channel. */
+  removeWarehouses?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Slug of the channel. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The channel stock settings. */
+  stockSettings?: InputMaybe<StockSettingsInput>;
+};
+
+export type CheckoutAddressValidationRules = {
+  /** Determines if an error should be raised when the provided address doesn't match the expected format. Example: using letters for postal code when the numbers are expected. */
+  checkFieldsFormat?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Determines if an error should be raised when the provided address doesn't have all the required fields. The list of required fields is dynamic and depends on the country code (use the `addressValidationRules` query to fetch them). Note: country code is mandatory for all addresses regardless of the rules provided in this input. */
+  checkRequiredFields?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Determines if Saleor should apply normalization on address fields. Example: converting city field to uppercase letters. */
+  enableFieldsNormalization?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/**
+ * Determine a current authorize status for checkout.
+ *
+ *     We treat the checkout as fully authorized when the sum of authorized and charged
+ *     funds cover the checkout.total.
+ *     We treat the checkout as partially authorized when the sum of authorized and charged
+ *     funds covers only part of the checkout.total
+ *     We treat the checkout as not authorized when the sum of authorized and charged funds
+ *     is 0.
+ *
+ *     NONE - the funds are not authorized
+ *     PARTIAL - the cover funds don't cover fully the checkout's total
+ *     FULL - the cover funds covers the checkout's total
+ */
+export enum CheckoutAuthorizeStatusEnum {
+  FULL = 'FULL',
+  NONE = 'NONE',
+  PARTIAL = 'PARTIAL'
+}
+
+export type CheckoutAutoCompleteInput = {
+  /** Specifies the earliest date on which fully paid checkouts can begin to be automatically completed. Fully paid checkouts dated before this cut-off will not be automatically completed. Must be less than the threshold of the oldest modified checkout eligible for automatic completion. Default is current date time. */
+  cutOffDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** The time in minutes after which the fully paid checkout will be automatically completed. Default is 30. Set to 0 for immediate completion. Should be less than the threshold for the oldest modified checkout eligible for automatic completion. */
+  delay?: InputMaybe<Scalars['Minute']['input']>;
+  /** Default `false`. Determines if the paid checkouts should be automatically completed. This setting applies only to checkouts where payment was processed through transactions.When enabled, the checkout will be automatically completed once the checkout `charge_status` reaches `FULL`. This occurs when the total sum of charged and authorized transaction amounts equals or exceeds the checkout's total amount. */
+  enabled: Scalars['Boolean']['input'];
+};
+
+/**
+ * Determine the current charge status for the checkout.
+ *
+ *     The checkout is considered overcharged when the sum of the transactionItem's charge
+ *     amounts exceeds the value of `checkout.total`.
+ *     If the sum of the transactionItem's charge amounts equals
+ *     `checkout.total`, we consider the checkout to be fully charged.
+ *     If the sum of the transactionItem's charge amounts covers a part of the
+ *     `checkout.total`, we treat the checkout as partially charged.
+ *
+ *
+ *     NONE - the funds are not charged.
+ *     PARTIAL - the funds that are charged don't cover the checkout's total
+ *     FULL - the funds that are charged fully cover the checkout's total
+ *     OVERCHARGED - the charged funds are bigger than checkout's total
+ */
+export enum CheckoutChargeStatusEnum {
+  FULL = 'FULL',
+  NONE = 'NONE',
+  OVERCHARGED = 'OVERCHARGED',
+  PARTIAL = 'PARTIAL'
+}
+
+export enum CheckoutCreateFromOrderErrorCode {
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  ORDER_NOT_FOUND = 'ORDER_NOT_FOUND',
+  TAX_ERROR = 'TAX_ERROR'
+}
+
+export enum CheckoutCreateFromOrderUnavailableVariantErrorCode {
+  INSUFFICIENT_STOCK = 'INSUFFICIENT_STOCK',
+  NOT_FOUND = 'NOT_FOUND',
+  PRODUCT_NOT_PUBLISHED = 'PRODUCT_NOT_PUBLISHED',
+  PRODUCT_UNAVAILABLE_FOR_PURCHASE = 'PRODUCT_UNAVAILABLE_FOR_PURCHASE',
+  QUANTITY_GREATER_THAN_LIMIT = 'QUANTITY_GREATER_THAN_LIMIT',
+  UNAVAILABLE_VARIANT_IN_CHANNEL = 'UNAVAILABLE_VARIANT_IN_CHANNEL'
+}
+
+export type CheckoutCreateInput = {
+  /** Billing address of the customer. `skipValidation` requires HANDLE_CHECKOUTS and AUTHENTICATED_APP permissions. */
+  billingAddress?: InputMaybe<AddressInput>;
+  /** Slug of a channel in which to create a checkout. */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /** The customer's email address. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** Checkout language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /** A list of checkout lines, each containing information about an item in the checkout. When omitted, a checkout with no lines is created. */
+  lines?: InputMaybe<Array<CheckoutLineInput>>;
+  /**
+   * Checkout public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Checkout private metadata. Requires one of the following permissions: MANAGE_CHECKOUTS, HANDLE_CHECKOUTS
+   *
+   * Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Indicates whether the billing address should be saved to the user’s address book upon checkout completion. Can only be set when a billing address is provided. If not specified along with the address, the default behavior is to save the address. */
+  saveBillingAddress?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Indicates whether the shipping address should be saved to the user’s address book upon checkout completion.Can only be set when a shipping address is provided. If not specified along with the address, the default behavior is to save the address. */
+  saveShippingAddress?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The mailing address to where the checkout will be shipped. Note: the address will be ignored if the checkout doesn't contain shippable items. `skipValidation` requires HANDLE_CHECKOUTS and AUTHENTICATED_APP permissions. */
+  shippingAddress?: InputMaybe<AddressInput>;
+  /** The checkout validation rules that can be changed. */
+  validationRules?: InputMaybe<CheckoutValidationRules>;
+};
+
+export enum CheckoutErrorCode {
+  BILLING_ADDRESS_NOT_SET = 'BILLING_ADDRESS_NOT_SET',
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  CHECKOUT_NOT_FULLY_PAID = 'CHECKOUT_NOT_FULLY_PAID',
+  DELIVERY_METHOD_NOT_APPLICABLE = 'DELIVERY_METHOD_NOT_APPLICABLE',
+  EMAIL_NOT_SET = 'EMAIL_NOT_SET',
+  GIFT_CARD_NOT_APPLICABLE = 'GIFT_CARD_NOT_APPLICABLE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INACTIVE_PAYMENT = 'INACTIVE_PAYMENT',
+  INSUFFICIENT_STOCK = 'INSUFFICIENT_STOCK',
+  INVALID = 'INVALID',
+  INVALID_SHIPPING_METHOD = 'INVALID_SHIPPING_METHOD',
+  MISSING_ADDRESS_DATA = 'MISSING_ADDRESS_DATA',
+  MISSING_CHANNEL_SLUG = 'MISSING_CHANNEL_SLUG',
+  NON_EDITABLE_GIFT_LINE = 'NON_EDITABLE_GIFT_LINE',
+  NON_REMOVABLE_GIFT_LINE = 'NON_REMOVABLE_GIFT_LINE',
+  NOT_FOUND = 'NOT_FOUND',
+  NO_LINES = 'NO_LINES',
+  PAYMENT_ERROR = 'PAYMENT_ERROR',
+  PRICE_OVERRIDE_REASON_WITHOUT_OVERRIDE = 'PRICE_OVERRIDE_REASON_WITHOUT_OVERRIDE',
+  PRODUCT_NOT_PUBLISHED = 'PRODUCT_NOT_PUBLISHED',
+  PRODUCT_UNAVAILABLE_FOR_PURCHASE = 'PRODUCT_UNAVAILABLE_FOR_PURCHASE',
+  QUANTITY_GREATER_THAN_LIMIT = 'QUANTITY_GREATER_THAN_LIMIT',
+  REQUIRED = 'REQUIRED',
+  SHIPPING_ADDRESS_NOT_SET = 'SHIPPING_ADDRESS_NOT_SET',
+  SHIPPING_CHANGE_FORBIDDEN = 'SHIPPING_CHANGE_FORBIDDEN',
+  SHIPPING_METHOD_NOT_APPLICABLE = 'SHIPPING_METHOD_NOT_APPLICABLE',
+  SHIPPING_METHOD_NOT_SET = 'SHIPPING_METHOD_NOT_SET',
+  SHIPPING_NOT_REQUIRED = 'SHIPPING_NOT_REQUIRED',
+  TAX_ERROR = 'TAX_ERROR',
+  UNAVAILABLE_VARIANT_IN_CHANNEL = 'UNAVAILABLE_VARIANT_IN_CHANNEL',
+  UNIQUE = 'UNIQUE',
+  VOUCHER_NOT_APPLICABLE = 'VOUCHER_NOT_APPLICABLE',
+  ZERO_QUANTITY = 'ZERO_QUANTITY'
+}
+
+export type CheckoutFilterInput = {
+  authorizeStatus?: InputMaybe<Array<CheckoutAuthorizeStatusEnum>>;
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  chargeStatus?: InputMaybe<Array<CheckoutChargeStatusEnum>>;
+  created?: InputMaybe<DateRangeInput>;
+  customer?: InputMaybe<Scalars['String']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<DateRangeInput>;
+};
+
+export type CheckoutLineInput = {
+  /** Flag that allow force splitting the same variant into multiple lines by skipping the matching logic. */
+  forceNewLine?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Fields required to update the object's metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Custom price of the item. Can be set only by apps with `HANDLE_CHECKOUTS` permission. When the line with the same variant will be provided multiple times, the last price will be used. */
+  price?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /**
+   * Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
+   *
+   * Added in Saleor 3.23.
+   */
+  priceOverrideReason?: InputMaybe<Scalars['String']['input']>;
+  /** The number of items purchased. */
+  quantity: Scalars['Int']['input'];
+  /** ID of the product variant. */
+  variantId: Scalars['ID']['input'];
+};
+
+export type CheckoutLineUpdateInput = {
+  /** ID of the line. */
+  lineId?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Checkout line public metadata. Will add and update keys. To delete keys use deleteMetadata mutation. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Custom price of the item. Can be set only by apps with `HANDLE_CHECKOUTS` permission. When the line with the same variant will be provided multiple times, the last price will be used. */
+  price?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /**
+   * Reason explaining why a custom `price` was set on the line, for debugging and auditing. Can be set only by apps with `HANDLE_CHECKOUTS` permission and only when the line has a `price` override. Setting a new `price` without a reason clears the previous reason. Blank values are stored as no reason. Limited to 255 characters; longer values are truncated.
+   *
+   * Added in Saleor 3.23.
+   */
+  priceOverrideReason?: InputMaybe<Scalars['String']['input']>;
+  /** The number of items purchased. Optional for apps, required for any other users. */
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  /**
+   * ID of the product variant.
+   * @deprecated Use `lineId` instead.
+   */
+  variantId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type CheckoutSettingsInput = {
+  /**
+   * Default to `true`. Determines whether gift cards can be attached to a Checkout via `addPromoCode` mutation. Usage of this mutation with gift cards is deprecated.
+   *
+   * Added in Saleor 3.23.
+   */
+  allowLegacyGiftCardUse?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Settings for automatic completion of fully paid checkouts.
+   *
+   * Added in Saleor 3.22.
+   */
+  automaticCompletion?: InputMaybe<CheckoutAutoCompleteInput>;
+  /**
+   * Default `false`. Determines if the paid checkouts should be automatically completed. This setting applies only to checkouts where payment was processed through transactions.When enabled, the checkout will be automatically completed once the checkout `authorize_status` reaches `FULL`. This occurs when the total sum of charged and authorized transaction amounts equals or exceeds the checkout's total amount.
+   * @deprecated Use `automatic_completion` instead.
+   */
+  automaticallyCompleteFullyPaidCheckouts?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one.
+   * @deprecated Field no longer supported
+   */
+  useLegacyErrorFlow?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum CheckoutSortField {
+  /** Sort checkouts by creation date. */
+  CREATION_DATE = 'CREATION_DATE',
+  /** Sort checkouts by customer. */
+  CUSTOMER = 'CUSTOMER',
+  /**
+   * Sort checkouts by payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT = 'PAYMENT',
+  /** Sort checkouts by rank. Note: This option is available only with the `search` filter. */
+  RANK = 'RANK'
+}
+
+export type CheckoutSortingInput = {
+  /** Specifies the direction in which to sort checkouts. */
+  direction: OrderDirection;
+  /** Sort checkouts by the selected field. */
+  field: CheckoutSortField;
+};
+
+export type CheckoutValidationRules = {
+  /** The validation rules that can be applied to provided billing address data. */
+  billingAddress?: InputMaybe<CheckoutAddressValidationRules>;
+  /** The validation rules that can be applied to provided shipping address data. */
+  shippingAddress?: InputMaybe<CheckoutAddressValidationRules>;
+};
+
+/** Enum determining the state of a circuit breaker. */
+export enum CircuitBreakerStateEnum {
+  /** The breaker is conducting (requests are passing through). */
+  CLOSED = 'CLOSED',
+  /** The breaker is in a trial period (to close or open). Note that unlike classic breaker patterns, this is not a state where we are throttling the number of requests, it's a state similar to CLOSED but with different thresholds. */
+  HALF_OPEN = 'HALF_OPEN',
+  /** The breaker is tripped (no requests are passing). Breaker will enter half-open state after cooldown period. */
+  OPEN = 'OPEN'
+}
+
+export type CollectionChannelListingUpdateInput = {
+  /** List of channels to which the collection should be assigned. */
+  addChannels?: InputMaybe<Array<PublishableChannelListingInput>>;
+  /** List of channels from which the collection should be unassigned. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export type CollectionCreateInput = {
+  /** Background image file. */
+  backgroundImage?: InputMaybe<Scalars['Upload']['input']>;
+  /** Alt text for an image. */
+  backgroundImageAlt?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Description of the collection.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Informs whether a collection is published. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Fields required to update the collection metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Name of the collection. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the collection private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** List of products to be added to the collection. */
+  products?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Publication date. ISO 8601 standard.
+   * @deprecated Field no longer supported
+   */
+  publicationDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Slug of the collection. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum CollectionErrorCode {
+  /** @deprecated Products without variants can now be assigned to collections. This error will never be returned. */
+  CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT = 'CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  FILE_SIZE_LIMIT_EXCEEDED = 'FILE_SIZE_LIMIT_EXCEEDED',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type CollectionFilterInput = {
+  /**
+   * Specifies the channel by which the data should be filtered.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  published?: InputMaybe<CollectionPublished>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type CollectionInput = {
+  /** Background image file. */
+  backgroundImage?: InputMaybe<Scalars['Upload']['input']>;
+  /** Alt text for an image. */
+  backgroundImageAlt?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Description of the collection.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Informs whether a collection is published. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Fields required to update the collection metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Name of the collection. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the collection private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Publication date. ISO 8601 standard.
+   * @deprecated Field no longer supported
+   */
+  publicationDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Slug of the collection. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum CollectionPublished {
+  HIDDEN = 'HIDDEN',
+  PUBLISHED = 'PUBLISHED'
+}
+
+export enum CollectionSortField {
+  /**
+   * Sort collections by availability.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  AVAILABILITY = 'AVAILABILITY',
+  /** Sort collections by name. */
+  NAME = 'NAME',
+  /** Sort collections by product count. */
+  PRODUCT_COUNT = 'PRODUCT_COUNT',
+  /**
+   * Sort collections by publication date.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   * @deprecated Use `PUBLISHED_AT` instead.
+   */
+  PUBLICATION_DATE = 'PUBLICATION_DATE',
+  /**
+   * Sort collections by published at.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  PUBLISHED_AT = 'PUBLISHED_AT'
+}
+
+export type CollectionSortingInput = {
+  /**
+   * Specifies the channel in which to sort the data.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /** Specifies the direction in which to sort collections. */
+  direction: OrderDirection;
+  /** Sort collections by the selected field. */
+  field: CollectionSortField;
+};
+
+export type CollectionWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CollectionWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CollectionWhereInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+};
+
+export type ConfigurationItemInput = {
+  /** Name of the field to update. */
+  name: Scalars['String']['input'];
+  /** Value of the given field to update. */
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum ConfigurationTypeFieldEnum {
+  BOOLEAN = 'BOOLEAN',
+  MULTILINE = 'MULTILINE',
+  OUTPUT = 'OUTPUT',
+  PASSWORD = 'PASSWORD',
+  SECRET = 'SECRET',
+  SECRETMULTILINE = 'SECRETMULTILINE',
+  STRING = 'STRING'
+}
+
+/** Define the filtering options for fields that can contain multiple values. */
+export type ContainsFilterInput = {
+  /** The field contains all of the specified values. */
+  containsAll?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** The field contains at least one of the specified values. */
+  containsAny?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/**
+ * Represents country codes defined by the ISO 3166-1 alpha-2 standard.
+ *
+ * The `EU` value is DEPRECATED and will be removed in Saleor 3.21.
+ */
+export enum CountryCode {
+  /** Andorra */
+  AD = 'AD',
+  /** United Arab Emirates */
+  AE = 'AE',
+  /** Afghanistan */
+  AF = 'AF',
+  /** Antigua and Barbuda */
+  AG = 'AG',
+  /** Anguilla */
+  AI = 'AI',
+  /** Albania */
+  AL = 'AL',
+  /** Armenia */
+  AM = 'AM',
+  /** Angola */
+  AO = 'AO',
+  /** Antarctica */
+  AQ = 'AQ',
+  /** Argentina */
+  AR = 'AR',
+  /** American Samoa */
+  AS = 'AS',
+  /** Austria */
+  AT = 'AT',
+  /** Australia */
+  AU = 'AU',
+  /** Aruba */
+  AW = 'AW',
+  /** Åland Islands */
+  AX = 'AX',
+  /** Azerbaijan */
+  AZ = 'AZ',
+  /** Bosnia and Herzegovina */
+  BA = 'BA',
+  /** Barbados */
+  BB = 'BB',
+  /** Bangladesh */
+  BD = 'BD',
+  /** Belgium */
+  BE = 'BE',
+  /** Burkina Faso */
+  BF = 'BF',
+  /** Bulgaria */
+  BG = 'BG',
+  /** Bahrain */
+  BH = 'BH',
+  /** Burundi */
+  BI = 'BI',
+  /** Benin */
+  BJ = 'BJ',
+  /** Saint Barthélemy */
+  BL = 'BL',
+  /** Bermuda */
+  BM = 'BM',
+  /** Brunei */
+  BN = 'BN',
+  /** Bolivia */
+  BO = 'BO',
+  /** Bonaire, Sint Eustatius and Saba */
+  BQ = 'BQ',
+  /** Brazil */
+  BR = 'BR',
+  /** Bahamas */
+  BS = 'BS',
+  /** Bhutan */
+  BT = 'BT',
+  /** Bouvet Island */
+  BV = 'BV',
+  /** Botswana */
+  BW = 'BW',
+  /** Belarus */
+  BY = 'BY',
+  /** Belize */
+  BZ = 'BZ',
+  /** Canada */
+  CA = 'CA',
+  /** Cocos (Keeling) Islands */
+  CC = 'CC',
+  /** Congo (the Democratic Republic of the) */
+  CD = 'CD',
+  /** Central African Republic */
+  CF = 'CF',
+  /** Congo */
+  CG = 'CG',
+  /** Switzerland */
+  CH = 'CH',
+  /** Côte d'Ivoire */
+  CI = 'CI',
+  /** Cook Islands */
+  CK = 'CK',
+  /** Chile */
+  CL = 'CL',
+  /** Cameroon */
+  CM = 'CM',
+  /** China */
+  CN = 'CN',
+  /** Colombia */
+  CO = 'CO',
+  /** Costa Rica */
+  CR = 'CR',
+  /** Cuba */
+  CU = 'CU',
+  /** Cabo Verde */
+  CV = 'CV',
+  /** Curaçao */
+  CW = 'CW',
+  /** Christmas Island */
+  CX = 'CX',
+  /** Cyprus */
+  CY = 'CY',
+  /** Czechia */
+  CZ = 'CZ',
+  /** Germany */
+  DE = 'DE',
+  /** Djibouti */
+  DJ = 'DJ',
+  /** Denmark */
+  DK = 'DK',
+  /** Dominica */
+  DM = 'DM',
+  /** Dominican Republic */
+  DO = 'DO',
+  /** Algeria */
+  DZ = 'DZ',
+  /** Ecuador */
+  EC = 'EC',
+  /** Estonia */
+  EE = 'EE',
+  /** Egypt */
+  EG = 'EG',
+  /** Western Sahara */
+  EH = 'EH',
+  /** Eritrea */
+  ER = 'ER',
+  /** Spain */
+  ES = 'ES',
+  /** Ethiopia */
+  ET = 'ET',
+  /** European Union */
+  EU = 'EU',
+  /** Finland */
+  FI = 'FI',
+  /** Fiji */
+  FJ = 'FJ',
+  /** Falkland Islands (Malvinas) */
+  FK = 'FK',
+  /** Micronesia */
+  FM = 'FM',
+  /** Faroe Islands */
+  FO = 'FO',
+  /** France */
+  FR = 'FR',
+  /** Gabon */
+  GA = 'GA',
+  /** United Kingdom */
+  GB = 'GB',
+  /** Grenada */
+  GD = 'GD',
+  /** Georgia */
+  GE = 'GE',
+  /** French Guiana */
+  GF = 'GF',
+  /** Guernsey */
+  GG = 'GG',
+  /** Ghana */
+  GH = 'GH',
+  /** Gibraltar */
+  GI = 'GI',
+  /** Greenland */
+  GL = 'GL',
+  /** Gambia */
+  GM = 'GM',
+  /** Guinea */
+  GN = 'GN',
+  /** Guadeloupe */
+  GP = 'GP',
+  /** Equatorial Guinea */
+  GQ = 'GQ',
+  /** Greece */
+  GR = 'GR',
+  /** South Georgia and the South Sandwich Islands */
+  GS = 'GS',
+  /** Guatemala */
+  GT = 'GT',
+  /** Guam */
+  GU = 'GU',
+  /** Guinea-Bissau */
+  GW = 'GW',
+  /** Guyana */
+  GY = 'GY',
+  /** Hong Kong */
+  HK = 'HK',
+  /** Heard Island and McDonald Islands */
+  HM = 'HM',
+  /** Honduras */
+  HN = 'HN',
+  /** Croatia */
+  HR = 'HR',
+  /** Haiti */
+  HT = 'HT',
+  /** Hungary */
+  HU = 'HU',
+  /** Indonesia */
+  ID = 'ID',
+  /** Ireland */
+  IE = 'IE',
+  /** Israel */
+  IL = 'IL',
+  /** Isle of Man */
+  IM = 'IM',
+  /** India */
+  IN = 'IN',
+  /** British Indian Ocean Territory */
+  IO = 'IO',
+  /** Iraq */
+  IQ = 'IQ',
+  /** Iran */
+  IR = 'IR',
+  /** Iceland */
+  IS = 'IS',
+  /** Italy */
+  IT = 'IT',
+  /** Jersey */
+  JE = 'JE',
+  /** Jamaica */
+  JM = 'JM',
+  /** Jordan */
+  JO = 'JO',
+  /** Japan */
+  JP = 'JP',
+  /** Kenya */
+  KE = 'KE',
+  /** Kyrgyzstan */
+  KG = 'KG',
+  /** Cambodia */
+  KH = 'KH',
+  /** Kiribati */
+  KI = 'KI',
+  /** Comoros */
+  KM = 'KM',
+  /** Saint Kitts and Nevis */
+  KN = 'KN',
+  /** North Korea */
+  KP = 'KP',
+  /** South Korea */
+  KR = 'KR',
+  /** Kuwait */
+  KW = 'KW',
+  /** Cayman Islands */
+  KY = 'KY',
+  /** Kazakhstan */
+  KZ = 'KZ',
+  /** Laos */
+  LA = 'LA',
+  /** Lebanon */
+  LB = 'LB',
+  /** Saint Lucia */
+  LC = 'LC',
+  /** Liechtenstein */
+  LI = 'LI',
+  /** Sri Lanka */
+  LK = 'LK',
+  /** Liberia */
+  LR = 'LR',
+  /** Lesotho */
+  LS = 'LS',
+  /** Lithuania */
+  LT = 'LT',
+  /** Luxembourg */
+  LU = 'LU',
+  /** Latvia */
+  LV = 'LV',
+  /** Libya */
+  LY = 'LY',
+  /** Morocco */
+  MA = 'MA',
+  /** Monaco */
+  MC = 'MC',
+  /** Moldova */
+  MD = 'MD',
+  /** Montenegro */
+  ME = 'ME',
+  /** Saint Martin (French part) */
+  MF = 'MF',
+  /** Madagascar */
+  MG = 'MG',
+  /** Marshall Islands */
+  MH = 'MH',
+  /** North Macedonia */
+  MK = 'MK',
+  /** Mali */
+  ML = 'ML',
+  /** Myanmar */
+  MM = 'MM',
+  /** Mongolia */
+  MN = 'MN',
+  /** Macao */
+  MO = 'MO',
+  /** Northern Mariana Islands */
+  MP = 'MP',
+  /** Martinique */
+  MQ = 'MQ',
+  /** Mauritania */
+  MR = 'MR',
+  /** Montserrat */
+  MS = 'MS',
+  /** Malta */
+  MT = 'MT',
+  /** Mauritius */
+  MU = 'MU',
+  /** Maldives */
+  MV = 'MV',
+  /** Malawi */
+  MW = 'MW',
+  /** Mexico */
+  MX = 'MX',
+  /** Malaysia */
+  MY = 'MY',
+  /** Mozambique */
+  MZ = 'MZ',
+  /** Namibia */
+  NA = 'NA',
+  /** New Caledonia */
+  NC = 'NC',
+  /** Niger */
+  NE = 'NE',
+  /** Norfolk Island */
+  NF = 'NF',
+  /** Nigeria */
+  NG = 'NG',
+  /** Nicaragua */
+  NI = 'NI',
+  /** Netherlands */
+  NL = 'NL',
+  /** Norway */
+  NO = 'NO',
+  /** Nepal */
+  NP = 'NP',
+  /** Nauru */
+  NR = 'NR',
+  /** Niue */
+  NU = 'NU',
+  /** New Zealand */
+  NZ = 'NZ',
+  /** Oman */
+  OM = 'OM',
+  /** Panama */
+  PA = 'PA',
+  /** Peru */
+  PE = 'PE',
+  /** French Polynesia */
+  PF = 'PF',
+  /** Papua New Guinea */
+  PG = 'PG',
+  /** Philippines */
+  PH = 'PH',
+  /** Pakistan */
+  PK = 'PK',
+  /** Poland */
+  PL = 'PL',
+  /** Saint Pierre and Miquelon */
+  PM = 'PM',
+  /** Pitcairn */
+  PN = 'PN',
+  /** Puerto Rico */
+  PR = 'PR',
+  /** Palestine, State of */
+  PS = 'PS',
+  /** Portugal */
+  PT = 'PT',
+  /** Palau */
+  PW = 'PW',
+  /** Paraguay */
+  PY = 'PY',
+  /** Qatar */
+  QA = 'QA',
+  /** Réunion */
+  RE = 'RE',
+  /** Romania */
+  RO = 'RO',
+  /** Serbia */
+  RS = 'RS',
+  /** Russia */
+  RU = 'RU',
+  /** Rwanda */
+  RW = 'RW',
+  /** Saudi Arabia */
+  SA = 'SA',
+  /** Solomon Islands */
+  SB = 'SB',
+  /** Seychelles */
+  SC = 'SC',
+  /** Sudan */
+  SD = 'SD',
+  /** Sweden */
+  SE = 'SE',
+  /** Singapore */
+  SG = 'SG',
+  /** Saint Helena, Ascension and Tristan da Cunha */
+  SH = 'SH',
+  /** Slovenia */
+  SI = 'SI',
+  /** Svalbard and Jan Mayen */
+  SJ = 'SJ',
+  /** Slovakia */
+  SK = 'SK',
+  /** Sierra Leone */
+  SL = 'SL',
+  /** San Marino */
+  SM = 'SM',
+  /** Senegal */
+  SN = 'SN',
+  /** Somalia */
+  SO = 'SO',
+  /** Suriname */
+  SR = 'SR',
+  /** South Sudan */
+  SS = 'SS',
+  /** Sao Tome and Principe */
+  ST = 'ST',
+  /** El Salvador */
+  SV = 'SV',
+  /** Sint Maarten (Dutch part) */
+  SX = 'SX',
+  /** Syria */
+  SY = 'SY',
+  /** Eswatini */
+  SZ = 'SZ',
+  /** Turks and Caicos Islands */
+  TC = 'TC',
+  /** Chad */
+  TD = 'TD',
+  /** French Southern Territories */
+  TF = 'TF',
+  /** Togo */
+  TG = 'TG',
+  /** Thailand */
+  TH = 'TH',
+  /** Tajikistan */
+  TJ = 'TJ',
+  /** Tokelau */
+  TK = 'TK',
+  /** Timor-Leste */
+  TL = 'TL',
+  /** Turkmenistan */
+  TM = 'TM',
+  /** Tunisia */
+  TN = 'TN',
+  /** Tonga */
+  TO = 'TO',
+  /** Türkiye */
+  TR = 'TR',
+  /** Trinidad and Tobago */
+  TT = 'TT',
+  /** Tuvalu */
+  TV = 'TV',
+  /** Taiwan */
+  TW = 'TW',
+  /** Tanzania */
+  TZ = 'TZ',
+  /** Ukraine */
+  UA = 'UA',
+  /** Uganda */
+  UG = 'UG',
+  /** United States Minor Outlying Islands */
+  UM = 'UM',
+  /** United States of America */
+  US = 'US',
+  /** Uruguay */
+  UY = 'UY',
+  /** Uzbekistan */
+  UZ = 'UZ',
+  /** Holy See */
+  VA = 'VA',
+  /** Saint Vincent and the Grenadines */
+  VC = 'VC',
+  /** Venezuela */
+  VE = 'VE',
+  /** Virgin Islands (British) */
+  VG = 'VG',
+  /** Virgin Islands (U.S.) */
+  VI = 'VI',
+  /** Vietnam */
+  VN = 'VN',
+  /** Vanuatu */
+  VU = 'VU',
+  /** Wallis and Futuna */
+  WF = 'WF',
+  /** Samoa */
+  WS = 'WS',
+  /** Kosovo */
+  XK = 'XK',
+  /** Yemen */
+  YE = 'YE',
+  /** Mayotte */
+  YT = 'YT',
+  /** South Africa */
+  ZA = 'ZA',
+  /** Zambia */
+  ZM = 'ZM',
+  /** Zimbabwe */
+  ZW = 'ZW'
+}
+
+/** Filter by country code. */
+export type CountryCodeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<CountryCode>;
+  /** The value not included in. */
+  notOneOf?: InputMaybe<Array<CountryCode>>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<CountryCode>>;
+};
+
+export type CountryFilterInput = {
+  /** Boolean for filtering countries by having shipping zone assigned.If 'true', return countries with shipping zone assigned.If 'false', return countries without any shipping zone assigned.If the argument is not provided (null), return all countries. */
+  attachedToShippingZones?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CountryRateInput = {
+  /** Country in which this rate applies. */
+  countryCode: CountryCode;
+  /** Tax rate value provided as percentage. Example: provide `23` to represent `23%` tax rate. */
+  rate: Scalars['Float']['input'];
+};
+
+export type CountryRateUpdateInput = {
+  /** Country in which this rate applies. */
+  countryCode: CountryCode;
+  /** Tax rate value provided as percentage. Example: provide `23` to represent `23%` tax rate. Provide `null` to remove the particular rate. */
+  rate?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export enum CustomerBulkUpdateErrorCode {
+  BLANK = 'BLANK',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MAX_LENGTH = 'MAX_LENGTH',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type CustomerBulkUpdateInput = {
+  /** External ID of a customer to update. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** ID of a customer to update. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** Fields required to update a customer. */
+  input: CustomerInput;
+};
+
+export enum CustomerEventsEnum {
+  ACCOUNT_ACTIVATED = 'ACCOUNT_ACTIVATED',
+  ACCOUNT_CREATED = 'ACCOUNT_CREATED',
+  ACCOUNT_DEACTIVATED = 'ACCOUNT_DEACTIVATED',
+  CUSTOMER_DELETED = 'CUSTOMER_DELETED',
+  EMAIL_ASSIGNED = 'EMAIL_ASSIGNED',
+  EMAIL_CHANGED = 'EMAIL_CHANGED',
+  EMAIL_CHANGED_REQUEST = 'EMAIL_CHANGED_REQUEST',
+  NAME_ASSIGNED = 'NAME_ASSIGNED',
+  NOTE_ADDED = 'NOTE_ADDED',
+  NOTE_ADDED_TO_ORDER = 'NOTE_ADDED_TO_ORDER',
+  PASSWORD_CHANGED = 'PASSWORD_CHANGED',
+  PASSWORD_RESET = 'PASSWORD_RESET',
+  PASSWORD_RESET_LINK_SENT = 'PASSWORD_RESET_LINK_SENT',
+  PLACED_ORDER = 'PLACED_ORDER'
+}
+
+export type CustomerFilterInput = {
+  dateJoined?: InputMaybe<DateRangeInput>;
+  /** Filter by ids. */
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  numberOfOrders?: InputMaybe<IntRangeInput>;
+  placedOrders?: InputMaybe<DateRangeInput>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type CustomerInput = {
+  /**
+   * List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
+   *
+   * Added in Saleor 3.23.
+   */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /**
+   * ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
+   *
+   * Added in Saleor 3.23.
+   */
+  customerType?: InputMaybe<Scalars['ID']['input']>;
+  /** Billing address of the customer. */
+  defaultBillingAddress?: InputMaybe<AddressInput>;
+  /** Shipping address of the customer. */
+  defaultShippingAddress?: InputMaybe<AddressInput>;
+  /** The unique email address of the user. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** External ID of the customer. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Given name. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** User account is active. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** User account is confirmed. */
+  isConfirmed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** User language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /** Family name. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** A note about the user. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+};
+
+export type CustomerOrderWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CustomerOrderWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CustomerOrderWhereInput>>;
+  /** Filter by authorize status. */
+  authorizeStatus?: InputMaybe<OrderAuthorizeStatusEnumFilterInput>;
+  /** Filter by billing address of the order. */
+  billingAddress?: InputMaybe<AddressFilterInput>;
+  /** Filter by channel. */
+  channelId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by charge status. */
+  chargeStatus?: InputMaybe<OrderChargeStatusEnumFilterInput>;
+  /** Filter by checkout id. */
+  checkoutId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by checkout token. */
+  checkoutToken?: InputMaybe<UuidFilterInput>;
+  /** Filter order by created at date. */
+  createdAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by whether the order has any fulfillments. */
+  hasFulfillments?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by whether the order has any invoices. */
+  hasInvoices?: InputMaybe<Scalars['Boolean']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by invoice data associated with the order. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  invoices?: InputMaybe<Array<InvoiceFilterInput>>;
+  /** Filter by whether the order uses the click and collect delivery method. */
+  isClickAndCollect?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter based on whether the order includes a gift card purchase. */
+  isGiftCardBought?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter based on whether a gift card was used in the order. */
+  isGiftCardUsed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by number of lines in the order. */
+  linesCount?: InputMaybe<IntFilterInput>;
+  /** Filter by metadata fields. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by order number. */
+  number?: InputMaybe<IntFilterInput>;
+  /** Filter by the product type of related order lines. */
+  productTypeId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by shipping address of the order. */
+  shippingAddress?: InputMaybe<AddressFilterInput>;
+  /** Filter by order status. */
+  status?: InputMaybe<OrderStatusEnumFilterInput>;
+  /** Filter by total gross amount of the order. */
+  totalGross?: InputMaybe<PriceFilterInput>;
+  /** Filter by total net amount of the order. */
+  totalNet?: InputMaybe<PriceFilterInput>;
+  /** Filter order by updated at date. */
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by user email. */
+  userEmail?: InputMaybe<StringFilterInput>;
+  /** Filter by voucher code used in the order. */
+  voucherCode?: InputMaybe<StringFilterInput>;
+};
+
+export enum CustomerTypeAssignAttributesErrorCode {
+  ATTRIBUTE_ALREADY_ASSIGNED = 'ATTRIBUTE_ALREADY_ASSIGNED',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum CustomerTypeCreateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type CustomerTypeCreateInput = {
+  /** Determines if the customer type should become the default one, assigned to every newly created user. Passing `true` clears the flag on the current default customer type - exactly one default customer type always exists. */
+  isDefault?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Name of the customer type. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Slug of the customer type. If not provided, it will be generated from the name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum CustomerTypeDeleteErrorCode {
+  CANNOT_DELETE_DEFAULT = 'CANNOT_DELETE_DEFAULT',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum CustomerTypeReorderAttributesErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum CustomerTypeSortField {
+  /** Sort customer types by name. */
+  NAME = 'NAME',
+  /** Sort customer types by slug. */
+  SLUG = 'SLUG'
+}
+
+export type CustomerTypeSortingInput = {
+  /** Specifies the direction in which to sort customer types. */
+  direction: OrderDirection;
+  /** Sort customer types by the selected field. */
+  field: CustomerTypeSortField;
+};
+
+export enum CustomerTypeUnassignAttributesErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum CustomerTypeUpdateErrorCode {
+  CANNOT_UNSET_DEFAULT = 'CANNOT_UNSET_DEFAULT',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type CustomerTypeUpdateInput = {
+  /** Determines if the customer type should become the default one, assigned to every newly created user. Passing `true` clears the flag on the current default customer type - exactly one default customer type always exists. */
+  isDefault?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Name of the customer type. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Slug of the customer type. If not provided, it will be generated from the name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CustomerTypeWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CustomerTypeWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CustomerTypeWhereInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by whether the customer type is the default one. */
+  isDefault?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by metadata fields. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by customer type name. */
+  name?: InputMaybe<StringFilterInput>;
+  /** Filter by customer type slug. */
+  slug?: InputMaybe<StringFilterInput>;
+};
+
+export type CustomerWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CustomerWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CustomerWhereInput>>;
+  /** Filter by addresses data associated with user. */
+  addresses?: InputMaybe<AddressFilterInput>;
+  /**
+   * Filter by attributes associated with the customer.
+   *
+   * Added in Saleor 3.23.
+   */
+  attributes?: InputMaybe<Array<AssignedAttributeWhereInput>>;
+  /**
+   * Filter by customer type. Filtering by the default customer type also matches users without an explicitly assigned customer type.
+   *
+   * Added in Saleor 3.23.
+   */
+  customerType?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by date joined. */
+  dateJoined?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by email address. */
+  email?: InputMaybe<StringFilterInput>;
+  /** Filter by first name. */
+  firstName?: InputMaybe<StringFilterInput>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by whether the user is active. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by last name. */
+  lastName?: InputMaybe<StringFilterInput>;
+  /** Filter by metadata fields. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by number of orders placed by the user. */
+  numberOfOrders?: InputMaybe<IntFilterInput>;
+  /** Filter by date when orders were placed. */
+  placedOrdersAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by last updated date. */
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type DateRangeInput = {
+  /** Start date. */
+  gte?: InputMaybe<Scalars['Date']['input']>;
+  /** End date. */
+  lte?: InputMaybe<Scalars['Date']['input']>;
+};
+
+/** Define the filtering options for date time fields. */
+export type DateTimeFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  /** The value in range. */
+  range?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type DateTimeRangeInput = {
+  /** Start date. */
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** End date. */
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+/** Define the filtering options for decimal fields. */
+export type DecimalFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['Decimal']['input']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['Decimal']['input']>>;
+  /** The value in range. */
+  range?: InputMaybe<DecimalRangeInput>;
+};
+
+export type DecimalRangeInput = {
+  /** Decimal value greater than or equal to. */
+  gte?: InputMaybe<Scalars['Decimal']['input']>;
+  /** Decimal value less than or equal to. */
+  lte?: InputMaybe<Scalars['Decimal']['input']>;
+};
+
+export enum DeliveryOptionsCalculateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum DiscountErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT = 'CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE',
+  VOUCHER_ALREADY_USED = 'VOUCHER_ALREADY_USED'
+}
+
+export enum DiscountStatusEnum {
+  ACTIVE = 'ACTIVE',
+  EXPIRED = 'EXPIRED',
+  SCHEDULED = 'SCHEDULED'
+}
+
+export enum DiscountValueTypeEnum {
+  FIXED = 'FIXED',
+  PERCENTAGE = 'PERCENTAGE'
+}
+
+export type DiscountedObjectWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<DiscountedObjectWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<DiscountedObjectWhereInput>>;
+  /** Filter by the base subtotal price. */
+  baseSubtotalPrice?: InputMaybe<DecimalFilterInput>;
+  /** Filter by the base total price. */
+  baseTotalPrice?: InputMaybe<DecimalFilterInput>;
+};
+
+export enum DistanceUnitsEnum {
+  CM = 'CM',
+  DM = 'DM',
+  FT = 'FT',
+  INCH = 'INCH',
+  KM = 'KM',
+  M = 'M',
+  MM = 'MM',
+  YD = 'YD'
+}
+
+export type DraftOrderCreateInput = {
+  /** Billing address of the customer. */
+  billingAddress?: InputMaybe<AddressInput>;
+  /** ID of the channel associated with the order. */
+  channelId?: InputMaybe<Scalars['ID']['input']>;
+  /** A note from a customer. Visible by customers in the order summary. */
+  customerNote?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Discount amount for the order.
+   * @deprecated Providing a value for the field has no effect. Use `orderDiscountAdd` mutation instead.
+   */
+  discount?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** External ID of this order. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Order language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /** Variant line input consisting of variant ID and quantity of products. */
+  lines?: InputMaybe<Array<OrderLineCreateInput>>;
+  /**
+   * Order public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Order private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of a view where users should be redirected to see the order details. URL in RFC 1808 format. */
+  redirectUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Indicates whether the billing address should be saved to the user’s address book upon draft order completion. Can only be set when a billing address is provided. If not specified along with the address, the default behavior is to not save the address. */
+  saveBillingAddress?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Indicates whether the shipping address should be saved to the user’s address book upon draft order completion.Can only be set when a shipping address is provided. If not specified along with the address, the default behavior is to not save the address. */
+  saveShippingAddress?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Shipping address of the customer. */
+  shippingAddress?: InputMaybe<AddressInput>;
+  /** ID of a selected shipping method. */
+  shippingMethod?: InputMaybe<Scalars['ID']['input']>;
+  /** Customer associated with the draft order. */
+  user?: InputMaybe<Scalars['ID']['input']>;
+  /** Email address of the customer. */
+  userEmail?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of the voucher associated with the order.
+   * @deprecated Use `voucherCode` instead.
+   */
+  voucher?: InputMaybe<Scalars['ID']['input']>;
+  /** A code of the voucher associated with the order. */
+  voucherCode?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DraftOrderInput = {
+  /** Billing address of the customer. */
+  billingAddress?: InputMaybe<AddressInput>;
+  /** ID of the channel associated with the order. */
+  channelId?: InputMaybe<Scalars['ID']['input']>;
+  /** A note from a customer. Visible by customers in the order summary. */
+  customerNote?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Discount amount for the order.
+   * @deprecated Providing a value for the field has no effect. Use `orderDiscountAdd` mutation instead.
+   */
+  discount?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** External ID of this order. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Order language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /**
+   * Order public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Order private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of a view where users should be redirected to see the order details. URL in RFC 1808 format. */
+  redirectUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Indicates whether the billing address should be saved to the user’s address book upon draft order completion. Can only be set when a billing address is provided. If not specified along with the address, the default behavior is to not save the address. */
+  saveBillingAddress?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Indicates whether the shipping address should be saved to the user’s address book upon draft order completion.Can only be set when a shipping address is provided. If not specified along with the address, the default behavior is to not save the address. */
+  saveShippingAddress?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Shipping address of the customer. */
+  shippingAddress?: InputMaybe<AddressInput>;
+  /** ID of a selected shipping method. */
+  shippingMethod?: InputMaybe<Scalars['ID']['input']>;
+  /** Customer associated with the draft order. */
+  user?: InputMaybe<Scalars['ID']['input']>;
+  /** Email address of the customer. */
+  userEmail?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of the voucher associated with the order.
+   * @deprecated Use `voucherCode` instead.
+   */
+  voucher?: InputMaybe<Scalars['ID']['input']>;
+  /** A code of the voucher associated with the order. */
+  voucherCode?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DraftOrderWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<DraftOrderWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<DraftOrderWhereInput>>;
+  /** Filter by authorize status. */
+  authorizeStatus?: InputMaybe<OrderAuthorizeStatusEnumFilterInput>;
+  /** Filter by billing address of the order. */
+  billingAddress?: InputMaybe<AddressFilterInput>;
+  /** Filter by channel. */
+  channelId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by charge status. */
+  chargeStatus?: InputMaybe<OrderChargeStatusEnumFilterInput>;
+  /** Filter order by created at date. */
+  createdAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by order events. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  events?: InputMaybe<Array<OrderEventFilterInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by whether the order uses the click and collect delivery method. */
+  isClickAndCollect?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by line items associated with the order. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  lines?: InputMaybe<Array<LinesFilterInput>>;
+  /** Filter by number of lines in the order. */
+  linesCount?: InputMaybe<IntFilterInput>;
+  /** Filter by metadata fields. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by order number. */
+  number?: InputMaybe<IntFilterInput>;
+  /** Filter by the product type of related order lines. */
+  productTypeId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by shipping address of the order. */
+  shippingAddress?: InputMaybe<AddressFilterInput>;
+  /** Filter by total gross amount of the order. */
+  totalGross?: InputMaybe<PriceFilterInput>;
+  /** Filter by total net amount of the order. */
+  totalNet?: InputMaybe<PriceFilterInput>;
+  /** Filter by transaction data associated with the order. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  transactions?: InputMaybe<Array<TransactionFilterInput>>;
+  /** Filter order by updated at date. */
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by user. */
+  user?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by user email. */
+  userEmail?: InputMaybe<StringFilterInput>;
+  /** Filter by voucher code used in the order. */
+  voucherCode?: InputMaybe<StringFilterInput>;
+};
+
+export enum ErrorPolicyEnum {
+  /** Save what is possible within a single row. If there are errors in an input data row, try to save it partially and skip the invalid part. */
+  IGNORE_FAILED = 'IGNORE_FAILED',
+  /** Reject all rows if there is at least one error in any of them. */
+  REJECT_EVERYTHING = 'REJECT_EVERYTHING',
+  /** Reject rows with errors. */
+  REJECT_FAILED_ROWS = 'REJECT_FAILED_ROWS'
+}
+
+export enum EventDeliveryAttemptSortField {
+  /** Sort event delivery attempts by created at. */
+  CREATED_AT = 'CREATED_AT'
+}
+
+export type EventDeliveryAttemptSortingInput = {
+  /** Specifies the direction in which to sort attempts. */
+  direction: OrderDirection;
+  /** Sort attempts by the selected field. */
+  field: EventDeliveryAttemptSortField;
+};
+
+export type EventDeliveryFilterInput = {
+  eventType?: InputMaybe<WebhookEventTypeEnum>;
+  status?: InputMaybe<EventDeliveryStatusEnum>;
+};
+
+export enum EventDeliverySortField {
+  /** Sort event deliveries by created at. */
+  CREATED_AT = 'CREATED_AT'
+}
+
+export type EventDeliverySortingInput = {
+  /** Specifies the direction in which to sort deliveries. */
+  direction: OrderDirection;
+  /** Sort deliveries by the selected field. */
+  field: EventDeliverySortField;
+};
+
+export enum EventDeliveryStatusEnum {
+  FAILED = 'FAILED',
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS'
+}
+
+export enum ExportErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export enum ExportEventsEnum {
+  EXPORTED_FILE_SENT = 'EXPORTED_FILE_SENT',
+  EXPORT_DELETED = 'EXPORT_DELETED',
+  EXPORT_FAILED = 'EXPORT_FAILED',
+  EXPORT_FAILED_INFO_SENT = 'EXPORT_FAILED_INFO_SENT',
+  EXPORT_PENDING = 'EXPORT_PENDING',
+  EXPORT_SUCCESS = 'EXPORT_SUCCESS'
+}
+
+export type ExportFileFilterInput = {
+  app?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<DateTimeRangeInput>;
+  status?: InputMaybe<JobStatusEnum>;
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+  user?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum ExportFileSortField {
+  CREATED_AT = 'CREATED_AT',
+  LAST_MODIFIED_AT = 'LAST_MODIFIED_AT',
+  STATUS = 'STATUS',
+  /** @deprecated Use `LAST_MODIFIED_AT` instead. */
+  UPDATED_AT = 'UPDATED_AT'
+}
+
+export type ExportFileSortingInput = {
+  /** Specifies the direction in which to sort export file. */
+  direction: OrderDirection;
+  /** Sort export file by the selected field. */
+  field: ExportFileSortField;
+};
+
+export type ExportInfoInput = {
+  /** List of attribute ids witch should be exported. */
+  attributes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of channels ids which should be exported. */
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of product fields witch should be exported. */
+  fields?: InputMaybe<Array<ProductFieldEnum>>;
+  /** List of warehouse ids witch should be exported. */
+  warehouses?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export type ExportProductsInput = {
+  /** Input with info about fields which should be exported. */
+  exportInfo?: InputMaybe<ExportInfoInput>;
+  /** Type of exported file. */
+  fileType: FileTypesEnum;
+  /** Filtering options for products. */
+  filter?: InputMaybe<ProductFilterInput>;
+  /** List of products IDs to export. */
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Determine which products should be exported. */
+  scope: ExportScope;
+};
+
+export enum ExportScope {
+  /** Export all products. */
+  ALL = 'ALL',
+  /** Export the filtered products. */
+  FILTER = 'FILTER',
+  /** Export products with given ids. */
+  IDS = 'IDS'
+}
+
+export enum ExternalNotificationErrorCodes {
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  INVALID_MODEL_TYPE = 'INVALID_MODEL_TYPE',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type ExternalNotificationTriggerInput = {
+  /** External event type. This field is passed to a plugin as an event type. */
+  externalEventType: Scalars['String']['input'];
+  /** Additional payload that will be merged with the one based on the business object ID. */
+  extraPayload?: InputMaybe<Scalars['JSONString']['input']>;
+  /** The list of customers or orders node IDs that will be serialized and included in the notification payload. */
+  ids: Array<Scalars['ID']['input']>;
+};
+
+export enum FileTypesEnum {
+  CSV = 'CSV',
+  XLSX = 'XLSX'
+}
+
+export type FulfillmentCancelInput = {
+  /** ID of a warehouse where items will be restocked. Optional when fulfillment is in WAITING_FOR_APPROVAL state. */
+  warehouseId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+/** Filter input for order fulfillments data. */
+export type FulfillmentFilterInput = {
+  /** Filter by metadata fields. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by fulfillment status. */
+  status?: InputMaybe<FulfillmentStatusEnumFilterInput>;
+  /** Filter by fulfillment warehouse. */
+  warehouse?: InputMaybe<FulfillmentWarehouseFilterInput>;
+};
+
+export enum FulfillmentStatus {
+  CANCELED = 'CANCELED',
+  FULFILLED = 'FULFILLED',
+  REFUNDED = 'REFUNDED',
+  REFUNDED_AND_RETURNED = 'REFUNDED_AND_RETURNED',
+  REPLACED = 'REPLACED',
+  RETURNED = 'RETURNED',
+  WAITING_FOR_APPROVAL = 'WAITING_FOR_APPROVAL'
+}
+
+/** Filter by fulfillment status. */
+export type FulfillmentStatusEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<FulfillmentStatus>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<FulfillmentStatus>>;
+};
+
+export type FulfillmentUpdateTrackingInput = {
+  /** If true, send an email notification to the customer. */
+  notifyCustomer?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Fulfillment tracking number. */
+  trackingNumber?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Filter input for fulfillment warehouses. */
+export type FulfillmentWarehouseFilterInput = {
+  /** Filter fulfillments by warehouse external reference. */
+  externalReference?: InputMaybe<StringFilterInput>;
+  /** Filter fulfillments by warehouse ID. */
+  id?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter fulfillments by warehouse slug. */
+  slug?: InputMaybe<StringFilterInput>;
+};
+
+export type GiftCardAddNoteInput = {
+  /** Note message. */
+  message: Scalars['String']['input'];
+};
+
+export type GiftCardBulkCreateInput = {
+  /** Balance of the gift card. */
+  balance: PriceInput;
+  /** The number of cards to issue. */
+  count: Scalars['Int']['input'];
+  /** The gift card expiry date. */
+  expiryDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Determine if gift card is active. */
+  isActive: Scalars['Boolean']['input'];
+  /** The gift card tags. */
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type GiftCardCreateInput = {
+  /** The gift card tags to add. */
+  addTags?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * ID of the customer the gift card is restricted to.
+   *
+   * Added in Saleor 3.23.
+   */
+  assignedTo?: InputMaybe<Scalars['ID']['input']>;
+  /** Balance of the gift card. */
+  balance: PriceInput;
+  /** Slug of a channel from which the email should be sent. */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Code to use the gift card.
+   * @deprecated The code is now auto generated.
+   */
+  code?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * End date of the gift card in ISO 8601 format.
+   * @deprecated Use `expiryDate` from `expirySettings` instead.
+   */
+  endDate?: InputMaybe<Scalars['Date']['input']>;
+  /** The gift card expiry date. */
+  expiryDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Determine if gift card is active. */
+  isActive: Scalars['Boolean']['input'];
+  /**
+   * Gift Card public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** The gift card note from the staff member. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Gift Card private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Start date of the gift card in ISO 8601 format.
+   * @deprecated Field no longer supported
+   */
+  startDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Email of the customer to whom gift card will be sent. */
+  userEmail?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum GiftCardErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  CANNOT_ASSIGN = 'CANNOT_ASSIGN',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  EXPIRED_GIFT_CARD = 'EXPIRED_GIFT_CARD',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type GiftCardEventFilterInput = {
+  orders?: InputMaybe<Array<Scalars['ID']['input']>>;
+  type?: InputMaybe<GiftCardEventsEnum>;
+};
+
+export enum GiftCardEventsEnum {
+  ACTIVATED = 'ACTIVATED',
+  ASSIGNED_TO_USER = 'ASSIGNED_TO_USER',
+  BALANCE_ADJUSTED = 'BALANCE_ADJUSTED',
+  BALANCE_RESET = 'BALANCE_RESET',
+  BOUGHT = 'BOUGHT',
+  DEACTIVATED = 'DEACTIVATED',
+  EXPIRY_DATE_UPDATED = 'EXPIRY_DATE_UPDATED',
+  ISSUED = 'ISSUED',
+  NOTE_ADDED = 'NOTE_ADDED',
+  REFUNDED_IN_ORDER = 'REFUNDED_IN_ORDER',
+  RESENT = 'RESENT',
+  SENT_TO_CUSTOMER = 'SENT_TO_CUSTOMER',
+  TAGS_UPDATED = 'TAGS_UPDATED',
+  UNASSIGNED_FROM_USER = 'UNASSIGNED_FROM_USER',
+  UPDATED = 'UPDATED',
+  USED_IN_ORDER = 'USED_IN_ORDER'
+}
+
+export type GiftCardFilterInput = {
+  /**
+   * Filter by the customer the gift card usage is restricted to.
+   *
+   * Added in Saleor 3.23.
+   */
+  assignedTo?: InputMaybe<Array<Scalars['ID']['input']>>;
+  code?: InputMaybe<Scalars['String']['input']>;
+  createdByEmail?: InputMaybe<Scalars['String']['input']>;
+  currency?: InputMaybe<Scalars['String']['input']>;
+  currentBalance?: InputMaybe<PriceRangeInput>;
+  initialBalance?: InputMaybe<PriceRangeInput>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  products?: InputMaybe<Array<Scalars['ID']['input']>>;
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+  used?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Filter by the customer who used a gift card.
+   * @deprecated Field no longer supported
+   */
+  usedBy?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export type GiftCardPaymentMethodDetailsInput = {
+  /**
+   * Brand of the gift card used for the transaction. Max length is 40 characters.
+   *
+   * Added in Saleor 3.23.
+   */
+  brand?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Last characters of the gift card used for the transaction. Max length is 4 characters.
+   *
+   * Added in Saleor 3.23.
+   */
+  lastChars?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Name of the payment method used for the transaction. Max length is 256 characters.
+   *
+   * Added in Saleor 3.23.
+   */
+  name: Scalars['String']['input'];
+};
+
+export type GiftCardResendInput = {
+  /** Slug of a channel from which the email should be sent. */
+  channel: Scalars['String']['input'];
+  /** Email to which gift card should be send. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** ID of a gift card to resend. */
+  id: Scalars['ID']['input'];
+};
+
+export enum GiftCardSettingsErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  REQUIRED = 'REQUIRED'
+}
+
+export enum GiftCardSettingsExpiryTypeEnum {
+  EXPIRY_PERIOD = 'EXPIRY_PERIOD',
+  NEVER_EXPIRE = 'NEVER_EXPIRE'
+}
+
+export type GiftCardSettingsUpdateInput = {
+  /** Defines gift card expiry period. */
+  expiryPeriod?: InputMaybe<TimePeriodInputType>;
+  /** Defines gift card default expiry settings. */
+  expiryType?: InputMaybe<GiftCardSettingsExpiryTypeEnum>;
+};
+
+export enum GiftCardSortField {
+  /** Sort gift cards by created at. */
+  CREATED_AT = 'CREATED_AT',
+  /** Sort gift cards by current balance. */
+  CURRENT_BALANCE = 'CURRENT_BALANCE',
+  /** Sort gift cards by product. */
+  PRODUCT = 'PRODUCT',
+  /** Sort gift cards by rank. Note: This option is available only with the `search` filter. */
+  RANK = 'RANK',
+  /** Sort gift cards by used by. */
+  USED_BY = 'USED_BY'
+}
+
+export type GiftCardSortingInput = {
+  /** Specifies the direction in which to sort gift cards. */
+  direction: OrderDirection;
+  /** Sort gift cards by the selected field. */
+  field: GiftCardSortField;
+};
+
+export type GiftCardTagFilterInput = {
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type GiftCardUpdateInput = {
+  /** The gift card tags to add. */
+  addTags?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** The gift card balance amount. */
+  balanceAmount?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /**
+   * End date of the gift card in ISO 8601 format.
+   * @deprecated Use `expiryDate` from `expirySettings` instead.
+   */
+  endDate?: InputMaybe<Scalars['Date']['input']>;
+  /** The gift card expiry date. */
+  expiryDate?: InputMaybe<Scalars['Date']['input']>;
+  /**
+   * Gift Card public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Gift Card private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** The gift card tags to remove. */
+  removeTags?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Start date of the gift card in ISO 8601 format.
+   * @deprecated Field no longer supported
+   */
+  startDate?: InputMaybe<Scalars['Date']['input']>;
+};
+
+/** Define the filtering options for foreign key fields. */
+export type GlobalIdFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['ID']['input']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+/** Thumbnail formats for icon images. */
+export enum IconThumbnailFormatEnum {
+  ORIGINAL = 'ORIGINAL',
+  WEBP = 'WEBP'
+}
+
+/** Define the filtering options for integer fields. */
+export type IntFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['Int']['input']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['Int']['input']>>;
+  /** The value in range. */
+  range?: InputMaybe<IntRangeInput>;
+};
+
+export type IntRangeInput = {
+  /** Value greater than or equal to. */
+  gte?: InputMaybe<Scalars['Int']['input']>;
+  /** Value less than or equal to. */
+  lte?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type InvoiceCreateInput = {
+  /**
+   * Fields required to update the invoice metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Invoice number. */
+  number: Scalars['String']['input'];
+  /**
+   * Fields required to update the invoice private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of an invoice to download. */
+  url: Scalars['String']['input'];
+};
+
+export enum InvoiceErrorCode {
+  EMAIL_NOT_SET = 'EMAIL_NOT_SET',
+  INVALID_STATUS = 'INVALID_STATUS',
+  NOT_FOUND = 'NOT_FOUND',
+  NOT_READY = 'NOT_READY',
+  NO_INVOICE_PLUGIN = 'NO_INVOICE_PLUGIN',
+  NUMBER_NOT_SET = 'NUMBER_NOT_SET',
+  REQUIRED = 'REQUIRED',
+  URL_NOT_SET = 'URL_NOT_SET'
+}
+
+/** Filter input for invoices. */
+export type InvoiceFilterInput = {
+  /** Filter invoices by creation date. */
+  createdAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export enum JobStatusEnum {
+  DELETED = 'DELETED',
+  FAILED = 'FAILED',
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS'
+}
+
+/** Language code enum. It contains all the languages supported by Saleor. */
+export enum LanguageCodeEnum {
+  /** Afrikaans */
+  AF = 'AF',
+  /** Afrikaans (Namibia) */
+  AF_NA = 'AF_NA',
+  /** Afrikaans (South Africa) */
+  AF_ZA = 'AF_ZA',
+  /** Aghem */
+  AGQ = 'AGQ',
+  /** Aghem (Cameroon) */
+  AGQ_CM = 'AGQ_CM',
+  /** Akan */
+  AK = 'AK',
+  /** Akan (Ghana) */
+  AK_GH = 'AK_GH',
+  /** Amharic */
+  AM = 'AM',
+  /** Amharic (Ethiopia) */
+  AM_ET = 'AM_ET',
+  /** Arabic */
+  AR = 'AR',
+  /** Arabic (United Arab Emirates) */
+  AR_AE = 'AR_AE',
+  /** Arabic (Bahrain) */
+  AR_BH = 'AR_BH',
+  /** Arabic (Djibouti) */
+  AR_DJ = 'AR_DJ',
+  /** Arabic (Algeria) */
+  AR_DZ = 'AR_DZ',
+  /** Arabic (Egypt) */
+  AR_EG = 'AR_EG',
+  /** Arabic (Western Sahara) */
+  AR_EH = 'AR_EH',
+  /** Arabic (Eritrea) */
+  AR_ER = 'AR_ER',
+  /** Arabic (Israel) */
+  AR_IL = 'AR_IL',
+  /** Arabic (Iraq) */
+  AR_IQ = 'AR_IQ',
+  /** Arabic (Jordan) */
+  AR_JO = 'AR_JO',
+  /** Arabic (Comoros) */
+  AR_KM = 'AR_KM',
+  /** Arabic (Kuwait) */
+  AR_KW = 'AR_KW',
+  /** Arabic (Lebanon) */
+  AR_LB = 'AR_LB',
+  /** Arabic (Libya) */
+  AR_LY = 'AR_LY',
+  /** Arabic (Morocco) */
+  AR_MA = 'AR_MA',
+  /** Arabic (Mauritania) */
+  AR_MR = 'AR_MR',
+  /** Arabic (Oman) */
+  AR_OM = 'AR_OM',
+  /** Arabic (Palestinian Territories) */
+  AR_PS = 'AR_PS',
+  /** Arabic (Qatar) */
+  AR_QA = 'AR_QA',
+  /** Arabic (Saudi Arabia) */
+  AR_SA = 'AR_SA',
+  /** Arabic (Sudan) */
+  AR_SD = 'AR_SD',
+  /** Arabic (Somalia) */
+  AR_SO = 'AR_SO',
+  /** Arabic (South Sudan) */
+  AR_SS = 'AR_SS',
+  /** Arabic (Syria) */
+  AR_SY = 'AR_SY',
+  /** Arabic (Chad) */
+  AR_TD = 'AR_TD',
+  /** Arabic (Tunisia) */
+  AR_TN = 'AR_TN',
+  /** Arabic (Yemen) */
+  AR_YE = 'AR_YE',
+  /** Assamese */
+  AS = 'AS',
+  /** Asu */
+  ASA = 'ASA',
+  /** Asu (Tanzania) */
+  ASA_TZ = 'ASA_TZ',
+  /** Asturian */
+  AST = 'AST',
+  /** Asturian (Spain) */
+  AST_ES = 'AST_ES',
+  /** Assamese (India) */
+  AS_IN = 'AS_IN',
+  /** Azerbaijani */
+  AZ = 'AZ',
+  /** Azerbaijani (Cyrillic) */
+  AZ_CYRL = 'AZ_CYRL',
+  /** Azerbaijani (Cyrillic, Azerbaijan) */
+  AZ_CYRL_AZ = 'AZ_CYRL_AZ',
+  /** Azerbaijani (Latin) */
+  AZ_LATN = 'AZ_LATN',
+  /** Azerbaijani (Latin, Azerbaijan) */
+  AZ_LATN_AZ = 'AZ_LATN_AZ',
+  /** Basaa */
+  BAS = 'BAS',
+  /** Basaa (Cameroon) */
+  BAS_CM = 'BAS_CM',
+  /** Belarusian */
+  BE = 'BE',
+  /** Bemba */
+  BEM = 'BEM',
+  /** Bemba (Zambia) */
+  BEM_ZM = 'BEM_ZM',
+  /** Bena */
+  BEZ = 'BEZ',
+  /** Bena (Tanzania) */
+  BEZ_TZ = 'BEZ_TZ',
+  /** Belarusian (Belarus) */
+  BE_BY = 'BE_BY',
+  /** Bulgarian */
+  BG = 'BG',
+  /** Bulgarian (Bulgaria) */
+  BG_BG = 'BG_BG',
+  /** Bambara */
+  BM = 'BM',
+  /** Bambara (Mali) */
+  BM_ML = 'BM_ML',
+  /** Bangla */
+  BN = 'BN',
+  /** Bangla (Bangladesh) */
+  BN_BD = 'BN_BD',
+  /** Bangla (India) */
+  BN_IN = 'BN_IN',
+  /** Tibetan */
+  BO = 'BO',
+  /** Tibetan (China) */
+  BO_CN = 'BO_CN',
+  /** Tibetan (India) */
+  BO_IN = 'BO_IN',
+  /** Breton */
+  BR = 'BR',
+  /** Bodo */
+  BRX = 'BRX',
+  /** Bodo (India) */
+  BRX_IN = 'BRX_IN',
+  /** Breton (France) */
+  BR_FR = 'BR_FR',
+  /** Bosnian */
+  BS = 'BS',
+  /** Bosnian (Cyrillic) */
+  BS_CYRL = 'BS_CYRL',
+  /** Bosnian (Cyrillic, Bosnia & Herzegovina) */
+  BS_CYRL_BA = 'BS_CYRL_BA',
+  /** Bosnian (Latin) */
+  BS_LATN = 'BS_LATN',
+  /** Bosnian (Latin, Bosnia & Herzegovina) */
+  BS_LATN_BA = 'BS_LATN_BA',
+  /** Catalan */
+  CA = 'CA',
+  /** Catalan (Andorra) */
+  CA_AD = 'CA_AD',
+  /** Catalan (Spain) */
+  CA_ES = 'CA_ES',
+  /** Catalan (Spain, Valencian) */
+  CA_ES_VALENCIA = 'CA_ES_VALENCIA',
+  /** Catalan (France) */
+  CA_FR = 'CA_FR',
+  /** Catalan (Italy) */
+  CA_IT = 'CA_IT',
+  /** Chakma */
+  CCP = 'CCP',
+  /** Chakma (Bangladesh) */
+  CCP_BD = 'CCP_BD',
+  /** Chakma (India) */
+  CCP_IN = 'CCP_IN',
+  /** Chechen */
+  CE = 'CE',
+  /** Cebuano */
+  CEB = 'CEB',
+  /** Cebuano (Philippines) */
+  CEB_PH = 'CEB_PH',
+  /** Chechen (Russia) */
+  CE_RU = 'CE_RU',
+  /** Chiga */
+  CGG = 'CGG',
+  /** Chiga (Uganda) */
+  CGG_UG = 'CGG_UG',
+  /** Cherokee */
+  CHR = 'CHR',
+  /** Cherokee (United States) */
+  CHR_US = 'CHR_US',
+  /** Central Kurdish */
+  CKB = 'CKB',
+  /** Central Kurdish (Iraq) */
+  CKB_IQ = 'CKB_IQ',
+  /** Central Kurdish (Iran) */
+  CKB_IR = 'CKB_IR',
+  /** Czech */
+  CS = 'CS',
+  /** Czech (Czechia) */
+  CS_CZ = 'CS_CZ',
+  /** Church Slavic */
+  CU = 'CU',
+  /** Church Slavic (Russia) */
+  CU_RU = 'CU_RU',
+  /** Welsh */
+  CY = 'CY',
+  /** Welsh (United Kingdom) */
+  CY_GB = 'CY_GB',
+  /** Danish */
+  DA = 'DA',
+  /** Taita */
+  DAV = 'DAV',
+  /** Taita (Kenya) */
+  DAV_KE = 'DAV_KE',
+  /** Danish (Denmark) */
+  DA_DK = 'DA_DK',
+  /** Danish (Greenland) */
+  DA_GL = 'DA_GL',
+  /** German */
+  DE = 'DE',
+  /** German (Austria) */
+  DE_AT = 'DE_AT',
+  /** German (Belgium) */
+  DE_BE = 'DE_BE',
+  /** German (Switzerland) */
+  DE_CH = 'DE_CH',
+  /** German (Germany) */
+  DE_DE = 'DE_DE',
+  /** German (Italy) */
+  DE_IT = 'DE_IT',
+  /** German (Liechtenstein) */
+  DE_LI = 'DE_LI',
+  /** German (Luxembourg) */
+  DE_LU = 'DE_LU',
+  /** Zarma */
+  DJE = 'DJE',
+  /** Zarma (Niger) */
+  DJE_NE = 'DJE_NE',
+  /** Lower Sorbian */
+  DSB = 'DSB',
+  /** Lower Sorbian (Germany) */
+  DSB_DE = 'DSB_DE',
+  /** Duala */
+  DUA = 'DUA',
+  /** Duala (Cameroon) */
+  DUA_CM = 'DUA_CM',
+  /** Jola-Fonyi */
+  DYO = 'DYO',
+  /** Jola-Fonyi (Senegal) */
+  DYO_SN = 'DYO_SN',
+  /** Dzongkha */
+  DZ = 'DZ',
+  /** Dzongkha (Bhutan) */
+  DZ_BT = 'DZ_BT',
+  /** Embu */
+  EBU = 'EBU',
+  /** Embu (Kenya) */
+  EBU_KE = 'EBU_KE',
+  /** Ewe */
+  EE = 'EE',
+  /** Ewe (Ghana) */
+  EE_GH = 'EE_GH',
+  /** Ewe (Togo) */
+  EE_TG = 'EE_TG',
+  /** Greek */
+  EL = 'EL',
+  /** Greek (Cyprus) */
+  EL_CY = 'EL_CY',
+  /** Greek (Greece) */
+  EL_GR = 'EL_GR',
+  /** English */
+  EN = 'EN',
+  /** English (United Arab Emirates) */
+  EN_AE = 'EN_AE',
+  /** English (Antigua & Barbuda) */
+  EN_AG = 'EN_AG',
+  /** English (Anguilla) */
+  EN_AI = 'EN_AI',
+  /** English (American Samoa) */
+  EN_AS = 'EN_AS',
+  /** English (Austria) */
+  EN_AT = 'EN_AT',
+  /** English (Australia) */
+  EN_AU = 'EN_AU',
+  /** English (Barbados) */
+  EN_BB = 'EN_BB',
+  /** English (Belgium) */
+  EN_BE = 'EN_BE',
+  /** English (Burundi) */
+  EN_BI = 'EN_BI',
+  /** English (Bermuda) */
+  EN_BM = 'EN_BM',
+  /** English (Bahamas) */
+  EN_BS = 'EN_BS',
+  /** English (Botswana) */
+  EN_BW = 'EN_BW',
+  /** English (Belize) */
+  EN_BZ = 'EN_BZ',
+  /** English (Canada) */
+  EN_CA = 'EN_CA',
+  /** English (Cocos (Keeling) Islands) */
+  EN_CC = 'EN_CC',
+  /** English (Switzerland) */
+  EN_CH = 'EN_CH',
+  /** English (Cook Islands) */
+  EN_CK = 'EN_CK',
+  /** English (Cameroon) */
+  EN_CM = 'EN_CM',
+  /** English (Christmas Island) */
+  EN_CX = 'EN_CX',
+  /** English (Cyprus) */
+  EN_CY = 'EN_CY',
+  /** English (Germany) */
+  EN_DE = 'EN_DE',
+  /** English (Diego Garcia) */
+  EN_DG = 'EN_DG',
+  /** English (Denmark) */
+  EN_DK = 'EN_DK',
+  /** English (Dominica) */
+  EN_DM = 'EN_DM',
+  /** English (Eritrea) */
+  EN_ER = 'EN_ER',
+  /** English (Finland) */
+  EN_FI = 'EN_FI',
+  /** English (Fiji) */
+  EN_FJ = 'EN_FJ',
+  /** English (Falkland Islands) */
+  EN_FK = 'EN_FK',
+  /** English (Micronesia) */
+  EN_FM = 'EN_FM',
+  /** English (United Kingdom) */
+  EN_GB = 'EN_GB',
+  /** English (Grenada) */
+  EN_GD = 'EN_GD',
+  /** English (Guernsey) */
+  EN_GG = 'EN_GG',
+  /** English (Ghana) */
+  EN_GH = 'EN_GH',
+  /** English (Gibraltar) */
+  EN_GI = 'EN_GI',
+  /** English (Gambia) */
+  EN_GM = 'EN_GM',
+  /** English (Guam) */
+  EN_GU = 'EN_GU',
+  /** English (Guyana) */
+  EN_GY = 'EN_GY',
+  /** English (Hong Kong SAR China) */
+  EN_HK = 'EN_HK',
+  /** English (Ireland) */
+  EN_IE = 'EN_IE',
+  /** English (Israel) */
+  EN_IL = 'EN_IL',
+  /** English (Isle of Man) */
+  EN_IM = 'EN_IM',
+  /** English (India) */
+  EN_IN = 'EN_IN',
+  /** English (British Indian Ocean Territory) */
+  EN_IO = 'EN_IO',
+  /** English (Jersey) */
+  EN_JE = 'EN_JE',
+  /** English (Jamaica) */
+  EN_JM = 'EN_JM',
+  /** English (Kenya) */
+  EN_KE = 'EN_KE',
+  /** English (Kiribati) */
+  EN_KI = 'EN_KI',
+  /** English (St. Kitts & Nevis) */
+  EN_KN = 'EN_KN',
+  /** English (Cayman Islands) */
+  EN_KY = 'EN_KY',
+  /** English (St. Lucia) */
+  EN_LC = 'EN_LC',
+  /** English (Liberia) */
+  EN_LR = 'EN_LR',
+  /** English (Lesotho) */
+  EN_LS = 'EN_LS',
+  /** English (Madagascar) */
+  EN_MG = 'EN_MG',
+  /** English (Marshall Islands) */
+  EN_MH = 'EN_MH',
+  /** English (Macao SAR China) */
+  EN_MO = 'EN_MO',
+  /** English (Northern Mariana Islands) */
+  EN_MP = 'EN_MP',
+  /** English (Montserrat) */
+  EN_MS = 'EN_MS',
+  /** English (Malta) */
+  EN_MT = 'EN_MT',
+  /** English (Mauritius) */
+  EN_MU = 'EN_MU',
+  /** English (Malawi) */
+  EN_MW = 'EN_MW',
+  /** English (Malaysia) */
+  EN_MY = 'EN_MY',
+  /** English (Namibia) */
+  EN_NA = 'EN_NA',
+  /** English (Norfolk Island) */
+  EN_NF = 'EN_NF',
+  /** English (Nigeria) */
+  EN_NG = 'EN_NG',
+  /** English (Netherlands) */
+  EN_NL = 'EN_NL',
+  /** English (Nauru) */
+  EN_NR = 'EN_NR',
+  /** English (Niue) */
+  EN_NU = 'EN_NU',
+  /** English (New Zealand) */
+  EN_NZ = 'EN_NZ',
+  /** English (Papua New Guinea) */
+  EN_PG = 'EN_PG',
+  /** English (Philippines) */
+  EN_PH = 'EN_PH',
+  /** English (Pakistan) */
+  EN_PK = 'EN_PK',
+  /** English (Pitcairn Islands) */
+  EN_PN = 'EN_PN',
+  /** English (Puerto Rico) */
+  EN_PR = 'EN_PR',
+  /** English (Palau) */
+  EN_PW = 'EN_PW',
+  /** English (Rwanda) */
+  EN_RW = 'EN_RW',
+  /** English (Solomon Islands) */
+  EN_SB = 'EN_SB',
+  /** English (Seychelles) */
+  EN_SC = 'EN_SC',
+  /** English (Sudan) */
+  EN_SD = 'EN_SD',
+  /** English (Sweden) */
+  EN_SE = 'EN_SE',
+  /** English (Singapore) */
+  EN_SG = 'EN_SG',
+  /** English (St. Helena) */
+  EN_SH = 'EN_SH',
+  /** English (Slovenia) */
+  EN_SI = 'EN_SI',
+  /** English (Sierra Leone) */
+  EN_SL = 'EN_SL',
+  /** English (South Sudan) */
+  EN_SS = 'EN_SS',
+  /** English (Sint Maarten) */
+  EN_SX = 'EN_SX',
+  /** English (Eswatini) */
+  EN_SZ = 'EN_SZ',
+  /** English (Turks & Caicos Islands) */
+  EN_TC = 'EN_TC',
+  /** English (Tokelau) */
+  EN_TK = 'EN_TK',
+  /** English (Tonga) */
+  EN_TO = 'EN_TO',
+  /** English (Trinidad & Tobago) */
+  EN_TT = 'EN_TT',
+  /** English (Tuvalu) */
+  EN_TV = 'EN_TV',
+  /** English (Tanzania) */
+  EN_TZ = 'EN_TZ',
+  /** English (Uganda) */
+  EN_UG = 'EN_UG',
+  /** English (U.S. Outlying Islands) */
+  EN_UM = 'EN_UM',
+  /** English (United States) */
+  EN_US = 'EN_US',
+  /** English (St. Vincent & Grenadines) */
+  EN_VC = 'EN_VC',
+  /** English (British Virgin Islands) */
+  EN_VG = 'EN_VG',
+  /** English (U.S. Virgin Islands) */
+  EN_VI = 'EN_VI',
+  /** English (Vanuatu) */
+  EN_VU = 'EN_VU',
+  /** English (Samoa) */
+  EN_WS = 'EN_WS',
+  /** English (South Africa) */
+  EN_ZA = 'EN_ZA',
+  /** English (Zambia) */
+  EN_ZM = 'EN_ZM',
+  /** English (Zimbabwe) */
+  EN_ZW = 'EN_ZW',
+  /** Esperanto */
+  EO = 'EO',
+  /** Spanish */
+  ES = 'ES',
+  /** Spanish (Argentina) */
+  ES_AR = 'ES_AR',
+  /** Spanish (Bolivia) */
+  ES_BO = 'ES_BO',
+  /** Spanish (Brazil) */
+  ES_BR = 'ES_BR',
+  /** Spanish (Belize) */
+  ES_BZ = 'ES_BZ',
+  /** Spanish (Chile) */
+  ES_CL = 'ES_CL',
+  /** Spanish (Colombia) */
+  ES_CO = 'ES_CO',
+  /** Spanish (Costa Rica) */
+  ES_CR = 'ES_CR',
+  /** Spanish (Cuba) */
+  ES_CU = 'ES_CU',
+  /** Spanish (Dominican Republic) */
+  ES_DO = 'ES_DO',
+  /** Spanish (Ceuta & Melilla) */
+  ES_EA = 'ES_EA',
+  /** Spanish (Ecuador) */
+  ES_EC = 'ES_EC',
+  /** Spanish (Spain) */
+  ES_ES = 'ES_ES',
+  /** Spanish (Equatorial Guinea) */
+  ES_GQ = 'ES_GQ',
+  /** Spanish (Guatemala) */
+  ES_GT = 'ES_GT',
+  /** Spanish (Honduras) */
+  ES_HN = 'ES_HN',
+  /** Spanish (Canary Islands) */
+  ES_IC = 'ES_IC',
+  /** Spanish (Mexico) */
+  ES_MX = 'ES_MX',
+  /** Spanish (Nicaragua) */
+  ES_NI = 'ES_NI',
+  /** Spanish (Panama) */
+  ES_PA = 'ES_PA',
+  /** Spanish (Peru) */
+  ES_PE = 'ES_PE',
+  /** Spanish (Philippines) */
+  ES_PH = 'ES_PH',
+  /** Spanish (Puerto Rico) */
+  ES_PR = 'ES_PR',
+  /** Spanish (Paraguay) */
+  ES_PY = 'ES_PY',
+  /** Spanish (El Salvador) */
+  ES_SV = 'ES_SV',
+  /** Spanish (United States) */
+  ES_US = 'ES_US',
+  /** Spanish (Uruguay) */
+  ES_UY = 'ES_UY',
+  /** Spanish (Venezuela) */
+  ES_VE = 'ES_VE',
+  /** Estonian */
+  ET = 'ET',
+  /** Estonian (Estonia) */
+  ET_EE = 'ET_EE',
+  /** Basque */
+  EU = 'EU',
+  /** Basque (Spain) */
+  EU_ES = 'EU_ES',
+  /** Ewondo */
+  EWO = 'EWO',
+  /** Ewondo (Cameroon) */
+  EWO_CM = 'EWO_CM',
+  /** Persian */
+  FA = 'FA',
+  /** Persian (Afghanistan) */
+  FA_AF = 'FA_AF',
+  /** Persian (Iran) */
+  FA_IR = 'FA_IR',
+  /** Fulah */
+  FF = 'FF',
+  /** Fulah (Adlam) */
+  FF_ADLM = 'FF_ADLM',
+  /** Fulah (Adlam, Burkina Faso) */
+  FF_ADLM_BF = 'FF_ADLM_BF',
+  /** Fulah (Adlam, Cameroon) */
+  FF_ADLM_CM = 'FF_ADLM_CM',
+  /** Fulah (Adlam, Ghana) */
+  FF_ADLM_GH = 'FF_ADLM_GH',
+  /** Fulah (Adlam, Gambia) */
+  FF_ADLM_GM = 'FF_ADLM_GM',
+  /** Fulah (Adlam, Guinea) */
+  FF_ADLM_GN = 'FF_ADLM_GN',
+  /** Fulah (Adlam, Guinea-Bissau) */
+  FF_ADLM_GW = 'FF_ADLM_GW',
+  /** Fulah (Adlam, Liberia) */
+  FF_ADLM_LR = 'FF_ADLM_LR',
+  /** Fulah (Adlam, Mauritania) */
+  FF_ADLM_MR = 'FF_ADLM_MR',
+  /** Fulah (Adlam, Niger) */
+  FF_ADLM_NE = 'FF_ADLM_NE',
+  /** Fulah (Adlam, Nigeria) */
+  FF_ADLM_NG = 'FF_ADLM_NG',
+  /** Fulah (Adlam, Sierra Leone) */
+  FF_ADLM_SL = 'FF_ADLM_SL',
+  /** Fulah (Adlam, Senegal) */
+  FF_ADLM_SN = 'FF_ADLM_SN',
+  /** Fulah (Latin) */
+  FF_LATN = 'FF_LATN',
+  /** Fulah (Latin, Burkina Faso) */
+  FF_LATN_BF = 'FF_LATN_BF',
+  /** Fulah (Latin, Cameroon) */
+  FF_LATN_CM = 'FF_LATN_CM',
+  /** Fulah (Latin, Ghana) */
+  FF_LATN_GH = 'FF_LATN_GH',
+  /** Fulah (Latin, Gambia) */
+  FF_LATN_GM = 'FF_LATN_GM',
+  /** Fulah (Latin, Guinea) */
+  FF_LATN_GN = 'FF_LATN_GN',
+  /** Fulah (Latin, Guinea-Bissau) */
+  FF_LATN_GW = 'FF_LATN_GW',
+  /** Fulah (Latin, Liberia) */
+  FF_LATN_LR = 'FF_LATN_LR',
+  /** Fulah (Latin, Mauritania) */
+  FF_LATN_MR = 'FF_LATN_MR',
+  /** Fulah (Latin, Niger) */
+  FF_LATN_NE = 'FF_LATN_NE',
+  /** Fulah (Latin, Nigeria) */
+  FF_LATN_NG = 'FF_LATN_NG',
+  /** Fulah (Latin, Sierra Leone) */
+  FF_LATN_SL = 'FF_LATN_SL',
+  /** Fulah (Latin, Senegal) */
+  FF_LATN_SN = 'FF_LATN_SN',
+  /** Finnish */
+  FI = 'FI',
+  /** Filipino */
+  FIL = 'FIL',
+  /** Filipino (Philippines) */
+  FIL_PH = 'FIL_PH',
+  /** Finnish (Finland) */
+  FI_FI = 'FI_FI',
+  /** Faroese */
+  FO = 'FO',
+  /** Faroese (Denmark) */
+  FO_DK = 'FO_DK',
+  /** Faroese (Faroe Islands) */
+  FO_FO = 'FO_FO',
+  /** French */
+  FR = 'FR',
+  /** French (Belgium) */
+  FR_BE = 'FR_BE',
+  /** French (Burkina Faso) */
+  FR_BF = 'FR_BF',
+  /** French (Burundi) */
+  FR_BI = 'FR_BI',
+  /** French (Benin) */
+  FR_BJ = 'FR_BJ',
+  /** French (St. Barthélemy) */
+  FR_BL = 'FR_BL',
+  /** French (Canada) */
+  FR_CA = 'FR_CA',
+  /** French (Congo - Kinshasa) */
+  FR_CD = 'FR_CD',
+  /** French (Central African Republic) */
+  FR_CF = 'FR_CF',
+  /** French (Congo - Brazzaville) */
+  FR_CG = 'FR_CG',
+  /** French (Switzerland) */
+  FR_CH = 'FR_CH',
+  /** French (Côte d’Ivoire) */
+  FR_CI = 'FR_CI',
+  /** French (Cameroon) */
+  FR_CM = 'FR_CM',
+  /** French (Djibouti) */
+  FR_DJ = 'FR_DJ',
+  /** French (Algeria) */
+  FR_DZ = 'FR_DZ',
+  /** French (France) */
+  FR_FR = 'FR_FR',
+  /** French (Gabon) */
+  FR_GA = 'FR_GA',
+  /** French (French Guiana) */
+  FR_GF = 'FR_GF',
+  /** French (Guinea) */
+  FR_GN = 'FR_GN',
+  /** French (Guadeloupe) */
+  FR_GP = 'FR_GP',
+  /** French (Equatorial Guinea) */
+  FR_GQ = 'FR_GQ',
+  /** French (Haiti) */
+  FR_HT = 'FR_HT',
+  /** French (Comoros) */
+  FR_KM = 'FR_KM',
+  /** French (Luxembourg) */
+  FR_LU = 'FR_LU',
+  /** French (Morocco) */
+  FR_MA = 'FR_MA',
+  /** French (Monaco) */
+  FR_MC = 'FR_MC',
+  /** French (St. Martin) */
+  FR_MF = 'FR_MF',
+  /** French (Madagascar) */
+  FR_MG = 'FR_MG',
+  /** French (Mali) */
+  FR_ML = 'FR_ML',
+  /** French (Martinique) */
+  FR_MQ = 'FR_MQ',
+  /** French (Mauritania) */
+  FR_MR = 'FR_MR',
+  /** French (Mauritius) */
+  FR_MU = 'FR_MU',
+  /** French (New Caledonia) */
+  FR_NC = 'FR_NC',
+  /** French (Niger) */
+  FR_NE = 'FR_NE',
+  /** French (French Polynesia) */
+  FR_PF = 'FR_PF',
+  /** French (St. Pierre & Miquelon) */
+  FR_PM = 'FR_PM',
+  /** French (Réunion) */
+  FR_RE = 'FR_RE',
+  /** French (Rwanda) */
+  FR_RW = 'FR_RW',
+  /** French (Seychelles) */
+  FR_SC = 'FR_SC',
+  /** French (Senegal) */
+  FR_SN = 'FR_SN',
+  /** French (Syria) */
+  FR_SY = 'FR_SY',
+  /** French (Chad) */
+  FR_TD = 'FR_TD',
+  /** French (Togo) */
+  FR_TG = 'FR_TG',
+  /** French (Tunisia) */
+  FR_TN = 'FR_TN',
+  /** French (Vanuatu) */
+  FR_VU = 'FR_VU',
+  /** French (Wallis & Futuna) */
+  FR_WF = 'FR_WF',
+  /** French (Mayotte) */
+  FR_YT = 'FR_YT',
+  /** Friulian */
+  FUR = 'FUR',
+  /** Friulian (Italy) */
+  FUR_IT = 'FUR_IT',
+  /** Western Frisian */
+  FY = 'FY',
+  /** Western Frisian (Netherlands) */
+  FY_NL = 'FY_NL',
+  /** Irish */
+  GA = 'GA',
+  /** Irish (United Kingdom) */
+  GA_GB = 'GA_GB',
+  /** Irish (Ireland) */
+  GA_IE = 'GA_IE',
+  /** Scottish Gaelic */
+  GD = 'GD',
+  /** Scottish Gaelic (United Kingdom) */
+  GD_GB = 'GD_GB',
+  /** Galician */
+  GL = 'GL',
+  /** Galician (Spain) */
+  GL_ES = 'GL_ES',
+  /** Swiss German */
+  GSW = 'GSW',
+  /** Swiss German (Switzerland) */
+  GSW_CH = 'GSW_CH',
+  /** Swiss German (France) */
+  GSW_FR = 'GSW_FR',
+  /** Swiss German (Liechtenstein) */
+  GSW_LI = 'GSW_LI',
+  /** Gujarati */
+  GU = 'GU',
+  /** Gusii */
+  GUZ = 'GUZ',
+  /** Gusii (Kenya) */
+  GUZ_KE = 'GUZ_KE',
+  /** Gujarati (India) */
+  GU_IN = 'GU_IN',
+  /** Manx */
+  GV = 'GV',
+  /** Manx (Isle of Man) */
+  GV_IM = 'GV_IM',
+  /** Hausa */
+  HA = 'HA',
+  /** Hawaiian */
+  HAW = 'HAW',
+  /** Hawaiian (United States) */
+  HAW_US = 'HAW_US',
+  /** Hausa (Ghana) */
+  HA_GH = 'HA_GH',
+  /** Hausa (Niger) */
+  HA_NE = 'HA_NE',
+  /** Hausa (Nigeria) */
+  HA_NG = 'HA_NG',
+  /** Hebrew */
+  HE = 'HE',
+  /** Hebrew (Israel) */
+  HE_IL = 'HE_IL',
+  /** Hindi */
+  HI = 'HI',
+  /** Hindi (India) */
+  HI_IN = 'HI_IN',
+  /** Croatian */
+  HR = 'HR',
+  /** Croatian (Bosnia & Herzegovina) */
+  HR_BA = 'HR_BA',
+  /** Croatian (Croatia) */
+  HR_HR = 'HR_HR',
+  /** Upper Sorbian */
+  HSB = 'HSB',
+  /** Upper Sorbian (Germany) */
+  HSB_DE = 'HSB_DE',
+  /** Hungarian */
+  HU = 'HU',
+  /** Hungarian (Hungary) */
+  HU_HU = 'HU_HU',
+  /** Armenian */
+  HY = 'HY',
+  /** Armenian (Armenia) */
+  HY_AM = 'HY_AM',
+  /** Interlingua */
+  IA = 'IA',
+  /** Indonesian */
+  ID = 'ID',
+  /** Indonesian (Indonesia) */
+  ID_ID = 'ID_ID',
+  /** Igbo */
+  IG = 'IG',
+  /** Igbo (Nigeria) */
+  IG_NG = 'IG_NG',
+  /** Sichuan Yi */
+  II = 'II',
+  /** Sichuan Yi (China) */
+  II_CN = 'II_CN',
+  /** Icelandic */
+  IS = 'IS',
+  /** Icelandic (Iceland) */
+  IS_IS = 'IS_IS',
+  /** Italian */
+  IT = 'IT',
+  /** Italian (Switzerland) */
+  IT_CH = 'IT_CH',
+  /** Italian (Italy) */
+  IT_IT = 'IT_IT',
+  /** Italian (San Marino) */
+  IT_SM = 'IT_SM',
+  /** Italian (Vatican City) */
+  IT_VA = 'IT_VA',
+  /** Japanese */
+  JA = 'JA',
+  /** Japanese (Japan) */
+  JA_JP = 'JA_JP',
+  /** Ngomba */
+  JGO = 'JGO',
+  /** Ngomba (Cameroon) */
+  JGO_CM = 'JGO_CM',
+  /** Machame */
+  JMC = 'JMC',
+  /** Machame (Tanzania) */
+  JMC_TZ = 'JMC_TZ',
+  /** Javanese */
+  JV = 'JV',
+  /** Javanese (Indonesia) */
+  JV_ID = 'JV_ID',
+  /** Georgian */
+  KA = 'KA',
+  /** Kabyle */
+  KAB = 'KAB',
+  /** Kabyle (Algeria) */
+  KAB_DZ = 'KAB_DZ',
+  /** Kamba */
+  KAM = 'KAM',
+  /** Kamba (Kenya) */
+  KAM_KE = 'KAM_KE',
+  /** Georgian (Georgia) */
+  KA_GE = 'KA_GE',
+  /** Makonde */
+  KDE = 'KDE',
+  /** Makonde (Tanzania) */
+  KDE_TZ = 'KDE_TZ',
+  /** Kabuverdianu */
+  KEA = 'KEA',
+  /** Kabuverdianu (Cape Verde) */
+  KEA_CV = 'KEA_CV',
+  /** Koyra Chiini */
+  KHQ = 'KHQ',
+  /** Koyra Chiini (Mali) */
+  KHQ_ML = 'KHQ_ML',
+  /** Kikuyu */
+  KI = 'KI',
+  /** Kikuyu (Kenya) */
+  KI_KE = 'KI_KE',
+  /** Kazakh */
+  KK = 'KK',
+  /** Kako */
+  KKJ = 'KKJ',
+  /** Kako (Cameroon) */
+  KKJ_CM = 'KKJ_CM',
+  /** Kazakh (Kazakhstan) */
+  KK_KZ = 'KK_KZ',
+  /** Kalaallisut */
+  KL = 'KL',
+  /** Kalenjin */
+  KLN = 'KLN',
+  /** Kalenjin (Kenya) */
+  KLN_KE = 'KLN_KE',
+  /** Kalaallisut (Greenland) */
+  KL_GL = 'KL_GL',
+  /** Khmer */
+  KM = 'KM',
+  /** Khmer (Cambodia) */
+  KM_KH = 'KM_KH',
+  /** Kannada */
+  KN = 'KN',
+  /** Kannada (India) */
+  KN_IN = 'KN_IN',
+  /** Korean */
+  KO = 'KO',
+  /** Konkani */
+  KOK = 'KOK',
+  /** Konkani (India) */
+  KOK_IN = 'KOK_IN',
+  /** Korean (North Korea) */
+  KO_KP = 'KO_KP',
+  /** Korean (South Korea) */
+  KO_KR = 'KO_KR',
+  /** Kashmiri */
+  KS = 'KS',
+  /** Shambala */
+  KSB = 'KSB',
+  /** Shambala (Tanzania) */
+  KSB_TZ = 'KSB_TZ',
+  /** Bafia */
+  KSF = 'KSF',
+  /** Bafia (Cameroon) */
+  KSF_CM = 'KSF_CM',
+  /** Colognian */
+  KSH = 'KSH',
+  /** Colognian (Germany) */
+  KSH_DE = 'KSH_DE',
+  /** Kashmiri (Arabic) */
+  KS_ARAB = 'KS_ARAB',
+  /** Kashmiri (Arabic, India) */
+  KS_ARAB_IN = 'KS_ARAB_IN',
+  /** Kurdish */
+  KU = 'KU',
+  /** Kurdish (Turkey) */
+  KU_TR = 'KU_TR',
+  /** Cornish */
+  KW = 'KW',
+  /** Cornish (United Kingdom) */
+  KW_GB = 'KW_GB',
+  /** Kyrgyz */
+  KY = 'KY',
+  /** Kyrgyz (Kyrgyzstan) */
+  KY_KG = 'KY_KG',
+  /** Langi */
+  LAG = 'LAG',
+  /** Langi (Tanzania) */
+  LAG_TZ = 'LAG_TZ',
+  /** Luxembourgish */
+  LB = 'LB',
+  /** Luxembourgish (Luxembourg) */
+  LB_LU = 'LB_LU',
+  /** Ganda */
+  LG = 'LG',
+  /** Ganda (Uganda) */
+  LG_UG = 'LG_UG',
+  /** Lakota */
+  LKT = 'LKT',
+  /** Lakota (United States) */
+  LKT_US = 'LKT_US',
+  /** Lingala */
+  LN = 'LN',
+  /** Lingala (Angola) */
+  LN_AO = 'LN_AO',
+  /** Lingala (Congo - Kinshasa) */
+  LN_CD = 'LN_CD',
+  /** Lingala (Central African Republic) */
+  LN_CF = 'LN_CF',
+  /** Lingala (Congo - Brazzaville) */
+  LN_CG = 'LN_CG',
+  /** Lao */
+  LO = 'LO',
+  /** Lao (Laos) */
+  LO_LA = 'LO_LA',
+  /** Northern Luri */
+  LRC = 'LRC',
+  /** Northern Luri (Iraq) */
+  LRC_IQ = 'LRC_IQ',
+  /** Northern Luri (Iran) */
+  LRC_IR = 'LRC_IR',
+  /** Lithuanian */
+  LT = 'LT',
+  /** Lithuanian (Lithuania) */
+  LT_LT = 'LT_LT',
+  /** Luba-Katanga */
+  LU = 'LU',
+  /** Luo */
+  LUO = 'LUO',
+  /** Luo (Kenya) */
+  LUO_KE = 'LUO_KE',
+  /** Luyia */
+  LUY = 'LUY',
+  /** Luyia (Kenya) */
+  LUY_KE = 'LUY_KE',
+  /** Luba-Katanga (Congo - Kinshasa) */
+  LU_CD = 'LU_CD',
+  /** Latvian */
+  LV = 'LV',
+  /** Latvian (Latvia) */
+  LV_LV = 'LV_LV',
+  /** Maithili */
+  MAI = 'MAI',
+  /** Maithili (India) */
+  MAI_IN = 'MAI_IN',
+  /** Masai */
+  MAS = 'MAS',
+  /** Masai (Kenya) */
+  MAS_KE = 'MAS_KE',
+  /** Masai (Tanzania) */
+  MAS_TZ = 'MAS_TZ',
+  /** Meru */
+  MER = 'MER',
+  /** Meru (Kenya) */
+  MER_KE = 'MER_KE',
+  /** Morisyen */
+  MFE = 'MFE',
+  /** Morisyen (Mauritius) */
+  MFE_MU = 'MFE_MU',
+  /** Malagasy */
+  MG = 'MG',
+  /** Makhuwa-Meetto */
+  MGH = 'MGH',
+  /** Makhuwa-Meetto (Mozambique) */
+  MGH_MZ = 'MGH_MZ',
+  /** Metaʼ */
+  MGO = 'MGO',
+  /** Metaʼ (Cameroon) */
+  MGO_CM = 'MGO_CM',
+  /** Malagasy (Madagascar) */
+  MG_MG = 'MG_MG',
+  /** Maori */
+  MI = 'MI',
+  /** Maori (New Zealand) */
+  MI_NZ = 'MI_NZ',
+  /** Macedonian */
+  MK = 'MK',
+  /** Macedonian (North Macedonia) */
+  MK_MK = 'MK_MK',
+  /** Malayalam */
+  ML = 'ML',
+  /** Malayalam (India) */
+  ML_IN = 'ML_IN',
+  /** Mongolian */
+  MN = 'MN',
+  /** Manipuri */
+  MNI = 'MNI',
+  /** Manipuri (Bangla) */
+  MNI_BENG = 'MNI_BENG',
+  /** Manipuri (Bangla, India) */
+  MNI_BENG_IN = 'MNI_BENG_IN',
+  /** Mongolian (Mongolia) */
+  MN_MN = 'MN_MN',
+  /** Marathi */
+  MR = 'MR',
+  /** Marathi (India) */
+  MR_IN = 'MR_IN',
+  /** Malay */
+  MS = 'MS',
+  /** Malay (Brunei) */
+  MS_BN = 'MS_BN',
+  /** Malay (Indonesia) */
+  MS_ID = 'MS_ID',
+  /** Malay (Malaysia) */
+  MS_MY = 'MS_MY',
+  /** Malay (Singapore) */
+  MS_SG = 'MS_SG',
+  /** Maltese */
+  MT = 'MT',
+  /** Maltese (Malta) */
+  MT_MT = 'MT_MT',
+  /** Mundang */
+  MUA = 'MUA',
+  /** Mundang (Cameroon) */
+  MUA_CM = 'MUA_CM',
+  /** Burmese */
+  MY = 'MY',
+  /** Burmese (Myanmar (Burma)) */
+  MY_MM = 'MY_MM',
+  /** Mazanderani */
+  MZN = 'MZN',
+  /** Mazanderani (Iran) */
+  MZN_IR = 'MZN_IR',
+  /** Nama */
+  NAQ = 'NAQ',
+  /** Nama (Namibia) */
+  NAQ_NA = 'NAQ_NA',
+  /** Norwegian Bokmål */
+  NB = 'NB',
+  /** Norwegian Bokmål (Norway) */
+  NB_NO = 'NB_NO',
+  /** Norwegian Bokmål (Svalbard & Jan Mayen) */
+  NB_SJ = 'NB_SJ',
+  /** North Ndebele */
+  ND = 'ND',
+  /** Low German */
+  NDS = 'NDS',
+  /** Low German (Germany) */
+  NDS_DE = 'NDS_DE',
+  /** Low German (Netherlands) */
+  NDS_NL = 'NDS_NL',
+  /** North Ndebele (Zimbabwe) */
+  ND_ZW = 'ND_ZW',
+  /** Nepali */
+  NE = 'NE',
+  /** Nepali (India) */
+  NE_IN = 'NE_IN',
+  /** Nepali (Nepal) */
+  NE_NP = 'NE_NP',
+  /** Dutch */
+  NL = 'NL',
+  /** Dutch (Aruba) */
+  NL_AW = 'NL_AW',
+  /** Dutch (Belgium) */
+  NL_BE = 'NL_BE',
+  /** Dutch (Caribbean Netherlands) */
+  NL_BQ = 'NL_BQ',
+  /** Dutch (Curaçao) */
+  NL_CW = 'NL_CW',
+  /** Dutch (Netherlands) */
+  NL_NL = 'NL_NL',
+  /** Dutch (Suriname) */
+  NL_SR = 'NL_SR',
+  /** Dutch (Sint Maarten) */
+  NL_SX = 'NL_SX',
+  /** Kwasio */
+  NMG = 'NMG',
+  /** Kwasio (Cameroon) */
+  NMG_CM = 'NMG_CM',
+  /** Norwegian Nynorsk */
+  NN = 'NN',
+  /** Ngiemboon */
+  NNH = 'NNH',
+  /** Ngiemboon (Cameroon) */
+  NNH_CM = 'NNH_CM',
+  /** Norwegian Nynorsk (Norway) */
+  NN_NO = 'NN_NO',
+  /** Nuer */
+  NUS = 'NUS',
+  /** Nuer (South Sudan) */
+  NUS_SS = 'NUS_SS',
+  /** Nyankole */
+  NYN = 'NYN',
+  /** Nyankole (Uganda) */
+  NYN_UG = 'NYN_UG',
+  /** Oromo */
+  OM = 'OM',
+  /** Oromo (Ethiopia) */
+  OM_ET = 'OM_ET',
+  /** Oromo (Kenya) */
+  OM_KE = 'OM_KE',
+  /** Odia */
+  OR = 'OR',
+  /** Odia (India) */
+  OR_IN = 'OR_IN',
+  /** Ossetic */
+  OS = 'OS',
+  /** Ossetic (Georgia) */
+  OS_GE = 'OS_GE',
+  /** Ossetic (Russia) */
+  OS_RU = 'OS_RU',
+  /** Punjabi */
+  PA = 'PA',
+  /** Punjabi (Arabic) */
+  PA_ARAB = 'PA_ARAB',
+  /** Punjabi (Arabic, Pakistan) */
+  PA_ARAB_PK = 'PA_ARAB_PK',
+  /** Punjabi (Gurmukhi) */
+  PA_GURU = 'PA_GURU',
+  /** Punjabi (Gurmukhi, India) */
+  PA_GURU_IN = 'PA_GURU_IN',
+  /** Nigerian Pidgin */
+  PCM = 'PCM',
+  /** Nigerian Pidgin (Nigeria) */
+  PCM_NG = 'PCM_NG',
+  /** Polish */
+  PL = 'PL',
+  /** Polish (Poland) */
+  PL_PL = 'PL_PL',
+  /** Prussian */
+  PRG = 'PRG',
+  /** Pashto */
+  PS = 'PS',
+  /** Pashto (Afghanistan) */
+  PS_AF = 'PS_AF',
+  /** Pashto (Pakistan) */
+  PS_PK = 'PS_PK',
+  /** Portuguese */
+  PT = 'PT',
+  /** Portuguese (Angola) */
+  PT_AO = 'PT_AO',
+  /** Portuguese (Brazil) */
+  PT_BR = 'PT_BR',
+  /** Portuguese (Switzerland) */
+  PT_CH = 'PT_CH',
+  /** Portuguese (Cape Verde) */
+  PT_CV = 'PT_CV',
+  /** Portuguese (Equatorial Guinea) */
+  PT_GQ = 'PT_GQ',
+  /** Portuguese (Guinea-Bissau) */
+  PT_GW = 'PT_GW',
+  /** Portuguese (Luxembourg) */
+  PT_LU = 'PT_LU',
+  /** Portuguese (Macao SAR China) */
+  PT_MO = 'PT_MO',
+  /** Portuguese (Mozambique) */
+  PT_MZ = 'PT_MZ',
+  /** Portuguese (Portugal) */
+  PT_PT = 'PT_PT',
+  /** Portuguese (São Tomé & Príncipe) */
+  PT_ST = 'PT_ST',
+  /** Portuguese (Timor-Leste) */
+  PT_TL = 'PT_TL',
+  /** Quechua */
+  QU = 'QU',
+  /** Quechua (Bolivia) */
+  QU_BO = 'QU_BO',
+  /** Quechua (Ecuador) */
+  QU_EC = 'QU_EC',
+  /** Quechua (Peru) */
+  QU_PE = 'QU_PE',
+  /** Romansh */
+  RM = 'RM',
+  /** Romansh (Switzerland) */
+  RM_CH = 'RM_CH',
+  /** Rundi */
+  RN = 'RN',
+  /** Rundi (Burundi) */
+  RN_BI = 'RN_BI',
+  /** Romanian */
+  RO = 'RO',
+  /** Rombo */
+  ROF = 'ROF',
+  /** Rombo (Tanzania) */
+  ROF_TZ = 'ROF_TZ',
+  /** Romanian (Moldova) */
+  RO_MD = 'RO_MD',
+  /** Romanian (Romania) */
+  RO_RO = 'RO_RO',
+  /** Russian */
+  RU = 'RU',
+  /** Russian (Belarus) */
+  RU_BY = 'RU_BY',
+  /** Russian (Kyrgyzstan) */
+  RU_KG = 'RU_KG',
+  /** Russian (Kazakhstan) */
+  RU_KZ = 'RU_KZ',
+  /** Russian (Moldova) */
+  RU_MD = 'RU_MD',
+  /** Russian (Russia) */
+  RU_RU = 'RU_RU',
+  /** Russian (Ukraine) */
+  RU_UA = 'RU_UA',
+  /** Kinyarwanda */
+  RW = 'RW',
+  /** Rwa */
+  RWK = 'RWK',
+  /** Rwa (Tanzania) */
+  RWK_TZ = 'RWK_TZ',
+  /** Kinyarwanda (Rwanda) */
+  RW_RW = 'RW_RW',
+  /** Sakha */
+  SAH = 'SAH',
+  /** Sakha (Russia) */
+  SAH_RU = 'SAH_RU',
+  /** Samburu */
+  SAQ = 'SAQ',
+  /** Samburu (Kenya) */
+  SAQ_KE = 'SAQ_KE',
+  /** Santali */
+  SAT = 'SAT',
+  /** Santali (Ol Chiki) */
+  SAT_OLCK = 'SAT_OLCK',
+  /** Santali (Ol Chiki, India) */
+  SAT_OLCK_IN = 'SAT_OLCK_IN',
+  /** Sangu */
+  SBP = 'SBP',
+  /** Sangu (Tanzania) */
+  SBP_TZ = 'SBP_TZ',
+  /** Sindhi */
+  SD = 'SD',
+  /** Sindhi (Arabic) */
+  SD_ARAB = 'SD_ARAB',
+  /** Sindhi (Arabic, Pakistan) */
+  SD_ARAB_PK = 'SD_ARAB_PK',
+  /** Sindhi (Devanagari) */
+  SD_DEVA = 'SD_DEVA',
+  /** Sindhi (Devanagari, India) */
+  SD_DEVA_IN = 'SD_DEVA_IN',
+  /** Northern Sami */
+  SE = 'SE',
+  /** Sena */
+  SEH = 'SEH',
+  /** Sena (Mozambique) */
+  SEH_MZ = 'SEH_MZ',
+  /** Koyraboro Senni */
+  SES = 'SES',
+  /** Koyraboro Senni (Mali) */
+  SES_ML = 'SES_ML',
+  /** Northern Sami (Finland) */
+  SE_FI = 'SE_FI',
+  /** Northern Sami (Norway) */
+  SE_NO = 'SE_NO',
+  /** Northern Sami (Sweden) */
+  SE_SE = 'SE_SE',
+  /** Sango */
+  SG = 'SG',
+  /** Sango (Central African Republic) */
+  SG_CF = 'SG_CF',
+  /** Tachelhit */
+  SHI = 'SHI',
+  /** Tachelhit (Latin) */
+  SHI_LATN = 'SHI_LATN',
+  /** Tachelhit (Latin, Morocco) */
+  SHI_LATN_MA = 'SHI_LATN_MA',
+  /** Tachelhit (Tifinagh) */
+  SHI_TFNG = 'SHI_TFNG',
+  /** Tachelhit (Tifinagh, Morocco) */
+  SHI_TFNG_MA = 'SHI_TFNG_MA',
+  /** Sinhala */
+  SI = 'SI',
+  /** Sinhala (Sri Lanka) */
+  SI_LK = 'SI_LK',
+  /** Slovak */
+  SK = 'SK',
+  /** Slovak (Slovakia) */
+  SK_SK = 'SK_SK',
+  /** Slovenian */
+  SL = 'SL',
+  /** Slovenian (Slovenia) */
+  SL_SI = 'SL_SI',
+  /** Inari Sami */
+  SMN = 'SMN',
+  /** Inari Sami (Finland) */
+  SMN_FI = 'SMN_FI',
+  /** Shona */
+  SN = 'SN',
+  /** Shona (Zimbabwe) */
+  SN_ZW = 'SN_ZW',
+  /** Somali */
+  SO = 'SO',
+  /** Somali (Djibouti) */
+  SO_DJ = 'SO_DJ',
+  /** Somali (Ethiopia) */
+  SO_ET = 'SO_ET',
+  /** Somali (Kenya) */
+  SO_KE = 'SO_KE',
+  /** Somali (Somalia) */
+  SO_SO = 'SO_SO',
+  /** Albanian */
+  SQ = 'SQ',
+  /** Albanian (Albania) */
+  SQ_AL = 'SQ_AL',
+  /** Albanian (North Macedonia) */
+  SQ_MK = 'SQ_MK',
+  /** Albanian (Kosovo) */
+  SQ_XK = 'SQ_XK',
+  /** Serbian */
+  SR = 'SR',
+  /** Serbian (Cyrillic) */
+  SR_CYRL = 'SR_CYRL',
+  /** Serbian (Cyrillic, Bosnia & Herzegovina) */
+  SR_CYRL_BA = 'SR_CYRL_BA',
+  /** Serbian (Cyrillic, Montenegro) */
+  SR_CYRL_ME = 'SR_CYRL_ME',
+  /** Serbian (Cyrillic, Serbia) */
+  SR_CYRL_RS = 'SR_CYRL_RS',
+  /** Serbian (Cyrillic, Kosovo) */
+  SR_CYRL_XK = 'SR_CYRL_XK',
+  /** Serbian (Latin) */
+  SR_LATN = 'SR_LATN',
+  /** Serbian (Latin, Bosnia & Herzegovina) */
+  SR_LATN_BA = 'SR_LATN_BA',
+  /** Serbian (Latin, Montenegro) */
+  SR_LATN_ME = 'SR_LATN_ME',
+  /** Serbian (Latin, Serbia) */
+  SR_LATN_RS = 'SR_LATN_RS',
+  /** Serbian (Latin, Kosovo) */
+  SR_LATN_XK = 'SR_LATN_XK',
+  /** Sundanese */
+  SU = 'SU',
+  /** Sundanese (Latin) */
+  SU_LATN = 'SU_LATN',
+  /** Sundanese (Latin, Indonesia) */
+  SU_LATN_ID = 'SU_LATN_ID',
+  /** Swedish */
+  SV = 'SV',
+  /** Swedish (Åland Islands) */
+  SV_AX = 'SV_AX',
+  /** Swedish (Finland) */
+  SV_FI = 'SV_FI',
+  /** Swedish (Sweden) */
+  SV_SE = 'SV_SE',
+  /** Swahili */
+  SW = 'SW',
+  /** Swahili (Congo - Kinshasa) */
+  SW_CD = 'SW_CD',
+  /** Swahili (Kenya) */
+  SW_KE = 'SW_KE',
+  /** Swahili (Tanzania) */
+  SW_TZ = 'SW_TZ',
+  /** Swahili (Uganda) */
+  SW_UG = 'SW_UG',
+  /** Tamil */
+  TA = 'TA',
+  /** Tamil (India) */
+  TA_IN = 'TA_IN',
+  /** Tamil (Sri Lanka) */
+  TA_LK = 'TA_LK',
+  /** Tamil (Malaysia) */
+  TA_MY = 'TA_MY',
+  /** Tamil (Singapore) */
+  TA_SG = 'TA_SG',
+  /** Telugu */
+  TE = 'TE',
+  /** Teso */
+  TEO = 'TEO',
+  /** Teso (Kenya) */
+  TEO_KE = 'TEO_KE',
+  /** Teso (Uganda) */
+  TEO_UG = 'TEO_UG',
+  /** Telugu (India) */
+  TE_IN = 'TE_IN',
+  /** Tajik */
+  TG = 'TG',
+  /** Tajik (Tajikistan) */
+  TG_TJ = 'TG_TJ',
+  /** Thai */
+  TH = 'TH',
+  /** Thai (Thailand) */
+  TH_TH = 'TH_TH',
+  /** Tigrinya */
+  TI = 'TI',
+  /** Tigrinya (Eritrea) */
+  TI_ER = 'TI_ER',
+  /** Tigrinya (Ethiopia) */
+  TI_ET = 'TI_ET',
+  /** Turkmen */
+  TK = 'TK',
+  /** Turkmen (Turkmenistan) */
+  TK_TM = 'TK_TM',
+  /** Tongan */
+  TO = 'TO',
+  /** Tongan (Tonga) */
+  TO_TO = 'TO_TO',
+  /** Turkish */
+  TR = 'TR',
+  /** Turkish (Cyprus) */
+  TR_CY = 'TR_CY',
+  /** Turkish (Turkey) */
+  TR_TR = 'TR_TR',
+  /** Tatar */
+  TT = 'TT',
+  /** Tatar (Russia) */
+  TT_RU = 'TT_RU',
+  /** Tasawaq */
+  TWQ = 'TWQ',
+  /** Tasawaq (Niger) */
+  TWQ_NE = 'TWQ_NE',
+  /** Central Atlas Tamazight */
+  TZM = 'TZM',
+  /** Central Atlas Tamazight (Morocco) */
+  TZM_MA = 'TZM_MA',
+  /** Uyghur */
+  UG = 'UG',
+  /** Uyghur (China) */
+  UG_CN = 'UG_CN',
+  /** Ukrainian */
+  UK = 'UK',
+  /** Ukrainian (Ukraine) */
+  UK_UA = 'UK_UA',
+  /** Urdu */
+  UR = 'UR',
+  /** Urdu (India) */
+  UR_IN = 'UR_IN',
+  /** Urdu (Pakistan) */
+  UR_PK = 'UR_PK',
+  /** Uzbek */
+  UZ = 'UZ',
+  /** Uzbek (Arabic) */
+  UZ_ARAB = 'UZ_ARAB',
+  /** Uzbek (Arabic, Afghanistan) */
+  UZ_ARAB_AF = 'UZ_ARAB_AF',
+  /** Uzbek (Cyrillic) */
+  UZ_CYRL = 'UZ_CYRL',
+  /** Uzbek (Cyrillic, Uzbekistan) */
+  UZ_CYRL_UZ = 'UZ_CYRL_UZ',
+  /** Uzbek (Latin) */
+  UZ_LATN = 'UZ_LATN',
+  /** Uzbek (Latin, Uzbekistan) */
+  UZ_LATN_UZ = 'UZ_LATN_UZ',
+  /** Vai */
+  VAI = 'VAI',
+  /** Vai (Latin) */
+  VAI_LATN = 'VAI_LATN',
+  /** Vai (Latin, Liberia) */
+  VAI_LATN_LR = 'VAI_LATN_LR',
+  /** Vai (Vai) */
+  VAI_VAII = 'VAI_VAII',
+  /** Vai (Vai, Liberia) */
+  VAI_VAII_LR = 'VAI_VAII_LR',
+  /** Vietnamese */
+  VI = 'VI',
+  /** Vietnamese (Vietnam) */
+  VI_VN = 'VI_VN',
+  /** Volapük */
+  VO = 'VO',
+  /** Vunjo */
+  VUN = 'VUN',
+  /** Vunjo (Tanzania) */
+  VUN_TZ = 'VUN_TZ',
+  /** Walser */
+  WAE = 'WAE',
+  /** Walser (Switzerland) */
+  WAE_CH = 'WAE_CH',
+  /** Wolof */
+  WO = 'WO',
+  /** Wolof (Senegal) */
+  WO_SN = 'WO_SN',
+  /** Xhosa */
+  XH = 'XH',
+  /** Xhosa (South Africa) */
+  XH_ZA = 'XH_ZA',
+  /** Soga */
+  XOG = 'XOG',
+  /** Soga (Uganda) */
+  XOG_UG = 'XOG_UG',
+  /** Yangben */
+  YAV = 'YAV',
+  /** Yangben (Cameroon) */
+  YAV_CM = 'YAV_CM',
+  /** Yiddish */
+  YI = 'YI',
+  /** Yoruba */
+  YO = 'YO',
+  /** Yoruba (Benin) */
+  YO_BJ = 'YO_BJ',
+  /** Yoruba (Nigeria) */
+  YO_NG = 'YO_NG',
+  /** Cantonese */
+  YUE = 'YUE',
+  /** Cantonese (Simplified) */
+  YUE_HANS = 'YUE_HANS',
+  /** Cantonese (Simplified, China) */
+  YUE_HANS_CN = 'YUE_HANS_CN',
+  /** Cantonese (Traditional) */
+  YUE_HANT = 'YUE_HANT',
+  /** Cantonese (Traditional, Hong Kong SAR China) */
+  YUE_HANT_HK = 'YUE_HANT_HK',
+  /** Standard Moroccan Tamazight */
+  ZGH = 'ZGH',
+  /** Standard Moroccan Tamazight (Morocco) */
+  ZGH_MA = 'ZGH_MA',
+  /** Chinese */
+  ZH = 'ZH',
+  /** Chinese (Simplified) */
+  ZH_HANS = 'ZH_HANS',
+  /** Chinese (Simplified, China) */
+  ZH_HANS_CN = 'ZH_HANS_CN',
+  /** Chinese (Simplified, Hong Kong SAR China) */
+  ZH_HANS_HK = 'ZH_HANS_HK',
+  /** Chinese (Simplified, Macao SAR China) */
+  ZH_HANS_MO = 'ZH_HANS_MO',
+  /** Chinese (Simplified, Singapore) */
+  ZH_HANS_SG = 'ZH_HANS_SG',
+  /** Chinese (Traditional) */
+  ZH_HANT = 'ZH_HANT',
+  /** Chinese (Traditional, Hong Kong SAR China) */
+  ZH_HANT_HK = 'ZH_HANT_HK',
+  /** Chinese (Traditional, Macao SAR China) */
+  ZH_HANT_MO = 'ZH_HANT_MO',
+  /** Chinese (Traditional, Taiwan) */
+  ZH_HANT_TW = 'ZH_HANT_TW',
+  /** Zulu */
+  ZU = 'ZU',
+  /** Zulu (South Africa) */
+  ZU_ZA = 'ZU_ZA'
+}
+
+/** Filter input for order lines data. */
+export type LinesFilterInput = {
+  /** Filter by metadata fields of order lines. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+};
+
+/**
+ * Determine the mark as paid strategy for the channel.
+ *
+ *     TRANSACTION_FLOW - new orders marked as paid will receive a
+ *     `TransactionItem` object, that will cover the `order.total`.
+ *
+ *     PAYMENT_FLOW - new orders marked as paid will receive a
+ *     `Payment` object, that will cover the `order.total`.
+ */
+export enum MarkAsPaidStrategyEnum {
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  PAYMENT_FLOW = 'PAYMENT_FLOW',
+  TRANSACTION_FLOW = 'TRANSACTION_FLOW'
+}
+
+export enum MeasurementUnitsEnum {
+  ACRE_FT = 'ACRE_FT',
+  ACRE_IN = 'ACRE_IN',
+  CM = 'CM',
+  CUBIC_CENTIMETER = 'CUBIC_CENTIMETER',
+  CUBIC_DECIMETER = 'CUBIC_DECIMETER',
+  CUBIC_FOOT = 'CUBIC_FOOT',
+  CUBIC_INCH = 'CUBIC_INCH',
+  CUBIC_METER = 'CUBIC_METER',
+  CUBIC_MILLIMETER = 'CUBIC_MILLIMETER',
+  CUBIC_YARD = 'CUBIC_YARD',
+  DM = 'DM',
+  FL_OZ = 'FL_OZ',
+  FT = 'FT',
+  G = 'G',
+  INCH = 'INCH',
+  KG = 'KG',
+  KM = 'KM',
+  LB = 'LB',
+  LITER = 'LITER',
+  M = 'M',
+  MM = 'MM',
+  OZ = 'OZ',
+  PINT = 'PINT',
+  QT = 'QT',
+  SQ_CM = 'SQ_CM',
+  SQ_DM = 'SQ_DM',
+  SQ_FT = 'SQ_FT',
+  SQ_INCH = 'SQ_INCH',
+  SQ_KM = 'SQ_KM',
+  SQ_M = 'SQ_M',
+  SQ_MM = 'SQ_MM',
+  SQ_YD = 'SQ_YD',
+  TONNE = 'TONNE',
+  YD = 'YD'
+}
+
+export type MeasurementUnitsEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<MeasurementUnitsEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<MeasurementUnitsEnum>>;
+};
+
+export enum MediaChoicesSortField {
+  /** Sort media by ID. */
+  ID = 'ID'
+}
+
+export type MediaInput = {
+  /** Alt text for a product media. */
+  alt?: InputMaybe<Scalars['String']['input']>;
+  /** Represents an image file in a multipart request. */
+  image?: InputMaybe<Scalars['Upload']['input']>;
+  /** Represents an URL to an external media. */
+  mediaUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MediaSortingInput = {
+  /** Specifies the direction in which to sort media. */
+  direction: OrderDirection;
+  /** Sort media by the selected field. */
+  field: MediaChoicesSortField;
+};
+
+export type MenuCreateInput = {
+  /** List of menu items. */
+  items?: InputMaybe<Array<MenuItemInput>>;
+  /** Name of the menu. */
+  name: Scalars['String']['input'];
+  /** Slug of the menu. Will be generated if not provided. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum MenuErrorCode {
+  CANNOT_ASSIGN_NODE = 'CANNOT_ASSIGN_NODE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_MENU_ITEM = 'INVALID_MENU_ITEM',
+  NOT_FOUND = 'NOT_FOUND',
+  NO_MENU_ITEM_PROVIDED = 'NO_MENU_ITEM_PROVIDED',
+  REQUIRED = 'REQUIRED',
+  TOO_MANY_MENU_ITEMS = 'TOO_MANY_MENU_ITEMS',
+  UNIQUE = 'UNIQUE'
+}
+
+export type MenuFilterInput = {
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Array<Scalars['String']['input']>>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type MenuInput = {
+  /** Name of the menu. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Slug of the menu. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MenuItemCreateInput = {
+  /** Category to which item points. */
+  category?: InputMaybe<Scalars['ID']['input']>;
+  /** Collection to which item points. */
+  collection?: InputMaybe<Scalars['ID']['input']>;
+  /** Menu to which item belongs. */
+  menu: Scalars['ID']['input'];
+  /** Name of the menu item. */
+  name: Scalars['String']['input'];
+  /** Page to which item points. */
+  page?: InputMaybe<Scalars['ID']['input']>;
+  /** ID of the parent menu. If empty, menu will be top level menu. */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** URL of the pointed item. */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MenuItemFilterInput = {
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MenuItemInput = {
+  /** Category to which item points. */
+  category?: InputMaybe<Scalars['ID']['input']>;
+  /** Collection to which item points. */
+  collection?: InputMaybe<Scalars['ID']['input']>;
+  /** Name of the menu item. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Page to which item points. */
+  page?: InputMaybe<Scalars['ID']['input']>;
+  /** URL of the pointed item. */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MenuItemMoveInput = {
+  /** The menu item ID to move. */
+  itemId: Scalars['ID']['input'];
+  /** ID of the parent menu. If empty, menu will be top level menu. */
+  parentId?: InputMaybe<Scalars['ID']['input']>;
+  /** The new relative sorting position of the item (from -inf to +inf). 1 moves the item one position forward, -1 moves the item one position backward, 0 leaves the item unchanged. */
+  sortOrder?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type MenuItemSortingInput = {
+  /** Specifies the direction in which to sort menu items. */
+  direction: OrderDirection;
+  /** Sort menu items by the selected field. */
+  field: MenuItemsSortField;
+};
+
+export enum MenuItemsSortField {
+  /** Sort menu items by name. */
+  NAME = 'NAME'
+}
+
+export enum MenuSortField {
+  /** Sort menus by items count. */
+  ITEMS_COUNT = 'ITEMS_COUNT',
+  /** Sort menus by name. */
+  NAME = 'NAME'
+}
+
+export type MenuSortingInput = {
+  /** Specifies the direction in which to sort menus. */
+  direction: OrderDirection;
+  /** Sort menus by the selected field. */
+  field: MenuSortField;
+};
+
+export enum MetadataErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  NOT_UPDATED = 'NOT_UPDATED',
+  REQUIRED = 'REQUIRED'
+}
+
+export type MetadataFilter = {
+  /** Key of a metadata item. */
+  key: Scalars['String']['input'];
+  /** Value of a metadata item. */
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/**
+ * Allows filtering based on metadata key/value pairs.
+ *
+ *         Examples:
+ *         - `{key: "size"}`
+ *           Matches objects where the metadata key "size" exists, regardless of its value.
+ *         - `{key: "color", value: {oneOf: ["blue", "green"]}}`
+ *           Matches objects where the metadata key "color" is set to either "blue" or "green".
+ *         - `{key: "status", value: {eq: "active"}}`
+ *           Matches objects where the metadata key "status" is set to "active".
+ */
+export type MetadataFilterInput = {
+  /** Key to filter by. If not other fields provided - checking the existence of the key in metadata. */
+  key: Scalars['String']['input'];
+  /** Value to filter by. */
+  value?: InputMaybe<MetadataValueFilterInput>;
+};
+
+export type MetadataInput = {
+  /** Key of a metadata item. */
+  key: Scalars['String']['input'];
+  /** Value of a metadata item. */
+  value: Scalars['String']['input'];
+};
+
+/** Define the filtering options for metadata value fields. */
+export type MetadataValueFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['String']['input']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type MoneyInput = {
+  /** Amount of money. */
+  amount: Scalars['PositiveDecimal']['input'];
+  /** Currency code. */
+  currency: Scalars['String']['input'];
+};
+
+export type MoveProductInput = {
+  /** The ID of the product to move. */
+  productId: Scalars['ID']['input'];
+  /** The relative sorting position of the product (from -inf to +inf) starting from the first given product's actual position.1 moves the item one position forward, -1 moves the item one position backward, 0 leaves the item unchanged. */
+  sortOrder?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type NameTranslationInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum NavigationType {
+  /** Main storefront navigation. */
+  MAIN = 'MAIN',
+  /** Secondary storefront navigation. */
+  SECONDARY = 'SECONDARY'
+}
+
+export enum OrderAction {
+  /**
+   * Represents the capture action.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  CAPTURE = 'CAPTURE',
+  /** Represents a mark-as-paid action. */
+  MARK_AS_PAID = 'MARK_AS_PAID',
+  /**
+   * Represents a refund action.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  REFUND = 'REFUND',
+  /**
+   * Represents a void action.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  VOID = 'VOID'
+}
+
+/**
+ * Determine a current authorize status for order.
+ *
+ *     We treat the order as fully authorized when the sum of authorized and charged funds
+ *     cover the `order.total`-`order.totalGrantedRefund`.
+ *     We treat the order as partially authorized when the sum of authorized and charged
+ *     funds covers only part of the `order.total`-`order.totalGrantedRefund`.
+ *     We treat the order as not authorized when the sum of authorized and charged funds is
+ *     0.
+ *
+ *     NONE - the funds are not authorized
+ *     PARTIAL - the funds that are authorized and charged don't cover fully the
+ *     `order.total`-`order.totalGrantedRefund`
+ *     FULL - the funds that are authorized and charged fully cover the
+ *     `order.total`-`order.totalGrantedRefund`
+ */
+export enum OrderAuthorizeStatusEnum {
+  FULL = 'FULL',
+  NONE = 'NONE',
+  PARTIAL = 'PARTIAL'
+}
+
+/** Filter by authorize status. */
+export type OrderAuthorizeStatusEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<OrderAuthorizeStatusEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<OrderAuthorizeStatusEnum>>;
+};
+
+export type OrderBulkCreateDeliveryMethodInput = {
+  /** The ID of the shipping method. */
+  shippingMethodId?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the shipping method. */
+  shippingMethodName?: InputMaybe<Scalars['String']['input']>;
+  /** The price of the shipping. */
+  shippingPrice?: InputMaybe<TaxedMoneyInput>;
+  /** The ID of the tax class. */
+  shippingTaxClassId?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Metadata of the tax class. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  shippingTaxClassMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** The name of the tax class. */
+  shippingTaxClassName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Private metadata of the tax class. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  shippingTaxClassPrivateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Tax rate of the shipping. */
+  shippingTaxRate?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** The ID of the warehouse. */
+  warehouseId?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the warehouse. */
+  warehouseName?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum OrderBulkCreateErrorCode {
+  BULK_LIMIT = 'BULK_LIMIT',
+  FUTURE_DATE = 'FUTURE_DATE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INCORRECT_CURRENCY = 'INCORRECT_CURRENCY',
+  INSUFFICIENT_STOCK = 'INSUFFICIENT_STOCK',
+  INVALID = 'INVALID',
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  METADATA_KEY_REQUIRED = 'METADATA_KEY_REQUIRED',
+  NEGATIVE_INDEX = 'NEGATIVE_INDEX',
+  NON_EXISTING_STOCK = 'NON_EXISTING_STOCK',
+  NOTE_LENGTH = 'NOTE_LENGTH',
+  NOT_FOUND = 'NOT_FOUND',
+  NO_RELATED_ORDER_LINE = 'NO_RELATED_ORDER_LINE',
+  ORDER_LINE_FULFILLMENT_LINE_MISMATCH = 'ORDER_LINE_FULFILLMENT_LINE_MISMATCH',
+  PRICE_ERROR = 'PRICE_ERROR',
+  REQUIRED = 'REQUIRED',
+  TOO_MANY_IDENTIFIERS = 'TOO_MANY_IDENTIFIERS',
+  UNIQUE = 'UNIQUE'
+}
+
+export type OrderBulkCreateFulfillmentInput = {
+  /** List of items informing how to fulfill the order. */
+  lines?: InputMaybe<Array<OrderBulkCreateFulfillmentLineInput>>;
+  /** Fulfillment's tracking code. */
+  trackingCode?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OrderBulkCreateFulfillmentLineInput = {
+  /** 0-based index of order line, which the fulfillment line refers to. */
+  orderLineIndex: Scalars['Int']['input'];
+  /** The number of line items to be fulfilled from given warehouse. */
+  quantity: Scalars['Int']['input'];
+  /** The external ID of the product variant. */
+  variantExternalReference?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the product variant. */
+  variantId?: InputMaybe<Scalars['ID']['input']>;
+  /** The SKU of the product variant. */
+  variantSku?: InputMaybe<Scalars['String']['input']>;
+  /** ID of the warehouse from which the item will be fulfilled. */
+  warehouse: Scalars['ID']['input'];
+};
+
+export type OrderBulkCreateInput = {
+  /** Billing address of the customer. */
+  billingAddress: AddressInput;
+  /** Slug of the channel associated with the order. */
+  channel: Scalars['String']['input'];
+  /** The date, when the order was inserted to Saleor database. */
+  createdAt: Scalars['DateTime']['input'];
+  /** Currency code. */
+  currency: Scalars['String']['input'];
+  /** Note about customer. */
+  customerNote?: InputMaybe<Scalars['String']['input']>;
+  /** The delivery method selected for this order. */
+  deliveryMethod?: InputMaybe<OrderBulkCreateDeliveryMethodInput>;
+  /** List of discounts. */
+  discounts?: InputMaybe<Array<OrderDiscountCommonInput>>;
+  /** Determines whether displayed prices should include taxes. */
+  displayGrossPrices?: InputMaybe<Scalars['Boolean']['input']>;
+  /** External ID of the order. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Fulfillments of the order. */
+  fulfillments?: InputMaybe<Array<OrderBulkCreateFulfillmentInput>>;
+  /** List of gift card codes associated with the order. */
+  giftCards?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Invoices related to the order. */
+  invoices?: InputMaybe<Array<OrderBulkCreateInvoiceInput>>;
+  /** Order language code. */
+  languageCode: LanguageCodeEnum;
+  /** List of order lines. */
+  lines: Array<OrderBulkCreateOrderLineInput>;
+  /**
+   * Metadata of the order. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Notes related to the order. */
+  notes?: InputMaybe<Array<OrderBulkCreateNoteInput>>;
+  /**
+   * Private metadata of the order. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of a view, where users should be redirected to see the order details. */
+  redirectUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Shipping address of the customer. */
+  shippingAddress?: InputMaybe<AddressInput>;
+  /** Status of the order. */
+  status?: InputMaybe<OrderStatus>;
+  /** Transactions related to the order. */
+  transactions?: InputMaybe<Array<TransactionCreateInput>>;
+  /** Customer associated with the order. */
+  user: OrderBulkCreateUserInput;
+  /** Code of a voucher associated with the order. */
+  voucherCode?: InputMaybe<Scalars['String']['input']>;
+  /** Weight of the order in kg. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export type OrderBulkCreateInvoiceInput = {
+  /** The date, when the invoice was created. */
+  createdAt: Scalars['DateTime']['input'];
+  /**
+   * Metadata of the invoice. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Invoice number. */
+  number?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Private metadata of the invoice. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of the invoice to download. */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OrderBulkCreateNoteInput = {
+  /** The app ID associated with the message. */
+  appId?: InputMaybe<Scalars['ID']['input']>;
+  /** The date associated with the message. */
+  date?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Note message. Max characters: 255. */
+  message: Scalars['String']['input'];
+  /** The user email associated with the message. */
+  userEmail?: InputMaybe<Scalars['ID']['input']>;
+  /** The user external ID associated with the message. */
+  userExternalReference?: InputMaybe<Scalars['ID']['input']>;
+  /** The user ID associated with the message. */
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type OrderBulkCreateOrderLineInput = {
+  /** The date, when the order line was created. */
+  createdAt: Scalars['DateTime']['input'];
+  /** Gift card flag. */
+  isGiftCard: Scalars['Boolean']['input'];
+  /** Determines whether shipping of the order line items is required. */
+  isShippingRequired: Scalars['Boolean']['input'];
+  /**
+   * Metadata of the order line. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Private metadata of the order line. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** The name of the product. */
+  productName?: InputMaybe<Scalars['String']['input']>;
+  /** The SKU of the product. */
+  productSku?: InputMaybe<Scalars['String']['input']>;
+  /** Number of items in the order line */
+  quantity: Scalars['Int']['input'];
+  /** The ID of the tax class. */
+  taxClassId?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Metadata of the tax class. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  taxClassMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** The name of the tax class. */
+  taxClassName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Private metadata of the tax class. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  taxClassPrivateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Tax rate of the order line. */
+  taxRate?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Price of the order line. */
+  totalPrice: TaxedMoneyInput;
+  /** Translation of the product name. */
+  translatedProductName?: InputMaybe<Scalars['String']['input']>;
+  /** Translation of the product variant name. */
+  translatedVariantName?: InputMaybe<Scalars['String']['input']>;
+  /** Price of the order line excluding applied discount. */
+  undiscountedTotalPrice: TaxedMoneyInput;
+  /** Reason of the discount on order line. */
+  unitDiscountReason?: InputMaybe<Scalars['String']['input']>;
+  /** Type of the discount: fixed or percent */
+  unitDiscountType?: InputMaybe<DiscountValueTypeEnum>;
+  /** Value of the discount. Can store fixed value or percent value */
+  unitDiscountValue?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** The external ID of the product variant. */
+  variantExternalReference?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the product variant. */
+  variantId?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the product variant. */
+  variantName?: InputMaybe<Scalars['String']['input']>;
+  /** The SKU of the product variant. */
+  variantSku?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the warehouse, where the line will be allocated. */
+  warehouse: Scalars['ID']['input'];
+};
+
+export type OrderBulkCreateUserInput = {
+  /** Customer email associated with the order. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** Customer external ID associated with the order. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Customer ID associated with the order. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+/**
+ * Determine the current charge status for the order.
+ *
+ *     An order is considered overcharged when the sum of the
+ *     transactionItem's charge amounts exceeds the value of
+ *     `order.total` - `order.totalGrantedRefund`.
+ *     If the sum of the transactionItem's charge amounts equals
+ *     `order.total` - `order.totalGrantedRefund`, we consider the order to be fully
+ *     charged.
+ *     If the sum of the transactionItem's charge amounts covers a part of the
+ *     `order.total` - `order.totalGrantedRefund`, we treat the order as partially charged.
+ *
+ *     NONE - the funds are not charged.
+ *     PARTIAL - the funds that are charged don't cover the
+ *     `order.total`-`order.totalGrantedRefund`
+ *     FULL - the funds that are charged fully cover the
+ *     `order.total`-`order.totalGrantedRefund`
+ *     OVERCHARGED - the charged funds are bigger than the
+ *     `order.total`-`order.totalGrantedRefund`
+ */
+export enum OrderChargeStatusEnum {
+  FULL = 'FULL',
+  NONE = 'NONE',
+  OVERCHARGED = 'OVERCHARGED',
+  PARTIAL = 'PARTIAL'
+}
+
+/** Filter by charge status. */
+export type OrderChargeStatusEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<OrderChargeStatusEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<OrderChargeStatusEnum>>;
+};
+
+export enum OrderCreateFromCheckoutErrorCode {
+  BILLING_ADDRESS_NOT_SET = 'BILLING_ADDRESS_NOT_SET',
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  CHECKOUT_NOT_FOUND = 'CHECKOUT_NOT_FOUND',
+  EMAIL_NOT_SET = 'EMAIL_NOT_SET',
+  GIFT_CARD_NOT_APPLICABLE = 'GIFT_CARD_NOT_APPLICABLE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INSUFFICIENT_STOCK = 'INSUFFICIENT_STOCK',
+  INVALID_SHIPPING_METHOD = 'INVALID_SHIPPING_METHOD',
+  NO_LINES = 'NO_LINES',
+  SHIPPING_ADDRESS_NOT_SET = 'SHIPPING_ADDRESS_NOT_SET',
+  SHIPPING_METHOD_NOT_SET = 'SHIPPING_METHOD_NOT_SET',
+  TAX_ERROR = 'TAX_ERROR',
+  UNAVAILABLE_VARIANT_IN_CHANNEL = 'UNAVAILABLE_VARIANT_IN_CHANNEL',
+  VOUCHER_NOT_APPLICABLE = 'VOUCHER_NOT_APPLICABLE'
+}
+
+export enum OrderDirection {
+  /** Specifies an ascending sort order. */
+  ASC = 'ASC',
+  /** Specifies a descending sort order. */
+  DESC = 'DESC'
+}
+
+export type OrderDiscountCommonInput = {
+  /** Explanation for the applied discount. */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /** Value of the discount. Can store fixed value or percent value */
+  value: Scalars['PositiveDecimal']['input'];
+  /** Type of the discount: fixed or percent */
+  valueType: DiscountValueTypeEnum;
+};
+
+export enum OrderDiscountType {
+  MANUAL = 'MANUAL',
+  ORDER_PROMOTION = 'ORDER_PROMOTION',
+  PROMOTION = 'PROMOTION',
+  SALE = 'SALE',
+  VOUCHER = 'VOUCHER'
+}
+
+export type OrderDraftFilterInput = {
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  created?: InputMaybe<DateRangeInput>;
+  customer?: InputMaybe<Scalars['String']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum OrderErrorCode {
+  BILLING_ADDRESS_NOT_SET = 'BILLING_ADDRESS_NOT_SET',
+  CANNOT_CANCEL_FULFILLMENT = 'CANNOT_CANCEL_FULFILLMENT',
+  CANNOT_CANCEL_ORDER = 'CANNOT_CANCEL_ORDER',
+  CANNOT_DELETE = 'CANNOT_DELETE',
+  CANNOT_DISCOUNT = 'CANNOT_DISCOUNT',
+  CANNOT_FULFILL_UNPAID_ORDER = 'CANNOT_FULFILL_UNPAID_ORDER',
+  CANNOT_REFUND = 'CANNOT_REFUND',
+  CAPTURE_INACTIVE_PAYMENT = 'CAPTURE_INACTIVE_PAYMENT',
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  FULFILL_ORDER_LINE = 'FULFILL_ORDER_LINE',
+  GIFT_CARD_LINE = 'GIFT_CARD_LINE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INSUFFICIENT_STOCK = 'INSUFFICIENT_STOCK',
+  INVALID = 'INVALID',
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  INVALID_VOUCHER = 'INVALID_VOUCHER',
+  INVALID_VOUCHER_CODE = 'INVALID_VOUCHER_CODE',
+  MISSING_ADDRESS_DATA = 'MISSING_ADDRESS_DATA',
+  NON_EDITABLE_GIFT_LINE = 'NON_EDITABLE_GIFT_LINE',
+  NON_REMOVABLE_GIFT_LINE = 'NON_REMOVABLE_GIFT_LINE',
+  NOT_AVAILABLE_IN_CHANNEL = 'NOT_AVAILABLE_IN_CHANNEL',
+  NOT_EDITABLE = 'NOT_EDITABLE',
+  NOT_FOUND = 'NOT_FOUND',
+  ORDER_NO_SHIPPING_ADDRESS = 'ORDER_NO_SHIPPING_ADDRESS',
+  PAYMENT_ERROR = 'PAYMENT_ERROR',
+  PAYMENT_MISSING = 'PAYMENT_MISSING',
+  PRODUCT_NOT_PUBLISHED = 'PRODUCT_NOT_PUBLISHED',
+  PRODUCT_UNAVAILABLE_FOR_PURCHASE = 'PRODUCT_UNAVAILABLE_FOR_PURCHASE',
+  REQUIRED = 'REQUIRED',
+  SHIPPING_METHOD_NOT_APPLICABLE = 'SHIPPING_METHOD_NOT_APPLICABLE',
+  SHIPPING_METHOD_REQUIRED = 'SHIPPING_METHOD_REQUIRED',
+  TAX_ERROR = 'TAX_ERROR',
+  TRANSACTION_ERROR = 'TRANSACTION_ERROR',
+  UNIQUE = 'UNIQUE',
+  VOID_INACTIVE_PAYMENT = 'VOID_INACTIVE_PAYMENT',
+  ZERO_QUANTITY = 'ZERO_QUANTITY'
+}
+
+/** Filter input for order events data. */
+export type OrderEventFilterInput = {
+  /** Filter order events by date. */
+  date?: InputMaybe<DateTimeRangeInput>;
+  /** Filter order events by type. */
+  type?: InputMaybe<OrderEventTypeEnumFilterInput>;
+};
+
+export type OrderEventTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<OrderEventsEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<OrderEventsEnum>>;
+};
+
+export enum OrderEventsEmailsEnum {
+  CONFIRMED = 'CONFIRMED',
+  FULFILLMENT_CONFIRMATION = 'FULFILLMENT_CONFIRMATION',
+  ORDER_CANCEL = 'ORDER_CANCEL',
+  ORDER_CONFIRMATION = 'ORDER_CONFIRMATION',
+  ORDER_REFUND = 'ORDER_REFUND',
+  PAYMENT_CONFIRMATION = 'PAYMENT_CONFIRMATION',
+  SHIPPING_CONFIRMATION = 'SHIPPING_CONFIRMATION',
+  TRACKING_UPDATED = 'TRACKING_UPDATED'
+}
+
+/** The different order event types. */
+export enum OrderEventsEnum {
+  ADDED_PRODUCTS = 'ADDED_PRODUCTS',
+  CANCELED = 'CANCELED',
+  CONFIRMED = 'CONFIRMED',
+  DRAFT_CREATED = 'DRAFT_CREATED',
+  DRAFT_CREATED_FROM_REPLACE = 'DRAFT_CREATED_FROM_REPLACE',
+  EMAIL_SENT = 'EMAIL_SENT',
+  EXPIRED = 'EXPIRED',
+  EXTERNAL_SERVICE_NOTIFICATION = 'EXTERNAL_SERVICE_NOTIFICATION',
+  FULFILLMENT_AWAITS_APPROVAL = 'FULFILLMENT_AWAITS_APPROVAL',
+  FULFILLMENT_CANCELED = 'FULFILLMENT_CANCELED',
+  FULFILLMENT_FULFILLED_ITEMS = 'FULFILLMENT_FULFILLED_ITEMS',
+  FULFILLMENT_REFUNDED = 'FULFILLMENT_REFUNDED',
+  FULFILLMENT_REPLACED = 'FULFILLMENT_REPLACED',
+  FULFILLMENT_RESTOCKED_ITEMS = 'FULFILLMENT_RESTOCKED_ITEMS',
+  FULFILLMENT_RETURNED = 'FULFILLMENT_RETURNED',
+  INVOICE_GENERATED = 'INVOICE_GENERATED',
+  INVOICE_REQUESTED = 'INVOICE_REQUESTED',
+  INVOICE_SENT = 'INVOICE_SENT',
+  INVOICE_UPDATED = 'INVOICE_UPDATED',
+  NOTE_ADDED = 'NOTE_ADDED',
+  NOTE_UPDATED = 'NOTE_UPDATED',
+  ORDER_DISCOUNT_ADDED = 'ORDER_DISCOUNT_ADDED',
+  ORDER_DISCOUNT_AUTOMATICALLY_UPDATED = 'ORDER_DISCOUNT_AUTOMATICALLY_UPDATED',
+  ORDER_DISCOUNT_DELETED = 'ORDER_DISCOUNT_DELETED',
+  ORDER_DISCOUNT_UPDATED = 'ORDER_DISCOUNT_UPDATED',
+  ORDER_FULLY_PAID = 'ORDER_FULLY_PAID',
+  ORDER_LINE_DISCOUNT_REMOVED = 'ORDER_LINE_DISCOUNT_REMOVED',
+  ORDER_LINE_DISCOUNT_UPDATED = 'ORDER_LINE_DISCOUNT_UPDATED',
+  ORDER_LINE_PRODUCT_DELETED = 'ORDER_LINE_PRODUCT_DELETED',
+  ORDER_LINE_VARIANT_DELETED = 'ORDER_LINE_VARIANT_DELETED',
+  ORDER_MARKED_AS_PAID = 'ORDER_MARKED_AS_PAID',
+  ORDER_REPLACEMENT_CREATED = 'ORDER_REPLACEMENT_CREATED',
+  OTHER = 'OTHER',
+  OVERSOLD_ITEMS = 'OVERSOLD_ITEMS',
+  PAYMENT_AUTHORIZED = 'PAYMENT_AUTHORIZED',
+  PAYMENT_CAPTURED = 'PAYMENT_CAPTURED',
+  PAYMENT_FAILED = 'PAYMENT_FAILED',
+  PAYMENT_REFUNDED = 'PAYMENT_REFUNDED',
+  PAYMENT_VOIDED = 'PAYMENT_VOIDED',
+  PLACED = 'PLACED',
+  PLACED_AUTOMATICALLY_FROM_PAID_CHECKOUT = 'PLACED_AUTOMATICALLY_FROM_PAID_CHECKOUT',
+  PLACED_FROM_DRAFT = 'PLACED_FROM_DRAFT',
+  REMOVED_PRODUCTS = 'REMOVED_PRODUCTS',
+  TRACKING_UPDATED = 'TRACKING_UPDATED',
+  TRANSACTION_CANCEL_REQUESTED = 'TRANSACTION_CANCEL_REQUESTED',
+  TRANSACTION_CHARGE_REQUESTED = 'TRANSACTION_CHARGE_REQUESTED',
+  TRANSACTION_EVENT = 'TRANSACTION_EVENT',
+  TRANSACTION_MARK_AS_PAID_FAILED = 'TRANSACTION_MARK_AS_PAID_FAILED',
+  TRANSACTION_REFUND_REQUESTED = 'TRANSACTION_REFUND_REQUESTED',
+  UPDATED_ADDRESS = 'UPDATED_ADDRESS'
+}
+
+export type OrderFilterInput = {
+  authorizeStatus?: InputMaybe<Array<OrderAuthorizeStatusEnum>>;
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  chargeStatus?: InputMaybe<Array<OrderChargeStatusEnum>>;
+  checkoutIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  checkoutTokens?: InputMaybe<Array<Scalars['UUID']['input']>>;
+  created?: InputMaybe<DateRangeInput>;
+  customer?: InputMaybe<Scalars['String']['input']>;
+  giftCardBought?: InputMaybe<Scalars['Boolean']['input']>;
+  giftCardUsed?: InputMaybe<Scalars['Boolean']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  isClickAndCollect?: InputMaybe<Scalars['Boolean']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  numbers?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter orders by payment charge status.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  paymentStatus?: InputMaybe<Array<PaymentChargeStatusEnum>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Array<OrderStatusFilter>>;
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type OrderFulfillInput = {
+  /** If true, then allow proceed fulfillment when stock is exceeded. */
+  allowStockToBeExceeded?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of items informing how to fulfill the order. */
+  lines: Array<OrderFulfillLineInput>;
+  /** If true, send an email notification to the customer. */
+  notifyCustomer?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Fulfillment tracking number. */
+  trackingNumber?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OrderFulfillLineInput = {
+  /** The ID of the order line. */
+  orderLineId?: InputMaybe<Scalars['ID']['input']>;
+  /** List of stock items to create. */
+  stocks: Array<OrderFulfillStockInput>;
+};
+
+export type OrderFulfillStockInput = {
+  /** The number of line items to be fulfilled from given warehouse. */
+  quantity: Scalars['Int']['input'];
+  /** ID of the warehouse from which the item will be fulfilled. */
+  warehouse: Scalars['ID']['input'];
+};
+
+export enum OrderGrantRefundCreateErrorCode {
+  AMOUNT_GREATER_THAN_AVAILABLE = 'AMOUNT_GREATER_THAN_AVAILABLE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_CONFIGURED = 'NOT_CONFIGURED',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  SHIPPING_COSTS_ALREADY_GRANTED = 'SHIPPING_COSTS_ALREADY_GRANTED'
+}
+
+export type OrderGrantRefundCreateInput = {
+  /** Amount of the granted refund. If not provided, the amount will be calculated automatically based on provided `lines` and `grantRefundForShipping`. */
+  amount?: InputMaybe<Scalars['Decimal']['input']>;
+  /** Determine if granted refund should include shipping costs. */
+  grantRefundForShipping?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Lines to assign to granted refund. */
+  lines?: InputMaybe<Array<OrderGrantRefundCreateLineInput>>;
+  /** Reason of the granted refund. */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of a `Page` (Model) to reference in reason.
+   *
+   * Added in Saleor 3.22.
+   */
+  reasonReference?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used. Field required starting from Saleor 3.21.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  transactionId: Scalars['ID']['input'];
+};
+
+export enum OrderGrantRefundCreateLineErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_CONFIGURED = 'NOT_CONFIGURED',
+  NOT_FOUND = 'NOT_FOUND',
+  QUANTITY_GREATER_THAN_AVAILABLE = 'QUANTITY_GREATER_THAN_AVAILABLE'
+}
+
+export type OrderGrantRefundCreateLineInput = {
+  /** The ID of the order line. */
+  id: Scalars['ID']['input'];
+  /** The quantity of line items to be marked to refund. */
+  quantity: Scalars['Int']['input'];
+  /** Reason of the granted refund for the line. */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of a `Page` (Model) to reference in reason for the line.
+   *
+   * Added in Saleor 3.23.
+   */
+  reasonReference?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export enum OrderGrantRefundUpdateErrorCode {
+  AMOUNT_GREATER_THAN_AVAILABLE = 'AMOUNT_GREATER_THAN_AVAILABLE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_CONFIGURED = 'NOT_CONFIGURED',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  SHIPPING_COSTS_ALREADY_GRANTED = 'SHIPPING_COSTS_ALREADY_GRANTED'
+}
+
+export type OrderGrantRefundUpdateInput = {
+  /** Lines to assign to granted refund. */
+  addLines?: InputMaybe<Array<OrderGrantRefundUpdateLineAddInput>>;
+  /** Amount of the granted refund. if not provided and `addLines` or `removeLines` or `grantRefundForShipping` is provided, amount will be calculated automatically. */
+  amount?: InputMaybe<Scalars['Decimal']['input']>;
+  /** Determine if granted refund should include shipping costs. */
+  grantRefundForShipping?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Reason of the granted refund. */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of a `Page` (Model) to reference in reason.
+   *
+   * Added in Saleor 3.22.
+   */
+  reasonReference?: InputMaybe<Scalars['ID']['input']>;
+  /** Lines to remove from granted refund. */
+  removeLines?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * The ID of the transaction item related to the granted refund. If `amount` provided in the input, the transaction.chargedAmount needs to be equal or greater than provided `amount`.If `amount` is not provided in the input and calculated automatically by Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be used.Field will be required starting from Saleor 3.21.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  transactionId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type OrderGrantRefundUpdateLineAddInput = {
+  /** The ID of the order line. */
+  id: Scalars['ID']['input'];
+  /** The quantity of line items to be marked to refund. */
+  quantity: Scalars['Int']['input'];
+  /** Reason of the granted refund for the line. */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of a `Page` (Model) to reference in reason for the line.
+   *
+   * Added in Saleor 3.23.
+   */
+  reasonReference?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export enum OrderGrantRefundUpdateLineErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_CONFIGURED = 'NOT_CONFIGURED',
+  NOT_FOUND = 'NOT_FOUND',
+  QUANTITY_GREATER_THAN_AVAILABLE = 'QUANTITY_GREATER_THAN_AVAILABLE'
+}
+
+/**
+ * Represents the status of a granted refund.
+ *
+ *     NONE - the refund on related transactionItem is not processed
+ *     PENDING - the refund on related transactionItem is pending
+ *     FULL - the refund on related transactionItem is fully processed
+ *     FAIL - the refund on related transactionItem failed
+ */
+export enum OrderGrantedRefundStatusEnum {
+  FAILURE = 'FAILURE',
+  NONE = 'NONE',
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS'
+}
+
+export type OrderLineCreateInput = {
+  /** Flag that allow force splitting the same variant into multiple lines by skipping the matching logic. */
+  forceNewLine?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Custom price of the item.When the line with the same variant will be provided multiple times, the last price will be used. */
+  price?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Number of variant items ordered. */
+  quantity: Scalars['Int']['input'];
+  /** Product variant ID. */
+  variantId: Scalars['ID']['input'];
+};
+
+export type OrderLineInput = {
+  /** Number of variant items ordered. */
+  quantity: Scalars['Int']['input'];
+};
+
+export enum OrderNoteAddErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  REQUIRED = 'REQUIRED'
+}
+
+export type OrderNoteInput = {
+  /** Note message. */
+  message: Scalars['String']['input'];
+};
+
+export enum OrderNoteUpdateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export enum OrderOriginEnum {
+  BULK_CREATE = 'BULK_CREATE',
+  CHECKOUT = 'CHECKOUT',
+  DRAFT = 'DRAFT',
+  REISSUE = 'REISSUE'
+}
+
+export type OrderPredicateInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<OrderPredicateInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<OrderPredicateInput>>;
+  /** Defines the conditions related to checkout and order objects. */
+  discountedObjectPredicate?: InputMaybe<DiscountedObjectWhereInput>;
+};
+
+export type OrderRefundFulfillmentLineInput = {
+  /** The ID of the fulfillment line to refund. */
+  fulfillmentLineId: Scalars['ID']['input'];
+  /** The number of items to be refunded. */
+  quantity: Scalars['Int']['input'];
+};
+
+export type OrderRefundLineInput = {
+  /** The ID of the order line to refund. */
+  orderLineId: Scalars['ID']['input'];
+  /** The number of items to be refunded. */
+  quantity: Scalars['Int']['input'];
+};
+
+export type OrderRefundProductsInput = {
+  /** The total amount of refund when the value is provided manually. */
+  amountToRefund?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** List of fulfilled lines to refund. */
+  fulfillmentLines?: InputMaybe<Array<OrderRefundFulfillmentLineInput>>;
+  /** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+  includeShippingCosts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of unfulfilled lines to refund. */
+  orderLines?: InputMaybe<Array<OrderRefundLineInput>>;
+};
+
+export type OrderReturnFulfillmentLineInput = {
+  /** The ID of the fulfillment line to return. */
+  fulfillmentLineId: Scalars['ID']['input'];
+  /** The number of items to be returned. */
+  quantity: Scalars['Int']['input'];
+  /**
+   * Reason for returning this fulfillment line.
+   *
+   * Added in Saleor 3.23.
+   */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of a `Page` (Model) to reference in reason for this fulfillment line.
+   *
+   * Added in Saleor 3.23.
+   */
+  reasonReference?: InputMaybe<Scalars['ID']['input']>;
+  /** Determines, if the line should be added to replace order. */
+  replace?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type OrderReturnLineInput = {
+  /** The ID of the order line to return. */
+  orderLineId: Scalars['ID']['input'];
+  /** The number of items to be returned. */
+  quantity: Scalars['Int']['input'];
+  /**
+   * Reason for returning this line.
+   *
+   * Added in Saleor 3.23.
+   */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of a `Page` (Model) to reference in reason for this line.
+   *
+   * Added in Saleor 3.23.
+   */
+  reasonReference?: InputMaybe<Scalars['ID']['input']>;
+  /** Determines, if the line should be added to replace order. */
+  replace?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type OrderReturnProductsInput = {
+  /** The total amount of refund when the value is provided manually. */
+  amountToRefund?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** List of fulfilled lines to return. */
+  fulfillmentLines?: InputMaybe<Array<OrderReturnFulfillmentLineInput>>;
+  /** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+  includeShippingCosts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of unfulfilled lines to return. */
+  orderLines?: InputMaybe<Array<OrderReturnLineInput>>;
+  /**
+   * Reason for returning this order.
+   *
+   * Added in Saleor 3.23.
+   */
+  reason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of a `Page` (Model) to reference in reason for this return.
+   *
+   * Added in Saleor 3.23.
+   */
+  reasonReference?: InputMaybe<Scalars['ID']['input']>;
+  /** If true, Saleor will call refund action for all lines. */
+  refund?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type OrderSettingsInput = {
+  /** Determine if it is possible to place unpaid order by calling `checkoutComplete` mutation. */
+  allowUnpaidOrders?: InputMaybe<Scalars['Boolean']['input']>;
+  /** When disabled, all new orders from checkout will be marked as unconfirmed. When enabled orders from checkout will become unfulfilled immediately. By default set to True */
+  automaticallyConfirmAllNewOrders?: InputMaybe<Scalars['Boolean']['input']>;
+  /** When enabled, all non-shippable gift card orders will be fulfilled automatically. By default set to True. */
+  automaticallyFulfillNonShippableGiftCard?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The time in days after expired orders will be deleted.Allowed range is from 1 to 120. */
+  deleteExpiredOrdersAfter?: InputMaybe<Scalars['Day']['input']>;
+  /**
+   * Time in hours after which the draft order line price will be refreshed. Default value is 24 hours. Enter 0 or null to disable.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  draftOrderLinePriceFreezePeriod?: InputMaybe<Scalars['Hour']['input']>;
+  /** Expiration time in minutes. Default null - means do not expire any orders. Enter 0 or null to disable. */
+  expireOrdersAfter?: InputMaybe<Scalars['Minute']['input']>;
+  /**
+   * Specify whether a coupon applied to draft orders will count toward voucher usage.
+   *
+   * Warning:  when switching this setting from `false` to `true`, the vouchers will be disconnected from all draft orders.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  includeDraftOrderInVoucherUsage?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Determine what strategy will be used to mark the order as paid. Based on the chosen option, the proper object will be created and attached to the order when it's manually marked as paid.
+   * `PAYMENT_FLOW` - [default option] creates the `Payment` object.
+   * `TRANSACTION_FLOW` - creates the `TransactionItem` object.
+   */
+  markAsPaidStrategy?: InputMaybe<MarkAsPaidStrategyEnum>;
+  /**
+   * This flag only affects orders created from checkout and applies specifically to vouchers of the types: `SPECIFIC_PRODUCT` and `ENTIRE_ORDER` with `applyOncePerOrder` enabled.
+   * - When legacy propagation is enabled, discounts from these vouchers are represented as `OrderDiscount` objects, attached to the order and returned in the `Order.discounts` field. Additionally, percentage-based vouchers are converted to fixed-value discounts.
+   * - When legacy propagation is disabled, discounts are represented as `OrderLineDiscount` objects, attached to individual lines and returned in the `OrderLine.discounts` field. In this case, percentage-based vouchers retain their original type.
+   * In future releases, `OrderLineDiscount` will become the default behavior, and this flag will be deprecated and removed.
+   */
+  useLegacyLineDiscountPropagation?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum OrderSortField {
+  /** Sort orders by creation date. */
+  CREATED_AT = 'CREATED_AT',
+  /**
+   * Sort orders by creation date
+   * @deprecated Use `CREATED_AT` instead.
+   */
+  CREATION_DATE = 'CREATION_DATE',
+  /** Sort orders by customer. */
+  CUSTOMER = 'CUSTOMER',
+  /**
+   * Sort orders by fulfillment status.
+   * @deprecated Use `STATUS` instead.
+   */
+  FULFILLMENT_STATUS = 'FULFILLMENT_STATUS',
+  /** Sort orders by last modified date. */
+  LAST_MODIFIED_AT = 'LAST_MODIFIED_AT',
+  /** Sort orders by number. */
+  NUMBER = 'NUMBER',
+  /**
+   * Sort orders by payment status.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT = 'PAYMENT',
+  /** Sort orders by rank. Note: This option is available only with the `search` filter. */
+  RANK = 'RANK',
+  /**
+   * Sort orders by order status.
+   *
+   * Added in Saleor 3.22.
+   */
+  STATUS = 'STATUS'
+}
+
+export type OrderSortingInput = {
+  /** Specifies the direction in which to sort orders. */
+  direction: OrderDirection;
+  /** Sort orders by the selected field. */
+  field: OrderSortField;
+};
+
+export enum OrderStatus {
+  CANCELED = 'CANCELED',
+  DRAFT = 'DRAFT',
+  EXPIRED = 'EXPIRED',
+  FULFILLED = 'FULFILLED',
+  PARTIALLY_FULFILLED = 'PARTIALLY_FULFILLED',
+  PARTIALLY_RETURNED = 'PARTIALLY_RETURNED',
+  RETURNED = 'RETURNED',
+  UNCONFIRMED = 'UNCONFIRMED',
+  UNFULFILLED = 'UNFULFILLED'
+}
+
+/** Filter by order status. */
+export type OrderStatusEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<OrderStatus>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<OrderStatus>>;
+};
+
+export enum OrderStatusFilter {
+  CANCELED = 'CANCELED',
+  FULFILLED = 'FULFILLED',
+  PARTIALLY_FULFILLED = 'PARTIALLY_FULFILLED',
+  READY_TO_CAPTURE = 'READY_TO_CAPTURE',
+  READY_TO_FULFILL = 'READY_TO_FULFILL',
+  UNCONFIRMED = 'UNCONFIRMED',
+  UNFULFILLED = 'UNFULFILLED'
+}
+
+export type OrderUpdateInput = {
+  /** Billing address of the customer. */
+  billingAddress?: InputMaybe<AddressInput>;
+  /** External ID of this order. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Order language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /**
+   * Order public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Order private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Shipping address of the customer. */
+  shippingAddress?: InputMaybe<AddressInput>;
+  /** Email address of the customer. */
+  userEmail?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OrderUpdateShippingInput = {
+  /** ID of the selected shipping method, pass null to remove currently assigned shipping method. */
+  shippingMethod?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type OrderWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<OrderWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<OrderWhereInput>>;
+  /** Filter by authorize status. */
+  authorizeStatus?: InputMaybe<OrderAuthorizeStatusEnumFilterInput>;
+  /** Filter by billing address of the order. */
+  billingAddress?: InputMaybe<AddressFilterInput>;
+  /** Filter by channel. */
+  channelId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by charge status. */
+  chargeStatus?: InputMaybe<OrderChargeStatusEnumFilterInput>;
+  /** Filter by checkout id. */
+  checkoutId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by checkout token. */
+  checkoutToken?: InputMaybe<UuidFilterInput>;
+  /** Filter order by created at date. */
+  createdAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by order events. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  events?: InputMaybe<Array<OrderEventFilterInput>>;
+  /** Filter by fulfillment data associated with the order. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  fulfillments?: InputMaybe<Array<FulfillmentFilterInput>>;
+  /** Filter by whether the order has any fulfillments. */
+  hasFulfillments?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by whether the order has any invoices. */
+  hasInvoices?: InputMaybe<Scalars['Boolean']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by invoice data associated with the order. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  invoices?: InputMaybe<Array<InvoiceFilterInput>>;
+  /** Filter by whether the order uses the click and collect delivery method. */
+  isClickAndCollect?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter based on whether the order includes a gift card purchase. */
+  isGiftCardBought?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter based on whether a gift card was used in the order. */
+  isGiftCardUsed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by line items associated with the order. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  lines?: InputMaybe<Array<LinesFilterInput>>;
+  /** Filter by number of lines in the order. */
+  linesCount?: InputMaybe<IntFilterInput>;
+  /** Filter by metadata fields. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by order number. */
+  number?: InputMaybe<IntFilterInput>;
+  /** Filter by the product type of related order lines. */
+  productTypeId?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by shipping address of the order. */
+  shippingAddress?: InputMaybe<AddressFilterInput>;
+  /** Filter by order status. */
+  status?: InputMaybe<OrderStatusEnumFilterInput>;
+  /** Filter by total gross amount of the order. */
+  totalGross?: InputMaybe<PriceFilterInput>;
+  /** Filter by total net amount of the order. */
+  totalNet?: InputMaybe<PriceFilterInput>;
+  /** Filter by transaction data associated with the order. Each list item represents conditions that must be satisfied by a single object. The filter matches orders that have related objects meeting all specified groups of conditions. */
+  transactions?: InputMaybe<Array<TransactionFilterInput>>;
+  /** Filter order by updated at date. */
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by user. */
+  user?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by user email. */
+  userEmail?: InputMaybe<StringFilterInput>;
+  /** Filter by voucher code used in the order. */
+  voucherCode?: InputMaybe<StringFilterInput>;
+};
+
+export type OtherPaymentMethodDetailsInput = {
+  /** Name of the payment method used for the transaction. */
+  name: Scalars['String']['input'];
+};
+
+export type PageCreateInput = {
+  /** List of attributes. */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /**
+   * Page content.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  content?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Determines if page is visible in the storefront. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /** ID of the page type that page belongs to. */
+  pageType: Scalars['ID']['input'];
+  /**
+   * Publication date. ISO 8601 standard.
+   * @deprecated Use `publishedAt` field instead.
+   */
+  publicationDate?: InputMaybe<Scalars['String']['input']>;
+  /** Publication date time. ISO 8601 standard. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Page internal name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** Page title. */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum PageErrorCode {
+  ATTRIBUTE_ALREADY_ASSIGNED = 'ATTRIBUTE_ALREADY_ASSIGNED',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type PageFilterInput = {
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  pageTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type PageInput = {
+  /** List of attributes. */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /**
+   * Page content.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  content?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Determines if page is visible in the storefront. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Publication date. ISO 8601 standard.
+   * @deprecated Use `publishedAt` field instead.
+   */
+  publicationDate?: InputMaybe<Scalars['String']['input']>;
+  /** Publication date time. ISO 8601 standard. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Page internal name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** Page title. */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum PageSortField {
+  /** Sort pages by creation date. */
+  CREATED_AT = 'CREATED_AT',
+  /**
+   * Sort pages by creation date.
+   * @deprecated Use `CREATED_AT` instead.
+   */
+  CREATION_DATE = 'CREATION_DATE',
+  /**
+   * Sort pages by publication date.
+   * @deprecated Use `PUBLISHED_AT` instead.
+   */
+  PUBLICATION_DATE = 'PUBLICATION_DATE',
+  /** Sort pages by publication date. */
+  PUBLISHED_AT = 'PUBLISHED_AT',
+  /** Sort pages by rank. Note: This option is available only with the `search` filter. */
+  RANK = 'RANK',
+  /** Sort pages by slug. */
+  SLUG = 'SLUG',
+  /** Sort pages by title. */
+  TITLE = 'TITLE',
+  /** Sort pages by visibility. */
+  VISIBILITY = 'VISIBILITY'
+}
+
+export type PageSortingInput = {
+  /** Specifies the direction in which to sort pages. */
+  direction: OrderDirection;
+  /** Sort pages by the selected field. */
+  field: PageSortField;
+};
+
+export type PageTranslationInput = {
+  /**
+   * Translated page content.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  content?: InputMaybe<Scalars['JSONString']['input']>;
+  seoDescription?: InputMaybe<Scalars['String']['input']>;
+  seoTitle?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageTypeCreateInput = {
+  /** List of attribute IDs to be assigned to the page type. */
+  addAttributes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Name of the page type. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Page type slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageTypeFilterInput = {
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export enum PageTypeSortField {
+  /** Sort page types by name. */
+  NAME = 'NAME',
+  /** Sort page types by slug. */
+  SLUG = 'SLUG'
+}
+
+export type PageTypeSortingInput = {
+  /** Specifies the direction in which to sort page types. */
+  direction: OrderDirection;
+  /** Sort page types by the selected field. */
+  field: PageTypeSortField;
+};
+
+export type PageTypeUpdateInput = {
+  /** List of attribute IDs to be assigned to the page type. */
+  addAttributes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Name of the page type. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** List of attribute IDs to be unassigned from the page type. */
+  removeAttributes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Page type slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<PageWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<PageWhereInput>>;
+  /** Filter by attributes associated with the page. */
+  attributes?: InputMaybe<Array<AssignedAttributeWhereInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by metadata fields. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by page type. */
+  pageType?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by page slug. */
+  slug?: InputMaybe<StringFilterInput>;
+};
+
+/**
+ * Controls whether password-based authentication is allowed.
+ *
+ *     ENABLED - any user can log in with a password. This is the default behavior.
+ *     CUSTOMERS_ONLY - only customer users can log in with a password.
+ *         If a staff user logs in with a password, they will be treated as a customer
+ *         — the issued token will not contain any staff permissions.
+ *     DISABLED - no user can log in with a password.
+ */
+export enum PasswordLoginModeEnum {
+  CUSTOMERS_ONLY = 'CUSTOMERS_ONLY',
+  DISABLED = 'DISABLED',
+  ENABLED = 'ENABLED'
+}
+
+export enum PaymentChargeStatusEnum {
+  CANCELLED = 'CANCELLED',
+  FULLY_CHARGED = 'FULLY_CHARGED',
+  FULLY_REFUNDED = 'FULLY_REFUNDED',
+  NOT_CHARGED = 'NOT_CHARGED',
+  PARTIALLY_CHARGED = 'PARTIALLY_CHARGED',
+  PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED',
+  PENDING = 'PENDING',
+  REFUSED = 'REFUSED'
+}
+
+/**
+ * Fields required to check a payment balance.
+ *
+ * The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+ */
+export type PaymentCheckBalanceInput = {
+  /** Information about card. */
+  card: CardInput;
+  /** Slug of a channel for which the data should be returned. */
+  channel: Scalars['String']['input'];
+  /** An ID of a payment gateway to check. */
+  gatewayId: Scalars['String']['input'];
+  /** Payment method name. */
+  method: Scalars['String']['input'];
+};
+
+export enum PaymentErrorCode {
+  BALANCE_CHECK_ERROR = 'BALANCE_CHECK_ERROR',
+  BILLING_ADDRESS_NOT_SET = 'BILLING_ADDRESS_NOT_SET',
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  CHECKOUT_COMPLETION_IN_PROGRESS = 'CHECKOUT_COMPLETION_IN_PROGRESS',
+  CHECKOUT_EMAIL_NOT_SET = 'CHECKOUT_EMAIL_NOT_SET',
+  CHECKOUT_HAS_TRANSACTION = 'CHECKOUT_HAS_TRANSACTION',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_SHIPPING_METHOD = 'INVALID_SHIPPING_METHOD',
+  NOT_FOUND = 'NOT_FOUND',
+  NOT_SUPPORTED_GATEWAY = 'NOT_SUPPORTED_GATEWAY',
+  NO_CHECKOUT_LINES = 'NO_CHECKOUT_LINES',
+  PARTIAL_PAYMENT_NOT_ALLOWED = 'PARTIAL_PAYMENT_NOT_ALLOWED',
+  PAYMENT_ERROR = 'PAYMENT_ERROR',
+  REQUIRED = 'REQUIRED',
+  SHIPPING_ADDRESS_NOT_SET = 'SHIPPING_ADDRESS_NOT_SET',
+  SHIPPING_METHOD_NOT_SET = 'SHIPPING_METHOD_NOT_SET',
+  UNAVAILABLE_VARIANT_IN_CHANNEL = 'UNAVAILABLE_VARIANT_IN_CHANNEL',
+  UNIQUE = 'UNIQUE'
+}
+
+/**
+ * Filtering options for payments.
+ *
+ * The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+ */
+export type PaymentFilterInput = {
+  checkouts?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by ids. */
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export enum PaymentGatewayConfigErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum PaymentGatewayInitializeErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum PaymentGatewayInitializeTokenizationErrorCode {
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  GATEWAY_ERROR = 'GATEWAY_ERROR',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+/**
+ * Result of initialize payment gateway for tokenization of payment method.
+ *
+ *     The result of initialize payment gateway for tokenization of payment method.
+ *     SUCCESSFULLY_INITIALIZED - The payment gateway was successfully initialized.
+ *     FAILED_TO_INITIALIZE - The payment gateway was not initialized.
+ *     FAILED_TO_DELIVER - The request to initialize payment gateway was not delivered.
+ */
+export enum PaymentGatewayInitializeTokenizationResult {
+  FAILED_TO_DELIVER = 'FAILED_TO_DELIVER',
+  FAILED_TO_INITIALIZE = 'FAILED_TO_INITIALIZE',
+  SUCCESSFULLY_INITIALIZED = 'SUCCESSFULLY_INITIALIZED'
+}
+
+export type PaymentGatewayToInitialize = {
+  /** The data that will be passed to the payment gateway. */
+  data?: InputMaybe<Scalars['JSON']['input']>;
+  /** The identifier of the payment gateway app to initialize. */
+  id: Scalars['String']['input'];
+};
+
+/**
+ * Fields required to create a payment.
+ *
+ * The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+ */
+export type PaymentInput = {
+  /** Total amount of the transaction, including all taxes and discounts. If no amount is provided, the checkout total will be used. */
+  amount?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** A gateway to use with that payment. */
+  gateway: Scalars['String']['input'];
+  /**
+   * User public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of a storefront view where user should be redirected after requiring additional actions. Payment with additional actions will not be finished if this field is not provided. */
+  returnUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Payment store type. */
+  storePaymentMethod?: InputMaybe<StorePaymentMethodEnum>;
+  /** Client-side generated payment token, representing customer's billing data in a secure manner. */
+  token?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PaymentMethodDetailsCardFilterInput = {
+  /** Filter by payment method brand used to pay for the order. */
+  brand?: InputMaybe<StringFilterInput>;
+};
+
+export type PaymentMethodDetailsFilterInput = {
+  /** Filter by card details used to pay for the order. Skips `type` filter if provided. */
+  card?: InputMaybe<PaymentMethodDetailsCardFilterInput>;
+  /** Filter by payment method type used to pay for the order. */
+  type?: InputMaybe<PaymentMethodTypeEnumFilterInput>;
+};
+
+/**
+ * Details of the payment method used for the transaction. One of `card`, `other`, or `giftCard` is required.
+ *
+ * Added in Saleor 3.22.
+ */
+export type PaymentMethodDetailsInput = {
+  /** Details of the card payment method used for the transaction. */
+  card?: InputMaybe<CardPaymentMethodDetailsInput>;
+  /**
+   * Details of the gift card payment method used for the transaction.
+   *
+   * Added in Saleor 3.23.
+   */
+  giftCard?: InputMaybe<GiftCardPaymentMethodDetailsInput>;
+  /** Details of the non-card payment method used for this transaction. */
+  other?: InputMaybe<OtherPaymentMethodDetailsInput>;
+};
+
+export enum PaymentMethodInitializeTokenizationErrorCode {
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  GATEWAY_ERROR = 'GATEWAY_ERROR',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum PaymentMethodProcessTokenizationErrorCode {
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  GATEWAY_ERROR = 'GATEWAY_ERROR',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+/**
+ * Result of tokenization of payment method.
+ *
+ *     SUCCESSFULLY_TOKENIZED - The payment method was successfully tokenized.
+ *     ADDITIONAL_ACTION_REQUIRED - The additional action is required to tokenize payment
+ *     method.
+ *     PENDING - The payment method is pending tokenization.
+ *     FAILED_TO_TOKENIZE - The payment method was not tokenized.
+ *     FAILED_TO_DELIVER - The request to tokenize payment method was not delivered.
+ */
+export enum PaymentMethodTokenizationResult {
+  ADDITIONAL_ACTION_REQUIRED = 'ADDITIONAL_ACTION_REQUIRED',
+  FAILED_TO_DELIVER = 'FAILED_TO_DELIVER',
+  FAILED_TO_TOKENIZE = 'FAILED_TO_TOKENIZE',
+  PENDING = 'PENDING',
+  SUCCESSFULLY_TOKENIZED = 'SUCCESSFULLY_TOKENIZED'
+}
+
+/**
+ * Represents possible payment method types.
+ *
+ *     The following types are possible:
+ *     CARD - represents a card payment method.
+ *     OTHER - represents any payment method that is not a card payment.
+ *     GIFT_CARD - represents a gift card payment method.
+ */
+export enum PaymentMethodTypeEnum {
+  CARD = 'CARD',
+  GIFT_CARD = 'GIFT_CARD',
+  OTHER = 'OTHER'
+}
+
+export type PaymentMethodTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<PaymentMethodTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<PaymentMethodTypeEnum>>;
+};
+
+export type PaymentSettingsInput = {
+  /** Specifies the earliest date on which funds for expired checkouts can begin to be released. Expired checkouts dated before this cut-off will not have their funds released. Additionally, no funds will be released for checkouts that are more than one year old, regardless of the cut-off date. */
+  checkoutReleaseFundsCutOffDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** The time in hours after which funds for expired checkouts will be released. */
+  checkoutTtlBeforeReleasingFunds?: InputMaybe<Scalars['Hour']['input']>;
+  /** Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction. */
+  defaultTransactionFlowStrategy?: InputMaybe<TransactionFlowStrategyEnum>;
+  /** Determine if the funds for expired checkouts should be released automatically. */
+  releaseFundsForExpiredCheckouts?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum PermissionEnum {
+  HANDLE_CHECKOUTS = 'HANDLE_CHECKOUTS',
+  HANDLE_PAYMENTS = 'HANDLE_PAYMENTS',
+  HANDLE_TAXES = 'HANDLE_TAXES',
+  IMPERSONATE_USER = 'IMPERSONATE_USER',
+  MANAGE_APPS = 'MANAGE_APPS',
+  MANAGE_CHANNELS = 'MANAGE_CHANNELS',
+  MANAGE_CHECKOUTS = 'MANAGE_CHECKOUTS',
+  MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES = 'MANAGE_CUSTOMER_TYPES_AND_ATTRIBUTES',
+  MANAGE_DISCOUNTS = 'MANAGE_DISCOUNTS',
+  MANAGE_GIFT_CARD = 'MANAGE_GIFT_CARD',
+  MANAGE_MENUS = 'MANAGE_MENUS',
+  /** @deprecated The observability feature is no longer supported. This permission will be removed in Saleor 3.24. */
+  MANAGE_OBSERVABILITY = 'MANAGE_OBSERVABILITY',
+  MANAGE_ORDERS = 'MANAGE_ORDERS',
+  MANAGE_ORDERS_IMPORT = 'MANAGE_ORDERS_IMPORT',
+  MANAGE_PAGES = 'MANAGE_PAGES',
+  MANAGE_PAGE_TYPES_AND_ATTRIBUTES = 'MANAGE_PAGE_TYPES_AND_ATTRIBUTES',
+  MANAGE_PLUGINS = 'MANAGE_PLUGINS',
+  MANAGE_PRODUCTS = 'MANAGE_PRODUCTS',
+  MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES = 'MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES',
+  MANAGE_SETTINGS = 'MANAGE_SETTINGS',
+  MANAGE_SHIPPING = 'MANAGE_SHIPPING',
+  MANAGE_STAFF = 'MANAGE_STAFF',
+  MANAGE_TAXES = 'MANAGE_TAXES',
+  MANAGE_TRANSLATIONS = 'MANAGE_TRANSLATIONS',
+  MANAGE_USERS = 'MANAGE_USERS'
+}
+
+export type PermissionGroupCreateInput = {
+  /** List of channels to assign to this group. */
+  addChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of permission code names to assign to this group. */
+  addPermissions?: InputMaybe<Array<PermissionEnum>>;
+  /** List of users to assign to this group. */
+  addUsers?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Group name. */
+  name: Scalars['String']['input'];
+  /** Determine if the group has restricted access to channels.  DEFAULT: False */
+  restrictedAccessToChannels?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum PermissionGroupErrorCode {
+  ASSIGN_NON_STAFF_MEMBER = 'ASSIGN_NON_STAFF_MEMBER',
+  CANNOT_REMOVE_FROM_LAST_GROUP = 'CANNOT_REMOVE_FROM_LAST_GROUP',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  LEFT_NOT_MANAGEABLE_PERMISSION = 'LEFT_NOT_MANAGEABLE_PERMISSION',
+  OUT_OF_SCOPE_CHANNEL = 'OUT_OF_SCOPE_CHANNEL',
+  OUT_OF_SCOPE_PERMISSION = 'OUT_OF_SCOPE_PERMISSION',
+  OUT_OF_SCOPE_USER = 'OUT_OF_SCOPE_USER',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type PermissionGroupFilterInput = {
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Sorting options for permission groups. */
+export enum PermissionGroupSortField {
+  /** Sort permission group accounts by name. */
+  NAME = 'NAME'
+}
+
+export type PermissionGroupSortingInput = {
+  /** Specifies the direction in which to sort permission group. */
+  direction: OrderDirection;
+  /** Sort permission group by the selected field. */
+  field: PermissionGroupSortField;
+};
+
+export type PermissionGroupUpdateInput = {
+  /** List of channels to assign to this group. */
+  addChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of permission code names to assign to this group. */
+  addPermissions?: InputMaybe<Array<PermissionEnum>>;
+  /** List of users to assign to this group. */
+  addUsers?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Group name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** List of channels to unassign from this group. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of permission code names to unassign from this group. */
+  removePermissions?: InputMaybe<Array<PermissionEnum>>;
+  /** List of users to unassign from this group. */
+  removeUsers?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Determine if the group has restricted access to channels. */
+  restrictedAccessToChannels?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum PluginConfigurationType {
+  GLOBAL = 'GLOBAL',
+  PER_CHANNEL = 'PER_CHANNEL'
+}
+
+export enum PluginErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  PLUGIN_MISCONFIGURED = 'PLUGIN_MISCONFIGURED',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type PluginFilterInput = {
+  search?: InputMaybe<Scalars['String']['input']>;
+  statusInChannels?: InputMaybe<PluginStatusInChannelsInput>;
+  type?: InputMaybe<PluginConfigurationType>;
+};
+
+export enum PluginSortField {
+  IS_ACTIVE = 'IS_ACTIVE',
+  NAME = 'NAME'
+}
+
+export type PluginSortingInput = {
+  /** Specifies the direction in which to sort plugins. */
+  direction: OrderDirection;
+  /** Sort plugins by the selected field. */
+  field: PluginSortField;
+};
+
+export type PluginStatusInChannelsInput = {
+  active: Scalars['Boolean']['input'];
+  channels: Array<Scalars['ID']['input']>;
+};
+
+export type PluginUpdateInput = {
+  /** Indicates whether the plugin should be enabled. */
+  active?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Configuration of the plugin. */
+  configuration?: InputMaybe<Array<ConfigurationItemInput>>;
+};
+
+export enum PostalCodeRuleInclusionTypeEnum {
+  EXCLUDE = 'EXCLUDE',
+  INCLUDE = 'INCLUDE'
+}
+
+export type PriceFilterInput = {
+  /** The amount of the price to filter by. */
+  amount: DecimalFilterInput;
+  /** The currency of the price to filter by. */
+  currency?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PriceInput = {
+  /** Amount of money. */
+  amount: Scalars['PositiveDecimal']['input'];
+  /** Currency code. */
+  currency: Scalars['String']['input'];
+};
+
+export type PriceRangeInput = {
+  /** Price greater than or equal to. */
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  /** Price less than or equal to. */
+  lte?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type ProductAttributeAssignInput = {
+  /** The ID of the attribute to assign. */
+  id: Scalars['ID']['input'];
+  /** The attribute type to be assigned as. */
+  type: ProductAttributeType;
+  /** Whether attribute is allowed in variant selection. Allowed types are: ['dropdown', 'boolean', 'swatch', 'numeric']. */
+  variantSelection?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ProductAttributeAssignmentUpdateInput = {
+  /** The ID of the attribute to assign. */
+  id: Scalars['ID']['input'];
+  /** Whether attribute is allowed in variant selection. Allowed types are: ['dropdown', 'boolean', 'swatch', 'numeric']. */
+  variantSelection: Scalars['Boolean']['input'];
+};
+
+export enum ProductAttributeType {
+  PRODUCT = 'PRODUCT',
+  VARIANT = 'VARIANT'
+}
+
+export enum ProductBulkCreateErrorCode {
+  ATTRIBUTE_ALREADY_ASSIGNED = 'ATTRIBUTE_ALREADY_ASSIGNED',
+  ATTRIBUTE_CANNOT_BE_ASSIGNED = 'ATTRIBUTE_CANNOT_BE_ASSIGNED',
+  ATTRIBUTE_VARIANTS_DISABLED = 'ATTRIBUTE_VARIANTS_DISABLED',
+  BLANK = 'BLANK',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  FILE_SIZE_LIMIT_EXCEEDED = 'FILE_SIZE_LIMIT_EXCEEDED',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_PRICE = 'INVALID_PRICE',
+  MAX_LENGTH = 'MAX_LENGTH',
+  NOT_FOUND = 'NOT_FOUND',
+  PRODUCT_NOT_ASSIGNED_TO_CHANNEL = 'PRODUCT_NOT_ASSIGNED_TO_CHANNEL',
+  PRODUCT_WITHOUT_CATEGORY = 'PRODUCT_WITHOUT_CATEGORY',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE',
+  UNSUPPORTED_MEDIA_PROVIDER = 'UNSUPPORTED_MEDIA_PROVIDER'
+}
+
+export type ProductBulkCreateInput = {
+  /** List of attributes. */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /** ID of the product's category. */
+  category?: InputMaybe<Scalars['ID']['input']>;
+  /** List of channels in which the product is available. */
+  channelListings?: InputMaybe<Array<ProductChannelListingCreateInput>>;
+  /**
+   * Determine if taxes are being charged for the product.
+   * @deprecated Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
+   */
+  chargeTaxes?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of IDs of collections that the product belongs to. */
+  collections?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Product description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  /** External ID of this product. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** List of media inputs associated with the product. */
+  media?: InputMaybe<Array<MediaInput>>;
+  /**
+   * Fields required to update the product metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Product name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** ID of the type that product belongs to. */
+  productType: Scalars['ID']['input'];
+  /** Defines the product rating value. */
+  rating?: InputMaybe<Scalars['Float']['input']>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Product slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** ID of a tax class to assign to this product. If not provided, product will use the tax class which is assigned to the product type. */
+  taxClass?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Tax rate for enabled tax gateway.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   */
+  taxCode?: InputMaybe<Scalars['String']['input']>;
+  /** Input list of product variants to create. */
+  variants?: InputMaybe<Array<ProductVariantBulkCreateInput>>;
+  /** Weight of the Product. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export type ProductBulkTranslateInput = {
+  /** External reference of an product. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Product ID. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** Translation language code. */
+  languageCode: LanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: TranslationInput;
+};
+
+export type ProductChannelListingAddInput = {
+  /** List of variants to which the channel should be assigned. */
+  addVariants?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** A start date time from which a product will be available for purchase. When not set and `isAvailable` is set to True, the current day is assumed. */
+  availableForPurchaseAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /**
+   * A start date from which a product will be available for purchase. When not set and isAvailable is set to True, the current day is assumed.
+   * @deprecated Use `availableForPurchaseAt` field instead.
+   */
+  availableForPurchaseDate?: InputMaybe<Scalars['Date']['input']>;
+  /** ID of a channel. */
+  channelId: Scalars['ID']['input'];
+  /** Determines if product should be available for purchase in this channel. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased. */
+  isAvailableForPurchase?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Determines if object is visible to customers. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Publication date. ISO 8601 standard.
+   * @deprecated Use `publishedAt` field instead.
+   */
+  publicationDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Publication date time. ISO 8601 standard. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** List of variants from which the channel should be unassigned. */
+  removeVariants?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Determines if product is visible in product listings (doesn't apply to product collections). */
+  visibleInListings?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ProductChannelListingCreateInput = {
+  /** A start date time from which a product will be available for purchase. When not set and `isAvailable` is set to True, the current day is assumed. */
+  availableForPurchaseAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** ID of a channel. */
+  channelId: Scalars['ID']['input'];
+  /** Determines if product should be available for purchase in this channel. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased. */
+  isAvailableForPurchase?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Determines if object is visible to customers. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Publication date time. ISO 8601 standard. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Determines if product is visible in product listings (doesn't apply to product collections). */
+  visibleInListings?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ProductChannelListingUpdateInput = {
+  /** List of channels from which the product should be unassigned. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of channels to which the product should be assigned or updated. */
+  updateChannels?: InputMaybe<Array<ProductChannelListingAddInput>>;
+};
+
+export type ProductCreateInput = {
+  /** List of attributes. */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /** ID of the product's category. */
+  category?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Determine if taxes are being charged for the product.
+   * @deprecated Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
+   */
+  chargeTaxes?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of IDs of collections that the product belongs to. */
+  collections?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Product description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  /** External ID of this product. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Product name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** ID of the type that product belongs to. */
+  productType: Scalars['ID']['input'];
+  /** Defines the product rating value. */
+  rating?: InputMaybe<Scalars['Float']['input']>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Product slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** ID of a tax class to assign to this product. If not provided, product will use the tax class which is assigned to the product type. */
+  taxClass?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Tax rate for enabled tax gateway.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   */
+  taxCode?: InputMaybe<Scalars['String']['input']>;
+  /** Weight of the Product. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export enum ProductErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  ATTRIBUTE_ALREADY_ASSIGNED = 'ATTRIBUTE_ALREADY_ASSIGNED',
+  ATTRIBUTE_CANNOT_BE_ASSIGNED = 'ATTRIBUTE_CANNOT_BE_ASSIGNED',
+  ATTRIBUTE_VARIANTS_DISABLED = 'ATTRIBUTE_VARIANTS_DISABLED',
+  CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT = 'CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  FILE_SIZE_LIMIT_EXCEEDED = 'FILE_SIZE_LIMIT_EXCEEDED',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_FILE_TYPE = 'INVALID_FILE_TYPE',
+  INVALID_PRICE = 'INVALID_PRICE',
+  MEDIA_ALREADY_ASSIGNED = 'MEDIA_ALREADY_ASSIGNED',
+  NOT_FOUND = 'NOT_FOUND',
+  NOT_PRODUCTS_IMAGE = 'NOT_PRODUCTS_IMAGE',
+  NOT_PRODUCTS_VARIANT = 'NOT_PRODUCTS_VARIANT',
+  PRODUCT_NOT_ASSIGNED_TO_CHANNEL = 'PRODUCT_NOT_ASSIGNED_TO_CHANNEL',
+  PRODUCT_WITHOUT_CATEGORY = 'PRODUCT_WITHOUT_CATEGORY',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE',
+  UNSUPPORTED_MEDIA_PROVIDER = 'UNSUPPORTED_MEDIA_PROVIDER',
+  UNSUPPORTED_MIME_TYPE = 'UNSUPPORTED_MIME_TYPE'
+}
+
+export enum ProductFieldEnum {
+  CATEGORY = 'CATEGORY',
+  CHARGE_TAXES = 'CHARGE_TAXES',
+  COLLECTIONS = 'COLLECTIONS',
+  DESCRIPTION = 'DESCRIPTION',
+  NAME = 'NAME',
+  PRODUCT_MEDIA = 'PRODUCT_MEDIA',
+  PRODUCT_TYPE = 'PRODUCT_TYPE',
+  PRODUCT_WEIGHT = 'PRODUCT_WEIGHT',
+  VARIANT_ID = 'VARIANT_ID',
+  VARIANT_MEDIA = 'VARIANT_MEDIA',
+  VARIANT_SKU = 'VARIANT_SKU',
+  VARIANT_WEIGHT = 'VARIANT_WEIGHT'
+}
+
+export type ProductFilterInput = {
+  attributes?: InputMaybe<Array<AttributeInput>>;
+  /** Filter by the date of availability for purchase. */
+  availableFrom?: InputMaybe<Scalars['DateTime']['input']>;
+  categories?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Specifies the channel by which the data should be filtered.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  collections?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter on whether product is a gift card or not. */
+  giftCard?: InputMaybe<Scalars['Boolean']['input']>;
+  hasCategory?: InputMaybe<Scalars['Boolean']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by availability for purchase. */
+  isAvailable?: InputMaybe<Scalars['Boolean']['input']>;
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by visibility in product listings. */
+  isVisibleInListing?: InputMaybe<Scalars['Boolean']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  /** Filter by the lowest variant price after discounts. */
+  minimalPrice?: InputMaybe<PriceRangeInput>;
+  price?: InputMaybe<PriceRangeInput>;
+  productTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by the publication date. */
+  publishedFrom?: InputMaybe<Scalars['DateTime']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Filter by variants having specific stock status. */
+  stockAvailability?: InputMaybe<StockAvailability>;
+  stocks?: InputMaybe<ProductStockFilterInput>;
+  /** Filter by when was the most recent update. */
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type ProductInput = {
+  /** List of attributes. */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /** ID of the product's category. */
+  category?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Determine if taxes are being charged for the product.
+   * @deprecated Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
+   */
+  chargeTaxes?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of IDs of collections that the product belongs to. */
+  collections?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Product description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  /** External ID of this product. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Product name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Defines the product rating value. */
+  rating?: InputMaybe<Scalars['Float']['input']>;
+  /** Search engine optimization fields. */
+  seo?: InputMaybe<SeoInput>;
+  /** Product slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** ID of a tax class to assign to this product. If not provided, product will use the tax class which is assigned to the product type. */
+  taxClass?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Tax rate for enabled tax gateway.
+   * @deprecated Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   */
+  taxCode?: InputMaybe<Scalars['String']['input']>;
+  /** Weight of the Product. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export type ProductMediaCreateInput = {
+  /** Alt text for a product media. */
+  alt?: InputMaybe<Scalars['String']['input']>;
+  /** Represents an image file in a multipart request. */
+  image?: InputMaybe<Scalars['Upload']['input']>;
+  /** Represents an URL to an external media. */
+  mediaUrl?: InputMaybe<Scalars['String']['input']>;
+  /** ID of an product. */
+  product: Scalars['ID']['input'];
+};
+
+export enum ProductMediaType {
+  IMAGE = 'IMAGE',
+  VIDEO = 'VIDEO'
+}
+
+export type ProductMediaUpdateInput = {
+  /** Alt text for a product media. */
+  alt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductOrder = {
+  /**
+   * Sort product by the selected attribute's values.
+   * Note: this doesn't take translations into account yet.
+   */
+  attributeId?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Specifies the channel in which to sort the data.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /** Specifies the direction in which to sort products. */
+  direction: OrderDirection;
+  /** Sort products by the selected field. */
+  field?: InputMaybe<ProductOrderField>;
+};
+
+export enum ProductOrderField {
+  /**
+   * Sort products by collection. Note: This option is available only for the `Collection.products` query.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  COLLECTION = 'COLLECTION',
+  /** Sort products by creation date. */
+  CREATED_AT = 'CREATED_AT',
+  /**
+   * Sort products by update date.
+   * @deprecated Use `LAST_MODIFIED_AT` instead.
+   */
+  DATE = 'DATE',
+  /**
+   * Sort products by update date.
+   * @deprecated Use `LAST_MODIFIED_AT` instead.
+   */
+  LAST_MODIFIED = 'LAST_MODIFIED',
+  /** Sort products by update date. */
+  LAST_MODIFIED_AT = 'LAST_MODIFIED_AT',
+  /**
+   * Sort products by a minimal price of a product's variant.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  MINIMAL_PRICE = 'MINIMAL_PRICE',
+  /** Sort products by name. */
+  NAME = 'NAME',
+  /**
+   * Sort products by price.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  PRICE = 'PRICE',
+  /**
+   * Sort products by publication date.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   * @deprecated Use `PUBLISHED_AT` instead.
+   */
+  PUBLICATION_DATE = 'PUBLICATION_DATE',
+  /**
+   * Sort products by publication status.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  PUBLISHED = 'PUBLISHED',
+  /**
+   * Sort products by publication date.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  PUBLISHED_AT = 'PUBLISHED_AT',
+  /** Sort products by rank. Note: This option is available only with the `search` filter. */
+  RANK = 'RANK',
+  /** Sort products by rating. */
+  RATING = 'RATING',
+  /** Sort products by type. */
+  TYPE = 'TYPE'
+}
+
+export type ProductStockFilterInput = {
+  quantity?: InputMaybe<IntRangeInput>;
+  warehouseIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export enum ProductTranslateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export enum ProductTypeConfigurable {
+  CONFIGURABLE = 'CONFIGURABLE',
+  SIMPLE = 'SIMPLE'
+}
+
+export enum ProductTypeEnum {
+  SHIPPABLE = 'SHIPPABLE'
+}
+
+export type ProductTypeFilterInput = {
+  /** @deprecated The field has no effect on the API behavior. This is a leftover from the past Simple/Configurable product distinction. Products can have multiple variants regardless of this setting. */
+  configurable?: InputMaybe<ProductTypeConfigurable>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  kind?: InputMaybe<ProductTypeKindEnum>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  productType?: InputMaybe<ProductTypeEnum>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type ProductTypeInput = {
+  /**
+   * Determines if product of this type has multiple variants. This option mainly simplifies product management in the dashboard. There is always at least one variant created under the hood.
+   * @deprecated The field has no effect on the API behavior. This is a leftover from the past Simple/Configurable product distinction. Products can have multiple variants regardless of this setting.
+   */
+  hasVariants?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Determines if shipping is required for products of this variant. */
+  isShippingRequired?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The product type kind. */
+  kind?: InputMaybe<ProductTypeKindEnum>;
+  /** Name of the product type. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** List of attributes shared among all product variants. */
+  productAttributes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Product type slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** ID of a tax class to assign to this product type. All products of this product type would use this tax class, unless it's overridden in the `Product` type. */
+  taxClass?: InputMaybe<Scalars['ID']['input']>;
+  /**
+   * Tax rate for enabled tax gateway.
+   * @deprecated Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+   */
+  taxCode?: InputMaybe<Scalars['String']['input']>;
+  /** List of attributes used to distinguish between different variants of a product. */
+  variantAttributes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Weight of the ProductType items. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export enum ProductTypeKindEnum {
+  GIFT_CARD = 'GIFT_CARD',
+  NORMAL = 'NORMAL'
+}
+
+export enum ProductTypeSortField {
+  /** Sort products by name. */
+  NAME = 'NAME',
+  /** Sort products by shipping. */
+  SHIPPING_REQUIRED = 'SHIPPING_REQUIRED'
+}
+
+export type ProductTypeSortingInput = {
+  /** Specifies the direction in which to sort product types. */
+  direction: OrderDirection;
+  /** Sort product types by the selected field. */
+  field: ProductTypeSortField;
+};
+
+export type ProductVariantBulkCreateInput = {
+  /** List of attributes specific to this variant. */
+  attributes: Array<BulkAttributeValueInput>;
+  /** List of prices assigned to channels. */
+  channelListings?: InputMaybe<Array<ProductVariantChannelListingAddInput>>;
+  /** External ID of this product variant. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product variant metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Variant name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product variant private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout. */
+  quantityLimitPerCustomer?: InputMaybe<Scalars['Int']['input']>;
+  /** Stock keeping unit. */
+  sku?: InputMaybe<Scalars['String']['input']>;
+  /** Stocks of a product available for sale. */
+  stocks?: InputMaybe<Array<StockInput>>;
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
+  trackInventory?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Weight of the Product Variant. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export enum ProductVariantBulkErrorCode {
+  ATTRIBUTE_ALREADY_ASSIGNED = 'ATTRIBUTE_ALREADY_ASSIGNED',
+  ATTRIBUTE_CANNOT_BE_ASSIGNED = 'ATTRIBUTE_CANNOT_BE_ASSIGNED',
+  ATTRIBUTE_VARIANTS_DISABLED = 'ATTRIBUTE_VARIANTS_DISABLED',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_PRICE = 'INVALID_PRICE',
+  NOT_FOUND = 'NOT_FOUND',
+  NOT_PRODUCTS_VARIANT = 'NOT_PRODUCTS_VARIANT',
+  PRODUCT_NOT_ASSIGNED_TO_CHANNEL = 'PRODUCT_NOT_ASSIGNED_TO_CHANNEL',
+  REQUIRED = 'REQUIRED',
+  STOCK_ALREADY_EXISTS = 'STOCK_ALREADY_EXISTS',
+  UNIQUE = 'UNIQUE'
+}
+
+export type ProductVariantBulkTranslateInput = {
+  /** External reference of a product variant. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Product variant ID. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** Translation language code. */
+  languageCode: LanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: NameTranslationInput;
+};
+
+/** Input fields to update product variants. */
+export type ProductVariantBulkUpdateInput = {
+  /** List of attributes specific to this variant. */
+  attributes?: InputMaybe<Array<BulkAttributeValueInput>>;
+  /** Channel listings input. */
+  channelListings?: InputMaybe<ProductVariantChannelListingUpdateInput>;
+  /** External ID of this product variant. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** ID of the product variant to update. */
+  id: Scalars['ID']['input'];
+  /**
+   * Fields required to update the product variant metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Variant name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product variant private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout. */
+  quantityLimitPerCustomer?: InputMaybe<Scalars['Int']['input']>;
+  /** Stock keeping unit. */
+  sku?: InputMaybe<Scalars['String']['input']>;
+  /** Stocks input. */
+  stocks?: InputMaybe<ProductVariantStocksUpdateInput>;
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
+  trackInventory?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Weight of the Product Variant. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export type ProductVariantChannelListingAddInput = {
+  /** ID of a channel. */
+  channelId: Scalars['ID']['input'];
+  /** Cost price of the variant in channel. */
+  costPrice?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Price of the particular variant in channel. */
+  price: Scalars['PositiveDecimal']['input'];
+  /** Previous price of the variant in channel. Useful for providing promotion information required by customer protection laws such as EU Omnibus directive. */
+  priorPrice?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+};
+
+export type ProductVariantChannelListingUpdateInput = {
+  /** List of channels to create variant channel listings. */
+  create?: InputMaybe<Array<ProductVariantChannelListingAddInput>>;
+  /** List of channel listings to remove. */
+  remove?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of channel listings to update. */
+  update?: InputMaybe<Array<ChannelListingUpdateInput>>;
+};
+
+export type ProductVariantCreateInput = {
+  /** List of attributes specific to this variant. */
+  attributes: Array<AttributeValueInput>;
+  /** External ID of this product variant. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product variant metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Variant name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product variant private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Product ID of which type is the variant. */
+  product: Scalars['ID']['input'];
+  /** Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout. */
+  quantityLimitPerCustomer?: InputMaybe<Scalars['Int']['input']>;
+  /** Stock keeping unit. */
+  sku?: InputMaybe<Scalars['String']['input']>;
+  /** Stocks of a product available for sale. */
+  stocks?: InputMaybe<Array<StockInput>>;
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
+  trackInventory?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Weight of the Product Variant. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export type ProductVariantFilterInput = {
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  sku?: InputMaybe<Array<Scalars['String']['input']>>;
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type ProductVariantInput = {
+  /** List of attributes specific to this variant. */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /** External ID of this product variant. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product variant metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Variant name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the product variant private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout. */
+  quantityLimitPerCustomer?: InputMaybe<Scalars['Int']['input']>;
+  /** Stock keeping unit. */
+  sku?: InputMaybe<Scalars['String']['input']>;
+  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. If the field is not provided, `Shop.trackInventoryByDefault` will be used. */
+  trackInventory?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Weight of the Product Variant. */
+  weight?: InputMaybe<Scalars['WeightScalar']['input']>;
+};
+
+export enum ProductVariantSortField {
+  /** Sort product variants by last modification date. */
+  LAST_MODIFIED_AT = 'LAST_MODIFIED_AT'
+}
+
+export type ProductVariantSortingInput = {
+  /** Specifies the direction in which to sort productVariants. */
+  direction: OrderDirection;
+  /** Sort productVariants by the selected field. */
+  field: ProductVariantSortField;
+};
+
+export type ProductVariantStocksUpdateInput = {
+  /** List of warehouses to create stocks. */
+  create?: InputMaybe<Array<StockInput>>;
+  /** List of stocks to remove. */
+  remove?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of stocks to update. */
+  update?: InputMaybe<Array<StockUpdateInput>>;
+};
+
+export enum ProductVariantTranslateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type ProductVariantWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<ProductVariantWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<ProductVariantWhereInput>>;
+  /**
+   * Filter by attributes associated with the variant.
+   *
+   * Added in Saleor 3.22.
+   */
+  attributes?: InputMaybe<Array<AssignedAttributeWhereInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  /** Filter by product SKU. */
+  sku?: InputMaybe<StringFilterInput>;
+  /**
+   * Filter by variants having a specific stock status in the given channel.
+   *
+   * Added in Saleor 3.24.
+   */
+  stockAvailability?: InputMaybe<StockAvailability>;
+  /**
+   * Filter by stock of the variant.
+   *
+   * Added in Saleor 3.24.
+   */
+  stocks?: InputMaybe<ProductStockFilterInput>;
+  /** Filter by when was the most recent update. */
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type ProductWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<ProductWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<ProductWhereInput>>;
+  /** Filter by attributes associated with the product. */
+  attributes?: InputMaybe<Array<AttributeInput>>;
+  /** Filter by the date of availability for purchase. */
+  availableFrom?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Filter by product category. */
+  category?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by collection. */
+  collection?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter on whether product is a gift card or not. */
+  giftCard?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by product with category assigned. */
+  hasCategory?: InputMaybe<Scalars['Boolean']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Filter by availability for purchase. */
+  isAvailable?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by public visibility. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Filter by visibility on the channel. */
+  isVisibleInListing?: InputMaybe<Scalars['Boolean']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  /** Filter by the lowest variant price after discounts. */
+  minimalPrice?: InputMaybe<DecimalFilterInput>;
+  /** Filter by product name. */
+  name?: InputMaybe<StringFilterInput>;
+  /** Filter by product variant price. */
+  price?: InputMaybe<DecimalFilterInput>;
+  /** Filter by product type. */
+  productType?: InputMaybe<GlobalIdFilterInput>;
+  /** Filter by the publication date. */
+  publishedFrom?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Filter by product slug. */
+  slug?: InputMaybe<StringFilterInput>;
+  /** Filter by variants having specific stock status. */
+  stockAvailability?: InputMaybe<StockAvailability>;
+  /** Filter by stock of the product variant. */
+  stocks?: InputMaybe<ProductStockFilterInput>;
+  /** Filter by when was the most recent update. */
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export enum PromotionCreateErrorCode {
+  GIFTS_NUMBER_LIMIT = 'GIFTS_NUMBER_LIMIT',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_GIFT_TYPE = 'INVALID_GIFT_TYPE',
+  INVALID_PRECISION = 'INVALID_PRECISION',
+  MISSING_CHANNELS = 'MISSING_CHANNELS',
+  MULTIPLE_CURRENCIES_NOT_ALLOWED = 'MULTIPLE_CURRENCIES_NOT_ALLOWED',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  RULES_NUMBER_LIMIT = 'RULES_NUMBER_LIMIT'
+}
+
+export type PromotionCreateInput = {
+  /** Promotion description. */
+  description?: InputMaybe<Scalars['JSON']['input']>;
+  /** The end date of the promotion in ISO 8601 format. */
+  endDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Promotion name. */
+  name: Scalars['String']['input'];
+  /** List of promotion rules. */
+  rules?: InputMaybe<Array<PromotionRuleInput>>;
+  /** The start date of the promotion in ISO 8601 format. */
+  startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Defines the promotion type. Implicate the required promotion rules predicate type and whether the promotion rules will give the catalogue or order discount. */
+  type: PromotionTypeEnum;
+};
+
+export enum PromotionDeleteErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum PromotionEventsEnum {
+  PROMOTION_CREATED = 'PROMOTION_CREATED',
+  PROMOTION_ENDED = 'PROMOTION_ENDED',
+  PROMOTION_STARTED = 'PROMOTION_STARTED',
+  PROMOTION_UPDATED = 'PROMOTION_UPDATED',
+  RULE_CREATED = 'RULE_CREATED',
+  RULE_DELETED = 'RULE_DELETED',
+  RULE_UPDATED = 'RULE_UPDATED'
+}
+
+export enum PromotionRuleCreateErrorCode {
+  GIFTS_NUMBER_LIMIT = 'GIFTS_NUMBER_LIMIT',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_GIFT_TYPE = 'INVALID_GIFT_TYPE',
+  INVALID_PRECISION = 'INVALID_PRECISION',
+  MISSING_CHANNELS = 'MISSING_CHANNELS',
+  MULTIPLE_CURRENCIES_NOT_ALLOWED = 'MULTIPLE_CURRENCIES_NOT_ALLOWED',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  RULES_NUMBER_LIMIT = 'RULES_NUMBER_LIMIT'
+}
+
+export type PromotionRuleCreateInput = {
+  /** Defines the conditions on the catalogue level that must be met for the reward to be applied. */
+  cataloguePredicate?: InputMaybe<CataloguePredicateInput>;
+  /** List of channel ids to which the rule should apply to. */
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Promotion rule description. */
+  description?: InputMaybe<Scalars['JSON']['input']>;
+  /**
+   * Product variant IDs available as a gift to choose.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  gifts?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Promotion rule name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Defines the conditions on the checkout/draft order level that must be met for the reward to be applied.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  orderPredicate?: InputMaybe<OrderPredicateInput>;
+  /** The ID of the promotion that rule belongs to. */
+  promotion: Scalars['ID']['input'];
+  /**
+   * Defines the reward type of the promotion rule.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  rewardType?: InputMaybe<RewardTypeEnum>;
+  /** Defines the discount value. Required when catalogue predicate is provided. */
+  rewardValue?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Defines the promotion rule reward value type. Must be provided together with reward value. */
+  rewardValueType?: InputMaybe<RewardValueTypeEnum>;
+};
+
+export enum PromotionRuleDeleteErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export type PromotionRuleInput = {
+  /** Defines the conditions on the catalogue level that must be met for the reward to be applied. */
+  cataloguePredicate?: InputMaybe<CataloguePredicateInput>;
+  /** List of channel ids to which the rule should apply to. */
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Promotion rule description. */
+  description?: InputMaybe<Scalars['JSON']['input']>;
+  /**
+   * Product variant IDs available as a gift to choose.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  gifts?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Promotion rule name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Defines the conditions on the checkout/draft order level that must be met for the reward to be applied.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  orderPredicate?: InputMaybe<OrderPredicateInput>;
+  /**
+   * Defines the reward type of the promotion rule.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  rewardType?: InputMaybe<RewardTypeEnum>;
+  /** Defines the discount value. Required when catalogue predicate is provided. */
+  rewardValue?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Defines the promotion rule reward value type. Must be provided together with reward value. */
+  rewardValueType?: InputMaybe<RewardValueTypeEnum>;
+};
+
+export type PromotionRuleTranslationInput = {
+  /**
+   * Translated promotion description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSON']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum PromotionRuleUpdateErrorCode {
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GIFTS_NUMBER_LIMIT = 'GIFTS_NUMBER_LIMIT',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_GIFT_TYPE = 'INVALID_GIFT_TYPE',
+  INVALID_PRECISION = 'INVALID_PRECISION',
+  MISSING_CHANNELS = 'MISSING_CHANNELS',
+  MULTIPLE_CURRENCIES_NOT_ALLOWED = 'MULTIPLE_CURRENCIES_NOT_ALLOWED',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type PromotionRuleUpdateInput = {
+  /** List of channel ids to add. */
+  addChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * List of variant IDs available as a gift to add.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  addGifts?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Defines the conditions on the catalogue level that must be met for the reward to be applied. */
+  cataloguePredicate?: InputMaybe<CataloguePredicateInput>;
+  /** Promotion rule description. */
+  description?: InputMaybe<Scalars['JSON']['input']>;
+  /** Promotion rule name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Defines the conditions on the checkout/draft order level that must be met for the reward to be applied.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  orderPredicate?: InputMaybe<OrderPredicateInput>;
+  /** List of channel ids to remove. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * List of variant IDs available as a gift to remove.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  removeGifts?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Defines the reward type of the promotion rule.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  rewardType?: InputMaybe<RewardTypeEnum>;
+  /** Defines the discount value. Required when catalogue predicate is provided. */
+  rewardValue?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Defines the promotion rule reward value type. Must be provided together with reward value. */
+  rewardValueType?: InputMaybe<RewardValueTypeEnum>;
+};
+
+export enum PromotionSortField {
+  /** Sort promotions by creation date. */
+  CREATED_AT = 'CREATED_AT',
+  /** Sort promotions by end date. */
+  END_DATE = 'END_DATE',
+  /** Sort promotions by name. */
+  NAME = 'NAME',
+  /** Sort promotions by start date. */
+  START_DATE = 'START_DATE'
+}
+
+export type PromotionSortingInput = {
+  /** Specifies the direction in which to sort promotions. */
+  direction: OrderDirection;
+  /** Sort promotions by the selected field. */
+  field: PromotionSortField;
+};
+
+export type PromotionTranslationInput = {
+  /**
+   * Translated promotion description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSON']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum PromotionTypeEnum {
+  CATALOGUE = 'CATALOGUE',
+  ORDER = 'ORDER'
+}
+
+export type PromotionTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<PromotionTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<PromotionTypeEnum>>;
+};
+
+export enum PromotionUpdateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type PromotionUpdateInput = {
+  /** Promotion description. */
+  description?: InputMaybe<Scalars['JSON']['input']>;
+  /** The end date of the promotion in ISO 8601 format. */
+  endDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Promotion name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The start date of the promotion in ISO 8601 format. */
+  startDate?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PromotionWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<PromotionWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<PromotionWhereInput>>;
+  /** Filter promotions by end date. */
+  endDate?: InputMaybe<DateTimeFilterInput>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  isOldSale?: InputMaybe<Scalars['Boolean']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  /** Filter by promotion name. */
+  name?: InputMaybe<StringFilterInput>;
+  /** Filter promotions by start date. */
+  startDate?: InputMaybe<DateTimeFilterInput>;
+  type?: InputMaybe<PromotionTypeEnumFilterInput>;
+};
+
+export type PublishableChannelListingInput = {
+  /** ID of a channel. */
+  channelId: Scalars['ID']['input'];
+  /** Determines if object is visible to customers. */
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Publication date. ISO 8601 standard.
+   * @deprecated Use `publishedAt` field instead.
+   */
+  publicationDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Publication date time. ISO 8601 standard. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export enum RefundSettingsErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  REQUIRED = 'REQUIRED'
+}
+
+export type RefundSettingsUpdateInput = {
+  /**
+   * The ID of a model type, that will be used to reference refund reasons. All models with of this type will be accepted as refund reasons.
+   *
+   * Added in Saleor 3.22.
+   */
+  refundReasonReferenceType: Scalars['ID']['input'];
+};
+
+export type ReorderInput = {
+  /** The ID of the item to move. */
+  id: Scalars['ID']['input'];
+  /** The new relative sorting position of the item (from -inf to +inf). 1 moves the item one position forward, -1 moves the item one position backward, 0 leaves the item unchanged. */
+  sortOrder?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export enum ReportingPeriod {
+  THIS_MONTH = 'THIS_MONTH',
+  TODAY = 'TODAY'
+}
+
+export enum ReturnSettingsErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type ReturnSettingsUpdateInput = {
+  /**
+   * The ID of a model type, that will be used to reference return reasons. All models of this type will be accepted as return reasons.
+   *
+   * Added in Saleor 3.23.
+   */
+  returnReasonReferenceType: Scalars['ID']['input'];
+};
+
+export enum RewardTypeEnum {
+  GIFT = 'GIFT',
+  SUBTOTAL_DISCOUNT = 'SUBTOTAL_DISCOUNT'
+}
+
+export enum RewardValueTypeEnum {
+  FIXED = 'FIXED',
+  PERCENTAGE = 'PERCENTAGE'
+}
+
+export type SaleChannelListingAddInput = {
+  /** ID of a channel. */
+  channelId: Scalars['ID']['input'];
+  /** The value of the discount. */
+  discountValue: Scalars['PositiveDecimal']['input'];
+};
+
+export type SaleChannelListingInput = {
+  /** List of channels to which the sale should be assigned. */
+  addChannels?: InputMaybe<Array<SaleChannelListingAddInput>>;
+  /** List of channels from which the sale should be unassigned. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export type SaleFilterInput = {
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  saleType?: InputMaybe<DiscountValueTypeEnum>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  started?: InputMaybe<DateTimeRangeInput>;
+  status?: InputMaybe<Array<DiscountStatusEnum>>;
+  updatedAt?: InputMaybe<DateTimeRangeInput>;
+};
+
+export type SaleInput = {
+  /** Categories related to the discount. */
+  categories?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Collections related to the discount. */
+  collections?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** End date of the voucher in ISO 8601 format. */
+  endDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Voucher name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Products related to the discount. */
+  products?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Start date of the voucher in ISO 8601 format. */
+  startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Fixed or percentage. */
+  type?: InputMaybe<DiscountValueTypeEnum>;
+  /** Value of the voucher. */
+  value?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  variants?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export enum SaleSortField {
+  /** Sort sales by creation date. */
+  CREATED_AT = 'CREATED_AT',
+  /** Sort sales by end date. */
+  END_DATE = 'END_DATE',
+  /** Sort sales by last modification date. */
+  LAST_MODIFIED_AT = 'LAST_MODIFIED_AT',
+  /** Sort sales by name. */
+  NAME = 'NAME',
+  /** Sort sales by start date. */
+  START_DATE = 'START_DATE',
+  /** Sort sales by type. */
+  TYPE = 'TYPE',
+  /**
+   * Sort sales by value.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  VALUE = 'VALUE'
+}
+
+export type SaleSortingInput = {
+  /**
+   * Specifies the channel in which to sort the data.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /** Specifies the direction in which to sort sales. */
+  direction: OrderDirection;
+  /** Sort sales by the selected field. */
+  field: SaleSortField;
+};
+
+export enum SaleType {
+  FIXED = 'FIXED',
+  PERCENTAGE = 'PERCENTAGE'
+}
+
+export enum SendConfirmationEmailErrorCode {
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
+  CONFIRMATION_ALREADY_REQUESTED = 'CONFIRMATION_ALREADY_REQUESTED',
+  INVALID = 'INVALID',
+  MISSING_CHANNEL_SLUG = 'MISSING_CHANNEL_SLUG'
+}
+
+export type SeoInput = {
+  /** SEO description. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** SEO title. */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum ShippingErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MAX_LESS_THAN_MIN = 'MAX_LESS_THAN_MIN',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type ShippingMethodChannelListingAddInput = {
+  /** ID of a channel. */
+  channelId: Scalars['ID']['input'];
+  /** Maximum order price to use this shipping method. */
+  maximumOrderPrice?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Minimum order price to use this shipping method. */
+  minimumOrderPrice?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Shipping price of the shipping method in this channel. */
+  price?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+};
+
+export type ShippingMethodChannelListingInput = {
+  /** List of channels to which the shipping method should be assigned. */
+  addChannels?: InputMaybe<Array<ShippingMethodChannelListingAddInput>>;
+  /** List of channels from which the shipping method should be unassigned. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export enum ShippingMethodTypeEnum {
+  PRICE = 'PRICE',
+  WEIGHT = 'WEIGHT'
+}
+
+export type ShippingPostalCodeRulesCreateInputRange = {
+  /** End range of the postal code. */
+  end?: InputMaybe<Scalars['String']['input']>;
+  /** Start range of the postal code. */
+  start: Scalars['String']['input'];
+};
+
+export type ShippingPriceExcludeProductsInput = {
+  /** List of products which will be excluded. */
+  products: Array<Scalars['ID']['input']>;
+};
+
+export type ShippingPriceInput = {
+  /** Postal code rules to add. */
+  addPostalCodeRules?: InputMaybe<Array<ShippingPostalCodeRulesCreateInputRange>>;
+  /** Postal code rules to delete. */
+  deletePostalCodeRules?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Shipping method description. */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  /** Inclusion type for currently assigned postal code rules. */
+  inclusionType?: InputMaybe<PostalCodeRuleInclusionTypeEnum>;
+  /** Maximum number of days for delivery. */
+  maximumDeliveryDays?: InputMaybe<Scalars['Int']['input']>;
+  /** Maximum order weight to use this shipping method. */
+  maximumOrderWeight?: InputMaybe<Scalars['WeightScalar']['input']>;
+  /** Minimal number of days for delivery. */
+  minimumDeliveryDays?: InputMaybe<Scalars['Int']['input']>;
+  /** Minimum order weight to use this shipping method. */
+  minimumOrderWeight?: InputMaybe<Scalars['WeightScalar']['input']>;
+  /** Name of the shipping method. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Shipping zone this method belongs to. */
+  shippingZone?: InputMaybe<Scalars['ID']['input']>;
+  /** ID of a tax class to assign to this shipping method. If not provided, the default tax class will be used. */
+  taxClass?: InputMaybe<Scalars['ID']['input']>;
+  /** Shipping type: price or weight based. */
+  type?: InputMaybe<ShippingMethodTypeEnum>;
+};
+
+export type ShippingPriceTranslationInput = {
+  /**
+   * Translated shipping method description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ShippingZoneCreateInput = {
+  /** List of channels to assign to the shipping zone. */
+  addChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of warehouses to assign to a shipping zone */
+  addWarehouses?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of countries in this shipping zone. */
+  countries?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Default shipping zone will be used for countries not covered by other zones. */
+  default?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Description of the shipping zone. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Shipping zone's name. Visible only to the staff. */
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ShippingZoneFilterInput = {
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ShippingZoneUpdateInput = {
+  /** List of channels to assign to the shipping zone. */
+  addChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of warehouses to assign to a shipping zone */
+  addWarehouses?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of countries in this shipping zone. */
+  countries?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Default shipping zone will be used for countries not covered by other zones. */
+  default?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Description of the shipping zone. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Shipping zone's name. Visible only to the staff. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** List of channels to unassign from the shipping zone. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** List of warehouses to unassign from a shipping zone */
+  removeWarehouses?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export enum ShopErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  CANNOT_FETCH_TAX_RATES = 'CANNOT_FETCH_TAX_RATES',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  PASSWORD_AUTH_RESTRICTION = 'PASSWORD_AUTH_RESTRICTION',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type ShopSettingsInput = {
+  /** Controls the method used for merging existing orders and giftcards when password-based authentication is used. Learn more at https://docs.saleor.io/upgrade-guides/core/migrate-account-merging */
+  accountConfirmMergeMode?: InputMaybe<AccountConfirmModeEnum>;
+  /** Enable possibility to login without account confirmation. */
+  allowLoginWithoutConfirmation?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Determines whether the GraphQL API accepts storefront requests (anonymous requests and authenticated non-staff customers). When disabled, only apps and staff users may call the API directly; all other requests are rejected with an HTTP 401 and the `STOREFRONT_TRAFFIC_NOT_ALLOWED` error code.
+   *
+   * Added in Saleor 3.23.
+   */
+  allowStorefrontTraffic?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Charge taxes on shipping.
+   * @deprecated To enable taxes for a shipping method, assign a tax class to the shipping method with `shippingPriceCreate` or `shippingPriceUpdate` mutations.
+   */
+  chargeTaxesOnShipping?: InputMaybe<Scalars['Boolean']['input']>;
+  /** URL of a view where customers can set their password. */
+  customerSetPasswordUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Default email sender's address. */
+  defaultMailSenderAddress?: InputMaybe<Scalars['String']['input']>;
+  /** Default email sender's name. */
+  defaultMailSenderName?: InputMaybe<Scalars['String']['input']>;
+  /** Default weight unit. */
+  defaultWeightUnit?: InputMaybe<WeightUnitsEnum>;
+  /** SEO description. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Display prices with tax in store.
+   * @deprecated Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
+   */
+  displayGrossPrices?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Enable automatic account confirmation by email. */
+  enableAccountConfirmationByEmail?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Enable ability to approve fulfillments which are unpaid. */
+  fulfillmentAllowUnpaid?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Enable automatic approval of all new fulfillments. */
+  fulfillmentAutoApprove?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Header text. */
+  headerText?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Include taxes in prices.
+   * @deprecated Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
+   */
+  includeTaxesInPrices?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Default number of maximum line quantity in single checkout. Minimum possible value is 1, default value is 50. */
+  limitQuantityPerCheckout?: InputMaybe<Scalars['Int']['input']>;
+  /**
+   * Shop public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Shop's name.
+   *
+   * Added in Saleor 3.23.
+   */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Controls whether password-based authentication is allowed.
+   *
+   * Added in Saleor 3.23.
+   */
+  passwordLoginMode?: InputMaybe<PasswordLoginModeEnum>;
+  /**
+   * When enabled, address fields that are not valid for a given country (according to Google's i18n address data) will be preserved instead of being removed during validation. Validation errors are still returned.
+   *
+   * Added in Saleor 3.22.
+   */
+  preserveAllAddressFields?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Shop private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** Default number of minutes stock will be reserved for anonymous checkout. Enter 0 or null to disable. */
+  reserveStockDurationAnonymousUser?: InputMaybe<Scalars['Int']['input']>;
+  /** Default number of minutes stock will be reserved for authenticated checkout. Enter 0 or null to disable. */
+  reserveStockDurationAuthenticatedUser?: InputMaybe<Scalars['Int']['input']>;
+  /** This field is used as a default value for `ProductVariant.trackInventory`. */
+  trackInventoryByDefault?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * When enabled, stock availability is filtered by shipping zones and the destination address (legacy behavior). When disabled, stock availability is determined only by the direct warehouse-channel link, ignoring shipping zones.
+   *
+   * Added in Saleor 3.23.
+   */
+  useLegacyShippingZoneStockAvailability?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Use legacy update webhook emission. When enabled, update webhooks (e.g. `customerUpdated`,`productVariantUpdated`) are sent even when only metadata changes. When disabled, update webhooks are not sent for metadata-only changes; only metadata-specific webhooks (e.g., `customerMetadataUpdated`, `productVariantMetadataUpdated`) are sent.
+   *
+   * Added in Saleor 3.22.
+   * @deprecated Field no longer supported
+   */
+  useLegacyUpdateWebhookEmission?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ShopSettingsTranslationInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  headerText?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Fields required to create a staff user. */
+export type StaffCreateInput = {
+  /** List of permission group IDs to which user should be assigned. */
+  addGroups?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** The unique email address of the user. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** Given name. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** User account is active. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Family name. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** A note about the user. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of a view where users should be redirected to set the password. URL in RFC 1808 format. */
+  redirectUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Represents status of a staff account. */
+export enum StaffMemberStatus {
+  /** User account has been activated. */
+  ACTIVE = 'ACTIVE',
+  /** User account has not been activated yet. */
+  DEACTIVATED = 'DEACTIVATED'
+}
+
+export type StaffNotificationRecipientInput = {
+  /** Determines if a notification active. */
+  active?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Email address of a user subscribed to email notifications. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the user subscribed to email notifications.. */
+  user?: InputMaybe<Scalars['ID']['input']>;
+};
+
+/** Fields required to update a staff user. */
+export type StaffUpdateInput = {
+  /** List of permission group IDs to which user should be assigned. */
+  addGroups?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** The unique email address of the user. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** Given name. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** User account is active. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Family name. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** A note about the user. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** List of permission group IDs from which user should be unassigned. */
+  removeGroups?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export type StaffUserInput = {
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<StaffMemberStatus>;
+};
+
+export enum StockAvailability {
+  IN_STOCK = 'IN_STOCK',
+  OUT_OF_STOCK = 'OUT_OF_STOCK'
+}
+
+export enum StockBulkUpdateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export type StockBulkUpdateInput = {
+  /** Quantity of items available for sell. */
+  quantity: Scalars['Int']['input'];
+  /** Variant external reference. */
+  variantExternalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Variant ID. */
+  variantId?: InputMaybe<Scalars['ID']['input']>;
+  /** Warehouse external reference. */
+  warehouseExternalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Warehouse ID. */
+  warehouseId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export enum StockErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type StockFilterInput = {
+  quantity?: InputMaybe<Scalars['Float']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StockInput = {
+  /** Quantity of items available for sell. */
+  quantity: Scalars['Int']['input'];
+  /** Warehouse in which stock is located. */
+  warehouse: Scalars['ID']['input'];
+};
+
+export type StockSettingsInput = {
+  /** Allocation strategy options. Strategy defines the preference of warehouses for allocations and reservations. */
+  allocationStrategy: AllocationStrategyEnum;
+};
+
+export type StockUpdateInput = {
+  /** Quantity of items available for sell. */
+  quantity: Scalars['Int']['input'];
+  /** Stock. */
+  stock: Scalars['ID']['input'];
+};
+
+/**
+ * Determine how stocks should be updated, while processing an order.
+ *
+ *     SKIP - stocks are not checked and not updated.
+ *     UPDATE - only do update, if there is enough stock.
+ *     FORCE - force update, if there is not enough stock.
+ */
+export enum StockUpdatePolicyEnum {
+  FORCE = 'FORCE',
+  SKIP = 'SKIP',
+  UPDATE = 'UPDATE'
+}
+
+/** Enum representing the type of a payment storage in a gateway. */
+export enum StorePaymentMethodEnum {
+  /**
+   * Storage is disabled. The payment is not stored.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  NONE = 'NONE',
+  /**
+   * Off session storage type. The payment is stored to be reused even if the customer is absent.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  OFF_SESSION = 'OFF_SESSION',
+  /**
+   * On session storage type. The payment is stored only to be reused when the customer is present in the checkout flow.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  ON_SESSION = 'ON_SESSION'
+}
+
+export enum StoredPaymentMethodRequestDeleteErrorCode {
+  CHANNEL_INACTIVE = 'CHANNEL_INACTIVE',
+  GATEWAY_ERROR = 'GATEWAY_ERROR',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+/**
+ * Result of deleting a stored payment method.
+ *
+ *     This enum is used to determine the result of deleting a stored payment method.
+ *     SUCCESSFULLY_DELETED - The stored payment method was successfully deleted.
+ *     FAILED_TO_DELETE - The stored payment method was not deleted.
+ *     FAILED_TO_DELIVER - The request to delete the stored payment method was not
+ *     delivered.
+ */
+export enum StoredPaymentMethodRequestDeleteResult {
+  FAILED_TO_DELETE = 'FAILED_TO_DELETE',
+  FAILED_TO_DELIVER = 'FAILED_TO_DELIVER',
+  SUCCESSFULLY_DELETED = 'SUCCESSFULLY_DELETED'
+}
+
+/** Define the filtering options for string fields. */
+export type StringFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['String']['input']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export enum TaxCalculationStrategy {
+  FLAT_RATES = 'FLAT_RATES',
+  TAX_APP = 'TAX_APP'
+}
+
+export enum TaxClassCreateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export type TaxClassCreateInput = {
+  /** List of country-specific tax rates to create for this tax class. */
+  createCountryRates?: InputMaybe<Array<CountryRateInput>>;
+  /** Name of the tax class. */
+  name: Scalars['String']['input'];
+};
+
+export enum TaxClassDeleteErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export type TaxClassFilterInput = {
+  countries?: InputMaybe<Array<CountryCode>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+};
+
+export type TaxClassRateInput = {
+  /** Tax rate value. */
+  rate?: InputMaybe<Scalars['Float']['input']>;
+  /** ID of a tax class for which to update the tax rate */
+  taxClassId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export enum TaxClassSortField {
+  /** Sort tax classes by name. */
+  NAME = 'NAME'
+}
+
+export type TaxClassSortingInput = {
+  /** Specifies the direction in which to sort tax classes. */
+  direction: OrderDirection;
+  /** Sort tax classes by the selected field. */
+  field: TaxClassSortField;
+};
+
+export enum TaxClassUpdateErrorCode {
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export type TaxClassUpdateInput = {
+  /** Name of the tax class. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** List of country codes for which to remove the tax class rates. Note: It removes all rates for given country code. */
+  removeCountryRates?: InputMaybe<Array<CountryCode>>;
+  /** List of country-specific tax rates to create or update for this tax class. */
+  updateCountryRates?: InputMaybe<Array<CountryRateUpdateInput>>;
+};
+
+export type TaxConfigurationFilterInput = {
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+};
+
+export type TaxConfigurationPerCountryInput = {
+  /** Determines whether taxes are charged in this country. */
+  chargeTaxes: Scalars['Boolean']['input'];
+  /** Country in which this configuration applies. */
+  countryCode: CountryCode;
+  /** Determines whether displayed prices should include taxes for this country. */
+  displayGrossPrices: Scalars['Boolean']['input'];
+  /** The tax app `App.identifier` that will be used to calculate the taxes for the given channel and country. If not provided, use the value from the channel's tax configuration. */
+  taxAppId?: InputMaybe<Scalars['String']['input']>;
+  /** A country-specific strategy to use for tax calculation. Taxes can be calculated either using user-defined flat rates or with a tax app. If not provided, use the value from the channel's tax configuration. */
+  taxCalculationStrategy?: InputMaybe<TaxCalculationStrategy>;
+  /** Determines whether to use weighted tax for shipping. When set to true, the tax rate for shipping will be calculated based on the weighted average of tax rates from the order or checkout lines. Default value is `False`.Can be used only with `taxCalculationStrategy` set to `FLAT_RATES`. */
+  useWeightedTaxForShipping?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum TaxConfigurationUpdateErrorCode {
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export type TaxConfigurationUpdateInput = {
+  /** Determines whether taxes are charged in the given channel. */
+  chargeTaxes?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Determines whether displayed prices should include taxes. */
+  displayGrossPrices?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Determines whether prices are entered with the tax included. */
+  pricesEnteredWithTax?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of country codes for which to remove the tax configuration. */
+  removeCountriesConfiguration?: InputMaybe<Array<CountryCode>>;
+  /** The tax app `App.identifier` that will be used to calculate the taxes for the given channel. Empty value for `TAX_APP` set as `taxCalculationStrategy` means that Saleor will iterate over all installed tax apps. If multiple tax apps exist with provided tax app id use the `App` with newest `created` date. It's possible to set plugin by using prefix `plugin:` with `PLUGIN_ID` e.g. with Avalara `plugin:mirumee.taxes.avalara`.Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`. */
+  taxAppId?: InputMaybe<Scalars['String']['input']>;
+  /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
+  taxCalculationStrategy?: InputMaybe<TaxCalculationStrategy>;
+  /** List of tax country configurations to create or update (identified by a country code). */
+  updateCountriesConfiguration?: InputMaybe<Array<TaxConfigurationPerCountryInput>>;
+  /** Determines whether to use weighted tax for shipping. When set to true, the tax rate for shipping will be calculated based on the weighted average of tax rates from the order or checkout lines. Default value is `False`.Can be used only with `taxCalculationStrategy` set to `FLAT_RATES`. */
+  useWeightedTaxForShipping?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum TaxCountryConfigurationDeleteErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum TaxCountryConfigurationUpdateErrorCode {
+  CANNOT_CREATE_NEGATIVE_RATE = 'CANNOT_CREATE_NEGATIVE_RATE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  ONLY_ONE_DEFAULT_COUNTRY_RATE_ALLOWED = 'ONLY_ONE_DEFAULT_COUNTRY_RATE_ALLOWED'
+}
+
+export enum TaxExemptionManageErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_EDITABLE_ORDER = 'NOT_EDITABLE_ORDER',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+/** Indicates which part of the order the discount should affect: SUBTOTAL or SHIPPING. */
+export enum TaxableObjectDiscountTypeEnum {
+  SHIPPING = 'SHIPPING',
+  SUBTOTAL = 'SUBTOTAL'
+}
+
+export type TaxedMoneyInput = {
+  /** Gross value of an item. */
+  gross: Scalars['PositiveDecimal']['input'];
+  /** Net value of an item. */
+  net: Scalars['PositiveDecimal']['input'];
+};
+
+export enum ThumbnailFormatEnum {
+  AVIF = 'AVIF',
+  ORIGINAL = 'ORIGINAL',
+  WEBP = 'WEBP'
+}
+
+export type TimePeriodInputType = {
+  /** The length of the period. */
+  amount: Scalars['Int']['input'];
+  /** The type of the period. */
+  type: TimePeriodTypeEnum;
+};
+
+export enum TimePeriodTypeEnum {
+  DAY = 'DAY',
+  MONTH = 'MONTH',
+  WEEK = 'WEEK',
+  YEAR = 'YEAR'
+}
+
+/**
+ * Represents possible tokenized payment flows that can be used to process payment.
+ *
+ *     The following flows are possible:
+ *     INTERACTIVE - Payment method can be used for 1 click checkout - it's prefilled in
+ *     checkout form (might require additional authentication from user)
+ */
+export enum TokenizedPaymentFlowEnum {
+  INTERACTIVE = 'INTERACTIVE'
+}
+
+/**
+ * Represents possible actions on payment transaction.
+ *
+ *     The following actions are possible:
+ *     CHARGE - Represents the charge action.
+ *     REFUND - Represents a refund action.
+ *     CANCEL - Represents a cancel action.
+ */
+export enum TransactionActionEnum {
+  CANCEL = 'CANCEL',
+  CHARGE = 'CHARGE',
+  REFUND = 'REFUND'
+}
+
+export enum TransactionCreateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INCORRECT_CURRENCY = 'INCORRECT_CURRENCY',
+  INVALID = 'INVALID',
+  METADATA_KEY_REQUIRED = 'METADATA_KEY_REQUIRED',
+  NOT_FOUND = 'NOT_FOUND',
+  UNIQUE = 'UNIQUE'
+}
+
+export type TransactionCreateInput = {
+  /** Amount authorized by this transaction. */
+  amountAuthorized?: InputMaybe<MoneyInput>;
+  /** Amount canceled by this transaction. */
+  amountCanceled?: InputMaybe<MoneyInput>;
+  /** Amount charged by this transaction. */
+  amountCharged?: InputMaybe<MoneyInput>;
+  /** Amount refunded by this transaction. */
+  amountRefunded?: InputMaybe<MoneyInput>;
+  /** List of all possible actions for the transaction */
+  availableActions?: InputMaybe<Array<TransactionActionEnum>>;
+  /** The url that will allow to redirect user to payment provider page with transaction event details. */
+  externalUrl?: InputMaybe<Scalars['String']['input']>;
+  /** The message of the transaction. */
+  message?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Payment public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Payment name of the transaction. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Details of the payment method used for the transaction.
+   *
+   * Added in Saleor 3.22.
+   */
+  paymentMethodDetails?: InputMaybe<PaymentMethodDetailsInput>;
+  /**
+   * Payment private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** PSP Reference of the transaction. */
+  pspReference?: InputMaybe<Scalars['String']['input']>;
+};
+
+/**
+ * Filter input for transaction events data.
+ *
+ * Added in Saleor 3.23.
+ */
+export type TransactionEventFilterInput = {
+  /**
+   * Filter transaction events by created at date.
+   *
+   * Added in Saleor 3.23.
+   */
+  createdAt?: InputMaybe<DateTimeRangeInput>;
+  /**
+   * Filter transaction events by type.
+   *
+   * Added in Saleor 3.23.
+   */
+  type?: InputMaybe<TransactionEventTypeEnumFilterInput>;
+};
+
+export type TransactionEventInput = {
+  /** The message related to the event. */
+  message?: InputMaybe<Scalars['String']['input']>;
+  /** PSP Reference related to this action. */
+  pspReference?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum TransactionEventReportErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INCORRECT_DETAILS = 'INCORRECT_DETAILS',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+/**
+ * Represents possible event types.
+ *
+ *     The following types are possible:
+ *     AUTHORIZATION_SUCCESS - represents success authorization.
+ *     AUTHORIZATION_FAILURE - represents failure authorization.
+ *     AUTHORIZATION_ADJUSTMENT - represents authorization adjustment.
+ *     AUTHORIZATION_REQUEST - represents authorization request.
+ *     AUTHORIZATION_ACTION_REQUIRED - represents authorization that needs
+ *     additional actions from the customer.
+ *     CHARGE_ACTION_REQUIRED - represents charge that needs
+ *     additional actions from the customer.
+ *     CHARGE_SUCCESS - represents success charge.
+ *     CHARGE_FAILURE - represents failure charge.
+ *     CHARGE_BACK - represents chargeback.
+ *     CHARGE_REQUEST - represents charge request.
+ *     REFUND_SUCCESS - represents success refund.
+ *     REFUND_FAILURE - represents failure refund.
+ *     REFUND_REVERSE - represents reverse refund.
+ *     REFUND_REQUEST - represents refund request.
+ *     CANCEL_SUCCESS - represents success cancel.
+ *     CANCEL_FAILURE - represents failure cancel.
+ *     CANCEL_REQUEST - represents cancel request.
+ *     INFO - represents info event.
+ */
+export enum TransactionEventTypeEnum {
+  AUTHORIZATION_ACTION_REQUIRED = 'AUTHORIZATION_ACTION_REQUIRED',
+  AUTHORIZATION_ADJUSTMENT = 'AUTHORIZATION_ADJUSTMENT',
+  AUTHORIZATION_FAILURE = 'AUTHORIZATION_FAILURE',
+  AUTHORIZATION_REQUEST = 'AUTHORIZATION_REQUEST',
+  AUTHORIZATION_SUCCESS = 'AUTHORIZATION_SUCCESS',
+  CANCEL_FAILURE = 'CANCEL_FAILURE',
+  CANCEL_REQUEST = 'CANCEL_REQUEST',
+  CANCEL_SUCCESS = 'CANCEL_SUCCESS',
+  CHARGE_ACTION_REQUIRED = 'CHARGE_ACTION_REQUIRED',
+  CHARGE_BACK = 'CHARGE_BACK',
+  CHARGE_FAILURE = 'CHARGE_FAILURE',
+  CHARGE_REQUEST = 'CHARGE_REQUEST',
+  CHARGE_SUCCESS = 'CHARGE_SUCCESS',
+  INFO = 'INFO',
+  REFUND_FAILURE = 'REFUND_FAILURE',
+  REFUND_REQUEST = 'REFUND_REQUEST',
+  REFUND_REVERSE = 'REFUND_REVERSE',
+  REFUND_SUCCESS = 'REFUND_SUCCESS'
+}
+
+export type TransactionEventTypeEnumFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<TransactionEventTypeEnum>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<TransactionEventTypeEnum>>;
+};
+
+/** Filter input for transactions. */
+export type TransactionFilterInput = {
+  /** Filter by metadata fields of transactions. */
+  metadata?: InputMaybe<MetadataFilterInput>;
+  /** Filter by payment method details used to pay for the order. */
+  paymentMethodDetails?: InputMaybe<PaymentMethodDetailsFilterInput>;
+  /**
+   * Filter by PSP reference of transactions.
+   *
+   * Added in Saleor 3.22.
+   */
+  pspReference?: InputMaybe<StringFilterInput>;
+};
+
+/**
+ * Determine the transaction flow strategy.
+ *
+ *     AUTHORIZATION - the processed transaction should be only authorized
+ *     CHARGE - the processed transaction should be charged.
+ */
+export enum TransactionFlowStrategyEnum {
+  AUTHORIZATION = 'AUTHORIZATION',
+  CHARGE = 'CHARGE'
+}
+
+export enum TransactionInitializeErrorCode {
+  CHECKOUT_COMPLETION_IN_PROGRESS = 'CHECKOUT_COMPLETION_IN_PROGRESS',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  UNIQUE = 'UNIQUE'
+}
+
+export enum TransactionKind {
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  ACTION_TO_CONFIRM = 'ACTION_TO_CONFIRM',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  AUTH = 'AUTH',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  CANCEL = 'CANCEL',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  CAPTURE = 'CAPTURE',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  CONFIRM = 'CONFIRM',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  EXTERNAL = 'EXTERNAL',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  PENDING = 'PENDING',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  REFUND = 'REFUND',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  REFUND_ONGOING = 'REFUND_ONGOING',
+  /** @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead. */
+  VOID = 'VOID'
+}
+
+export enum TransactionProcessErrorCode {
+  CHECKOUT_COMPLETION_IN_PROGRESS = 'CHECKOUT_COMPLETION_IN_PROGRESS',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MISSING_PAYMENT_APP = 'MISSING_PAYMENT_APP',
+  MISSING_PAYMENT_APP_RELATION = 'MISSING_PAYMENT_APP_RELATION',
+  NOT_FOUND = 'NOT_FOUND',
+  TRANSACTION_ALREADY_PROCESSED = 'TRANSACTION_ALREADY_PROCESSED'
+}
+
+export enum TransactionRequestActionErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MISSING_TRANSACTION_ACTION_REQUEST_WEBHOOK = 'MISSING_TRANSACTION_ACTION_REQUEST_WEBHOOK',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
+export enum TransactionRequestRefundForGrantedRefundErrorCode {
+  AMOUNT_GREATER_THAN_AVAILABLE = 'AMOUNT_GREATER_THAN_AVAILABLE',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MISSING_TRANSACTION_ACTION_REQUEST_WEBHOOK = 'MISSING_TRANSACTION_ACTION_REQUEST_WEBHOOK',
+  NOT_FOUND = 'NOT_FOUND',
+  REFUND_ALREADY_PROCESSED = 'REFUND_ALREADY_PROCESSED',
+  REFUND_IS_PENDING = 'REFUND_IS_PENDING'
+}
+
+export enum TransactionSortField {
+  /**
+   * Sort transactions by creation date.
+   *
+   * Added in Saleor 3.23.
+   */
+  CREATED_AT = 'CREATED_AT',
+  /**
+   * Sort transactions by modification date.
+   *
+   * Added in Saleor 3.23.
+   */
+  MODIFIED_AT = 'MODIFIED_AT'
+}
+
+export type TransactionSortingInput = {
+  /** Specifies the direction in which to sort transactions. */
+  direction: OrderDirection;
+  /** Sort transactions by the selected field. */
+  field: TransactionSortField;
+};
+
+export enum TransactionUpdateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INCORRECT_CURRENCY = 'INCORRECT_CURRENCY',
+  INVALID = 'INVALID',
+  METADATA_KEY_REQUIRED = 'METADATA_KEY_REQUIRED',
+  NOT_FOUND = 'NOT_FOUND',
+  UNIQUE = 'UNIQUE'
+}
+
+export type TransactionUpdateInput = {
+  /** Amount authorized by this transaction. */
+  amountAuthorized?: InputMaybe<MoneyInput>;
+  /** Amount canceled by this transaction. */
+  amountCanceled?: InputMaybe<MoneyInput>;
+  /** Amount charged by this transaction. */
+  amountCharged?: InputMaybe<MoneyInput>;
+  /** Amount refunded by this transaction. */
+  amountRefunded?: InputMaybe<MoneyInput>;
+  /** List of all possible actions for the transaction */
+  availableActions?: InputMaybe<Array<TransactionActionEnum>>;
+  /** The url that will allow to redirect user to payment provider page with transaction event details. */
+  externalUrl?: InputMaybe<Scalars['String']['input']>;
+  /** The message of the transaction. */
+  message?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Payment public metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Payment name of the transaction. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Details of the payment method used for the transaction.
+   *
+   * Added in Saleor 3.22.
+   */
+  paymentMethodDetails?: InputMaybe<PaymentMethodDetailsInput>;
+  /**
+   * Payment private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** PSP Reference of the transaction. */
+  pspReference?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TransactionWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<TransactionWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<TransactionWhereInput>>;
+  /** Filter by app identifier. */
+  appIdentifier?: InputMaybe<StringFilterInput>;
+  /**
+   * Filter transactions by created at date.
+   *
+   * Added in Saleor 3.23.
+   */
+  createdAt?: InputMaybe<DateTimeRangeInput>;
+  /**
+   * Filter by transaction events. Each list item represents conditions that must be satisfied by a single event. The filter matches transactions that have related events meeting all specified groups of conditions.
+   *
+   * Added in Saleor 3.23.
+   */
+  events?: InputMaybe<Array<TransactionEventFilterInput>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Filter transactions by modified at date.
+   *
+   * Added in Saleor 3.23.
+   */
+  modifiedAt?: InputMaybe<DateTimeRangeInput>;
+  /** Filter by PSP reference. */
+  pspReference?: InputMaybe<StringFilterInput>;
+};
+
+export enum TranslatableKinds {
+  ATTRIBUTE = 'ATTRIBUTE',
+  ATTRIBUTE_VALUE = 'ATTRIBUTE_VALUE',
+  CATEGORY = 'CATEGORY',
+  COLLECTION = 'COLLECTION',
+  MENU_ITEM = 'MENU_ITEM',
+  PAGE = 'PAGE',
+  PRODUCT = 'PRODUCT',
+  PROMOTION = 'PROMOTION',
+  PROMOTION_RULE = 'PROMOTION_RULE',
+  SALE = 'SALE',
+  SHIPPING_METHOD = 'SHIPPING_METHOD',
+  VARIANT = 'VARIANT',
+  VOUCHER = 'VOUCHER'
+}
+
+export enum TranslationErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type TranslationInput = {
+  /**
+   * Translated description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars['JSONString']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  seoDescription?: InputMaybe<Scalars['String']['input']>;
+  seoTitle?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Define the filtering options for string fields. */
+export type UuidFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars['UUID']['input']>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars['UUID']['input']>>;
+};
+
+export type UpdateInvoiceInput = {
+  /**
+   * Fields required to update the invoice metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** Invoice number */
+  number?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the invoice private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of an invoice to download. */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum UploadErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID_FILE_TYPE = 'INVALID_FILE_TYPE',
+  UNSUPPORTED_MIME_TYPE = 'UNSUPPORTED_MIME_TYPE'
+}
+
+export type UserCreateInput = {
+  /**
+   * List of attribute values to assign to the user. The attributes must belong to the customer type the user ends up with.
+   *
+   * Added in Saleor 3.23.
+   */
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
+  /** Slug of a channel which will be used for notify user. Optional when only one channel exists. */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * ID of the customer type to assign to the user. If not provided when creating a customer, the default customer type is assigned.
+   *
+   * Added in Saleor 3.23.
+   */
+  customerType?: InputMaybe<Scalars['ID']['input']>;
+  /** Billing address of the customer. */
+  defaultBillingAddress?: InputMaybe<AddressInput>;
+  /** Shipping address of the customer. */
+  defaultShippingAddress?: InputMaybe<AddressInput>;
+  /** The unique email address of the user. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** External ID of the customer. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Given name. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** User account is active. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * User account is confirmed.
+   * @deprecated The user will be always set as unconfirmed. The confirmation will take place when the user sets the password.
+   */
+  isConfirmed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** User language code. */
+  languageCode?: InputMaybe<LanguageCodeEnum>;
+  /** Family name. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user metadata. Can be read by any API client authorized to read the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /** A note about the user. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fields required to update the user private metadata. Requires permissions to modify and to read the metadata of the object it's attached to.
+   *
+   * Warning: never store sensitive information, including financial data such as credit card details.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
+  /** URL of a view where users should be redirected to set the password. URL in RFC 1808 format. */
+  redirectUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum UserSortField {
+  /** Sort users by created at. */
+  CREATED_AT = 'CREATED_AT',
+  /** Sort users by email. */
+  EMAIL = 'EMAIL',
+  /** Sort users by first name. */
+  FIRST_NAME = 'FIRST_NAME',
+  /** Sort users by last modified at. */
+  LAST_MODIFIED_AT = 'LAST_MODIFIED_AT',
+  /** Sort users by last name. */
+  LAST_NAME = 'LAST_NAME',
+  /** Sort users by order count. */
+  ORDER_COUNT = 'ORDER_COUNT',
+  /** Sort users by rank. Note: This option is available only with the `search` filter. */
+  RANK = 'RANK'
+}
+
+export type UserSortingInput = {
+  /** Specifies the direction in which to sort users. */
+  direction: OrderDirection;
+  /** Sort users by the selected field. */
+  field: UserSortField;
+};
+
+export enum VariantAttributeScope {
+  ALL = 'ALL',
+  NOT_VARIANT_SELECTION = 'NOT_VARIANT_SELECTION',
+  VARIANT_SELECTION = 'VARIANT_SELECTION'
+}
+
+export enum VolumeUnitsEnum {
+  ACRE_FT = 'ACRE_FT',
+  ACRE_IN = 'ACRE_IN',
+  CUBIC_CENTIMETER = 'CUBIC_CENTIMETER',
+  CUBIC_DECIMETER = 'CUBIC_DECIMETER',
+  CUBIC_FOOT = 'CUBIC_FOOT',
+  CUBIC_INCH = 'CUBIC_INCH',
+  CUBIC_METER = 'CUBIC_METER',
+  CUBIC_MILLIMETER = 'CUBIC_MILLIMETER',
+  CUBIC_YARD = 'CUBIC_YARD',
+  FL_OZ = 'FL_OZ',
+  LITER = 'LITER',
+  PINT = 'PINT',
+  QT = 'QT'
+}
+
+export type VoucherChannelListingAddInput = {
+  /** ID of a channel. */
+  channelId: Scalars['ID']['input'];
+  /** Value of the voucher. */
+  discountValue?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+  /** Min purchase amount required to apply the voucher. */
+  minAmountSpent?: InputMaybe<Scalars['PositiveDecimal']['input']>;
+};
+
+export type VoucherChannelListingInput = {
+  /** List of channels to which the voucher should be assigned. */
+  addChannels?: InputMaybe<Array<VoucherChannelListingAddInput>>;
+  /** List of channels from which the voucher should be unassigned. */
+  removeChannels?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export enum VoucherCodeBulkDeleteErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND'
+}
+
+export enum VoucherDiscountType {
+  FIXED = 'FIXED',
+  PERCENTAGE = 'PERCENTAGE',
+  SHIPPING = 'SHIPPING'
+}
+
+export type VoucherFilterInput = {
+  discountType?: InputMaybe<Array<VoucherDiscountType>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  started?: InputMaybe<DateTimeRangeInput>;
+  status?: InputMaybe<Array<DiscountStatusEnum>>;
+  timesUsed?: InputMaybe<IntRangeInput>;
+};
+
+export type VoucherInput = {
+  /**
+   * List of codes to add.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  addCodes?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Voucher should be applied once per customer. */
+  applyOncePerCustomer?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Voucher should be applied to the cheapest item or entire order. */
+  applyOncePerOrder?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Categories discounted by the voucher. */
+  categories?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Code to use the voucher.
+   * @deprecated Use `addCodes` instead.
+   */
+  code?: InputMaybe<Scalars['String']['input']>;
+  /** Collections discounted by the voucher. */
+  collections?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Country codes that can be used with the shipping voucher. */
+  countries?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Choices: fixed or percentage. */
+  discountValueType?: InputMaybe<DiscountValueTypeEnum>;
+  /** End date of the voucher in ISO 8601 format. */
+  endDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Minimal quantity of checkout items required to apply the voucher. */
+  minCheckoutItemsQuantity?: InputMaybe<Scalars['Int']['input']>;
+  /** Voucher name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Voucher can be used only by staff user. */
+  onlyForStaff?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Products discounted by the voucher. */
+  products?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * When set to 'True', each voucher code can be used only once; otherwise, codes can be used multiple times depending on `usageLimit`.
+   *
+   * The option can only be changed if none of the voucher codes have been used.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  singleUse?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Start date of the voucher in ISO 8601 format. */
+  startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Voucher type: PRODUCT, CATEGORY SHIPPING or ENTIRE_ORDER. */
+  type?: InputMaybe<VoucherTypeEnum>;
+  /** Limit number of times this voucher can be used in total. */
+  usageLimit?: InputMaybe<Scalars['Int']['input']>;
+  /** Variants discounted by the voucher. */
+  variants?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export enum VoucherSortField {
+  /**
+   * Sort vouchers by code.
+   * @deprecated Field no longer supported
+   */
+  CODE = 'CODE',
+  /** Sort vouchers by end date. */
+  END_DATE = 'END_DATE',
+  /**
+   * Sort vouchers by minimum spent amount.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  MINIMUM_SPENT_AMOUNT = 'MINIMUM_SPENT_AMOUNT',
+  /** Sort vouchers by name. */
+  NAME = 'NAME',
+  /** Sort vouchers by start date. */
+  START_DATE = 'START_DATE',
+  /** Sort vouchers by type. */
+  TYPE = 'TYPE',
+  /** Sort vouchers by usage limit. */
+  USAGE_LIMIT = 'USAGE_LIMIT',
+  /**
+   * Sort vouchers by value.
+   *
+   * This option requires a channel filter to work as the values can vary between channels.
+   */
+  VALUE = 'VALUE'
+}
+
+export type VoucherSortingInput = {
+  /**
+   * Specifies the channel in which to sort the data.
+   * @deprecated Use root-level channel argument instead.
+   */
+  channel?: InputMaybe<Scalars['String']['input']>;
+  /** Specifies the direction in which to sort vouchers. */
+  direction: OrderDirection;
+  /** Sort vouchers by the selected field. */
+  field: VoucherSortField;
+};
+
+export enum VoucherTypeEnum {
+  ENTIRE_ORDER = 'ENTIRE_ORDER',
+  SHIPPING = 'SHIPPING',
+  SPECIFIC_PRODUCT = 'SPECIFIC_PRODUCT'
+}
+
+export enum WarehouseClickAndCollectOptionEnum {
+  ALL = 'ALL',
+  DISABLED = 'DISABLED',
+  LOCAL = 'LOCAL'
+}
+
+export type WarehouseCreateInput = {
+  /** Address of the warehouse. */
+  address: AddressInput;
+  /** The email address of the warehouse. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** External ID of the warehouse. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Warehouse name. */
+  name: Scalars['String']['input'];
+  /**
+   * Shipping zones supported by the warehouse.
+   * @deprecated Providing the zone ids will raise a ValidationError.
+   */
+  shippingZones?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Warehouse slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum WarehouseErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type WarehouseFilterInput = {
+  channels?: InputMaybe<Array<Scalars['ID']['input']>>;
+  clickAndCollectOption?: InputMaybe<WarehouseClickAndCollectOptionEnum>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
+  isPrivate?: InputMaybe<Scalars['Boolean']['input']>;
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  slugs?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export enum WarehouseSortField {
+  /** Sort warehouses by name. */
+  NAME = 'NAME'
+}
+
+export type WarehouseSortingInput = {
+  /** Specifies the direction in which to sort warehouses. */
+  direction: OrderDirection;
+  /** Sort warehouses by the selected field. */
+  field: WarehouseSortField;
+};
+
+export type WarehouseUpdateInput = {
+  /** Address of the warehouse. */
+  address?: InputMaybe<AddressInput>;
+  /** Click and collect options: local, all or disabled. */
+  clickAndCollectOption?: InputMaybe<WarehouseClickAndCollectOptionEnum>;
+  /** The email address of the warehouse. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** External ID of the warehouse. */
+  externalReference?: InputMaybe<Scalars['String']['input']>;
+  /** Visibility of warehouse stocks. */
+  isPrivate?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Warehouse name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Warehouse slug. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type WebhookCreateInput = {
+  /** ID of the app to which webhook belongs. */
+  app?: InputMaybe<Scalars['ID']['input']>;
+  /** The asynchronous events that webhook wants to subscribe. */
+  asyncEvents?: InputMaybe<Array<WebhookEventTypeAsyncEnum>>;
+  /** Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only `X-*`, `Authorization*`, and `BrokerProperties` keys are allowed. */
+  customHeaders?: InputMaybe<Scalars['JSONString']['input']>;
+  /**
+   * The events that webhook wants to subscribe.
+   * @deprecated Use `asyncEvents` or `syncEvents` instead.
+   */
+  events?: InputMaybe<Array<WebhookEventTypeEnum>>;
+  /**
+   * The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters.
+   *
+   * Added in Saleor 3.23.
+   */
+  identifier?: InputMaybe<Scalars['String']['input']>;
+  /** Determine if webhook will be set active or not. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The name of the webhook. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Subscription query used to define a webhook payload. */
+  query?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The secret key used to create a hash signature with each payload.
+   * @deprecated As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+   */
+  secretKey?: InputMaybe<Scalars['String']['input']>;
+  /** The synchronous events that webhook wants to subscribe. */
+  syncEvents?: InputMaybe<Array<WebhookEventTypeSyncEnum>>;
+  /** The url to receive the payload. */
+  targetUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum WebhookDryRunErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID_ID = 'INVALID_ID',
+  MISSING_EVENT = 'MISSING_EVENT',
+  MISSING_PERMISSION = 'MISSING_PERMISSION',
+  MISSING_SUBSCRIPTION = 'MISSING_SUBSCRIPTION',
+  NOT_FOUND = 'NOT_FOUND',
+  SYNTAX = 'SYNTAX',
+  TYPE_NOT_SUPPORTED = 'TYPE_NOT_SUPPORTED',
+  UNABLE_TO_PARSE = 'UNABLE_TO_PARSE'
+}
+
+export enum WebhookErrorCode {
+  DELETE_FAILED = 'DELETE_FAILED',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  INVALID_CUSTOM_HEADERS = 'INVALID_CUSTOM_HEADERS',
+  INVALID_NOTIFY_WITH_SUBSCRIPTION = 'INVALID_NOTIFY_WITH_SUBSCRIPTION',
+  MISSING_EVENT = 'MISSING_EVENT',
+  MISSING_SUBSCRIPTION = 'MISSING_SUBSCRIPTION',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  SYNTAX = 'SYNTAX',
+  UNABLE_TO_PARSE = 'UNABLE_TO_PARSE',
+  UNIQUE = 'UNIQUE'
+}
+
+/** Enum determining type of webhook. */
+export enum WebhookEventTypeAsyncEnum {
+  /** An account email change is requested. */
+  ACCOUNT_CHANGE_EMAIL_REQUESTED = 'ACCOUNT_CHANGE_EMAIL_REQUESTED',
+  /** An account confirmation is requested. */
+  ACCOUNT_CONFIRMATION_REQUESTED = 'ACCOUNT_CONFIRMATION_REQUESTED',
+  /** An account is confirmed. */
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
+  /** An account is deleted. */
+  ACCOUNT_DELETED = 'ACCOUNT_DELETED',
+  /** An account delete is requested. */
+  ACCOUNT_DELETE_REQUESTED = 'ACCOUNT_DELETE_REQUESTED',
+  /** An account email was changed */
+  ACCOUNT_EMAIL_CHANGED = 'ACCOUNT_EMAIL_CHANGED',
+  /** Setting a new password for the account is requested. */
+  ACCOUNT_SET_PASSWORD_REQUESTED = 'ACCOUNT_SET_PASSWORD_REQUESTED',
+  /** A new address created. */
+  ADDRESS_CREATED = 'ADDRESS_CREATED',
+  /** An address deleted. */
+  ADDRESS_DELETED = 'ADDRESS_DELETED',
+  /** An address updated. */
+  ADDRESS_UPDATED = 'ADDRESS_UPDATED',
+  /**
+   * All the events.
+   * @deprecated Field no longer supported
+   */
+  ANY_EVENTS = 'ANY_EVENTS',
+  /** An app deleted. */
+  APP_DELETED = 'APP_DELETED',
+  /** A new app installed. */
+  APP_INSTALLED = 'APP_INSTALLED',
+  /** An app status is changed. */
+  APP_STATUS_CHANGED = 'APP_STATUS_CHANGED',
+  /** An app updated. */
+  APP_UPDATED = 'APP_UPDATED',
+  /** A new attribute is created. */
+  ATTRIBUTE_CREATED = 'ATTRIBUTE_CREATED',
+  /** An attribute is deleted. */
+  ATTRIBUTE_DELETED = 'ATTRIBUTE_DELETED',
+  /** An attribute is updated. */
+  ATTRIBUTE_UPDATED = 'ATTRIBUTE_UPDATED',
+  /** A new attribute value is created. */
+  ATTRIBUTE_VALUE_CREATED = 'ATTRIBUTE_VALUE_CREATED',
+  /** An attribute value is deleted. */
+  ATTRIBUTE_VALUE_DELETED = 'ATTRIBUTE_VALUE_DELETED',
+  /** An attribute value is updated. */
+  ATTRIBUTE_VALUE_UPDATED = 'ATTRIBUTE_VALUE_UPDATED',
+  /** A new category created. */
+  CATEGORY_CREATED = 'CATEGORY_CREATED',
+  /** A category is deleted. */
+  CATEGORY_DELETED = 'CATEGORY_DELETED',
+  /** A category is updated. */
+  CATEGORY_UPDATED = 'CATEGORY_UPDATED',
+  /** A new channel created. */
+  CHANNEL_CREATED = 'CHANNEL_CREATED',
+  /** A channel is deleted. */
+  CHANNEL_DELETED = 'CHANNEL_DELETED',
+  /** A channel metadata is updated. */
+  CHANNEL_METADATA_UPDATED = 'CHANNEL_METADATA_UPDATED',
+  /** A channel status is changed. */
+  CHANNEL_STATUS_CHANGED = 'CHANNEL_STATUS_CHANGED',
+  /** A channel is updated. */
+  CHANNEL_UPDATED = 'CHANNEL_UPDATED',
+  /** A new checkout is created. */
+  CHECKOUT_CREATED = 'CHECKOUT_CREATED',
+  /**
+   * A checkout was fully authorized (its `authorizeStatus` is `FULL`).
+   *
+   * This event is emitted only for checkouts whose payments are processed through the Transaction API.
+   */
+  CHECKOUT_FULLY_AUTHORIZED = 'CHECKOUT_FULLY_AUTHORIZED',
+  /**
+   * A checkout was fully paid (its `chargeStatus` is `FULL` or `OVERCHARGED`). This event is not sent if payments are only authorized but not fully charged.
+   *
+   * This event is emitted only for checkouts whose payments are processed through the Transaction API.
+   */
+  CHECKOUT_FULLY_PAID = 'CHECKOUT_FULLY_PAID',
+  /** A checkout metadata is updated. */
+  CHECKOUT_METADATA_UPDATED = 'CHECKOUT_METADATA_UPDATED',
+  /** A checkout is updated. It also triggers all updates related to the checkout. */
+  CHECKOUT_UPDATED = 'CHECKOUT_UPDATED',
+  /** A new collection is created. */
+  COLLECTION_CREATED = 'COLLECTION_CREATED',
+  /** A collection is deleted. */
+  COLLECTION_DELETED = 'COLLECTION_DELETED',
+  /** A collection metadata is updated. */
+  COLLECTION_METADATA_UPDATED = 'COLLECTION_METADATA_UPDATED',
+  /** A collection is updated. */
+  COLLECTION_UPDATED = 'COLLECTION_UPDATED',
+  /** A new customer account is created. */
+  CUSTOMER_CREATED = 'CUSTOMER_CREATED',
+  /** A customer account is deleted. */
+  CUSTOMER_DELETED = 'CUSTOMER_DELETED',
+  /** A customer account metadata is updated. */
+  CUSTOMER_METADATA_UPDATED = 'CUSTOMER_METADATA_UPDATED',
+  /**
+   * A new customer type is created.
+   *
+   * Added in Saleor 3.23.
+   */
+  CUSTOMER_TYPE_CREATED = 'CUSTOMER_TYPE_CREATED',
+  /**
+   * A customer type is deleted.
+   *
+   * Added in Saleor 3.23.
+   */
+  CUSTOMER_TYPE_DELETED = 'CUSTOMER_TYPE_DELETED',
+  /**
+   * A customer type is updated.
+   *
+   * Added in Saleor 3.23.
+   */
+  CUSTOMER_TYPE_UPDATED = 'CUSTOMER_TYPE_UPDATED',
+  /** A customer account is updated. */
+  CUSTOMER_UPDATED = 'CUSTOMER_UPDATED',
+  /** A draft order is created. */
+  DRAFT_ORDER_CREATED = 'DRAFT_ORDER_CREATED',
+  /** A draft order is deleted. */
+  DRAFT_ORDER_DELETED = 'DRAFT_ORDER_DELETED',
+  /** A draft order is updated. */
+  DRAFT_ORDER_UPDATED = 'DRAFT_ORDER_UPDATED',
+  /** A fulfillment is approved. */
+  FULFILLMENT_APPROVED = 'FULFILLMENT_APPROVED',
+  /** A fulfillment is cancelled. */
+  FULFILLMENT_CANCELED = 'FULFILLMENT_CANCELED',
+  /** A new fulfillment is created. */
+  FULFILLMENT_CREATED = 'FULFILLMENT_CREATED',
+  /** A fulfillment metadata is updated. */
+  FULFILLMENT_METADATA_UPDATED = 'FULFILLMENT_METADATA_UPDATED',
+  FULFILLMENT_TRACKING_NUMBER_UPDATED = 'FULFILLMENT_TRACKING_NUMBER_UPDATED',
+  /** A new gift card created. */
+  GIFT_CARD_CREATED = 'GIFT_CARD_CREATED',
+  /** A gift card is deleted. */
+  GIFT_CARD_DELETED = 'GIFT_CARD_DELETED',
+  /** A gift card metadata is updated. */
+  GIFT_CARD_METADATA_UPDATED = 'GIFT_CARD_METADATA_UPDATED',
+  /** A gift card has been sent. */
+  GIFT_CARD_SENT = 'GIFT_CARD_SENT',
+  /** A gift card status is changed. */
+  GIFT_CARD_STATUS_CHANGED = 'GIFT_CARD_STATUS_CHANGED',
+  /** A gift card is updated. */
+  GIFT_CARD_UPDATED = 'GIFT_CARD_UPDATED',
+  /** An invoice is deleted. */
+  INVOICE_DELETED = 'INVOICE_DELETED',
+  /** An invoice for order requested. */
+  INVOICE_REQUESTED = 'INVOICE_REQUESTED',
+  /** Invoice has been sent. */
+  INVOICE_SENT = 'INVOICE_SENT',
+  /** A new menu created. */
+  MENU_CREATED = 'MENU_CREATED',
+  /** A menu is deleted. */
+  MENU_DELETED = 'MENU_DELETED',
+  /** A new menu item created. */
+  MENU_ITEM_CREATED = 'MENU_ITEM_CREATED',
+  /** A menu item is deleted. */
+  MENU_ITEM_DELETED = 'MENU_ITEM_DELETED',
+  /** A menu item is updated. */
+  MENU_ITEM_UPDATED = 'MENU_ITEM_UPDATED',
+  /** A menu is updated. */
+  MENU_UPDATED = 'MENU_UPDATED',
+  /**
+   * User notification triggered.
+   * @deprecated See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/upgrade-guides/core/3-16-to-3-17#migrating-from-notify_user
+   */
+  NOTIFY_USER = 'NOTIFY_USER',
+  /**
+   * An observability event is created.
+   * @deprecated The observability feature is no longer supported. This event will be removed in Saleor 3.24.
+   */
+  OBSERVABILITY = 'OBSERVABILITY',
+  /** Orders are imported. */
+  ORDER_BULK_CREATED = 'ORDER_BULK_CREATED',
+  /** An order is cancelled. */
+  ORDER_CANCELLED = 'ORDER_CANCELLED',
+  /** An order is confirmed (status change unconfirmed -> unfulfilled) by a staff user using the OrderConfirm mutation. It also triggers when the user completes the checkout and the shop setting `automatically_confirm_all_new_orders` is enabled. */
+  ORDER_CONFIRMED = 'ORDER_CONFIRMED',
+  /** A new order is placed. */
+  ORDER_CREATED = 'ORDER_CREATED',
+  /** An order is expired. */
+  ORDER_EXPIRED = 'ORDER_EXPIRED',
+  /** An order is fulfilled. */
+  ORDER_FULFILLED = 'ORDER_FULFILLED',
+  /** Payment is made and an order is fully paid. */
+  ORDER_FULLY_PAID = 'ORDER_FULLY_PAID',
+  /** The order is fully refunded. */
+  ORDER_FULLY_REFUNDED = 'ORDER_FULLY_REFUNDED',
+  /** An order metadata is updated. */
+  ORDER_METADATA_UPDATED = 'ORDER_METADATA_UPDATED',
+  /** Payment has been made. The order may be partially or fully paid. */
+  ORDER_PAID = 'ORDER_PAID',
+  /** The order received a refund. The order may be partially or fully refunded. */
+  ORDER_REFUNDED = 'ORDER_REFUNDED',
+  /** An order is updated; triggered for all changes related to an order; covers all other order webhooks, except for ORDER_CREATED. */
+  ORDER_UPDATED = 'ORDER_UPDATED',
+  /** A new page is created. */
+  PAGE_CREATED = 'PAGE_CREATED',
+  /** A page is deleted. */
+  PAGE_DELETED = 'PAGE_DELETED',
+  /** A new page type is created. */
+  PAGE_TYPE_CREATED = 'PAGE_TYPE_CREATED',
+  /** A page type is deleted. */
+  PAGE_TYPE_DELETED = 'PAGE_TYPE_DELETED',
+  /** A page type is updated. */
+  PAGE_TYPE_UPDATED = 'PAGE_TYPE_UPDATED',
+  /** A page is updated. */
+  PAGE_UPDATED = 'PAGE_UPDATED',
+  /** A new permission group is created. */
+  PERMISSION_GROUP_CREATED = 'PERMISSION_GROUP_CREATED',
+  /** A permission group is deleted. */
+  PERMISSION_GROUP_DELETED = 'PERMISSION_GROUP_DELETED',
+  /** A permission group is updated. */
+  PERMISSION_GROUP_UPDATED = 'PERMISSION_GROUP_UPDATED',
+  /** A new product is created. */
+  PRODUCT_CREATED = 'PRODUCT_CREATED',
+  /** A product is deleted. */
+  PRODUCT_DELETED = 'PRODUCT_DELETED',
+  /**
+   * A product export is completed.
+   * @deprecated Export functionality is deprecated and will be removed. All data can be fetched via the GraphQL API and parsed into the desired format by apps or external tools.
+   */
+  PRODUCT_EXPORT_COMPLETED = 'PRODUCT_EXPORT_COMPLETED',
+  /** A new product media is created. */
+  PRODUCT_MEDIA_CREATED = 'PRODUCT_MEDIA_CREATED',
+  /** A product media is deleted. */
+  PRODUCT_MEDIA_DELETED = 'PRODUCT_MEDIA_DELETED',
+  /** A product media is updated. */
+  PRODUCT_MEDIA_UPDATED = 'PRODUCT_MEDIA_UPDATED',
+  /** A product metadata is updated. */
+  PRODUCT_METADATA_UPDATED = 'PRODUCT_METADATA_UPDATED',
+  /** A new product type is created. */
+  PRODUCT_TYPE_CREATED = 'PRODUCT_TYPE_CREATED',
+  /** A product type is deleted. */
+  PRODUCT_TYPE_DELETED = 'PRODUCT_TYPE_DELETED',
+  /** A product type is updated. */
+  PRODUCT_TYPE_UPDATED = 'PRODUCT_TYPE_UPDATED',
+  /** A product is updated. */
+  PRODUCT_UPDATED = 'PRODUCT_UPDATED',
+  /** A product variant is back in stock. */
+  PRODUCT_VARIANT_BACK_IN_STOCK = 'PRODUCT_VARIANT_BACK_IN_STOCK',
+  /**
+   * A product variant becomes available again across click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_BACK_IN_STOCK_FOR_CLICK_AND_COLLECT = 'PRODUCT_VARIANT_BACK_IN_STOCK_FOR_CLICK_AND_COLLECT',
+  /**
+   * A product variant becomes available again across non click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_BACK_IN_STOCK_IN_CHANNEL = 'PRODUCT_VARIANT_BACK_IN_STOCK_IN_CHANNEL',
+  /** A new product variant is created. */
+  PRODUCT_VARIANT_CREATED = 'PRODUCT_VARIANT_CREATED',
+  /** A product variant is deleted. Warning: this event will not be executed when parent product has been deleted. Check PRODUCT_DELETED. */
+  PRODUCT_VARIANT_DELETED = 'PRODUCT_VARIANT_DELETED',
+  PRODUCT_VARIANT_DISCOUNTED_PRICE_UPDATED = 'PRODUCT_VARIANT_DISCOUNTED_PRICE_UPDATED',
+  /** A product variant metadata is updated. */
+  PRODUCT_VARIANT_METADATA_UPDATED = 'PRODUCT_VARIANT_METADATA_UPDATED',
+  /** A product variant is out of stock. */
+  PRODUCT_VARIANT_OUT_OF_STOCK = 'PRODUCT_VARIANT_OUT_OF_STOCK',
+  /**
+   * A product variant becomes out of stock across all click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_OUT_OF_STOCK_FOR_CLICK_AND_COLLECT = 'PRODUCT_VARIANT_OUT_OF_STOCK_FOR_CLICK_AND_COLLECT',
+  /**
+   * A product variant becomes out of stock across all non click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_OUT_OF_STOCK_IN_CHANNEL = 'PRODUCT_VARIANT_OUT_OF_STOCK_IN_CHANNEL',
+  /** A product variant stock is updated */
+  PRODUCT_VARIANT_STOCK_UPDATED = 'PRODUCT_VARIANT_STOCK_UPDATED',
+  /** A product variant is updated. */
+  PRODUCT_VARIANT_UPDATED = 'PRODUCT_VARIANT_UPDATED',
+  /** A promotion is created. */
+  PROMOTION_CREATED = 'PROMOTION_CREATED',
+  /** A promotion is deleted. */
+  PROMOTION_DELETED = 'PROMOTION_DELETED',
+  /** A promotion is deactivated. */
+  PROMOTION_ENDED = 'PROMOTION_ENDED',
+  /** A promotion rule is created. */
+  PROMOTION_RULE_CREATED = 'PROMOTION_RULE_CREATED',
+  /** A promotion rule is deleted. */
+  PROMOTION_RULE_DELETED = 'PROMOTION_RULE_DELETED',
+  /** A promotion rule is updated. */
+  PROMOTION_RULE_UPDATED = 'PROMOTION_RULE_UPDATED',
+  /** A promotion is activated. */
+  PROMOTION_STARTED = 'PROMOTION_STARTED',
+  /** A promotion is updated. */
+  PROMOTION_UPDATED = 'PROMOTION_UPDATED',
+  /** A sale is created. */
+  SALE_CREATED = 'SALE_CREATED',
+  /** A sale is deleted. */
+  SALE_DELETED = 'SALE_DELETED',
+  /** A sale is activated or deactivated. */
+  SALE_TOGGLE = 'SALE_TOGGLE',
+  /** A sale is updated. */
+  SALE_UPDATED = 'SALE_UPDATED',
+  /** A new shipping price is created. */
+  SHIPPING_PRICE_CREATED = 'SHIPPING_PRICE_CREATED',
+  /** A shipping price is deleted. */
+  SHIPPING_PRICE_DELETED = 'SHIPPING_PRICE_DELETED',
+  /** A shipping price is updated. */
+  SHIPPING_PRICE_UPDATED = 'SHIPPING_PRICE_UPDATED',
+  /** A new shipping zone is created. */
+  SHIPPING_ZONE_CREATED = 'SHIPPING_ZONE_CREATED',
+  /** A shipping zone is deleted. */
+  SHIPPING_ZONE_DELETED = 'SHIPPING_ZONE_DELETED',
+  /** A shipping zone metadata is updated. */
+  SHIPPING_ZONE_METADATA_UPDATED = 'SHIPPING_ZONE_METADATA_UPDATED',
+  /** A shipping zone is updated. */
+  SHIPPING_ZONE_UPDATED = 'SHIPPING_ZONE_UPDATED',
+  /** Shop metadata is updated. */
+  SHOP_METADATA_UPDATED = 'SHOP_METADATA_UPDATED',
+  /** A new staff user is created. */
+  STAFF_CREATED = 'STAFF_CREATED',
+  /** A staff user is deleted. */
+  STAFF_DELETED = 'STAFF_DELETED',
+  /** Setting a new password for the staff account is requested. */
+  STAFF_SET_PASSWORD_REQUESTED = 'STAFF_SET_PASSWORD_REQUESTED',
+  /** A staff user is updated. */
+  STAFF_UPDATED = 'STAFF_UPDATED',
+  /** A thumbnail is created. */
+  THUMBNAIL_CREATED = 'THUMBNAIL_CREATED',
+  /** Transaction item metadata is updated. */
+  TRANSACTION_ITEM_METADATA_UPDATED = 'TRANSACTION_ITEM_METADATA_UPDATED',
+  /** A new translation is created. */
+  TRANSLATION_CREATED = 'TRANSLATION_CREATED',
+  /** A translation is updated. */
+  TRANSLATION_UPDATED = 'TRANSLATION_UPDATED',
+  VOUCHER_CODES_CREATED = 'VOUCHER_CODES_CREATED',
+  VOUCHER_CODES_DELETED = 'VOUCHER_CODES_DELETED',
+  /** A new voucher created. */
+  VOUCHER_CREATED = 'VOUCHER_CREATED',
+  /** A voucher is deleted. */
+  VOUCHER_DELETED = 'VOUCHER_DELETED',
+  /** A voucher metadata is updated. */
+  VOUCHER_METADATA_UPDATED = 'VOUCHER_METADATA_UPDATED',
+  /** A voucher is updated. */
+  VOUCHER_UPDATED = 'VOUCHER_UPDATED',
+  /** A new warehouse created. */
+  WAREHOUSE_CREATED = 'WAREHOUSE_CREATED',
+  /** A warehouse is deleted. */
+  WAREHOUSE_DELETED = 'WAREHOUSE_DELETED',
+  /** A warehouse metadata is updated. */
+  WAREHOUSE_METADATA_UPDATED = 'WAREHOUSE_METADATA_UPDATED',
+  /** A warehouse is updated. */
+  WAREHOUSE_UPDATED = 'WAREHOUSE_UPDATED'
+}
+
+/** Enum determining type of webhook. */
+export enum WebhookEventTypeEnum {
+  /** An account email change is requested. */
+  ACCOUNT_CHANGE_EMAIL_REQUESTED = 'ACCOUNT_CHANGE_EMAIL_REQUESTED',
+  /** An account confirmation is requested. */
+  ACCOUNT_CONFIRMATION_REQUESTED = 'ACCOUNT_CONFIRMATION_REQUESTED',
+  /** An account is confirmed. */
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
+  /** An account is deleted. */
+  ACCOUNT_DELETED = 'ACCOUNT_DELETED',
+  /** An account delete is requested. */
+  ACCOUNT_DELETE_REQUESTED = 'ACCOUNT_DELETE_REQUESTED',
+  /** An account email was changed */
+  ACCOUNT_EMAIL_CHANGED = 'ACCOUNT_EMAIL_CHANGED',
+  /** Setting a new password for the account is requested. */
+  ACCOUNT_SET_PASSWORD_REQUESTED = 'ACCOUNT_SET_PASSWORD_REQUESTED',
+  /** A new address created. */
+  ADDRESS_CREATED = 'ADDRESS_CREATED',
+  /** An address deleted. */
+  ADDRESS_DELETED = 'ADDRESS_DELETED',
+  /** An address updated. */
+  ADDRESS_UPDATED = 'ADDRESS_UPDATED',
+  /**
+   * All the events.
+   * @deprecated Field no longer supported
+   */
+  ANY_EVENTS = 'ANY_EVENTS',
+  /** An app deleted. */
+  APP_DELETED = 'APP_DELETED',
+  /** A new app installed. */
+  APP_INSTALLED = 'APP_INSTALLED',
+  /** An app status is changed. */
+  APP_STATUS_CHANGED = 'APP_STATUS_CHANGED',
+  /** An app updated. */
+  APP_UPDATED = 'APP_UPDATED',
+  /** A new attribute is created. */
+  ATTRIBUTE_CREATED = 'ATTRIBUTE_CREATED',
+  /** An attribute is deleted. */
+  ATTRIBUTE_DELETED = 'ATTRIBUTE_DELETED',
+  /** An attribute is updated. */
+  ATTRIBUTE_UPDATED = 'ATTRIBUTE_UPDATED',
+  /** A new attribute value is created. */
+  ATTRIBUTE_VALUE_CREATED = 'ATTRIBUTE_VALUE_CREATED',
+  /** An attribute value is deleted. */
+  ATTRIBUTE_VALUE_DELETED = 'ATTRIBUTE_VALUE_DELETED',
+  /** An attribute value is updated. */
+  ATTRIBUTE_VALUE_UPDATED = 'ATTRIBUTE_VALUE_UPDATED',
+  /** A new category created. */
+  CATEGORY_CREATED = 'CATEGORY_CREATED',
+  /** A category is deleted. */
+  CATEGORY_DELETED = 'CATEGORY_DELETED',
+  /** A category is updated. */
+  CATEGORY_UPDATED = 'CATEGORY_UPDATED',
+  /** A new channel created. */
+  CHANNEL_CREATED = 'CHANNEL_CREATED',
+  /** A channel is deleted. */
+  CHANNEL_DELETED = 'CHANNEL_DELETED',
+  /** A channel metadata is updated. */
+  CHANNEL_METADATA_UPDATED = 'CHANNEL_METADATA_UPDATED',
+  /** A channel status is changed. */
+  CHANNEL_STATUS_CHANGED = 'CHANNEL_STATUS_CHANGED',
+  /** A channel is updated. */
+  CHANNEL_UPDATED = 'CHANNEL_UPDATED',
+  /** Event called for checkout tax calculation. */
+  CHECKOUT_CALCULATE_TAXES = 'CHECKOUT_CALCULATE_TAXES',
+  /** A new checkout is created. */
+  CHECKOUT_CREATED = 'CHECKOUT_CREATED',
+  /** Filter shipping methods for checkout. */
+  CHECKOUT_FILTER_SHIPPING_METHODS = 'CHECKOUT_FILTER_SHIPPING_METHODS',
+  /**
+   * A checkout was fully authorized (its `authorizeStatus` is `FULL`).
+   *
+   * This event is emitted only for checkouts whose payments are processed through the Transaction API.
+   */
+  CHECKOUT_FULLY_AUTHORIZED = 'CHECKOUT_FULLY_AUTHORIZED',
+  /**
+   * A checkout was fully paid (its `chargeStatus` is `FULL` or `OVERCHARGED`). This event is not sent if payments are only authorized but not fully charged.
+   *
+   * This event is emitted only for checkouts whose payments are processed through the Transaction API.
+   */
+  CHECKOUT_FULLY_PAID = 'CHECKOUT_FULLY_PAID',
+  /** A checkout metadata is updated. */
+  CHECKOUT_METADATA_UPDATED = 'CHECKOUT_METADATA_UPDATED',
+  /** A checkout is updated. It also triggers all updates related to the checkout. */
+  CHECKOUT_UPDATED = 'CHECKOUT_UPDATED',
+  /** A new collection is created. */
+  COLLECTION_CREATED = 'COLLECTION_CREATED',
+  /** A collection is deleted. */
+  COLLECTION_DELETED = 'COLLECTION_DELETED',
+  /** A collection metadata is updated. */
+  COLLECTION_METADATA_UPDATED = 'COLLECTION_METADATA_UPDATED',
+  /** A collection is updated. */
+  COLLECTION_UPDATED = 'COLLECTION_UPDATED',
+  /** A new customer account is created. */
+  CUSTOMER_CREATED = 'CUSTOMER_CREATED',
+  /** A customer account is deleted. */
+  CUSTOMER_DELETED = 'CUSTOMER_DELETED',
+  /** A customer account metadata is updated. */
+  CUSTOMER_METADATA_UPDATED = 'CUSTOMER_METADATA_UPDATED',
+  /**
+   * A new customer type is created.
+   *
+   * Added in Saleor 3.23.
+   */
+  CUSTOMER_TYPE_CREATED = 'CUSTOMER_TYPE_CREATED',
+  /**
+   * A customer type is deleted.
+   *
+   * Added in Saleor 3.23.
+   */
+  CUSTOMER_TYPE_DELETED = 'CUSTOMER_TYPE_DELETED',
+  /**
+   * A customer type is updated.
+   *
+   * Added in Saleor 3.23.
+   */
+  CUSTOMER_TYPE_UPDATED = 'CUSTOMER_TYPE_UPDATED',
+  /** A customer account is updated. */
+  CUSTOMER_UPDATED = 'CUSTOMER_UPDATED',
+  /** A draft order is created. */
+  DRAFT_ORDER_CREATED = 'DRAFT_ORDER_CREATED',
+  /** A draft order is deleted. */
+  DRAFT_ORDER_DELETED = 'DRAFT_ORDER_DELETED',
+  /** A draft order is updated. */
+  DRAFT_ORDER_UPDATED = 'DRAFT_ORDER_UPDATED',
+  /** A fulfillment is approved. */
+  FULFILLMENT_APPROVED = 'FULFILLMENT_APPROVED',
+  /** A fulfillment is cancelled. */
+  FULFILLMENT_CANCELED = 'FULFILLMENT_CANCELED',
+  /** A new fulfillment is created. */
+  FULFILLMENT_CREATED = 'FULFILLMENT_CREATED',
+  /** A fulfillment metadata is updated. */
+  FULFILLMENT_METADATA_UPDATED = 'FULFILLMENT_METADATA_UPDATED',
+  FULFILLMENT_TRACKING_NUMBER_UPDATED = 'FULFILLMENT_TRACKING_NUMBER_UPDATED',
+  /** A new gift card created. */
+  GIFT_CARD_CREATED = 'GIFT_CARD_CREATED',
+  /** A gift card is deleted. */
+  GIFT_CARD_DELETED = 'GIFT_CARD_DELETED',
+  /** A gift card metadata is updated. */
+  GIFT_CARD_METADATA_UPDATED = 'GIFT_CARD_METADATA_UPDATED',
+  /** A gift card has been sent. */
+  GIFT_CARD_SENT = 'GIFT_CARD_SENT',
+  /** A gift card status is changed. */
+  GIFT_CARD_STATUS_CHANGED = 'GIFT_CARD_STATUS_CHANGED',
+  /** A gift card is updated. */
+  GIFT_CARD_UPDATED = 'GIFT_CARD_UPDATED',
+  /** An invoice is deleted. */
+  INVOICE_DELETED = 'INVOICE_DELETED',
+  /** An invoice for order requested. */
+  INVOICE_REQUESTED = 'INVOICE_REQUESTED',
+  /** Invoice has been sent. */
+  INVOICE_SENT = 'INVOICE_SENT',
+  LIST_STORED_PAYMENT_METHODS = 'LIST_STORED_PAYMENT_METHODS',
+  /** A new menu created. */
+  MENU_CREATED = 'MENU_CREATED',
+  /** A menu is deleted. */
+  MENU_DELETED = 'MENU_DELETED',
+  /** A new menu item created. */
+  MENU_ITEM_CREATED = 'MENU_ITEM_CREATED',
+  /** A menu item is deleted. */
+  MENU_ITEM_DELETED = 'MENU_ITEM_DELETED',
+  /** A menu item is updated. */
+  MENU_ITEM_UPDATED = 'MENU_ITEM_UPDATED',
+  /** A menu is updated. */
+  MENU_UPDATED = 'MENU_UPDATED',
+  /**
+   * User notification triggered.
+   * @deprecated See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/upgrade-guides/core/3-16-to-3-17#migrating-from-notify_user
+   */
+  NOTIFY_USER = 'NOTIFY_USER',
+  /**
+   * An observability event is created.
+   * @deprecated The observability feature is no longer supported. This event will be removed in Saleor 3.24.
+   */
+  OBSERVABILITY = 'OBSERVABILITY',
+  /** Orders are imported. */
+  ORDER_BULK_CREATED = 'ORDER_BULK_CREATED',
+  /** Event called for order tax calculation. */
+  ORDER_CALCULATE_TAXES = 'ORDER_CALCULATE_TAXES',
+  /** An order is cancelled. */
+  ORDER_CANCELLED = 'ORDER_CANCELLED',
+  /** An order is confirmed (status change unconfirmed -> unfulfilled) by a staff user using the OrderConfirm mutation. It also triggers when the user completes the checkout and the shop setting `automatically_confirm_all_new_orders` is enabled. */
+  ORDER_CONFIRMED = 'ORDER_CONFIRMED',
+  /** A new order is placed. */
+  ORDER_CREATED = 'ORDER_CREATED',
+  /** An order is expired. */
+  ORDER_EXPIRED = 'ORDER_EXPIRED',
+  /** Filter shipping methods for order. */
+  ORDER_FILTER_SHIPPING_METHODS = 'ORDER_FILTER_SHIPPING_METHODS',
+  /** An order is fulfilled. */
+  ORDER_FULFILLED = 'ORDER_FULFILLED',
+  /** Payment is made and an order is fully paid. */
+  ORDER_FULLY_PAID = 'ORDER_FULLY_PAID',
+  /** The order is fully refunded. */
+  ORDER_FULLY_REFUNDED = 'ORDER_FULLY_REFUNDED',
+  /** An order metadata is updated. */
+  ORDER_METADATA_UPDATED = 'ORDER_METADATA_UPDATED',
+  /** Payment has been made. The order may be partially or fully paid. */
+  ORDER_PAID = 'ORDER_PAID',
+  /** The order received a refund. The order may be partially or fully refunded. */
+  ORDER_REFUNDED = 'ORDER_REFUNDED',
+  /** An order is updated; triggered for all changes related to an order; covers all other order webhooks, except for ORDER_CREATED. */
+  ORDER_UPDATED = 'ORDER_UPDATED',
+  /** A new page is created. */
+  PAGE_CREATED = 'PAGE_CREATED',
+  /** A page is deleted. */
+  PAGE_DELETED = 'PAGE_DELETED',
+  /** A new page type is created. */
+  PAGE_TYPE_CREATED = 'PAGE_TYPE_CREATED',
+  /** A page type is deleted. */
+  PAGE_TYPE_DELETED = 'PAGE_TYPE_DELETED',
+  /** A page type is updated. */
+  PAGE_TYPE_UPDATED = 'PAGE_TYPE_UPDATED',
+  /** A page is updated. */
+  PAGE_UPDATED = 'PAGE_UPDATED',
+  /**
+   * Authorize payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_AUTHORIZE = 'PAYMENT_AUTHORIZE',
+  /**
+   * Capture payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_CAPTURE = 'PAYMENT_CAPTURE',
+  /**
+   * Confirm payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_CONFIRM = 'PAYMENT_CONFIRM',
+  PAYMENT_GATEWAY_INITIALIZE_SESSION = 'PAYMENT_GATEWAY_INITIALIZE_SESSION',
+  PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION = 'PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION',
+  /**
+   * Listing available payment gateways.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_LIST_GATEWAYS = 'PAYMENT_LIST_GATEWAYS',
+  PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION = 'PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION',
+  PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION = 'PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION',
+  /**
+   * Process payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_PROCESS = 'PAYMENT_PROCESS',
+  /**
+   * Refund payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_REFUND = 'PAYMENT_REFUND',
+  /**
+   * Void payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_VOID = 'PAYMENT_VOID',
+  /** A new permission group is created. */
+  PERMISSION_GROUP_CREATED = 'PERMISSION_GROUP_CREATED',
+  /** A permission group is deleted. */
+  PERMISSION_GROUP_DELETED = 'PERMISSION_GROUP_DELETED',
+  /** A permission group is updated. */
+  PERMISSION_GROUP_UPDATED = 'PERMISSION_GROUP_UPDATED',
+  /** A new product is created. */
+  PRODUCT_CREATED = 'PRODUCT_CREATED',
+  /** A product is deleted. */
+  PRODUCT_DELETED = 'PRODUCT_DELETED',
+  /**
+   * A product export is completed.
+   * @deprecated Export functionality is deprecated and will be removed. All data can be fetched via the GraphQL API and parsed into the desired format by apps or external tools.
+   */
+  PRODUCT_EXPORT_COMPLETED = 'PRODUCT_EXPORT_COMPLETED',
+  /** A new product media is created. */
+  PRODUCT_MEDIA_CREATED = 'PRODUCT_MEDIA_CREATED',
+  /** A product media is deleted. */
+  PRODUCT_MEDIA_DELETED = 'PRODUCT_MEDIA_DELETED',
+  /** A product media is updated. */
+  PRODUCT_MEDIA_UPDATED = 'PRODUCT_MEDIA_UPDATED',
+  /** A product metadata is updated. */
+  PRODUCT_METADATA_UPDATED = 'PRODUCT_METADATA_UPDATED',
+  /** A new product type is created. */
+  PRODUCT_TYPE_CREATED = 'PRODUCT_TYPE_CREATED',
+  /** A product type is deleted. */
+  PRODUCT_TYPE_DELETED = 'PRODUCT_TYPE_DELETED',
+  /** A product type is updated. */
+  PRODUCT_TYPE_UPDATED = 'PRODUCT_TYPE_UPDATED',
+  /** A product is updated. */
+  PRODUCT_UPDATED = 'PRODUCT_UPDATED',
+  /** A product variant is back in stock. */
+  PRODUCT_VARIANT_BACK_IN_STOCK = 'PRODUCT_VARIANT_BACK_IN_STOCK',
+  /**
+   * A product variant becomes available again across click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_BACK_IN_STOCK_FOR_CLICK_AND_COLLECT = 'PRODUCT_VARIANT_BACK_IN_STOCK_FOR_CLICK_AND_COLLECT',
+  /**
+   * A product variant becomes available again across non click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_BACK_IN_STOCK_IN_CHANNEL = 'PRODUCT_VARIANT_BACK_IN_STOCK_IN_CHANNEL',
+  /** A new product variant is created. */
+  PRODUCT_VARIANT_CREATED = 'PRODUCT_VARIANT_CREATED',
+  /** A product variant is deleted. Warning: this event will not be executed when parent product has been deleted. Check PRODUCT_DELETED. */
+  PRODUCT_VARIANT_DELETED = 'PRODUCT_VARIANT_DELETED',
+  PRODUCT_VARIANT_DISCOUNTED_PRICE_UPDATED = 'PRODUCT_VARIANT_DISCOUNTED_PRICE_UPDATED',
+  /** A product variant metadata is updated. */
+  PRODUCT_VARIANT_METADATA_UPDATED = 'PRODUCT_VARIANT_METADATA_UPDATED',
+  /** A product variant is out of stock. */
+  PRODUCT_VARIANT_OUT_OF_STOCK = 'PRODUCT_VARIANT_OUT_OF_STOCK',
+  /**
+   * A product variant becomes out of stock across all click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_OUT_OF_STOCK_FOR_CLICK_AND_COLLECT = 'PRODUCT_VARIANT_OUT_OF_STOCK_FOR_CLICK_AND_COLLECT',
+  /**
+   * A product variant becomes out of stock across all non click-and-collect warehouses in a channel.
+   *
+   * Note: Only triggered when the `useLegacyShippingZoneStockAvailability` shop setting is disabled.
+   */
+  PRODUCT_VARIANT_OUT_OF_STOCK_IN_CHANNEL = 'PRODUCT_VARIANT_OUT_OF_STOCK_IN_CHANNEL',
+  /** A product variant stock is updated */
+  PRODUCT_VARIANT_STOCK_UPDATED = 'PRODUCT_VARIANT_STOCK_UPDATED',
+  /** A product variant is updated. */
+  PRODUCT_VARIANT_UPDATED = 'PRODUCT_VARIANT_UPDATED',
+  /** A promotion is created. */
+  PROMOTION_CREATED = 'PROMOTION_CREATED',
+  /** A promotion is deleted. */
+  PROMOTION_DELETED = 'PROMOTION_DELETED',
+  /** A promotion is deactivated. */
+  PROMOTION_ENDED = 'PROMOTION_ENDED',
+  /** A promotion rule is created. */
+  PROMOTION_RULE_CREATED = 'PROMOTION_RULE_CREATED',
+  /** A promotion rule is deleted. */
+  PROMOTION_RULE_DELETED = 'PROMOTION_RULE_DELETED',
+  /** A promotion rule is updated. */
+  PROMOTION_RULE_UPDATED = 'PROMOTION_RULE_UPDATED',
+  /** A promotion is activated. */
+  PROMOTION_STARTED = 'PROMOTION_STARTED',
+  /** A promotion is updated. */
+  PROMOTION_UPDATED = 'PROMOTION_UPDATED',
+  /** A sale is created. */
+  SALE_CREATED = 'SALE_CREATED',
+  /** A sale is deleted. */
+  SALE_DELETED = 'SALE_DELETED',
+  /** A sale is activated or deactivated. */
+  SALE_TOGGLE = 'SALE_TOGGLE',
+  /** A sale is updated. */
+  SALE_UPDATED = 'SALE_UPDATED',
+  /** Fetch external shipping methods for checkout. */
+  SHIPPING_LIST_METHODS_FOR_CHECKOUT = 'SHIPPING_LIST_METHODS_FOR_CHECKOUT',
+  /** A new shipping price is created. */
+  SHIPPING_PRICE_CREATED = 'SHIPPING_PRICE_CREATED',
+  /** A shipping price is deleted. */
+  SHIPPING_PRICE_DELETED = 'SHIPPING_PRICE_DELETED',
+  /** A shipping price is updated. */
+  SHIPPING_PRICE_UPDATED = 'SHIPPING_PRICE_UPDATED',
+  /** A new shipping zone is created. */
+  SHIPPING_ZONE_CREATED = 'SHIPPING_ZONE_CREATED',
+  /** A shipping zone is deleted. */
+  SHIPPING_ZONE_DELETED = 'SHIPPING_ZONE_DELETED',
+  /** A shipping zone metadata is updated. */
+  SHIPPING_ZONE_METADATA_UPDATED = 'SHIPPING_ZONE_METADATA_UPDATED',
+  /** A shipping zone is updated. */
+  SHIPPING_ZONE_UPDATED = 'SHIPPING_ZONE_UPDATED',
+  /** Shop metadata is updated. */
+  SHOP_METADATA_UPDATED = 'SHOP_METADATA_UPDATED',
+  /** A new staff user is created. */
+  STAFF_CREATED = 'STAFF_CREATED',
+  /** A staff user is deleted. */
+  STAFF_DELETED = 'STAFF_DELETED',
+  /** Setting a new password for the staff account is requested. */
+  STAFF_SET_PASSWORD_REQUESTED = 'STAFF_SET_PASSWORD_REQUESTED',
+  /** A staff user is updated. */
+  STAFF_UPDATED = 'STAFF_UPDATED',
+  STORED_PAYMENT_METHOD_DELETE_REQUESTED = 'STORED_PAYMENT_METHOD_DELETE_REQUESTED',
+  /** A thumbnail is created. */
+  THUMBNAIL_CREATED = 'THUMBNAIL_CREATED',
+  /** Event called when cancel has been requested for transaction. */
+  TRANSACTION_CANCELATION_REQUESTED = 'TRANSACTION_CANCELATION_REQUESTED',
+  /** Event called when charge has been requested for transaction. */
+  TRANSACTION_CHARGE_REQUESTED = 'TRANSACTION_CHARGE_REQUESTED',
+  TRANSACTION_INITIALIZE_SESSION = 'TRANSACTION_INITIALIZE_SESSION',
+  /** Transaction item metadata is updated. */
+  TRANSACTION_ITEM_METADATA_UPDATED = 'TRANSACTION_ITEM_METADATA_UPDATED',
+  TRANSACTION_PROCESS_SESSION = 'TRANSACTION_PROCESS_SESSION',
+  /** Event called when refund has been requested for transaction. */
+  TRANSACTION_REFUND_REQUESTED = 'TRANSACTION_REFUND_REQUESTED',
+  /** A new translation is created. */
+  TRANSLATION_CREATED = 'TRANSLATION_CREATED',
+  /** A translation is updated. */
+  TRANSLATION_UPDATED = 'TRANSLATION_UPDATED',
+  VOUCHER_CODES_CREATED = 'VOUCHER_CODES_CREATED',
+  VOUCHER_CODES_DELETED = 'VOUCHER_CODES_DELETED',
+  /** A new voucher created. */
+  VOUCHER_CREATED = 'VOUCHER_CREATED',
+  /** A voucher is deleted. */
+  VOUCHER_DELETED = 'VOUCHER_DELETED',
+  /** A voucher metadata is updated. */
+  VOUCHER_METADATA_UPDATED = 'VOUCHER_METADATA_UPDATED',
+  /** A voucher is updated. */
+  VOUCHER_UPDATED = 'VOUCHER_UPDATED',
+  /** A new warehouse created. */
+  WAREHOUSE_CREATED = 'WAREHOUSE_CREATED',
+  /** A warehouse is deleted. */
+  WAREHOUSE_DELETED = 'WAREHOUSE_DELETED',
+  /** A warehouse metadata is updated. */
+  WAREHOUSE_METADATA_UPDATED = 'WAREHOUSE_METADATA_UPDATED',
+  /** A warehouse is updated. */
+  WAREHOUSE_UPDATED = 'WAREHOUSE_UPDATED'
+}
+
+/** Enum determining type of webhook. */
+export enum WebhookEventTypeSyncEnum {
+  /** Event called for checkout tax calculation. */
+  CHECKOUT_CALCULATE_TAXES = 'CHECKOUT_CALCULATE_TAXES',
+  /** Filter shipping methods for checkout. */
+  CHECKOUT_FILTER_SHIPPING_METHODS = 'CHECKOUT_FILTER_SHIPPING_METHODS',
+  LIST_STORED_PAYMENT_METHODS = 'LIST_STORED_PAYMENT_METHODS',
+  /** Event called for order tax calculation. */
+  ORDER_CALCULATE_TAXES = 'ORDER_CALCULATE_TAXES',
+  /** Filter shipping methods for order. */
+  ORDER_FILTER_SHIPPING_METHODS = 'ORDER_FILTER_SHIPPING_METHODS',
+  /**
+   * Authorize payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_AUTHORIZE = 'PAYMENT_AUTHORIZE',
+  /**
+   * Capture payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_CAPTURE = 'PAYMENT_CAPTURE',
+  /**
+   * Confirm payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_CONFIRM = 'PAYMENT_CONFIRM',
+  PAYMENT_GATEWAY_INITIALIZE_SESSION = 'PAYMENT_GATEWAY_INITIALIZE_SESSION',
+  PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION = 'PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION',
+  /**
+   * Listing available payment gateways.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_LIST_GATEWAYS = 'PAYMENT_LIST_GATEWAYS',
+  PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION = 'PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION',
+  PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION = 'PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION',
+  /**
+   * Process payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_PROCESS = 'PAYMENT_PROCESS',
+  /**
+   * Refund payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_REFUND = 'PAYMENT_REFUND',
+  /**
+   * Void payment.
+   * @deprecated The legacy Payments API is deprecated and will be removed. Use the Transactions API instead.
+   */
+  PAYMENT_VOID = 'PAYMENT_VOID',
+  /** Fetch external shipping methods for checkout. */
+  SHIPPING_LIST_METHODS_FOR_CHECKOUT = 'SHIPPING_LIST_METHODS_FOR_CHECKOUT',
+  STORED_PAYMENT_METHOD_DELETE_REQUESTED = 'STORED_PAYMENT_METHOD_DELETE_REQUESTED',
+  /** Event called when cancel has been requested for transaction. */
+  TRANSACTION_CANCELATION_REQUESTED = 'TRANSACTION_CANCELATION_REQUESTED',
+  /** Event called when charge has been requested for transaction. */
+  TRANSACTION_CHARGE_REQUESTED = 'TRANSACTION_CHARGE_REQUESTED',
+  TRANSACTION_INITIALIZE_SESSION = 'TRANSACTION_INITIALIZE_SESSION',
+  TRANSACTION_PROCESS_SESSION = 'TRANSACTION_PROCESS_SESSION',
+  /** Event called when refund has been requested for transaction. */
+  TRANSACTION_REFUND_REQUESTED = 'TRANSACTION_REFUND_REQUESTED'
+}
+
+export enum WebhookSampleEventTypeEnum {
+  ACCOUNT_CHANGE_EMAIL_REQUESTED = 'ACCOUNT_CHANGE_EMAIL_REQUESTED',
+  ACCOUNT_CONFIRMATION_REQUESTED = 'ACCOUNT_CONFIRMATION_REQUESTED',
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
+  ACCOUNT_DELETED = 'ACCOUNT_DELETED',
+  ACCOUNT_DELETE_REQUESTED = 'ACCOUNT_DELETE_REQUESTED',
+  ACCOUNT_EMAIL_CHANGED = 'ACCOUNT_EMAIL_CHANGED',
+  ACCOUNT_SET_PASSWORD_REQUESTED = 'ACCOUNT_SET_PASSWORD_REQUESTED',
+  ADDRESS_CREATED = 'ADDRESS_CREATED',
+  ADDRESS_DELETED = 'ADDRESS_DELETED',
+  ADDRESS_UPDATED = 'ADDRESS_UPDATED',
+  APP_DELETED = 'APP_DELETED',
+  APP_INSTALLED = 'APP_INSTALLED',
+  APP_STATUS_CHANGED = 'APP_STATUS_CHANGED',
+  APP_UPDATED = 'APP_UPDATED',
+  ATTRIBUTE_CREATED = 'ATTRIBUTE_CREATED',
+  ATTRIBUTE_DELETED = 'ATTRIBUTE_DELETED',
+  ATTRIBUTE_UPDATED = 'ATTRIBUTE_UPDATED',
+  ATTRIBUTE_VALUE_CREATED = 'ATTRIBUTE_VALUE_CREATED',
+  ATTRIBUTE_VALUE_DELETED = 'ATTRIBUTE_VALUE_DELETED',
+  ATTRIBUTE_VALUE_UPDATED = 'ATTRIBUTE_VALUE_UPDATED',
+  CATEGORY_CREATED = 'CATEGORY_CREATED',
+  CATEGORY_DELETED = 'CATEGORY_DELETED',
+  CATEGORY_UPDATED = 'CATEGORY_UPDATED',
+  CHANNEL_CREATED = 'CHANNEL_CREATED',
+  CHANNEL_DELETED = 'CHANNEL_DELETED',
+  CHANNEL_METADATA_UPDATED = 'CHANNEL_METADATA_UPDATED',
+  CHANNEL_STATUS_CHANGED = 'CHANNEL_STATUS_CHANGED',
+  CHANNEL_UPDATED = 'CHANNEL_UPDATED',
+  CHECKOUT_CREATED = 'CHECKOUT_CREATED',
+  CHECKOUT_FULLY_AUTHORIZED = 'CHECKOUT_FULLY_AUTHORIZED',
+  CHECKOUT_FULLY_PAID = 'CHECKOUT_FULLY_PAID',
+  CHECKOUT_METADATA_UPDATED = 'CHECKOUT_METADATA_UPDATED',
+  CHECKOUT_UPDATED = 'CHECKOUT_UPDATED',
+  COLLECTION_CREATED = 'COLLECTION_CREATED',
+  COLLECTION_DELETED = 'COLLECTION_DELETED',
+  COLLECTION_METADATA_UPDATED = 'COLLECTION_METADATA_UPDATED',
+  COLLECTION_UPDATED = 'COLLECTION_UPDATED',
+  CUSTOMER_CREATED = 'CUSTOMER_CREATED',
+  CUSTOMER_DELETED = 'CUSTOMER_DELETED',
+  CUSTOMER_METADATA_UPDATED = 'CUSTOMER_METADATA_UPDATED',
+  CUSTOMER_TYPE_CREATED = 'CUSTOMER_TYPE_CREATED',
+  CUSTOMER_TYPE_DELETED = 'CUSTOMER_TYPE_DELETED',
+  CUSTOMER_TYPE_UPDATED = 'CUSTOMER_TYPE_UPDATED',
+  CUSTOMER_UPDATED = 'CUSTOMER_UPDATED',
+  DRAFT_ORDER_CREATED = 'DRAFT_ORDER_CREATED',
+  DRAFT_ORDER_DELETED = 'DRAFT_ORDER_DELETED',
+  DRAFT_ORDER_UPDATED = 'DRAFT_ORDER_UPDATED',
+  FULFILLMENT_APPROVED = 'FULFILLMENT_APPROVED',
+  FULFILLMENT_CANCELED = 'FULFILLMENT_CANCELED',
+  FULFILLMENT_CREATED = 'FULFILLMENT_CREATED',
+  FULFILLMENT_METADATA_UPDATED = 'FULFILLMENT_METADATA_UPDATED',
+  FULFILLMENT_TRACKING_NUMBER_UPDATED = 'FULFILLMENT_TRACKING_NUMBER_UPDATED',
+  GIFT_CARD_CREATED = 'GIFT_CARD_CREATED',
+  GIFT_CARD_DELETED = 'GIFT_CARD_DELETED',
+  GIFT_CARD_METADATA_UPDATED = 'GIFT_CARD_METADATA_UPDATED',
+  GIFT_CARD_SENT = 'GIFT_CARD_SENT',
+  GIFT_CARD_STATUS_CHANGED = 'GIFT_CARD_STATUS_CHANGED',
+  GIFT_CARD_UPDATED = 'GIFT_CARD_UPDATED',
+  INVOICE_DELETED = 'INVOICE_DELETED',
+  INVOICE_REQUESTED = 'INVOICE_REQUESTED',
+  INVOICE_SENT = 'INVOICE_SENT',
+  MENU_CREATED = 'MENU_CREATED',
+  MENU_DELETED = 'MENU_DELETED',
+  MENU_ITEM_CREATED = 'MENU_ITEM_CREATED',
+  MENU_ITEM_DELETED = 'MENU_ITEM_DELETED',
+  MENU_ITEM_UPDATED = 'MENU_ITEM_UPDATED',
+  MENU_UPDATED = 'MENU_UPDATED',
+  /** @deprecated See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/upgrade-guides/core/3-16-to-3-17#migrating-from-notify_user */
+  NOTIFY_USER = 'NOTIFY_USER',
+  /** @deprecated The observability feature is no longer supported. This event will be removed in Saleor 3.24. */
+  OBSERVABILITY = 'OBSERVABILITY',
+  ORDER_BULK_CREATED = 'ORDER_BULK_CREATED',
+  ORDER_CANCELLED = 'ORDER_CANCELLED',
+  ORDER_CONFIRMED = 'ORDER_CONFIRMED',
+  ORDER_CREATED = 'ORDER_CREATED',
+  ORDER_EXPIRED = 'ORDER_EXPIRED',
+  ORDER_FULFILLED = 'ORDER_FULFILLED',
+  ORDER_FULLY_PAID = 'ORDER_FULLY_PAID',
+  ORDER_FULLY_REFUNDED = 'ORDER_FULLY_REFUNDED',
+  ORDER_METADATA_UPDATED = 'ORDER_METADATA_UPDATED',
+  ORDER_PAID = 'ORDER_PAID',
+  ORDER_REFUNDED = 'ORDER_REFUNDED',
+  ORDER_UPDATED = 'ORDER_UPDATED',
+  PAGE_CREATED = 'PAGE_CREATED',
+  PAGE_DELETED = 'PAGE_DELETED',
+  PAGE_TYPE_CREATED = 'PAGE_TYPE_CREATED',
+  PAGE_TYPE_DELETED = 'PAGE_TYPE_DELETED',
+  PAGE_TYPE_UPDATED = 'PAGE_TYPE_UPDATED',
+  PAGE_UPDATED = 'PAGE_UPDATED',
+  PERMISSION_GROUP_CREATED = 'PERMISSION_GROUP_CREATED',
+  PERMISSION_GROUP_DELETED = 'PERMISSION_GROUP_DELETED',
+  PERMISSION_GROUP_UPDATED = 'PERMISSION_GROUP_UPDATED',
+  PRODUCT_CREATED = 'PRODUCT_CREATED',
+  PRODUCT_DELETED = 'PRODUCT_DELETED',
+  /** @deprecated Export functionality is deprecated and will be removed. All data can be fetched via the GraphQL API and parsed into the desired format by apps or external tools. */
+  PRODUCT_EXPORT_COMPLETED = 'PRODUCT_EXPORT_COMPLETED',
+  PRODUCT_MEDIA_CREATED = 'PRODUCT_MEDIA_CREATED',
+  PRODUCT_MEDIA_DELETED = 'PRODUCT_MEDIA_DELETED',
+  PRODUCT_MEDIA_UPDATED = 'PRODUCT_MEDIA_UPDATED',
+  PRODUCT_METADATA_UPDATED = 'PRODUCT_METADATA_UPDATED',
+  PRODUCT_TYPE_CREATED = 'PRODUCT_TYPE_CREATED',
+  PRODUCT_TYPE_DELETED = 'PRODUCT_TYPE_DELETED',
+  PRODUCT_TYPE_UPDATED = 'PRODUCT_TYPE_UPDATED',
+  PRODUCT_UPDATED = 'PRODUCT_UPDATED',
+  PRODUCT_VARIANT_BACK_IN_STOCK = 'PRODUCT_VARIANT_BACK_IN_STOCK',
+  PRODUCT_VARIANT_BACK_IN_STOCK_FOR_CLICK_AND_COLLECT = 'PRODUCT_VARIANT_BACK_IN_STOCK_FOR_CLICK_AND_COLLECT',
+  PRODUCT_VARIANT_BACK_IN_STOCK_IN_CHANNEL = 'PRODUCT_VARIANT_BACK_IN_STOCK_IN_CHANNEL',
+  PRODUCT_VARIANT_CREATED = 'PRODUCT_VARIANT_CREATED',
+  PRODUCT_VARIANT_DELETED = 'PRODUCT_VARIANT_DELETED',
+  PRODUCT_VARIANT_DISCOUNTED_PRICE_UPDATED = 'PRODUCT_VARIANT_DISCOUNTED_PRICE_UPDATED',
+  PRODUCT_VARIANT_METADATA_UPDATED = 'PRODUCT_VARIANT_METADATA_UPDATED',
+  PRODUCT_VARIANT_OUT_OF_STOCK = 'PRODUCT_VARIANT_OUT_OF_STOCK',
+  PRODUCT_VARIANT_OUT_OF_STOCK_FOR_CLICK_AND_COLLECT = 'PRODUCT_VARIANT_OUT_OF_STOCK_FOR_CLICK_AND_COLLECT',
+  PRODUCT_VARIANT_OUT_OF_STOCK_IN_CHANNEL = 'PRODUCT_VARIANT_OUT_OF_STOCK_IN_CHANNEL',
+  PRODUCT_VARIANT_STOCK_UPDATED = 'PRODUCT_VARIANT_STOCK_UPDATED',
+  PRODUCT_VARIANT_UPDATED = 'PRODUCT_VARIANT_UPDATED',
+  PROMOTION_CREATED = 'PROMOTION_CREATED',
+  PROMOTION_DELETED = 'PROMOTION_DELETED',
+  PROMOTION_ENDED = 'PROMOTION_ENDED',
+  PROMOTION_RULE_CREATED = 'PROMOTION_RULE_CREATED',
+  PROMOTION_RULE_DELETED = 'PROMOTION_RULE_DELETED',
+  PROMOTION_RULE_UPDATED = 'PROMOTION_RULE_UPDATED',
+  PROMOTION_STARTED = 'PROMOTION_STARTED',
+  PROMOTION_UPDATED = 'PROMOTION_UPDATED',
+  SALE_CREATED = 'SALE_CREATED',
+  SALE_DELETED = 'SALE_DELETED',
+  SALE_TOGGLE = 'SALE_TOGGLE',
+  SALE_UPDATED = 'SALE_UPDATED',
+  SHIPPING_PRICE_CREATED = 'SHIPPING_PRICE_CREATED',
+  SHIPPING_PRICE_DELETED = 'SHIPPING_PRICE_DELETED',
+  SHIPPING_PRICE_UPDATED = 'SHIPPING_PRICE_UPDATED',
+  SHIPPING_ZONE_CREATED = 'SHIPPING_ZONE_CREATED',
+  SHIPPING_ZONE_DELETED = 'SHIPPING_ZONE_DELETED',
+  SHIPPING_ZONE_METADATA_UPDATED = 'SHIPPING_ZONE_METADATA_UPDATED',
+  SHIPPING_ZONE_UPDATED = 'SHIPPING_ZONE_UPDATED',
+  SHOP_METADATA_UPDATED = 'SHOP_METADATA_UPDATED',
+  STAFF_CREATED = 'STAFF_CREATED',
+  STAFF_DELETED = 'STAFF_DELETED',
+  STAFF_SET_PASSWORD_REQUESTED = 'STAFF_SET_PASSWORD_REQUESTED',
+  STAFF_UPDATED = 'STAFF_UPDATED',
+  THUMBNAIL_CREATED = 'THUMBNAIL_CREATED',
+  TRANSACTION_ITEM_METADATA_UPDATED = 'TRANSACTION_ITEM_METADATA_UPDATED',
+  TRANSLATION_CREATED = 'TRANSLATION_CREATED',
+  TRANSLATION_UPDATED = 'TRANSLATION_UPDATED',
+  VOUCHER_CODES_CREATED = 'VOUCHER_CODES_CREATED',
+  VOUCHER_CODES_DELETED = 'VOUCHER_CODES_DELETED',
+  VOUCHER_CREATED = 'VOUCHER_CREATED',
+  VOUCHER_DELETED = 'VOUCHER_DELETED',
+  VOUCHER_METADATA_UPDATED = 'VOUCHER_METADATA_UPDATED',
+  VOUCHER_UPDATED = 'VOUCHER_UPDATED',
+  WAREHOUSE_CREATED = 'WAREHOUSE_CREATED',
+  WAREHOUSE_DELETED = 'WAREHOUSE_DELETED',
+  WAREHOUSE_METADATA_UPDATED = 'WAREHOUSE_METADATA_UPDATED',
+  WAREHOUSE_UPDATED = 'WAREHOUSE_UPDATED'
+}
+
+export enum WebhookTriggerErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID_ID = 'INVALID_ID',
+  MISSING_EVENT = 'MISSING_EVENT',
+  MISSING_PERMISSION = 'MISSING_PERMISSION',
+  MISSING_QUERY = 'MISSING_QUERY',
+  MISSING_SUBSCRIPTION = 'MISSING_SUBSCRIPTION',
+  NOT_FOUND = 'NOT_FOUND',
+  SYNTAX = 'SYNTAX',
+  TYPE_NOT_SUPPORTED = 'TYPE_NOT_SUPPORTED',
+  UNABLE_TO_PARSE = 'UNABLE_TO_PARSE'
+}
+
+export type WebhookUpdateInput = {
+  /** ID of the app to which webhook belongs. */
+  app?: InputMaybe<Scalars['ID']['input']>;
+  /** The asynchronous events that webhook wants to subscribe. */
+  asyncEvents?: InputMaybe<Array<WebhookEventTypeAsyncEnum>>;
+  /** Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only `X-*`, `Authorization*`, and `BrokerProperties` keys are allowed. */
+  customHeaders?: InputMaybe<Scalars['JSONString']['input']>;
+  /**
+   * The events that webhook wants to subscribe.
+   * @deprecated Use `asyncEvents` or `syncEvents` instead.
+   */
+  events?: InputMaybe<Array<WebhookEventTypeEnum>>;
+  /**
+   * The unique identifier of the webhook, set by the app. Unique per app. Maximum length is 256 characters. Pass a blank value to clear it.
+   *
+   * Added in Saleor 3.23.
+   */
+  identifier?: InputMaybe<Scalars['String']['input']>;
+  /** Determine if webhook will be set active or not. */
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The new name of the webhook. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Subscription query used to define a webhook payload. */
+  query?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Use to create a hash signature with each payload.
+   * @deprecated As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+   */
+  secretKey?: InputMaybe<Scalars['String']['input']>;
+  /** The synchronous events that webhook wants to subscribe. */
+  syncEvents?: InputMaybe<Array<WebhookEventTypeSyncEnum>>;
+  /** The url to receive the payload. */
+  targetUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum WeightUnitsEnum {
+  G = 'G',
+  KG = 'KG',
+  LB = 'LB',
+  OZ = 'OZ',
+  TONNE = 'TONNE'
+}

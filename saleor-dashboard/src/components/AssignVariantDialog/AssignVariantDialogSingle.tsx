@@ -1,0 +1,294 @@
+import {
+  ConfirmButton,
+  type ConfirmButtonTransitionState,
+} from "@dashboard/components/ConfirmButton/ConfirmButton";
+import { InfiniteScroll } from "@dashboard/components/InfiniteScroll/InfiniteScroll";
+import { DashboardModal } from "@dashboard/components/Modal";
+import Money from "@dashboard/components/Money";
+import { ResponsiveTable } from "@dashboard/components/ResponsiveTable/ResponsiveTable";
+import { TableBody, TableCell } from "@dashboard/components/Table/Table";
+import TableCellAvatar from "@dashboard/components/TableCellAvatar/TableCellAvatar";
+import TableRowLink from "@dashboard/components/TableRowLink/TableRowLink";
+import { SaleorThrobber } from "@dashboard/components/Throbber/SaleorThrobber";
+import { type ProductWhereInput, type SearchProductsQuery } from "@dashboard/graphql";
+import { useAssignPickerListDisplayState } from "@dashboard/hooks/useAssignPickerListDisplayState";
+import useModalDialogOpen from "@dashboard/hooks/useModalDialogOpen/useModalDialogOpen";
+import { useModalSearchWithFilters } from "@dashboard/hooks/useModalSearchWithFilters";
+import { useStalePickerList } from "@dashboard/hooks/useStalePickerList";
+import { maybe, renderCollection } from "@dashboard/misc";
+import { type Container, type FetchMoreProps, type RelayToFlat } from "@dashboard/types";
+import { Radio } from "@material-ui/core";
+import { Input } from "@saleor/macaw-ui-next";
+import { Fragment, useMemo, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
+
+import { type AssignContainerDialogProps } from "../AssignContainerDialog/AssignContainerDialog";
+import { AssignPickerListEmptyStateRow } from "../AssignPickerListEmptyState/AssignPickerListEmptyState";
+import { AssignPickerListLoadingRow } from "../AssignPickerListLoading/AssignPickerListLoading";
+import BackButton from "../BackButton";
+import { useModalProductFilterContext } from "../ModalFilters/entityConfigs/ModalProductFilterProvider";
+import { ModalFilters } from "../ModalFilters/ModalFilters";
+import { AssignVariantLoadMoreRow } from "./AssignVariantLoadMoreRow";
+import { messages } from "./messages";
+import { useStyles } from "./styles";
+import { useAssignVariantDialogProducts } from "./useAssignVariantDialogProducts";
+import {
+  toAssignableProducts,
+  toAssignedVariantContainers,
+  type VariantWithProductLabel,
+} from "./utils";
+
+interface AssignVariantDialogSingleProps extends FetchMoreProps {
+  confirmButtonState: ConfirmButtonTransitionState;
+  products: RelayToFlat<SearchProductsQuery["search"]>;
+  loading: boolean;
+  onFilterChange?: (
+    filterVariables: ProductWhereInput,
+    channel: string | undefined,
+    query: string,
+  ) => void;
+  onSubmit: (data: Container[]) => void;
+  onClose: () => void;
+  selectedId?: string;
+  labels?: Partial<AssignContainerDialogProps["labels"]>;
+  open: boolean;
+  skipFetchOnOpen?: boolean;
+}
+
+const scrollableTargetId = "assignVariantScrollableDialog";
+
+export const AssignVariantDialogSingle = (props: AssignVariantDialogSingleProps) => {
+  const {
+    confirmButtonState,
+    labels,
+    hasMore,
+    loading,
+    products,
+    onClose,
+    onFilterChange,
+    onFetchMore,
+    onSubmit,
+    selectedId,
+    open,
+    skipFetchOnOpen = false,
+  } = props;
+  const classes = useStyles(props);
+  const intl = useIntl();
+  const [selectedVariantId, setSelectedVariantId] = useState<string>(selectedId ?? "");
+  const [initialSelection, setInitialSelection] = useState<string>(selectedId ?? "");
+  const { combinedFilters, clearFilters } = useModalProductFilterContext();
+
+  const { query, onQueryChange, resetQuery } = useModalSearchWithFilters({
+    filterVariables: combinedFilters,
+    open,
+    skipFetchOnOpen,
+    onFetch: (filters, query) => onFilterChange?.(filters.where, filters.channel, query),
+  });
+
+  const handleClose = () => {
+    resetQuery();
+    clearFilters();
+    onClose();
+  };
+
+  useModalDialogOpen(open, {
+    onOpen: () => {
+      resetQuery();
+      clearFilters();
+
+      const nextInitialSelection = selectedId ?? "";
+
+      setInitialSelection(nextInitialSelection);
+      setSelectedVariantId(nextInitialSelection);
+    },
+    onClose: handleClose,
+  });
+
+  const hasSelectionChanged = selectedVariantId !== initialSelection;
+
+  const assignableFromSearch = useMemo(() => toAssignableProducts(products), [products]);
+  const {
+    products: assignableProducts,
+    loadMoreVariants,
+    loadingProductIds,
+  } = useAssignVariantDialogProducts({
+    products: assignableFromSearch,
+    searchQuery: query,
+    channel: combinedFilters.channel,
+    open,
+  });
+  const productChoices = useMemo(
+    () => assignableProducts.filter(product => product.variants.length > 0),
+    [assignableProducts],
+  );
+  const productVariantChoices = useMemo(
+    () => productChoices.flatMap(product => product.variants),
+    [productChoices],
+  );
+  const displayedProductChoices = useStalePickerList(productChoices, loading, open);
+  const { showEmptyState, showListLoading } = useAssignPickerListDisplayState(
+    loading,
+    displayedProductChoices.length,
+  );
+
+  const handleSubmit = () => {
+    if (selectedVariantId) {
+      const variant = productVariantChoices.find(v => v && v.id === selectedVariantId);
+
+      if (variant) {
+        const variantWithLabel: VariantWithProductLabel = {
+          ...variant,
+          productName: variant.product.name,
+        };
+
+        onSubmit(toAssignedVariantContainers([variantWithLabel]));
+
+        return;
+      }
+    }
+
+    onSubmit([]);
+  };
+
+  const handleVariantSelect = (variantId: string) => {
+    setSelectedVariantId(variantId === selectedVariantId ? "" : variantId);
+  };
+
+  return (
+    <DashboardModal onChange={handleClose} open={open}>
+      <DashboardModal.Content size="picker">
+        <DashboardModal.PickerHeader
+          toolbar={
+            <>
+              <Input
+                name="query"
+                value={query}
+                onChange={onQueryChange}
+                label={intl.formatMessage(messages.assignVariantDialogSearch)}
+                placeholder={intl.formatMessage(messages.assignVariantDialogContent)}
+                autoComplete="off"
+                endAdornment={loading && <SaleorThrobber size={16} />}
+              />
+
+              <ModalFilters />
+            </>
+          }
+        >
+          <FormattedMessage {...messages.assignVariantDialogHeader} />
+        </DashboardModal.PickerHeader>
+
+        <DashboardModal.Body fill id={scrollableTargetId}>
+          <InfiniteScroll
+            flush
+            dataLength={displayedProductChoices.reduce(
+              (acc, product) => acc + (product.variants?.length || 0),
+              0,
+            )}
+            next={onFetchMore}
+            hasMore={hasMore}
+            scrollThreshold="100px"
+            scrollableTarget={scrollableTargetId}
+          >
+            <ResponsiveTable bleed fillHeight key="table">
+              <TableBody>
+                {showListLoading ? (
+                  <AssignPickerListLoadingRow colSpan={4} />
+                ) : (
+                  renderCollection(
+                    displayedProductChoices,
+                    product => (
+                      <Fragment key={product ? product.id : "skeleton"}>
+                        {/* Product header row (non-selectable) */}
+                        <TableRowLink>
+                          <TableCell padding="checkbox">
+                            {/* No checkbox for products in single mode */}
+                          </TableCell>
+                          <TableCellAvatar
+                            className={classes.avatar}
+                            thumbnail={product ? maybe(() => product.thumbnail?.url) : undefined}
+                          />
+                          <TableCell colSpan={2}>
+                            {product ? maybe(() => product.name) : null}
+                          </TableCell>
+                        </TableRowLink>
+                        {/* Variant rows (selectable) */}
+                        {(product?.variants || [])
+                          .filter(v => v !== null)
+                          .map(variant => {
+                            const isSelected = selectedVariantId === variant.id;
+
+                            return (
+                              <TableRowLink
+                                key={variant.id}
+                                data-test-id="assign-variant-table-row"
+                                onClick={() => handleVariantSelect(variant.id)}
+                              >
+                                <TableCell />
+                                <TableCell className={classes.colVariantCheckbox}>
+                                  <Radio
+                                    className={classes.variantCheckbox}
+                                    checked={isSelected}
+                                    disabled={loading}
+                                    onChange={() => handleVariantSelect(variant.id)}
+                                    value={variant.id}
+                                    name="variant-selection"
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <div>{variant.name}</div>
+                                  <div className={classes.grayText}>
+                                    <FormattedMessage
+                                      {...messages.assignVariantDialogSKU}
+                                      values={{
+                                        sku: variant.sku,
+                                      }}
+                                    />
+                                  </div>
+                                </TableCell>
+                                <TableCell className={classes.textRight}>
+                                  {variant?.channelListings?.[0]?.price && (
+                                    <Money money={variant.channelListings[0].price} />
+                                  )}
+                                </TableCell>
+                              </TableRowLink>
+                            );
+                          })}
+                        <AssignVariantLoadMoreRow
+                          product={product}
+                          loading={loading}
+                          loadingProduct={Boolean(product && loadingProductIds.has(product.id))}
+                          onLoadMore={loadMoreVariants}
+                        />
+                      </Fragment>
+                    ),
+                    () =>
+                      showEmptyState && (
+                        <AssignPickerListEmptyStateRow colSpan={4}>
+                          {query
+                            ? intl.formatMessage(messages.noProductsInQuery)
+                            : intl.formatMessage(messages.noProductsInChannel)}
+                        </AssignPickerListEmptyStateRow>
+                      ),
+                  )
+                )}
+              </TableBody>
+            </ResponsiveTable>
+          </InfiniteScroll>
+        </DashboardModal.Body>
+
+        <DashboardModal.Actions>
+          <BackButton onClick={handleClose} />
+          <ConfirmButton
+            data-test-id="submit"
+            disabled={!hasSelectionChanged}
+            transitionState={confirmButtonState}
+            type="submit"
+            onClick={handleSubmit}
+          >
+            {labels?.confirmBtn ?? <FormattedMessage {...messages.assignVariantDialogButton} />}
+          </ConfirmButton>
+        </DashboardModal.Actions>
+      </DashboardModal.Content>
+    </DashboardModal>
+  );
+};

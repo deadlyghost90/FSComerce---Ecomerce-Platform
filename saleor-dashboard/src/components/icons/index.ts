@@ -1,0 +1,64 @@
+/**
+ * Icon size mappings for Lucide icons.
+ *
+ * Use these with Lucide's `size` prop to maintain consistency.
+ *
+ * @example
+ * import { Search } from "lucide-react";
+ * import { iconSize } from "@dashboard/components/icons";
+ *
+ * <Search size={iconSize.small} />
+ */
+export const iconSize = {
+  small: 16,
+  medium: 20,
+  large: 24,
+} as const;
+
+/**
+ * Stroke width mappings for Lucide icons by size.
+ * Smaller icons need thicker strokes for visibility.
+ */
+export const iconStrokeWidthBySize = {
+  small: 2,
+  medium: 1.5,
+  large: 1.5,
+} as const;
+
+/**
+ * Default stroke width for icons.
+ * Lucide defaults to 2, but 1.5 is lighter for medium/large icons.
+ */
+export const iconStrokeWidth = 1.5;
+
+const LUCIDE_VIEWBOX_SIZE = 24;
+
+/** Shared Lucide props for sidebar navigation, shortcuts, and related controls (16px in a 20px slot). */
+export const navigationLucideIconProps = {
+  size: iconSize.small,
+  strokeWidth: iconStrokeWidthBySize.small,
+} as const;
+
+/** Shared Lucide props for configuration page navigation cards (32px). */
+export const configurationLucideIconProps = {
+  size: 32,
+  strokeWidth: iconStrokeWidth,
+} as const;
+
+/** Shared Lucide props for TopNav destination links (16px). */
+export const topNavLucideIconProps = {
+  size: iconSize.small,
+  strokeWidth: iconStrokeWidthBySize.small,
+} as const;
+
+/** Match Lucide stroke weight for custom SVG icons on configuration cards. */
+export const getConfigurationCustomIconStrokeWidth = (viewBoxSize: number) =>
+  iconStrokeWidth * (viewBoxSize / LUCIDE_VIEWBOX_SIZE);
+
+/** Match Lucide stroke weight for custom SVG icons rendered at navigation icon size. */
+export const getNavigationCustomIconStrokeWidth = (viewBoxSize: number) =>
+  iconStrokeWidthBySize.small * (viewBoxSize / LUCIDE_VIEWBOX_SIZE);
+
+/** Match Lucide stroke weight for custom SVG icons rendered at TopNav icon size. */
+export const getTopNavCustomIconStrokeWidth = (viewBoxSize: number) =>
+  iconStrokeWidthBySize.small * (viewBoxSize / LUCIDE_VIEWBOX_SIZE);

@@ -1,0 +1,55 @@
+import { useStaffMemberDeleteMutation, useStaffMemberUpdateMutation } from "@dashboard/graphql";
+import useNavigator from "@dashboard/hooks/useNavigator";
+import { useNotifier } from "@dashboard/hooks/useNotifier/useNotifier";
+import { useIntl } from "react-intl";
+
+import { staffListUrl } from "../urls";
+
+interface UseStaffUserOperationsProps {
+  /** Own account settings — toast as a profile save, not a staff-admin edit. */
+  isOwnAccount?: boolean;
+}
+
+export const useStaffUserOperations = ({
+  isOwnAccount = false,
+}: UseStaffUserOperationsProps = {}) => {
+  const notify = useNotifier();
+  const intl = useIntl();
+  const navigate = useNavigator();
+  const [updateStaffMember, updateStaffMemberOpts] = useStaffMemberUpdateMutation({
+    onCompleted: data => {
+      if (!data.staffUpdate?.errors?.length) {
+        notify({
+          status: "success",
+          text: intl.formatMessage(
+            isOwnAccount
+              ? { id: "B5/YE0", defaultMessage: "Profile updated" }
+              : { id: "EDihQs", defaultMessage: "Staff member updated" },
+          ),
+        });
+      }
+    },
+  });
+  const [deleteStaffMember, deleteResult] = useStaffMemberDeleteMutation({
+    onCompleted: data => {
+      if (!data.staffDelete?.errors.length) {
+        notify({
+          status: "success",
+          text: intl.formatMessage({
+            id: "78fSm3",
+            defaultMessage: "Staff member deleted",
+            description: "success toast after deleting a staff member",
+          }),
+        });
+        navigate(staffListUrl());
+      }
+    },
+  });
+
+  return {
+    updateStaffMember,
+    updateStaffMemberOpts,
+    deleteStaffMember,
+    deleteResult,
+  };
+};

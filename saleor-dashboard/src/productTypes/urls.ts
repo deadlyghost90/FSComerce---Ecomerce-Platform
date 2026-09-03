@@ -1,0 +1,63 @@
+import { type ProductTypeKindEnum } from "@dashboard/graphql";
+import { withQuery } from "@dashboard/utils/urls";
+import urlJoin from "url-join";
+
+import {
+  type ActiveTab,
+  type BulkAction,
+  type Dialog,
+  type Filters,
+  type Pagination,
+  type SingleAction,
+  type Sort,
+  type TabActionDialog,
+} from "../types";
+
+const productTypeSection = "/product-types/";
+
+export const productTypeListPath = productTypeSection;
+export enum ProductTypeListUrlFiltersEnum {
+  configurable = "configurable",
+  type = "type",
+  query = "query",
+}
+export type ProductTypeListUrlFilters = Filters<ProductTypeListUrlFiltersEnum>;
+export type ProductTypeListUrlDialog = "remove" | "create" | TabActionDialog;
+export enum ProductTypeListUrlSortField {
+  name = "name",
+  digital = "digital",
+}
+type ProductTypeListUrlSort = Sort<ProductTypeListUrlSortField>;
+export type ProductTypeListUrlQueryParams = ActiveTab &
+  BulkAction &
+  Dialog<ProductTypeListUrlDialog> &
+  Pagination &
+  ProductTypeListUrlFilters &
+  ProductTypeListUrlSort;
+export const productTypeListUrl = (params?: ProductTypeListUrlQueryParams) =>
+  withQuery(productTypeListPath, params);
+
+interface ProductTypeAddUrlKind {
+  kind?: ProductTypeKindEnum;
+}
+type ProductTypeAddUrlQueryParams = ProductTypeAddUrlKind;
+export const productTypeAddPath = urlJoin(productTypeSection, "add");
+export const productTypeAddUrl = (params?: ProductTypeAddUrlQueryParams) =>
+  withQuery(productTypeAddPath, params);
+
+export const productTypePath = (id: string) => urlJoin(productTypeSection, id);
+export type ProductTypeUrlDialog =
+  | "assign-attribute"
+  | "create-attribute"
+  | "unassign-attribute"
+  | "unassign-product-attributes"
+  | "unassign-variant-attributes"
+  | "remove"
+  | "view-metadata";
+export type ProductTypeUrlQueryParams = BulkAction &
+  Dialog<ProductTypeUrlDialog> &
+  SingleAction & {
+    type?: string;
+  };
+export const productTypeUrl = (id: string, params?: ProductTypeUrlQueryParams) =>
+  withQuery(productTypePath(encodeURIComponent(id)), params);

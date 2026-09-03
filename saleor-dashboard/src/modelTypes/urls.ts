@@ -1,0 +1,54 @@
+import { withQuery } from "@dashboard/utils/urls";
+import urlJoin from "url-join";
+
+import {
+  type ActiveTab,
+  type BulkAction,
+  type Dialog,
+  type Filters,
+  type Pagination,
+  type SingleAction,
+  type Sort,
+  type TabActionDialog,
+} from "../types";
+
+const modelTypesSection = "/model-types/";
+
+export const modelTypesPath = modelTypesSection;
+enum PageTypeListUrlFiltersEnum {
+  type = "type",
+  query = "query",
+}
+export type PageTypeListUrlFilters = Filters<PageTypeListUrlFiltersEnum>;
+export type PageTypeListUrlDialog = "remove" | "create" | TabActionDialog;
+export enum PageTypeListUrlSortField {
+  name = "name",
+}
+type PageTypeListUrlSort = Sort<PageTypeListUrlSortField>;
+export type PageTypeListUrlQueryParams = ActiveTab &
+  BulkAction &
+  Dialog<PageTypeListUrlDialog> &
+  Pagination &
+  PageTypeListUrlFilters &
+  PageTypeListUrlSort;
+export const pageTypeListUrl = (params?: PageTypeListUrlQueryParams) =>
+  withQuery(modelTypesPath, params);
+
+export const pageTypeAddPath = urlJoin(modelTypesSection, "add");
+export const pageTypeAddUrl = pageTypeAddPath;
+
+export const pageTypePath = (id: string) => urlJoin(modelTypesSection, id);
+export type PageTypeUrlDialog =
+  | "assign-attribute"
+  | "create-attribute"
+  | "unassign-attribute"
+  | "unassign-attributes"
+  | "remove"
+  | "view-metadata";
+export type PageTypeUrlQueryParams = BulkAction &
+  Dialog<PageTypeUrlDialog> &
+  SingleAction & {
+    type?: string;
+  };
+export const pageTypeUrl = (id: string, params?: PageTypeUrlQueryParams) =>
+  withQuery(pageTypePath(encodeURIComponent(id)), params);

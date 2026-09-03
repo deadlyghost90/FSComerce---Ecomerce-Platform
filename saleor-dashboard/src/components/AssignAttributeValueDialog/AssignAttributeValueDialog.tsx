@@ -1,0 +1,209 @@
+import {
+  AttributeEntityTypeEnum,
+  AttributeInputTypeEnum,
+  type CategoryFilterInput,
+  type PageWhereInput,
+  type ProductWhereInput,
+  type SearchCategoriesQuery,
+  type SearchCollectionsQuery,
+  type SearchPagesQuery,
+} from "@dashboard/graphql";
+import { type RelayToFlat } from "@dashboard/types";
+import { useMemo } from "react";
+import { useIntl } from "react-intl";
+
+import AssignCategoryDialog from "../AssignCategoryDialog/AssignCategoryDialog";
+import AssignCollectionDialog, {
+  type AssignCollectionFilterChangeHandler,
+} from "../AssignCollectionDialog/AssignCollectionDialog";
+import AssignModelDialog from "../AssignModelDialog/AssignModelDialog";
+import AssignProductDialog, {
+  type AssignProductDialogProps,
+} from "../AssignProductDialog/AssignProductDialog";
+import AssignVariantDialog from "../AssignVariantDialog/AssignVariantDialog";
+import { type AttributeInput } from "../Attributes/Attributes";
+import { type InitialPageConstraints } from "../ModalFilters/entityConfigs/ModalPageFilterProvider";
+import { type InitialConstraints } from "../ModalFilters/entityConfigs/ModalProductFilterProvider";
+import {
+  filterProductsByReferenceTypeConstraints,
+  getReferencePickerLoadingState,
+} from "./mergeReferenceTypeWhereConstraints";
+import { messages } from "./messages";
+import { getExcludeAssignedAttributeValue } from "./utils";
+
+export type ProductFilterChangeHandler = (
+  filterVariables: ProductWhereInput,
+  channel: string | undefined,
+  query: string,
+) => void;
+
+export type PageFilterChangeHandler = (filterVariables: PageWhereInput, query: string) => void;
+
+export type CategoryFilterChangeHandler = (
+  filterVariables: CategoryFilterInput,
+  query: string,
+) => void;
+
+export type AssignAttributeValueDialogFilterChangeMap = {
+  [AttributeEntityTypeEnum.PRODUCT]: ProductFilterChangeHandler;
+  [AttributeEntityTypeEnum.PRODUCT_VARIANT]: ProductFilterChangeHandler;
+  [AttributeEntityTypeEnum.PAGE]: PageFilterChangeHandler;
+  [AttributeEntityTypeEnum.CATEGORY]: CategoryFilterChangeHandler;
+  [AttributeEntityTypeEnum.COLLECTION]: AssignCollectionFilterChangeHandler;
+};
+
+type AssignAttributeValueDialogProps = Omit<AssignProductDialogProps, "onFilterChange"> & {
+  entityType: AttributeEntityTypeEnum;
+  attribute: AttributeInput;
+  pages: RelayToFlat<SearchPagesQuery["search"]>;
+  collections: RelayToFlat<SearchCollectionsQuery["search"]>;
+  categories: RelayToFlat<SearchCategoriesQuery["search"]>;
+  initialConstraints?: InitialConstraints & InitialPageConstraints;
+  // onFetch is required for non-product dialogs (containers, variants, collections, categories)
+  onFetch: (value: string) => void;
+  // Generic filter callback map by entity type.
+  onFilterChange?: AssignAttributeValueDialogFilterChangeMap;
+};
+
+const getSingleOrMultipleDialogProps = (attribute: AttributeInput) => {
+  const isSingle = attribute.data.inputType === AttributeInputTypeEnum.SINGLE_REFERENCE;
+
+  if (!isSingle) {
+    return { selectionMode: "multiple" as const };
+  }
+
+  const selectedId = attribute.value?.length > 0 ? attribute.value[0] : undefined;
+
+  return { selectedId, selectionMode: "single" as const };
+};
+
+const AssignAttributeValueDialog = (props: AssignAttributeValueDialogProps) => {
+  const intl = useIntl();
+  const {
+    entityType,
+    pages,
+    products,
+    collections,
+    categories,
+    attribute,
+    initialConstraints,
+    onFilterChange,
+    labels,
+    loading,
+    ...rest
+  } = props;
+  // Type constraints stay as a pre-filter: they only hide stale Apollo `previousData` while the
+  // constrained query settles. Assigned-value exclusion goes through the dialog predicate so
+  // backfill can recover from an emptied page.
+  const constrainedProducts = useMemo(
+    () => filterProductsByReferenceTypeConstraints(products, initialConstraints),
+    [products, initialConstraints],
+  );
+  const referencePickerLoading = getReferencePickerLoadingState(
+    loading,
+    initialConstraints,
+    products,
+  );
+  const { inputType, entityType: attributeEntityType } = attribute.data;
+  const attributeValue = attribute.value;
+  const excludeAssignedReference = useMemo(
+    () =>
+      getExcludeAssignedAttributeValue({
+        inputType,
+        entityType: attributeEntityType,
+        value: attributeValue,
+      }),
+    [inputType, attributeEntityType, attributeValue],
+  );
+  const singleOrMultipleProps = getSingleOrMultipleDialogProps(attribute);
+  // Select-all only exists on the multi-selection picker; passing it to the single one is a no-op.
+  const selectAllMode = singleOrMultipleProps.selectionMode === "multiple" ? "when-scoped" : "off";
+  const productFilterChange = onFilterChange?.[AttributeEntityTypeEnum.PRODUCT];
+  const variantFilterChange =
+    onFilterChange?.[AttributeEntityTypeEnum.PRODUCT_VARIANT] ??
+    onFilterChange?.[AttributeEntityTypeEnum.PRODUCT];
+  const pageFilterChange = onFilterChange?.[AttributeEntityTypeEnum.PAGE];
+  const categoryFilterChange = onFilterChange?.[AttributeEntityTypeEnum.CATEGORY];
+  const collectionFilterChange = onFilterChange?.[AttributeEntityTypeEnum.COLLECTION];
+  const dialogLabels = useMemo(
+    () => ({
+      ...labels,
+      confirmBtn: intl.formatMessage(messages.assignReferencesButton),
+    }),
+    [intl, labels],
+  );
+
+  switch (entityType) {
+    case AttributeEntityTypeEnum.PAGE:
+      return (
+        <AssignModelDialog
+          pages={pages ?? []}
+          excludeContainer={excludeAssignedReference}
+          initialConstraints={initialConstraints}
+          onFilterChange={pageFilterChange}
+          labels={dialogLabels}
+          loading={loading}
+          {...singleOrMultipleProps}
+          {...rest}
+        />
+      );
+    case AttributeEntityTypeEnum.PRODUCT:
+      return (
+        <AssignProductDialog
+          products={constrainedProducts ?? []}
+          excludeProduct={excludeAssignedReference}
+          selectAllMode={selectAllMode}
+          initialConstraints={initialConstraints}
+          onFilterChange={productFilterChange}
+          labels={dialogLabels}
+          loading={referencePickerLoading}
+          {...singleOrMultipleProps}
+          {...rest}
+        />
+      );
+    case AttributeEntityTypeEnum.PRODUCT_VARIANT:
+      return (
+        <AssignVariantDialog
+          products={constrainedProducts}
+          initialConstraints={initialConstraints}
+          onFilterChange={variantFilterChange}
+          labels={dialogLabels}
+          loading={referencePickerLoading}
+          {...rest}
+          {...singleOrMultipleProps}
+          selectedIds={
+            attribute.data.inputType === AttributeInputTypeEnum.REFERENCE
+              ? (attribute.value ?? [])
+              : undefined
+          }
+        />
+      );
+    case AttributeEntityTypeEnum.COLLECTION:
+      return (
+        <AssignCollectionDialog
+          collections={collections}
+          excludeContainer={excludeAssignedReference}
+          onFilterChange={collectionFilterChange}
+          labels={dialogLabels}
+          loading={loading}
+          {...singleOrMultipleProps}
+          {...rest}
+        />
+      );
+    case AttributeEntityTypeEnum.CATEGORY:
+      return (
+        <AssignCategoryDialog
+          categories={categories}
+          excludeContainer={excludeAssignedReference}
+          onFilterChange={categoryFilterChange}
+          labels={dialogLabels}
+          loading={loading}
+          {...singleOrMultipleProps}
+          {...rest}
+        />
+      );
+  }
+};
+
+AssignAttributeValueDialog.displayName = "AssignAttributeValueDialog";
+export default AssignAttributeValueDialog;

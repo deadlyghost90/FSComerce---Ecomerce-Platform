@@ -1,0 +1,49 @@
+import { useDiscountRulesContext } from "@dashboard/discounts/components/DiscountRules/context/consumer";
+import { type Rule } from "@dashboard/discounts/models/Rule";
+import { PromotionTypeEnum, RewardTypeEnum } from "@dashboard/graphql";
+import { Box, type BoxProps } from "@saleor/macaw-ui-next";
+import type * as React from "react";
+import { useFormContext } from "react-hook-form";
+
+import { RuleRewardGifts } from "../RuleRewardGifts/RuleRewardGifts";
+import { RuleRewardTypeSelect } from "../RuleRewardTypeSelect/RuleRewardTypeSelect";
+import { RuleRewardValue } from "../RuleRewardValue/RuleRewardValue";
+
+interface RuleRewardProps {
+  currencySymbol: string | null;
+  error: string | undefined;
+}
+
+export const RuleReward = ({ currencySymbol, error }: RuleRewardProps) => {
+  const { discountType } = useDiscountRulesContext();
+  const { watch } = useFormContext<Rule>();
+  const rewardType = watch("rewardType");
+
+  if (discountType === PromotionTypeEnum.ORDER) {
+    return (
+      <RuleRewardWrapper>
+        <Box display="grid" __gridTemplateColumns="200px 1fr" gap={2}>
+          <RuleRewardTypeSelect />
+          {rewardType === RewardTypeEnum.GIFT && <RuleRewardGifts />}
+          {rewardType === RewardTypeEnum.SUBTOTAL_DISCOUNT && (
+            <RuleRewardValue currencySymbol={currencySymbol} error={error} />
+          )}
+        </Box>
+      </RuleRewardWrapper>
+    );
+  }
+
+  return (
+    <RuleRewardWrapper>
+      <RuleRewardValue currencySymbol={currencySymbol} error={error} />
+    </RuleRewardWrapper>
+  );
+};
+
+function RuleRewardWrapper({ children, ...props }: { children: React.ReactNode } & BoxProps) {
+  return (
+    <Box display="grid" gap={2} {...props}>
+      {children}
+    </Box>
+  );
+}

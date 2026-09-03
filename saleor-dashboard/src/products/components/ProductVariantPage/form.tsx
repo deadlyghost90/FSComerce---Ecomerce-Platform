@@ -1,0 +1,394 @@
+// @ts-strict-ignore
+import {
+  getAttributesDisplayData,
+  getRichTextAttributesFromMap,
+  getRichTextDataFromAttributes,
+  mergeAttributes,
+  type RichTextProps,
+} from "@dashboard/attributes/utils/data";
+import {
+  createAttributeFileChangeHandler,
+  createAttributeMultiChangeHandler,
+  createAttributeReferenceAdditionalDataHandler,
+  createAttributeReferenceChangeHandler,
+  createAttributeValueReorderHandler,
+  createFetchMoreReferencesHandler,
+  createFetchReferencesHandler,
+} from "@dashboard/attributes/utils/handlers";
+import {
+  type ChannelData,
+  type IChannelPriceArgs,
+  type VariantChannelPriceData,
+} from "@dashboard/channels/utils";
+import { type AttributeInput } from "@dashboard/components/Attributes/Attributes";
+import { useExitFormDialog } from "@dashboard/components/Form/useExitFormDialog";
+import {
+  type ProductErrorWithAttributesFragment,
+  type ProductVariantFragment,
+  type SearchCategoriesQuery,
+  type SearchCollectionsQuery,
+  type SearchPagesQuery,
+  type SearchProductsQuery,
+} from "@dashboard/graphql";
+import useForm, {
+  type CommonUseFormResultWithHandlers,
+  type FormErrors,
+  type SubmitPromise,
+} from "@dashboard/hooks/useForm";
+import useFormset, {
+  type FormsetAdditionalDataChange,
+  type FormsetChange,
+  type FormsetData,
+} from "@dashboard/hooks/useFormset";
+import useHandleFormSubmit from "@dashboard/hooks/useHandleFormSubmit";
+import {
+  type AttributeValuesMetadata,
+  getAttributeInputFromVariant,
+  getStockInputFromVariant,
+} from "@dashboard/products/utils/data";
+import {
+  createMediaChangeHandler,
+  getChannelsInput,
+  replaceFormsetChannelListings,
+  replaceFormsetStockValues,
+} from "@dashboard/products/utils/handlers";
+import { scrollToVariantAttributeErrors } from "@dashboard/products/utils/scrollToVariantAttributeErrors";
+import { validateProductVariant } from "@dashboard/products/utils/validation";
+import { type FetchMoreProps, type RelayToFlat, type ReorderEvent } from "@dashboard/types";
+import { arrayDiff } from "@dashboard/utils/arrays/arrays";
+import { useMultipleRichText } from "@dashboard/utils/richText/useMultipleRichText";
+import type * as React from "react";
+import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+
+import { type ProductStockInput, type ProductStockPasteRow } from "../ProductStocks/ProductStocks";
+import {
+  concatChannelsBySelection,
+  extractChannelPricesFromVariantChannel,
+} from "../ProductVariantChannels/formOpretations";
+
+interface ProductVariantUpdateFormData {
+  sku: string;
+  trackInventory: boolean;
+  weight: string;
+  quantityLimitPerCustomer: number | null;
+  variantName: string;
+  media: string[];
+}
+export interface ProductVariantUpdateData extends ProductVariantUpdateFormData {
+  channelListings: FormsetData<VariantChannelPriceData, IChannelPriceArgs>;
+  attributes: AttributeInput[];
+  stocks: ProductStockInput[];
+}
+export interface ProductVariantUpdateSubmitData extends ProductVariantUpdateFormData {
+  attributes: AttributeInput[];
+  attributesWithNewFileValue: FormsetData<null, File>;
+  addStocks: ProductStockInput[];
+  channelListings: FormsetData<VariantChannelPriceData, IChannelPriceArgs>;
+  updateStocks: ProductStockInput[];
+  removeStocks: string[];
+}
+
+interface UseProductVariantUpdateFormOpts {
+  currentChannels: VariantChannelPriceData[];
+  referencePages: RelayToFlat<SearchPagesQuery["search"]>;
+  referenceProducts: RelayToFlat<SearchProductsQuery["search"]>;
+  referenceCategories: RelayToFlat<SearchCategoriesQuery["search"]>;
+  referenceCollections: RelayToFlat<SearchCollectionsQuery["search"]>;
+  fetchReferencePages?: (data: string) => void;
+  fetchMoreReferencePages?: FetchMoreProps;
+  fetchReferenceProducts?: (data: string) => void;
+  fetchMoreReferenceProducts?: FetchMoreProps;
+  fetchReferenceCategories?: (data: string) => void;
+  fetchMoreReferenceCategories?: FetchMoreProps;
+  fetchReferenceCollections?: (data: string) => void;
+  fetchMoreReferenceCollections?: FetchMoreProps;
+  assignReferencesAttributeId?: string;
+}
+
+export interface ProductVariantUpdateHandlers
+  extends Record<
+      "changeStock" | "selectAttribute" | "selectAttributeMultiple" | "changeChannels",
+      FormsetChange
+    >,
+    Record<"selectAttributeReference", FormsetChange<string[]>>,
+    Record<"selectAttributeFile", FormsetChange<File>>,
+    Record<"reorderAttributeValue", FormsetChange<ReorderEvent>>,
+    Record<"addStock", (id: string, label: string) => void>,
+    Record<"deleteStock", (id: string) => void> {
+  changeMedia: (ids: string[]) => void;
+  replaceChannels: (listings: ChannelData[]) => void;
+  replaceStocks: (stocks: ProductStockPasteRow[]) => void;
+  updateChannels: (selectedChannelsIds: string[]) => void;
+  fetchReferences: (value: string) => void;
+  fetchMoreReferences: FetchMoreProps;
+  selectAttributeReferenceAdditionalData: FormsetAdditionalDataChange<AttributeValuesMetadata[]>;
+}
+
+interface UseProductVariantUpdateFormResult
+  extends CommonUseFormResultWithHandlers<ProductVariantUpdateData, ProductVariantUpdateHandlers>,
+    Omit<RichTextProps, "richText"> {
+  formErrors: FormErrors<ProductVariantUpdateData>;
+  validationErrors: ProductErrorWithAttributesFragment[];
+}
+
+interface ProductVariantUpdateFormProps extends UseProductVariantUpdateFormOpts {
+  children: (props: UseProductVariantUpdateFormResult) => React.ReactNode;
+  variant: ProductVariantFragment;
+  loading: boolean;
+  onSubmit: (data: ProductVariantUpdateSubmitData) => SubmitPromise;
+}
+
+function useProductVariantUpdateForm(
+  variant: ProductVariantFragment,
+  onSubmit: (data: ProductVariantUpdateSubmitData) => SubmitPromise,
+  loading: boolean,
+  opts: UseProductVariantUpdateFormOpts,
+): UseProductVariantUpdateFormResult {
+  const intl = useIntl();
+  const attributeInput = getAttributeInputFromVariant(variant);
+  const stockInput = getStockInputFromVariant(variant);
+  const [validationErrors, setValidationErrors] = useState<ProductErrorWithAttributesFragment[]>(
+    [],
+  );
+  const channelsInput = getChannelsInput(opts.currentChannels);
+  const initial: ProductVariantUpdateFormData = {
+    sku: variant?.sku || "",
+    trackInventory: variant?.trackInventory,
+    weight: variant?.weight?.value.toString() || "",
+    quantityLimitPerCustomer: variant?.quantityLimitPerCustomer || null,
+    variantName: variant?.name ?? "",
+    media: variant?.media?.map(({ id }) => id) || [],
+  };
+  const form = useForm(initial, undefined, {
+    confirmLeave: true,
+  });
+  const { handleChange, triggerChange, data: formData, formId, setIsSubmitDisabled } = form;
+  const { setExitDialogSubmitRef } = useExitFormDialog({
+    formId,
+  });
+  const attributes = useFormset(attributeInput);
+  const { getters: attributeRichTextGetters, getValues: getAttributeRichTextValues } =
+    useMultipleRichText({
+      initial: getRichTextDataFromAttributes(attributes.data),
+      triggerChange,
+    });
+  const attributesWithNewFileValue = useFormset<null, File>([]);
+  const stocks = useFormset(stockInput);
+  const channels = useFormset(channelsInput);
+  const handleAttributeChangeWithName = (id: string, value: string) => {
+    triggerChange();
+    attributes.change(id, value === "" ? [] : [value]);
+    handleChange({ target: { value, name: "name" } });
+  };
+  const handleAttributeMultiChange = createAttributeMultiChangeHandler(
+    attributes.change,
+    attributes.data,
+    triggerChange,
+  );
+  const handleAttributeReferenceChange = createAttributeReferenceChangeHandler(
+    attributes,
+    triggerChange,
+  );
+  const handleAttributeMetadataChange = createAttributeReferenceAdditionalDataHandler(
+    attributes,
+    triggerChange,
+  );
+  const handleFetchReferences = createFetchReferencesHandler(
+    attributes.data,
+    opts.assignReferencesAttributeId,
+    opts.fetchReferencePages,
+    opts.fetchReferenceProducts,
+    opts.fetchReferenceCategories,
+    opts.fetchReferenceCollections,
+  );
+  const handleFetchMoreReferences = createFetchMoreReferencesHandler(
+    attributes.data,
+    opts.assignReferencesAttributeId,
+    opts.fetchMoreReferencePages,
+    opts.fetchMoreReferenceProducts,
+    opts.fetchMoreReferenceCategories,
+    opts.fetchMoreReferenceCollections,
+  );
+  const handleAttributeFileChange = createAttributeFileChangeHandler(
+    attributes.change,
+    attributesWithNewFileValue.data,
+    attributesWithNewFileValue.add,
+    attributesWithNewFileValue.change,
+    triggerChange,
+  );
+  const handleAttributeValueReorder = createAttributeValueReorderHandler(
+    attributes.change,
+    attributes.data,
+    triggerChange,
+  );
+  const handleStockAdd = (id: string, label: string) => {
+    triggerChange();
+    stocks.add({
+      data: {
+        quantityAllocated:
+          variant?.stocks?.find(stock => stock.warehouse.id === id)?.quantityAllocated || 0,
+      },
+      id,
+      label,
+      value: "0",
+    });
+  };
+  const handleStockChange = (id: string, value: string) => {
+    triggerChange();
+    stocks.change(id, value);
+  };
+  const handleStocksReplace = (updatedStocks: ProductStockPasteRow[]) => {
+    triggerChange();
+    stocks.set(replaceFormsetStockValues(stocks.data, updatedStocks));
+  };
+  const handleStockDelete = (id: string) => {
+    triggerChange();
+    stocks.remove(id);
+  };
+  const handleChannelChange: FormsetChange = (id, value) => {
+    channels.change(id, value);
+    triggerChange();
+  };
+  const handleChannelsReplace = (listings: ChannelData[]) => {
+    channels.set(replaceFormsetChannelListings(channels.data, listings));
+    triggerChange();
+  };
+  const handleMediaChange = createMediaChangeHandler(form, triggerChange);
+  const handleUpdateChannels = (selectedIds: string[]) => {
+    const allChannels = variant.product.channelListings.map(listing => {
+      const variantChannel = variant?.channelListings?.find(
+        channelListing => channelListing.channel.id === listing.channel.id,
+      );
+
+      if (variantChannel) {
+        const { costPrice, price } = extractChannelPricesFromVariantChannel(variantChannel);
+
+        return {
+          ...variantChannel.channel,
+          currency: variantChannel.channel.currencyCode,
+          isActive: listing.channel.isActive ?? true,
+          isPublished: listing.isPublished,
+          price,
+          costPrice,
+        };
+      }
+
+      return {
+        ...listing.channel,
+        currency: listing.channel.currencyCode,
+        isActive: listing.channel.isActive ?? true,
+        isPublished: listing.isPublished,
+        price: "",
+      };
+    });
+
+    channels.set(concatChannelsBySelection(selectedIds, channels, allChannels));
+    triggerChange();
+  };
+  const dataStocks = stocks.data.map(stock => stock.id);
+  const variantStocks = variant?.stocks.map(stock => stock.warehouse.id) || [];
+  const stockDiff = arrayDiff(variantStocks, dataStocks);
+  const addStocks = stocks.data.filter(stock =>
+    stockDiff.added.some(addedStock => addedStock === stock.id),
+  );
+  const updateStocks = stocks.data.filter(
+    stock => !stockDiff.added.some(addedStock => addedStock === stock.id),
+  );
+  const data: ProductVariantUpdateData = {
+    ...formData,
+    attributes: getAttributesDisplayData(attributes.data, attributesWithNewFileValue.data, {
+      pages: opts.referencePages,
+      products: opts.referenceProducts,
+      collections: opts.referenceCollections,
+      categories: opts.referenceCategories,
+    }),
+    channelListings: channels.data,
+    stocks: stocks.data,
+  };
+
+  const getSubmitData = async (): Promise<ProductVariantUpdateSubmitData> => ({
+    ...formData,
+    addStocks,
+    attributes: mergeAttributes(
+      attributes.data,
+      getRichTextAttributesFromMap(attributes.data, await getAttributeRichTextValues()),
+    ),
+    attributesWithNewFileValue: attributesWithNewFileValue.data,
+    channelListings: channels.data,
+    removeStocks: stockDiff.removed,
+    updateStocks,
+  });
+  const handleSubmit = async (data: ProductVariantUpdateSubmitData) => {
+    const validationProductErrors = validateProductVariant(data, intl);
+
+    setValidationErrors(validationProductErrors);
+
+    if (validationProductErrors.length > 0) {
+      scrollToVariantAttributeErrors(validationProductErrors);
+
+      return validationProductErrors;
+    }
+
+    const apiErrors = await onSubmit(data);
+
+    if (!apiErrors?.length) {
+      attributesWithNewFileValue.set([]);
+    }
+
+    return apiErrors;
+  };
+  const handleFormSubmit = useHandleFormSubmit({
+    formId,
+    onSubmit: handleSubmit,
+  });
+  const submit = async () => handleFormSubmit(await getSubmitData());
+
+  useEffect(() => setExitDialogSubmitRef(submit), [submit]);
+
+  const isSaveDisabled = loading;
+
+  setIsSubmitDisabled(isSaveDisabled);
+
+  return {
+    change: handleChange,
+    data,
+    formErrors: form.errors,
+    validationErrors,
+    handlers: {
+      addStock: handleStockAdd,
+      changeChannels: handleChannelChange,
+      replaceChannels: handleChannelsReplace,
+      updateChannels: handleUpdateChannels,
+      changeStock: handleStockChange,
+      replaceStocks: handleStocksReplace,
+      changeMedia: handleMediaChange,
+      deleteStock: handleStockDelete,
+      fetchMoreReferences: handleFetchMoreReferences,
+      fetchReferences: handleFetchReferences,
+      reorderAttributeValue: handleAttributeValueReorder,
+      selectAttribute: handleAttributeChangeWithName,
+      selectAttributeFile: handleAttributeFileChange,
+      selectAttributeMultiple: handleAttributeMultiChange,
+      selectAttributeReference: handleAttributeReferenceChange,
+      selectAttributeReferenceAdditionalData: handleAttributeMetadataChange,
+    },
+    submit,
+    isSaveDisabled,
+    attributeRichTextGetters,
+  };
+}
+
+export const ProductVariantUpdateForm = ({
+  children,
+  variant,
+  onSubmit,
+  loading,
+  ...rest
+}: ProductVariantUpdateFormProps) => {
+  const props = useProductVariantUpdateForm(variant, onSubmit, loading, rest);
+
+  return <form onSubmit={props.submit}>{children(props)}</form>;
+};
+
+ProductVariantUpdateForm.displayName = "ProductVariantUpdateForm";

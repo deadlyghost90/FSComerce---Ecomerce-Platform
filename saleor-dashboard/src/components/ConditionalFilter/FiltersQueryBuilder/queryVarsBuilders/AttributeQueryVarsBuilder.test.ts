@@ -1,0 +1,679 @@
+import { type ApolloClient } from "@apollo/client";
+import { AttributeEntityTypeEnum, AttributeInputTypeEnum } from "@dashboard/graphql";
+
+import {
+  AttributeChoicesHandler,
+  CategoryHandler,
+  CollectionHandler,
+  PageHandler,
+  ProductsHandler,
+  ProductVariantHandler,
+} from "../../API/Handler";
+import { Condition } from "../../FilterElement/Condition";
+import { type ConditionItem, ConditionOptions } from "../../FilterElement/ConditionOptions";
+import { ConditionSelected } from "../../FilterElement/ConditionSelected";
+import { ExpressionValue, FilterElement } from "../../FilterElement/FilterElement";
+import { AttributeQueryVarsBuilder } from "./AttributeQueryVarsBuilder";
+import { supportsFilterApi, supportsWhereApi } from "./types";
+
+describe("AttributeQueryVarsBuilder", () => {
+  describe("canHandle", () => {
+    it("should return true for elements with rowType 'attribute'", () => {
+      // Arrange
+      const value = new ExpressionValue("attribute", "Attribute", "attribute");
+      const condition = Condition.createEmpty();
+      const element = new FilterElement(value, condition, false);
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const result = def.canHandle(element);
+
+      // Assert
+      expect(result).toBe(true);
+    });
+
+    it("should return false for elements with other rowTypes", () => {
+      // Arrange
+      const value = new ExpressionValue("not-attribute", "Other", "other");
+      const condition = Condition.createEmpty();
+      const element = new FilterElement(value, condition, false);
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const result = def.canHandle(element);
+
+      // Assert
+      expect(result).toBe(false);
+    });
+  });
+
+  describe("createOptionFetcher", () => {
+    const client = {} as ApolloClient<unknown>;
+    const inputValue = "test";
+    const baseElement = new FilterElement(
+      new ExpressionValue("attribute", "Attribute", "attribute"),
+      Condition.createEmpty(),
+      false,
+      undefined,
+    );
+
+    it("should create PageHandler for REFERENCE attributes with PAGE entity type", () => {
+      // Arrange
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        new ExpressionValue(
+          "attr-slug",
+          "Attr",
+          AttributeInputTypeEnum.REFERENCE,
+          AttributeEntityTypeEnum.PAGE,
+        ),
+      );
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const handler = def.createOptionFetcher(client, inputValue, element);
+
+      // Assert
+      expect(handler).toBeInstanceOf(PageHandler);
+    });
+
+    it("should create ProductsHandler for REFERENCE attributes with PRODUCT entity type", () => {
+      // Arrange
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        new ExpressionValue(
+          "attr-slug",
+          "Attr",
+          AttributeInputTypeEnum.REFERENCE,
+          AttributeEntityTypeEnum.PRODUCT,
+        ),
+      );
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const handler = def.createOptionFetcher(client, inputValue, element);
+
+      // Assert
+      expect(handler).toBeInstanceOf(ProductsHandler);
+    });
+
+    it("should create ProductVariantHandler for REFERENCE attributes with PRODUCT_VARIANT entity type", () => {
+      // Arrange
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        new ExpressionValue(
+          "attr-slug",
+          "Attr",
+          AttributeInputTypeEnum.REFERENCE,
+          AttributeEntityTypeEnum.PRODUCT_VARIANT,
+        ),
+      );
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const handler = def.createOptionFetcher(client, inputValue, element);
+
+      // Assert
+      expect(handler).toBeInstanceOf(ProductVariantHandler);
+    });
+
+    it("should create CategoryHandler for REFERENCE attributes with CATEGORY entity type", () => {
+      // Arrange
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        new ExpressionValue(
+          "attr-slug",
+          "Attr",
+          AttributeInputTypeEnum.REFERENCE,
+          AttributeEntityTypeEnum.CATEGORY,
+        ),
+      );
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const handler = def.createOptionFetcher(client, inputValue, element);
+
+      // Assert
+      expect(handler).toBeInstanceOf(CategoryHandler);
+    });
+
+    it("should create CollectionHandler for REFERENCE attributes with COLLECTION entity type", () => {
+      // Arrange
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        new ExpressionValue(
+          "attr-slug",
+          "Attr",
+          AttributeInputTypeEnum.REFERENCE,
+          AttributeEntityTypeEnum.COLLECTION,
+        ),
+      );
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const handler = def.createOptionFetcher(client, inputValue, element);
+
+      // Assert
+      expect(handler).toBeInstanceOf(CollectionHandler);
+    });
+
+    it("should create AttributeChoicesHandler for other attribute types", () => {
+      // Arrange
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        new ExpressionValue("attr-slug", "Attr", AttributeInputTypeEnum.DROPDOWN),
+      );
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const handler = def.createOptionFetcher(client, inputValue, element);
+
+      // Assert
+      expect(handler).toBeInstanceOf(AttributeChoicesHandler);
+    });
+
+    it("should return static boolean options without API call for BOOLEAN attributes", async () => {
+      // Arrange
+      const mockQuery = jest.fn();
+      const mockClient = { query: mockQuery } as unknown as ApolloClient<unknown>;
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        new ExpressionValue("bool-attr", "BoolAttr", AttributeInputTypeEnum.BOOLEAN),
+      );
+      const def = new AttributeQueryVarsBuilder();
+
+      // Act
+      const handler = def.createOptionFetcher(mockClient, inputValue, element);
+      const options = await handler.fetch();
+
+      // Assert
+      expect(handler).toBeInstanceOf(AttributeChoicesHandler);
+      expect(mockQuery).not.toHaveBeenCalled();
+      expect(options).toEqual([
+        { label: "Yes", value: "true", slug: "true", type: undefined },
+        { label: "No", value: "false", slug: "false", type: undefined },
+      ]);
+    });
+
+    it("should handle gracefully if attribute is not selected", () => {
+      // Arrange
+      const element = new FilterElement(
+        baseElement.value,
+        baseElement.condition,
+        false,
+        undefined,
+        null,
+      );
+      const def = new AttributeQueryVarsBuilder();
+      // Act
+      const handler = def.createOptionFetcher(client, inputValue, element);
+
+      // Assert
+      expect(handler).toBeInstanceOf(AttributeChoicesHandler);
+    });
+  });
+
+  describe("updateWhereQueryVariables", () => {
+    const def = new AttributeQueryVarsBuilder();
+    const baseValue = new ExpressionValue("attribute", "Attribute", "attribute");
+    const baseConditionItem: ConditionItem = { type: "multiselect", label: "in", value: "input-2" };
+    const baseSelected = ConditionSelected.fromConditionItem(baseConditionItem);
+    const baseCondition = new Condition(
+      ConditionOptions.fromName(AttributeInputTypeEnum.DROPDOWN),
+      baseSelected,
+      false,
+    );
+
+    it("should correctly build query for PAGE reference attributes", () => {
+      // Arrange
+      const attributeSlug = "ref-attr";
+      const pageLabel = "Page 1";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "RefAttr",
+        AttributeInputTypeEnum.REFERENCE,
+        AttributeEntityTypeEnum.PAGE,
+      );
+      const selected = ConditionSelected.fromConditionItemAndValue(baseConditionItem, [
+        {
+          label: pageLabel,
+          value: "UGFnZTox",
+          slug: "page-1",
+        },
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.REFERENCE),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [
+          {
+            slug: attributeSlug,
+            value: {
+              reference: {
+                referencedIds: {
+                  containsAny: ["UGFnZTox"],
+                },
+              },
+            },
+          },
+        ],
+      });
+    });
+
+    it("should correctly build query for PRODUCT reference attributes", () => {
+      // Arrange
+      const attributeSlug = "product-ref";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "Product Ref",
+        AttributeInputTypeEnum.REFERENCE,
+        AttributeEntityTypeEnum.PRODUCT,
+      );
+      const selected = ConditionSelected.fromConditionItemAndValue(baseConditionItem, [
+        {
+          label: "Product 1",
+          value: "UHJvZHVjdDox",
+          slug: "product-1",
+        },
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.REFERENCE),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [
+          {
+            slug: attributeSlug,
+            value: {
+              reference: {
+                referencedIds: {
+                  containsAny: ["UHJvZHVjdDox"],
+                },
+              },
+            },
+          },
+        ],
+      });
+    });
+
+    it("should correctly build query for PRODUCT_VARIANT SINGLE_REFERENCE attributes", () => {
+      // Arrange
+      const attributeSlug = "variant-ref";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "Variant Ref",
+        AttributeInputTypeEnum.SINGLE_REFERENCE,
+        AttributeEntityTypeEnum.PRODUCT_VARIANT,
+      );
+      const selected = ConditionSelected.fromConditionItemAndValue(baseConditionItem, [
+        {
+          label: "Product A: Variant A",
+          value: "UHJvZHVjdFZhcmlhbnQ6MQ==",
+          slug: "UHJvZHVjdFZhcmlhbnQ6MQ==",
+          originalSlug: "SKU-1",
+        },
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.SINGLE_REFERENCE),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [
+          {
+            slug: attributeSlug,
+            value: {
+              reference: {
+                referencedIds: {
+                  containsAny: ["UHJvZHVjdFZhcmlhbnQ6MQ=="],
+                },
+              },
+            },
+          },
+        ],
+      });
+    });
+
+    it("should correctly build query for DROPDOWN/MULTISELECT attributes", () => {
+      // Arrange
+      const attributeSlug = "dropdown-attr";
+      const optionValue = "option-1";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "DropdownAttr",
+        AttributeInputTypeEnum.DROPDOWN,
+      );
+      const selected = ConditionSelected.fromConditionItemAndValue(baseConditionItem, {
+        label: "Option 1",
+        value: optionValue,
+        slug: optionValue,
+      });
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.DROPDOWN),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [{ slug: attributeSlug, value: { slug: { eq: optionValue } } }],
+      });
+    });
+
+    it("should map SWATCH attributes through value.slug so they can mix with references", () => {
+      // Arrange
+      const selectedAttribute = new ExpressionValue(
+        "color",
+        "Color",
+        AttributeInputTypeEnum.SWATCH,
+      );
+      const selected = ConditionSelected.fromConditionItemAndValue(baseConditionItem, [
+        {
+          label: "Pure blue",
+          value: "blue-id",
+          slug: "blue-id",
+          originalSlug: "pure-blue",
+        },
+        {
+          label: "Light blue",
+          value: "light-id",
+          slug: "light-id",
+          originalSlug: "light-blue",
+        },
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.SWATCH),
+        selected,
+        false,
+      );
+      const swatchElement = new FilterElement(
+        baseValue,
+        condition,
+        false,
+        undefined,
+        selectedAttribute,
+      );
+      const referenceElement = new FilterElement(
+        baseValue,
+        new Condition(
+          ConditionOptions.fromName(AttributeInputTypeEnum.REFERENCE),
+          ConditionSelected.fromConditionItemAndValue(baseConditionItem, [
+            { label: "Product 1", value: "UHJvZHVjdDox", slug: "product-1" },
+          ]),
+          false,
+        ),
+        false,
+        undefined,
+        new ExpressionValue(
+          "product-ref",
+          "Product Ref",
+          AttributeInputTypeEnum.REFERENCE,
+          AttributeEntityTypeEnum.PRODUCT,
+        ),
+      );
+
+      // Act
+      const result = def.updateWhereQueryVariables(
+        def.updateWhereQueryVariables({}, swatchElement),
+        referenceElement,
+      );
+
+      // Assert
+      expect(result.attributes).toEqual([
+        { slug: "color", value: { slug: { oneOf: ["pure-blue", "light-blue"] } } },
+        {
+          slug: "product-ref",
+          value: {
+            reference: {
+              referencedIds: {
+                containsAny: ["UHJvZHVjdDox"],
+              },
+            },
+          },
+        },
+      ]);
+      expect(result.attributes?.every(attribute => attribute.values === undefined)).toBe(true);
+    });
+
+    it("should correctly build query for NUMERIC attributes with range", () => {
+      // Arrange
+      const attributeSlug = "numeric-attr";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "NumericAttr",
+        AttributeInputTypeEnum.NUMERIC,
+      );
+      const rangeConditionItem: ConditionItem = {
+        type: "number.range",
+        label: "between",
+        value: "input-4",
+      };
+      const selected = ConditionSelected.fromConditionItemAndValue(rangeConditionItem, [
+        "10",
+        "20",
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.NUMERIC),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [{ slug: attributeSlug, value: { numeric: { range: { gte: 10, lte: 20 } } } }],
+      });
+    });
+
+    it("should correctly build query for DATE attributes with range", () => {
+      // Arrange
+      const attributeSlug = "date-attr";
+      const startDate = "2023-01-01";
+      const endDate = "2023-01-31";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "DateAttr",
+        AttributeInputTypeEnum.DATE,
+      );
+      const rangeConditionItem: ConditionItem = {
+        type: "date.range",
+        label: "between",
+        value: "input-3",
+      };
+      const selected = ConditionSelected.fromConditionItemAndValue(rangeConditionItem, [
+        startDate,
+        endDate,
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.DATE),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [{ slug: attributeSlug, value: { date: { gte: startDate, lte: endDate } } }],
+      });
+    });
+
+    it("should correctly build query for DATETIME attributes with range", () => {
+      // Arrange
+      const attributeSlug = "datetime-attr";
+      const startDateTime = "2023-01-01T00:00:00Z";
+      const endDateTime = "2023-01-31T23:59:59Z";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "DatetimeAttr",
+        AttributeInputTypeEnum.DATE_TIME,
+      );
+      const rangeConditionItem: ConditionItem = {
+        type: "datetime.range",
+        label: "between",
+        value: "input-4",
+      };
+      const selected = ConditionSelected.fromConditionItemAndValue(rangeConditionItem, [
+        startDateTime,
+        endDateTime,
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.DATE_TIME),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [
+          {
+            slug: attributeSlug,
+            value: { dateTime: { gte: startDateTime, lte: endDateTime } },
+          },
+        ],
+      });
+    });
+
+    it("should correctly build query for BOOLEAN attributes", () => {
+      // Arrange
+      const attributeSlug = "bool-attr";
+      const boolValue = true;
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "BoolAttr",
+        AttributeInputTypeEnum.BOOLEAN,
+      );
+      const boolConditionItem: ConditionItem = { type: "select", label: "is", value: "input-5" };
+      const selected = ConditionSelected.fromConditionItemAndValue(boolConditionItem, {
+        label: "Yes",
+        value: boolValue.toString(),
+        slug: boolValue.toString(),
+      });
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.BOOLEAN),
+        selected,
+        false,
+      );
+      const element = new FilterElement(baseValue, condition, false, undefined, selectedAttribute);
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [{ slug: attributeSlug, value: { boolean: boolValue } }],
+      });
+    });
+
+    it("should return query unchanged if attribute slug is missing", () => {
+      // Arrange
+      const selectedAttribute = null;
+      const element = new FilterElement(
+        baseValue,
+        baseCondition,
+        false,
+        undefined,
+        selectedAttribute,
+      );
+      // Act
+      const result = def.updateWhereQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({});
+    });
+  });
+
+  describe("updateFilterQueryVariables", () => {
+    const def = new AttributeQueryVarsBuilder();
+
+    it("supports both WHERE and FILTER APIs", () => {
+      expect(supportsWhereApi(def)).toBe(true);
+      expect(supportsFilterApi(def)).toBe(true);
+    });
+
+    it("should map NUMERIC ranges to value.numeric for product export FILTER API", () => {
+      // Arrange
+      const attributeSlug = "fabric-weight-gsm";
+      const selectedAttribute = new ExpressionValue(
+        attributeSlug,
+        "Fabric weight",
+        AttributeInputTypeEnum.NUMERIC,
+      );
+      const rangeConditionItem: ConditionItem = {
+        type: "number.range",
+        label: "between",
+        value: "input-4",
+      };
+      const selected = ConditionSelected.fromConditionItemAndValue(rangeConditionItem, [
+        "120",
+        "300",
+      ]);
+      const condition = new Condition(
+        ConditionOptions.fromName(AttributeInputTypeEnum.NUMERIC),
+        selected,
+        false,
+      );
+      const element = new FilterElement(
+        new ExpressionValue("attribute", "Attribute", "attribute"),
+        condition,
+        false,
+        undefined,
+        selectedAttribute,
+      );
+
+      // Act
+      const result = def.updateFilterQueryVariables({}, element);
+
+      // Assert
+      expect(result).toEqual({
+        attributes: [
+          {
+            slug: attributeSlug,
+            value: { numeric: { range: { gte: 120, lte: 300 } } },
+          },
+        ],
+      });
+    });
+  });
+});
