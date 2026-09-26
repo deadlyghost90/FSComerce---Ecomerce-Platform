@@ -26,31 +26,43 @@ export const icons = I;
 
 const NAV = [
   { label: "Personalised", items: [
-    { id: "dashboard", name: "Overview", href: "index.html", icon: "grid" },
-    { id: "orders", name: "Orders", href: "orders.html", icon: "receipt" },
-    { id: "products", name: "Products", href: "products.html", icon: "tag" },
-    { id: "inventory", name: "Inventory", href: "inventory.html", icon: "boxes" },
-    { id: "collections", name: "Collections", href: "collections.html", icon: "collection" },
-    { id: "customers", name: "Customers", href: "customers.html", icon: "users" },
-    { id: "promotions", name: "Promotions", href: "promotions.html", icon: "megaphone" }
+    { id: "dashboard", name: "Overview", href: "index.html/index,home", icon: "grid" },
+    { id: "orders", name: "Orders", href: "orders.html/index,home", icon: "receipt" },
+    { id: "products", name: "Products", href: "products.html/index,home", icon: "tag" },
+    { id: "inventory", name: "Inventory", href: "inventory.html/index,home", icon: "boxes" },
+    { id: "collections", name: "Collections", href: "collections.html/index,home", icon: "collection" },
+    { id: "customers", name: "Customers", href: "customers.html/index,home", icon: "users" },
+    { id: "promotions", name: "Promotions", href: "promotions.html/index,home", icon: "megaphone" }
   ]},
   { label: "Store", items: [
-    { id: "analytics", name: "Analytics", href: "analytics.html", icon: "chart" },
-    { id: "sales", name: "Sales", href: "sales.html", icon: "receipt" },
-    { id: "regions", name: "Regions", href: "regions.html", icon: "globe" },
-    { id: "themes", name: "Theme Marketplace", href: "themes.html", icon: "store" },
-    { id: "editor", name: "Store Editor", href: "editor.html", icon: "gear" }
+    { id: "analytics", name: "Analytics", href: "analytics.html/index,home", icon: "chart" },
+    { id: "sales", name: "Sales", href: "sales.html/index,home", icon: "receipt" },
+    { id: "regions", name: "Regions", href: "regions.html/index,home", icon: "globe" },
+    { id: "themes", name: "Theme Marketplace", href: "themes.html/index,home", icon: "store" },
+    { id: "editor", name: "Store Editor", href: "editor.html/index,home", icon: "gear" }
   ]},
   { label: "Settings", items: [
-    { id: "store-settings", name: "Store", href: "settings-store.html", icon: "store" },
-    { id: "team", name: "Team", href: "settings-team.html", icon: "users" },
-    { id: "users", name: "Users", href: "settings-users.html", icon: "users" },
-    { id: "api", name: "API keys", href: "settings-api.html", icon: "gear" },
-    { id: "general", name: "General", href: "settings-general.html", icon: "gear" }
+    { id: "store-settings", name: "Store", href: "settings-store.html/index,home", icon: "store" },
+    { id: "team", name: "Team", href: "settings-team.html/index,home", icon: "users" },
+    { id: "users", name: "Users", href: "settings-users.html/index,home", icon: "users" },
+    { id: "api", name: "API keys", href: "settings-api.html/index,home", icon: "gear" },
+    { id: "general", name: "General", href: "settings-general.html/index,home", icon: "gear" }
   ]}
 ];
 
 export function renderChrome(activeId, crumbTitle) {
+  // Resolve active page from the URL so highlighting works for pretty URLs,
+  // real .html files and launcher-style suffixes (admin/orders.html/index,home).
+  try {
+    var ap = (window.fsActivePath && window.fsActivePath()) || "";
+    var FILE2ID = { index: "dashboard", orders: "orders", products: "products", inventory: "inventory",
+      collections: "collections", customers: "customers", promotions: "promotions", analytics: "analytics",
+      sales: "sales", regions: "regions", themes: "themes", editor: "editor",
+      "settings-store": "store-settings", "settings-team": "team", "settings-users": "users",
+      "settings-api": "api", "settings-general": "general" };
+    if (ap && FILE2ID[ap]) activeId = FILE2ID[ap];
+  } catch (e) { /* keep passed activeId */ }
+
   // Theme init before paint
   if (localStorage.getItem("fs_theme") === "dark") document.documentElement.classList.add("dark");
 
@@ -87,7 +99,7 @@ export function renderChrome(activeId, crumbTitle) {
       <header class="topbar">
         <button class="icon-btn hamburger" onclick="document.body.classList.toggle('nav-open')">${I.menu}</button>
         <nav class="breadcrumb">
-          <a href="index.html">Admin</a><span class="sep">/</span><span class="current">${crumbTitle || "Dashboard"}</span>
+          <a href="index.html/index,home">Admin</a><span class="sep">/</span><span class="current">${crumbTitle || "Dashboard"}</span>
         </nav>
         <div class="topbar-actions">
           <button class="icon-btn" id="theme-toggle" title="Toggle theme"></button>

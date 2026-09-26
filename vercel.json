@@ -1,19 +1,23 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "*.html",
-      "use": "@vercel/static"
+      "source": "/admin/:page/index,home",
+      "destination": "/admin/:page.html"
     },
     {
-      "src": "api/*.js",
-      "use": "@vercel/node"
+      "source": "/admin/orders/:id",
+      "destination": "/admin/order-detail.html"
+    },
+    {
+      "source": "/admin/products/:id",
+      "destination": "/admin/product-detail.html"
+    },
+    {
+      "source": "/admin/:page",
+      "destination": "/admin/:page.html"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
