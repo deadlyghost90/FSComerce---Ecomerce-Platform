@@ -60,5 +60,5 @@ document.querySelectorAll("[data-publish]").forEach(b => b.onclick = () => {
 document.querySelectorAll("[data-preview]").forEach(b => b.onclick = () => {
   const t = db.themes.find(x => x.id === b.dataset.preview);
   toast(`Opening ${t.name} preview…`);
-  setTimeout(() => window.open(t.id === "thv_arvena" ? "../index.html" : "editor.html?theme=" + encodeURIComponent(t.name), "_blank"), 400);
+  setTimeout(() => window.open(t.id === "thv_arvena" ? "../arvena.html" : "editor.html?theme=" + encodeURIComponent(t.name), "_blank"), 400);
 });
