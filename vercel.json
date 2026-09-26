@@ -1,16 +1,22 @@
 {
   "version": 2,
+  "framework": null,
   "builds": [
     {
-      "src": "*.html",
+      "src": "**/*.html",
       "use": "@vercel/static"
-    },
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/admin/((?!.*\\.html$)[^/]+)$",
+      "dest": "/admin/$1/"
+    },
+    {
+      "src": "/(.*/[^/.]*)$",
+      "dest": "/$1/",
+      "status": 301
+    },
     {
       "src": "/(.*)",
       "dest": "/$1"
