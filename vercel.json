@@ -16,14 +16,6 @@
     {
       "source": "/admin/:page",
       "destination": "/admin/:page.html"
-    },
-    {
-      "source": "/admin",
-      "destination": "/admin/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ],
   "cleanUrls": true,

@@ -7,19 +7,12 @@ const db = getDB();
 if (!db.themes) {
   db.themes = [
     { id: "thv_cravey", name: "Cravey", category: "Food & Restaurant", price: "$59", rating: 4.9, reviews: 412, installed: false, live: false, colors: ["#ff6b35", "#2d2a26"], desc: "Warm, appetite-driven layouts for food, cafés and restaurants. Menu grids, table booking blocks, delivery banners." },
-    { id: "thv_arvena", name: "Arvena", category: "Furniture & Home", price: "$79", rating: 4.8, reviews: 268, installed: true, live: true, colors: ["#c8a27a", "#f4efe8"], desc: "Spacious editorial theme for furniture and homeware. Large room-shots, material swatches, showroom sections." },
-    { id: "thv_nexora", name: "Nexora", category: "Electronics & Digital", price: "$69", rating: 4.7, reviews: 531, installed: true, live: false, colors: ["#2563eb", "#0b1120"], desc: "High-contrast tech storefront with spec tables, comparison bars, mega-menus and launch countdowns." },
+    { id: "thv_arvena", name: "Arvena", category: "Furniture & Home", price: "$79", rating: 4.8, reviews: 268, installed: false, live: false, colors: ["#c8a27a", "#f4efe8"], desc: "Spacious editorial theme for furniture and homeware. Large room-shots, material swatches, showroom sections." },
+    { id: "thv_nexora", name: "Nexora", category: "Electronics & Digital", price: "$69", rating: 4.7, reviews: 531, installed: true, live: true, colors: ["#2563eb", "#0b1120"], desc: "High-contrast tech storefront with spec tables, comparison bars, mega-menus and launch countdowns." },
     { id: "thv_verona", name: "Vérona", category: "Fashion & Clothing", price: "$89", rating: 4.9, reviews: 897, installed: true, live: false, colors: ["#111", "#f6e7e1"], desc: "Editorial fashion theme. Lookbooks, size charts, model-first galleries, seasonal drop sections." },
     { id: "thv_aurora", name: "Aurora", category: "Beauty & Cosmetics", price: "$49", rating: 4.6, reviews: 154, installed: false, live: false, colors: ["#e879a9", "#fdf2f8"], desc: "Soft-gradient beauty storefront with shade finders and routine bundles." },
     { id: "thv_peak", name: "Peak", category: "Outdoor & Sports", price: "$55", rating: 4.5, reviews: 98, installed: false, live: false, colors: ["#166534", "#ecfdf5"], desc: "Rugged gear catalogue with activity filters and size/fit guides." }
   ];
-  saveDB(db);
-}
-
-if (!db._arvenaRootTheme) {
-  const arvenaTheme = db.themes.find(t => t.id === "thv_arvena");
-  if (arvenaTheme) { arvenaTheme.installed = true; arvenaTheme.live = true; db.themes.filter(t => t.id !== "thv_arvena").forEach(t => { t.live = false; }); }
-  db._arvenaRootTheme = true;
   saveDB(db);
 }
 
@@ -60,5 +53,5 @@ document.querySelectorAll("[data-publish]").forEach(b => b.onclick = () => {
 document.querySelectorAll("[data-preview]").forEach(b => b.onclick = () => {
   const t = db.themes.find(x => x.id === b.dataset.preview);
   toast(`Opening ${t.name} preview…`);
-  setTimeout(() => window.open(t.id === "thv_arvena" ? "../arvena.html" : "editor.html?theme=" + encodeURIComponent(t.name), "_blank"), 400);
+  setTimeout(() => window.open("editor.html?theme=" + encodeURIComponent(t.name), "_blank"), 400);
 });
