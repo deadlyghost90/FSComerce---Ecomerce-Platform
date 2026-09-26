@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store Editor | FSComerce Admin</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='8' fill='%234f46e5'/><text x='20' y='28' font-size='20' font-weight='bold' text-anchor='middle' fill='white'>FS</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+<style>
+.editor-wrap{display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start}
+.sect-list .nav-item{cursor:pointer}
+.preview-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+.pv-bar{background:var(--surface-2);padding:8px 14px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--border)}
+.pv-hero{padding:48px 28px;text-align:center;color:#fff}
+.pv-hero h2{font-size:30px;margin:0 0 8px;letter-spacing:-.5px}
+.pv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:22px}
+.pv-card{border:1px solid #eee;border-radius:10px;padding:14px;text-align:center;background:#fff}
+.pv-card .em{font-size:34px}
+.pv-foot{padding:18px 22px;font-size:12px;color:#777;background:var(--surface-2);border-top:1px solid var(--border);display:flex;justify-content:space-between}
+@media(max-width:900px){.editor-wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="js/boot.js"></script>
+<script type="module" src="js/editor.js"></script>
+</body>
+</html>
