@@ -38,3 +38,7 @@ module URL (`/admin/products`, `/admin/orders/...`) resolves to its `index.html`
 Required environment variables: none for the static admin demo. Firebase web keys used by
 `js/index.js` are public client keys; see `.env.example` for the variable names to use when
 rotating projects or connecting a real API (`VITE_API_URL`).
+
+## ARVENA storefront theme
+
+The root `index.html` is now the ARVENA furniture storefront theme, with its bundled visuals in `assets/`. The previous FSComerce platform landing page is preserved at `platform.html`. The admin Theme Marketplace registers ARVENA as the live Furniture & Home theme and its Preview action opens the root storefront.
